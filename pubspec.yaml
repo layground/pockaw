@@ -32,10 +32,13 @@ dependencies:
     sdk: flutter
 
   drift: ^2.21.0
+  flex_color_scheme: ^7.3.1
+  flutter_expandable_fab: ^2.3.0
   flutter_local_notifications: ^17.2.4
   flutter_svg: ^2.0.10+1
   flutter_tabler_icons: ^1.43.0
   fluttertoast: ^8.2.8
+  gap: ^3.0.1
   google_fonts: ^6.2.1
   lottie: ^3.1.3
   syncfusion_flutter_datepicker: ^27.1.56
