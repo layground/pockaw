@@ -32,7 +32,6 @@ dependencies:
     sdk: flutter
 
   drift: ^2.21.0
-  flutter_launcher_icons: ^0.14.1
   flutter_local_notifications: ^17.2.4
   flutter_svg: ^2.0.10+1
   flutter_tabler_icons: ^1.43.0
