@@ -2,11 +2,12 @@
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.24.1-blue?logo=flutter)
 ![Dart](https://img.shields.io/badge/Dart-3.5.1-blue?logo=dart)
-![Version](https://img.shields.io/badge/version-1.0.0-green)
-![License](https://img.shields.io/badge/license-GPLv3-blue)
 ![Platform](https://img.shields.io/badge/platform-Android-orange)
+
+![License](https://img.shields.io/badge/license-GPLv3-blue)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 ![Contributions](https://img.shields.io/badge/contributions-welcome-brightgreen)
+
 ![Forks](https://img.shields.io/github/forks/agil3st/buddyjet)
 ![Stars](https://img.shields.io/github/stars/agil3st/buddyjet)
 
