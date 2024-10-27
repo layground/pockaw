@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  auto_size_text_field: ^2.2.4
   drift: ^2.21.0
   flex_color_scheme: ^7.3.1
   flutter_expandable_fab: ^2.3.0
@@ -39,11 +40,14 @@ dependencies:
   flutter_tabler_icons: ^1.43.0
   fluttertoast: ^8.2.8
   gap: ^3.0.1
+  go_router: ^14.3.0
   google_fonts: ^6.2.1
+  intl: ^0.18.0
   lottie: ^3.1.3
   syncfusion_flutter_datepicker: ^27.1.56
   syncfusion_flutter_charts: ^27.1.56
   wolt_modal_sheet: ^0.9.3
+  vibration: ^2.0.1
 
 dev_dependencies:
   flutter_test:
