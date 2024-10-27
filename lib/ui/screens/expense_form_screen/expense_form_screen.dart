@@ -1,5 +1,4 @@
 import 'package:auto_size_text_field/auto_size_text_field.dart';
-import 'package:buddyjet/ui/widgets/custom_keyboard/custom_keyboard.dart';
 import 'package:buddyjet/utils/extensions/popup_extension.dart';
 import 'package:buddyjet/utils/extensions/text_extensions.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,6 @@ class ExpenseFormScreen extends StatefulWidget {
 
 class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
   final _amountController = TextEditingController();
-  final _scrollController = ScrollController();
 
   @override
   void initState() {
@@ -36,10 +34,6 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
     final roundedBorder = OutlineInputBorder(
       borderRadius: BorderRadius.circular(10),
       borderSide: BorderSide(color: Colors.grey.shade300),
-    );
-
-    final customKeyboard = CustomKeyboard(
-      controller: _amountController,
     );
 
     return Scaffold(
@@ -104,42 +98,37 @@ class _ExpenseFormScreenState extends State<ExpenseFormScreen> {
                 ),
               ),
               const Gap(20),
-              Scrollbar(
-                controller: _scrollController,
-                thumbVisibility: true,
-                trackVisibility: true,
-                child: TextFormField(
-                  readOnly: true,
-                  style: context.textTitleMedium.copyWith(
-                    fontWeight: FontWeight.bold,
+              TextFormField(
+                readOnly: true,
+                style: context.textTitleMedium.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.grey.shade200,
+                  border: roundedBorder,
+                  enabledBorder: roundedBorder,
+                  focusedBorder: roundedBorder.copyWith(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).primaryColor,
+                    ),
                   ),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.grey.shade200,
-                    border: roundedBorder,
-                    enabledBorder: roundedBorder,
-                    focusedBorder: roundedBorder.copyWith(
-                      borderSide: BorderSide(
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                    hintText: 'Transaction date',
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 16,
-                      horizontal: 20,
-                    ),
-                    prefixIcon: const Icon(TablerIcons.calendar),
-                    suffixIcon: const Icon(
-                      TablerIcons.chevron_right,
-                      size: 18,
-                    ),
+                  hintText: 'Transaction date',
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 16,
+                    horizontal: 20,
+                  ),
+                  prefixIcon: const Icon(TablerIcons.calendar),
+                  suffixIcon: const Icon(
+                    TablerIcons.chevron_right,
+                    size: 18,
                   ),
                 ),
               ),
               const Gap(20),
               TextFormField(
                 minLines: 1,
-                maxLines: 4,
+                maxLines: 2,
                 keyboardType: TextInputType.multiline,
                 textInputAction: TextInputAction.newline,
                 style: context.textTitleMedium,
