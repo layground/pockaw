@@ -11,6 +11,23 @@
 ![Forks](https://img.shields.io/github/forks/agil3st/buddyjet)
 ![Stars](https://img.shields.io/github/stars/agil3st/buddyjet)
 
+## Download BuddyJet
+
+<div>
+   <a href="#" style="pointer-events: none; opacity: 0.5;">
+       <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="App Store" height="60">
+   </a>
+   <a href="#" style="pointer-events: none; opacity: 0.5;">
+       <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" height="60">
+   </a>
+   <a href="#" style="pointer-events: none; opacity: 0.5;">
+       <img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/Get_it_from_Microsoft_Badge.svg" alt="Microsoft Store" height="60">
+   </a>
+   <a href="#" style="pointer-events: none; opacity: 0.5;">
+       <img src="https://i.postimg.cc/sDDrD1kB/Open-On-Web-Browser.png" alt="Web Browser" height="60">
+   </a>
+</div>
+
 ## Overview
 
 **BuddyJet** is **100% free** and designed to be an intuitive, user-friendly app for budget tracking. It focuses on helping users manage their money with ease and transparency. The app will feature:
