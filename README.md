@@ -109,25 +109,25 @@ BuddyJet is now set up and ready to go! 🎉
 
 ## 📆 Roadmap
 
-### Q1 - Core Setup & MVP Launch
+### Q1 - Core Setup & MVP Launch ![8%](https://progress-bar.xyz/8/?width=40)
 - [x] **Splash & Onboarding** - Design and implement welcoming splash screen and onboarding process.
 - [ ] **Authentication** - Enable login for offline use, allowing user sessions without registration.
 - [ ] **Wallet & Pockets** - Add multiple wallets, set balances, and rename wallets/pockets for easy management.
 - [ ] **Expense & Income Tracking** - Allow users to log income/expenses with details like category, date, title, and notes.
 - [ ] **Custom Categories** - Enable users to create and manage custom categories for better personalization.
 
-### Q2 - Enhanced Budgeting & Analytics
+### Q2 - Enhanced Budgeting & Analytics ![0%](https://progress-bar.xyz/0/?width=40)
 - [ ] **Budget Goals & Tracking** - Set monthly/weekly spending goals and visualize budget adherence.
 - [ ] **Expense Summary & Analytics** - Add charts for monthly income/expense trends, custom filters, and analytics.
 - [ ] **User Reminders & Notifications** - Implement notifications for due dates and spending goals.
 - [ ] **Advanced Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
 
-### Q3 - Enhanced User Experience
+### Q3 - Enhanced User Experience ![0%](https://progress-bar.xyz/0/?width=40)
 - [ ] **Multi-Currency Support** - Support multiple currencies for wallets and transactions.
 - [ ] **Advanced Customization** - Let users set date format, first day of the week/month, and other preferences in settings.
 - [ ] **Improved Accessibility** - Add accessibility features, including screen reader support and keyboard navigation.
 
-### Q4 - Innovative Features
+### Q4 - Innovative Features ![0%](https://progress-bar.xyz/0/?width=40)
 - [ ] **AI Summarization** - Allow users to ask AI for summaries, e.g., “summarize my expenses this month.”
 - [ ] **Notification Tracking Suggestions** - Suggest transaction logging based on device notifications without automatic entry, ensuring user control.
 - [ ] **Data Sync & Backup** - Implement cloud sync and backup options to store data securely across devices.
