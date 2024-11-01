@@ -58,10 +58,10 @@
 **Designed For**
 
 * **Individuals (Ages 20-35)**
-   * 🎓**Students **who want to easily track their daily spendings and build financial awareness.
-   * 💼**Employees **interested in managing their monthly income, expenses, and budgeting for future goals.
-   * 👨‍👩‍👧**Families **needing a simple, effective way to monitor and optimize their household cash flow.
-   * 💰**Goal-Driven Savers **looking to turn financial goals and wishlists into reality, keeping an eye on every penny along the way!
+   * 🎓**Students** who want to easily track their daily spendings and build financial awareness.
+   * 💼**Employees** interested in managing their monthly income, expenses, and budgeting for future goals.
+   * 👨‍👩‍👧**Families** needing a simple, effective way to monitor and optimize their household cash flow.
+   * 💰**Goal-Driven Savers** looking to turn financial goals and wishlists into reality, keeping an eye on every penny along the way!
 * **Micro to Small Businesses**
    * 👥**Size**: Perfect for teams of 1-5 people, ideal for small operations needing basic cash flow insights.
    * 💵**Income**: Suited for businesses with a yearly income of approximately**$3,800 - $4,000 USD**(or**€3,500 - €3,700 EUR**), focusing on streamlined, essential budgeting tools.
