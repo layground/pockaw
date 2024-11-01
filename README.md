@@ -30,7 +30,7 @@
 
 ## 📝 Overview
 
-**BuddyJet **is your intuitive, user-friendly app for seamless budget tracking, tailored for both personal use and small businesses. Designed to be your reliable financial buddy, BuddyJet offers powerful features to simplify cash flow management:
+**BuddyJet** is your intuitive, user-friendly app for seamless budget tracking, tailored for both personal use and small businesses. Designed to be your reliable financial buddy, BuddyJet offers powerful features to simplify cash flow management:
 
 * **💸 Expense Tracking**: Easily log daily expenses and categorize them (e.g., groceries, entertainment), so you know exactly where your money goes.
 * **💰 Income Management**: Track multiple income sources, from salaries to side hustles, in one convenient place.
@@ -64,7 +64,7 @@
    * 💰**Goal-Driven Savers** looking to turn financial goals and wishlists into reality, keeping an eye on every penny along the way!
 * **Micro to Small Businesses**
    * 👥**Size**: Perfect for teams of 1-5 people, ideal for small operations needing basic cash flow insights.
-   * 💵**Income**: Suited for businesses with a yearly income of approximately**$3,800 - $4,000 USD**(or**€3,500 - €3,700 EUR**), focusing on streamlined, essential budgeting tools.
+   * 💵**Income**: Suited for businesses with a yearly income of approximately **$3,800 - $4,000 USD** (or **€3,500 - €3,700 EUR**), focusing on streamlined, essential budgeting tools.
 
 **Not Designed For**
 
@@ -130,7 +130,7 @@ These planned features aim to make BuddyJet even smarter and more user-friendly,
 
 ## 🤝 Contributing
 
-We welcome contributions to BuddyJet! Feel free to **fork **this project, **submit issues**, or open **pull requests (PRs) **to help us enhance the app. Your input is invaluable in making BuddyJet better for everyone!
+We welcome contributions to BuddyJet! Feel free to **fork** this project, **submit issues**, or open **pull requests (PRs)** to help us enhance the app. Your input is invaluable in making BuddyJet better for everyone!
 
 ***
 
