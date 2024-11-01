@@ -8,10 +8,12 @@
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 ![Contributions](https://img.shields.io/badge/contributions-welcome-brightgreen)
 
+![8%](https://progress-bar.xyz/8/?title=MVP+Launch+)
+
 ![Forks](https://img.shields.io/github/forks/agil3st/buddyjet)
 ![Stars](https://img.shields.io/github/stars/agil3st/buddyjet)
 
-## Download BuddyJet
+## Download BuddyJet (Coming Soon)
 
 <div>
    <a href="#" style="pointer-events: none; opacity: 0.5;">
