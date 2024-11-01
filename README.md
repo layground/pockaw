@@ -1,4 +1,4 @@
-# Readme
+# Welcome to BuddyJet
 
 <img src="https://github.com/agil3st/buddyjet/blob/master/assets/icon/icon.jpg?raw=true" alt="BuddyJet Logo" width="250" height="250">
 
