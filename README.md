@@ -51,7 +51,7 @@
 
 **🎉 Signature Feature**
 
-* **Advanced Goal Planning: **Set up multiple checklist goals for any occasion, from a wedding or new home to wishlist shopping.
+* **Advanced Goal Planning:** Set up multiple checklist goals for any occasion, from a wedding or new home to wishlist shopping.
 
 ### 🎯 User Target
 
