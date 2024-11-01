@@ -41,13 +41,14 @@
 
 ***
 
-### 🌟 Unique Selling Points
+### 🌟 What Will You Get
 
 * **100% Free & Open Source**: Completely free, with open access to the source code—forever!
 * **Cross-Platform**: Seamless use across Android, iOS, macOS, Windows, Linux, and even the browser. Take your budget management anywhere!
 * **No Registration Needed**: Jump right in without the hassle of creating an account.
 * **Ad-Free, Always**: Say goodbye to annoying ads; BuddyJet is focused solely on helping you manage your finances.
 * **Offline-First**: Your data is always accessible, even offline. Connect only when you want to sync across devices.
+* **Security focused**: For offline use, you are in charge of your own data.
 
 **🎉 Signature Feature**
 
@@ -88,7 +89,7 @@ These tools help us bring **BuddyJet** to life with efficiency, collaboration, a
 
 ***
 
-## 🚀 Installation
+## ⚙️ Installation
 
 1. **Clone this repository**
    ```
@@ -106,23 +107,40 @@ BuddyJet is now set up and ready to go! 🎉
 
 ***
 
-## Roadmap
+## 📆 Roadmap
 
-- [ ] Expense tracking and categorization
-- [ ] Income management
-- [ ] Budget goals and tracking
-- [ ] Data visualization and trends
-- [ ] Notifications and reminders
+### Q1 - Core Setup & MVP Launch
+- [x] **Splash & Onboarding** - Design and implement welcoming splash screen and onboarding process.
+- [ ] **Authentication** - Enable login for offline use, allowing user sessions without registration.
+- [ ] **Wallet & Pockets** - Add multiple wallets, set balances, and rename wallets/pockets for easy management.
+- [ ] **Expense & Income Tracking** - Allow users to log income/expenses with details like category, date, title, and notes.
+- [ ] **Custom Categories** - Enable users to create and manage custom categories for better personalization.
+
+### Q2 - Enhanced Budgeting & Analytics
+- [ ] **Budget Goals & Tracking** - Set monthly/weekly spending goals and visualize budget adherence.
+- [ ] **Expense Summary & Analytics** - Add charts for monthly income/expense trends, custom filters, and analytics.
+- [ ] **User Reminders & Notifications** - Implement notifications for due dates and spending goals.
+- [ ] **Advanced Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
+
+### Q3 - Enhanced User Experience
+- [ ] **Multi-Currency Support** - Support multiple currencies for wallets and transactions.
+- [ ] **Advanced Customization** - Let users set date format, first day of the week/month, and other preferences in settings.
+- [ ] **Improved Accessibility** - Add accessibility features, including screen reader support and keyboard navigation.
+
+### Q4 - Innovative Features
+- [ ] **AI Summarization** - Allow users to ask AI for summaries, e.g., “summarize my expenses this month.”
+- [ ] **Notification Tracking Suggestions** - Suggest transaction logging based on device notifications without automatic entry, ensuring user control.
+- [ ] **Data Sync & Backup** - Implement cloud sync and backup options to store data securely across devices.
+
+---
 
 ### 🚀 Innovation and Future Releases
 
-**Ask AI**
+✨**Ask AI**
+**Smart Summaries**: Utilize AI to respond to queries like "Summarize my expenses this month" or "What were my top spending categories last quarter?"—getting insights has never been easier!
 
-* **Smart Summaries**: Utilize AI to respond to queries like "Summarize my expenses this month" or "What were my top spending categories last quarter?"—getting insights has never been easier!
-
-**Enhanced Mobile Experience**
-
-* **Notification Suggestions**: BuddyJet will read device notifications from other apps when users make payments or receive transfers, offering personalized suggestions for tracking those transactions in your budget.
+🔔**Enhanced Mobile Experience**
+**Notification Suggestions**: BuddyJet will read device notifications from other apps when users make payments or receive transfers, offering personalized suggestions for tracking those transactions in your budget.
 
 These planned features aim to make BuddyJet even smarter and more user-friendly, providing insights and suggestions to simplify your financial management.
 
