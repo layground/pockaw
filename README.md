@@ -32,7 +32,7 @@
 
 ## 📝 Overview
 
-Say Goodbye to Spreadsheets! **BuddyJet** is your intuitive, user-friendly app for seamless budget tracking, tailored for both personal use and small businesses. Designed to be your reliable financial buddy, BuddyJet offers powerful features to simplify cash flow management:
+Say Goodbye to Spreadsheets-based expense and budget tracking! **BuddyJet** is your intuitive, user-friendly app for seamless expense and budget tracking, tailored for both personal use and small businesses. Designed to be your reliable financial buddy, BuddyJet offers powerful features to simplify cash flow management:
 
 * **💸 Expense Tracking**: Easily log daily expenses and categorize them (e.g., groceries, entertainment), so you know exactly where your money goes.
 * **💰 Income Management**: Track multiple income sources, from salaries to side hustles, in one convenient place.
