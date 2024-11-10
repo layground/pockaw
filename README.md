@@ -150,12 +150,18 @@ These planned features aim to make BuddyJet even smarter and more user-friendly,
 
 ***
 
+## 🖼️ Resources
+
+For a detailed list of all resources, including links and specific guidelines, check out the [Resources Document](https://github.com/agil3st/buddyjet/blob/master/RESOURCES.md).
+
+***
+
 ## 🤝 Contributing
 
 We welcome contributions to BuddyJet! Feel free to **fork** this project, **submit issues**, or open **pull requests (PRs)** to help us enhance the app. Your input is invaluable in making BuddyJet better for everyone!
 
 ***
 
-### 📄 License
+## 📄 License
 
 This project is licensed under the **LGPL v3 License**. For more details, please refer to the **LICENSE** tab.
