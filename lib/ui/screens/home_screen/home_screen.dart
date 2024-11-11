@@ -1,4 +1,4 @@
-import 'package:buddyjet/ui/widgets/scaffolds/custom_fab.dart';
+import 'package:pockaw/ui/widgets/scaffolds/custom_fab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 

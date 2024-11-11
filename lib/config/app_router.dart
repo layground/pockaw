@@ -1,5 +1,5 @@
-import 'package:buddyjet/ui/screens/expense_form_screen/expense_form_screen.dart';
-import 'package:buddyjet/ui/screens/home_screen/home_screen.dart';
+import 'package:pockaw/ui/screens/expense_form_screen/expense_form_screen.dart';
+import 'package:pockaw/ui/screens/home_screen/home_screen.dart';
 import 'package:go_router/go_router.dart';
 
 // GoRouter configuration

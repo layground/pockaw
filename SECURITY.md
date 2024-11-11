@@ -33,4 +33,4 @@ We encourage contributors and users to follow best security practices, including
 - Regularly checking for vulnerabilities in your dependencies.
 - Using strong, unique passwords for accounts and services.
 
-Thank you for helping us keep BuddyJet secure!
+Thank you for helping us keep Pockaw secure!

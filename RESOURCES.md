@@ -1,6 +1,6 @@
 # Resources
 
-This section provides essential tools, assets, and documentation to support effective contribution and alignment with BuddyJet's design and functionality. It includes key assets like fonts, colors, and logos, along with helpful links to guide you through the development and collaboration processes.
+This section provides essential tools, assets, and documentation to support effective contribution and alignment with Pockaw's design and functionality. It includes key assets like fonts, colors, and logos, along with helpful links to guide you through the development and collaboration processes.
 
 ## Assets
 
@@ -8,7 +8,7 @@ This section provides essential tools, assets, and documentation to support effe
     * Icons, Images, and Illustrations will prioritize to use [GitAsset](https://gitaset.co/) with \<u>Personal License\</u>.
 * **Icons & Logos**
     * App Icon: High-resolution icons for app branding and usage across platforms.
-    * <img src="https://github.com/agil3st/buddyjet/blob/master/assets/icon/icon.jpg?raw=true" alt="BuddyJet Logo" width="250" height="250">
+    * <img src="https://github.com/agil3st/pockaw/blob/master/assets/icon/icon.jpg?raw=true" alt="Pockaw Logo" width="250" height="250">
     * Logo Variations (Coming Soon): Different logo formats and styles to fit multiple screen sizes and use cases
     * Icons Family: [Tabler icons](https://tabler.io/icons)
 * **Fonts**

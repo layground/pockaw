@@ -1,4 +1,4 @@
-import 'package:buddyjet/ui/widgets/custom_keyboard/custom_keyboard.dart';
+import 'package:pockaw/ui/widgets/custom_keyboard/custom_keyboard.dart';
 import 'package:flutter/material.dart';
 
 extension PopupExtension on BuildContext {

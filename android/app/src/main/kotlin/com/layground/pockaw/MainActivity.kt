@@ -1,4 +1,4 @@
-package com.layground.buddyjet
+package com.layground.pockaw
 
 import io.flutter.embedding.android.FlutterActivity
 

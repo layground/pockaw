@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.mybuddyjet" "\0"
-            VALUE "FileDescription", "buddyjet" "\0"
+            VALUE "CompanyName", "com.mypockaw" "\0"
+            VALUE "FileDescription", "pockaw" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "buddyjet" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.mybuddyjet. All rights reserved." "\0"
-            VALUE "OriginalFilename", "buddyjet.exe" "\0"
-            VALUE "ProductName", "buddyjet" "\0"
+            VALUE "InternalName", "pockaw" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.mypockaw. All rights reserved." "\0"
+            VALUE "OriginalFilename", "pockaw.exe" "\0"
+            VALUE "ProductName", "pockaw" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

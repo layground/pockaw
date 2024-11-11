@@ -1,6 +1,6 @@
 {
-    "name": "buddyjet",
-    "short_name": "buddyjet",
+    "name": "pockaw",
+    "short_name": "pockaw",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -1,5 +1,5 @@
-import 'package:buddyjet/config/app_router.dart';
-import 'package:buddyjet/ui/themes/app_colors.dart';
+import 'package:pockaw/config/app_router.dart';
+import 'package:pockaw/ui/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';

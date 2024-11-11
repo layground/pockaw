@@ -1,19 +1,19 @@
 ## Code of Conduct
 
 ### Our Commitment
-We are committed to creating a welcoming and inclusive environment for all contributors to the BuddyJet project. We value collaboration and respect for everyone's contributions.
+We are committed to creating a welcoming and inclusive environment for all contributors to the Pockaw project. We value collaboration and respect for everyone's contributions.
 
 ### Contributor Guidelines
 
-As the project owner, I will be working on BuddyJet during my spare time. My availability may vary, and there may be periods where I am less active. However, I am committed to making progress and appreciate any contributions from the community.
+As the project owner, I will be working on Pockaw during my spare time. My availability may vary, and there may be periods where I am less active. However, I am committed to making progress and appreciate any contributions from the community.
 
-- **Open Collaboration**: Contributors are encouraged to take initiative! Feel free to fork the project, tackle open issues, and submit pull requests (PRs) whenever you see fit. Your contributions are valuable and will help accelerate the development of BuddyJet.
+- **Open Collaboration**: Contributors are encouraged to take initiative! Feel free to fork the project, tackle open issues, and submit pull requests (PRs) whenever you see fit. Your contributions are valuable and will help accelerate the development of Pockaw.
 
 - **Issue Management**: If you have ideas for features or improvements, please open an issue. I will review them as time permits and incorporate them into the project roadmap.
 
 - **Communication**: For any discussions or questions, please use the issue tracker or reach out through our designated communication channels (e.g., Discord). I may not respond immediately, but I will do my best to keep up with any inquiries.
 
-- **Patience and Understanding**: Given my limited availability, I appreciate your patience as we develop this project together. Your support and contributions will help bring BuddyJet to life!
+- **Patience and Understanding**: Given my limited availability, I appreciate your patience as we develop this project together. Your support and contributions will help bring Pockaw to life!
 
 ### Do’s and Don’ts
 
@@ -35,4 +35,4 @@ As the project owner, I will be working on BuddyJet during my spare time. My ava
 If you experience or witness any unacceptable behavior, please report it to the project owner. We will take all reports seriously and address any concerns promptly.
 
 ### Conclusion
-By participating in this project, you agree to abide by this Code of Conduct. Together, we can create a positive and productive environment for everyone involved in BuddyJet.
+By participating in this project, you agree to abide by this Code of Conduct. Together, we can create a positive and productive environment for everyone involved in Pockaw.

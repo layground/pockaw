@@ -1,6 +1,6 @@
 import 'package:auto_size_text_field/auto_size_text_field.dart';
-import 'package:buddyjet/utils/extensions/popup_extension.dart';
-import 'package:buddyjet/utils/extensions/text_extensions.dart';
+import 'package:pockaw/utils/extensions/popup_extension.dart';
+import 'package:pockaw/utils/extensions/text_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
