@@ -15,4 +15,5 @@ class AppRadius {
   static const double radius56 = 56.0;
   static const double radius60 = 60.0;
   static const double radius64 = 64.0;
+  static const double radiusFull = 999.0;
 }
