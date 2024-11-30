@@ -1,10 +1,10 @@
-import 'package:pockaw/config/app_router.dart';
-import 'package:pockaw/ui/themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pockaw/config/app_router.dart';
+import 'package:pockaw/ui/themes/app_colors.dart';
 
 class CustomFab extends StatelessWidget {
   CustomFab({super.key});
@@ -20,79 +20,87 @@ class CustomFab extends StatelessWidget {
       }
     }
 
-    return ExpandableFab(
-      key: _key,
-      type: ExpandableFabType.fan,
-      pos: ExpandableFabPos.center,
-      fanAngle: 180,
-      duration: const Duration(milliseconds: 100),
-      openButtonBuilder: RotateFloatingActionButtonBuilder(
-        shape: const CircleBorder(),
-        child: InkWell(
-          customBorder: const CircleBorder(),
-          onLongPress: () {
-            debugPrint('quick action');
-            context.push(AppRouter.expenseForm);
-          },
-          onTap: toggleFAB,
-          child: Container(
-            padding: const EdgeInsets.all(15),
-            decoration: const BoxDecoration(
-              color: AppColors.primary,
-              shape: BoxShape.circle,
+    return Container(
+      color: Colors.yellow,
+      height: 80,
+      child: Row(
+        children: [
+          ExpandableFab(
+            key: _key,
+            type: ExpandableFabType.fan,
+            pos: ExpandableFabPos.center,
+            fanAngle: 180,
+            duration: const Duration(milliseconds: 100),
+            openButtonBuilder: RotateFloatingActionButtonBuilder(
+              shape: const CircleBorder(),
+              child: InkWell(
+                customBorder: const CircleBorder(),
+                onLongPress: () {
+                  debugPrint('quick action');
+                  context.push(AppRouter.expenseForm);
+                },
+                onTap: toggleFAB,
+                child: Container(
+                  padding: const EdgeInsets.all(15),
+                  decoration: const BoxDecoration(
+                    color: AppColors.primary,
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Icon(
+                    TablerIcons.plus,
+                    color: AppColors.light,
+                  ),
+                ),
+              ),
             ),
-            child: const Icon(
-              TablerIcons.plus,
-              color: AppColors.amberLight,
+            closeButtonBuilder: DefaultFloatingActionButtonBuilder(
+              shape: const CircleBorder(),
+              child: const Icon(TablerIcons.x),
             ),
+            onOpen: () {},
+            onClose: () {},
+            overlayStyle: const ExpandableFabOverlayStyle(
+              color: Colors.black38,
+              blur: 1.2,
+            ),
+            children: [
+              Column(
+                children: [
+                  const Text('Income'),
+                  const Gap(10),
+                  FloatingActionButton(
+                    heroTag: null,
+                    shape: const CircleBorder(),
+                    child: const Icon(
+                      TablerIcons.arrow_bar_to_down,
+                      color: Colors.green,
+                    ),
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+              Column(
+                children: [
+                  const Text('Expense'),
+                  const Gap(10),
+                  FloatingActionButton(
+                    heroTag: null,
+                    shape: const CircleBorder(),
+                    child: const Icon(
+                      TablerIcons.arrow_bar_up,
+                      color: Colors.red,
+                    ),
+                    onPressed: () {
+                      toggleFAB();
+                      context.push(AppRouter.expenseForm);
+                    },
+                  ),
+                ],
+              ),
+            ],
           ),
-        ),
+        ],
       ),
-      closeButtonBuilder: DefaultFloatingActionButtonBuilder(
-        shape: const CircleBorder(),
-        child: const Icon(TablerIcons.x),
-      ),
-      onOpen: () {},
-      onClose: () {},
-      overlayStyle: const ExpandableFabOverlayStyle(
-        color: Colors.black38,
-        blur: 1.2,
-      ),
-      children: [
-        Column(
-          children: [
-            const Text('Income'),
-            const Gap(10),
-            FloatingActionButton(
-              heroTag: null,
-              shape: const CircleBorder(),
-              child: const Icon(
-                TablerIcons.arrow_bar_to_down,
-                color: Colors.green,
-              ),
-              onPressed: () {},
-            ),
-          ],
-        ),
-        Column(
-          children: [
-            const Text('Expense'),
-            const Gap(10),
-            FloatingActionButton(
-              heroTag: null,
-              shape: const CircleBorder(),
-              child: const Icon(
-                TablerIcons.arrow_bar_up,
-                color: Colors.red,
-              ),
-              onPressed: () {
-                toggleFAB();
-                context.push(AppRouter.expenseForm);
-              },
-            ),
-          ],
-        ),
-      ],
     );
   }
 }

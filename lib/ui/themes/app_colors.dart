@@ -1,83 +1,99 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  // Primary Blue Shades
-  static const Color primary50 = Color(0xFFE5ECFA);
-  static const Color primary100 = Color(0xFFBCD1F3);
-  static const Color primary200 = Color(0xFF8BB5EC);
-  static const Color primary300 = Color(0xFF5A99E5);
-  static const Color primary400 = Color(0xFF2A7FDE);
-  static const Color primary500 = Color(0xFF4169E1); // Base Royal Blue
-  static const Color primary = primary500; // Base Royal Blue
-  static const Color primary600 = Color(0xFF3552B3);
-  static const Color primary700 = Color(0xFF293C86);
-  static const Color primary800 = Color(0xFF1C2658);
-  static const Color primary900 = Color(0xFF0E132C);
+  // Primary Color Shades
+  static const Color primary100 = Color(0xFFE2E4E7);
+  static const Color primary200 = Color(0xFFC5CACF);
+  static const Color primary300 = Color(0xFFA9B1B7);
+  static const Color primary400 = Color(0xFF8E98A0);
+  static const Color primary500 = Color(0xFF73808A);
+  static const Color primary600 = Color(0xFF5A6974);
+  static const Color primary700 = Color(0xFF41525F);
+  static const Color primary800 = Color(0xFF2A3D4B);
+  static const Color primary900 = Color(0xFF132837);
+  static const Color primary1000 = Color(0xFF001524); // Main Color
+  static const Color primary = primary1000;
 
-  // Emerald Green Shades
-  static const Color secondary50 = Color(0xFFE8F8EF);
-  static const Color secondary100 = Color(0xFFC2ECD5);
-  static const Color secondary200 = Color(0xFF9CDEBA);
-  static const Color secondary300 = Color(0xFF75D19F);
-  static const Color secondary400 = Color(0xFF50C878); // Base Emerald Green
-  static const Color secondary = secondary400; // Base Emerald Green
-  static const Color secondary500 = Color(0xFF40A15E);
-  static const Color secondary600 = Color(0xFF308944);
-  static const Color secondary700 = Color(0xFF20622A);
-  static const Color secondary800 = Color(0xFF103A10);
-  static const Color secondary900 = Color(0xFF001300);
+  // Primary Alpha Variants
+  static const Color primaryAlpha10 = Color(0x1A001524);
+  static const Color primaryAlpha20 = Color(0x33001524);
+  static const Color primaryAlpha30 = Color(0x4D001524);
+  static const Color primaryAlpha40 = Color(0x66001524);
+  static const Color primaryAlpha50 = Color(0x80001524);
 
-  // Secondary Sky Blue Shades
-  static const Color sky50 = Color(0xFFEAF7FF);
-  static const Color sky100 = Color(0xFFC8EBFF);
-  static const Color sky200 = Color(0xFFA5DFFF);
-  static const Color sky300 = Color(0xFF82D3FF);
-  static const Color sky400 = Color(0xFF5FC7FF);
-  static const Color sky500 = Color(0xFF3DBCFF); // Base Sky Blue
-  static const Color sky = sky500; // Base Sky Blue
-  static const Color sky600 = Color(0xFF3095CC);
-  static const Color sky700 = Color(0xFF236F99);
-  static const Color sky800 = Color(0xFF154966);
-  static const Color sky900 = Color(0xFF082333);
+  // Secondary Color Shades
+  static const Color secondary100 = Color(0xFFE8EEF0);
+  static const Color secondary200 = Color(0xFFD1DEE0);
+  static const Color secondary300 = Color(0xFFBACDD1);
+  static const Color secondary400 = Color(0xFFA4BDC2);
+  static const Color secondary500 = Color(0xFF8EADB4);
+  static const Color secondary600 = Color(0xFF779EA5);
+  static const Color secondary700 = Color(0xFF618E97);
+  static const Color secondary800 = Color(0xFF4B7F89); // Main Color
+  static const Color secondary900 = Color(0xFF33707B);
+  static const Color secondary1000 = Color(0xFF0A2D33);
+  static const Color secondary = secondary800;
 
-  // Secondary Amber Shades
-  static const Color amber50 = Color(0xFFFFF8E5);
-  static const Color amberLight = amber50;
-  static const Color amber100 = Color(0xFFFFECB8);
-  static const Color amber200 = Color(0xFFFFDF8A);
-  static const Color amber300 = Color(0xFFFFD25D);
-  static const Color amber400 = Color(0xFFFFC52F);
-  static const Color amber500 = Color(0xFFFFB700); // Base Amber
-  static const Color amber = amber500; // Base Amber
-  static const Color amber600 = Color(0xFFCC9200);
-  static const Color amber700 = Color(0xFF996E00);
-  static const Color amber800 = Color(0xFF664900);
-  static const Color amber900 = Color(0xFF332500);
+  // Secondary Alpha Variants
+  static const Color secondaryAlpha10 = Color(0x1A4B7F89);
+  static const Color secondaryAlpha20 = Color(0x334B7F89);
+  static const Color secondaryAlpha30 = Color(0x4D4B7F89);
+  static const Color secondaryAlpha40 = Color(0x664B7F89);
+  static const Color secondaryAlpha50 = Color(0x804B7F89);
 
-  // Neutral Gray Shades
-  static const Color gray50 = Color(0xFFF8F8F8);
-  static const Color light = gray50;
-  static const Color gray100 = Color(0xFFE1E1E1);
-  static const Color gray200 = Color(0xFFC7C7C7);
-  static const Color gray300 = Color(0xFFACACAC);
-  static const Color gray400 = Color(0xFF929292);
-  static const Color gray500 = Color(0xFF777777); // Base Warm Gray
-  static const Color gray = gray500; // Base Warm Gray
-  static const Color gray600 = Color(0xFF5F5F5F);
-  static const Color gray700 = Color(0xFF474747);
-  static const Color gray800 = Color(0xFF2F2F2F);
-  static const Color gray900 = Color(0xFF171717);
+  // Tertiary Color Shades
+  static const Color tertiary100 = Color(0xFFFFFDFA);
+  static const Color tertiary200 = Color(0xFFFFFBF6);
+  static const Color tertiary300 = Color(0xFFFFF9F1);
+  static const Color tertiary400 = Color(0xFFFFF7ED);
+  static const Color tertiary500 = Color(0xFFFFF6E8);
+  static const Color tertiary600 = Color(0xFFFFF4E4);
+  static const Color tertiary700 = Color(0xFFFFF2DF);
+  static const Color tertiary800 = Color(0xFFFFF0DA);
+  static const Color tertiary900 = Color(0xFFFFEED6);
+  static const Color tertiary1000 = Color(0xFFFFECD1); // Main Color
+  static const Color tertiary = tertiary900;
 
-  // Danger - Soft Red
-  static const Color danger50 = Color(0xFFFFE5E5);
-  static const Color danger100 = Color(0xFFFFB8B8);
-  static const Color danger200 = Color(0xFFFF8A8A);
-  static const Color danger300 = Color(0xFFFF5C5C);
-  static const Color danger400 = Color(0xFFFF2E2E);
-  static const Color danger500 = Color(0xFFE60000); // Base Danger Red
-  static const Color danger = danger500; // Base Danger Red
-  static const Color danger600 = Color(0xFFCC0000);
-  static const Color danger700 = Color(0xFFB20000);
-  static const Color danger800 = Color(0xFF990000);
-  static const Color danger900 = Color(0xFF800000);
+  // Tertiary Alpha Variants
+  static const Color tertiaryAlpha10 = Color(0x1AFFECD1);
+  static const Color tertiaryAlpha20 = Color(0x33FFECD1);
+  static const Color tertiaryAlpha30 = Color(0x4DFFECD1);
+  static const Color tertiaryAlpha40 = Color(0x66FFECD1);
+  static const Color tertiaryAlpha50 = Color(0x80FFECD1);
+
+  // Neutral Colors
+  static const Color light = tertiary100;
+  static const Color dark = Color(0xFF21272B);
+
+  // Neutral Dark Alpha Variant
+  static const Color darkAlpha10 = Color(0x1A21272B);
+  static const Color darkAlpha30 = Color(0x4D21272B);
+  static const Color darkAlpha50 = Color(0x8021272B);
+
+  // Red Color Shades
+  static const Color red100 = Color(0xFFFB3748);
+  static const Color red200 = Color(0xFFD00416);
+
+  // Red Alpha Variant
+  static const Color redAlpha10 = Color(0x1AFB3748);
+  static const Color redAlpha30 = Color(0x4DFB3748);
+  static const Color redAlpha50 = Color(0x80FB3748);
+
+  // Yellow Color Shades
+  static const Color yellow100 = Color(0xFFFFC107);
+  static const Color yellow200 = Color(0xFFB78900);
+
+  // Yellow Alpha Variant
+  static const Color yellowAlpha10 = Color(0x1AFFC107);
+  static const Color yellowAlpha30 = Color(0x4DFFC107);
+  static const Color yellowAlpha50 = Color(0x80FFC107);
+
+  // Green Color Shades
+  static const Color green100 = Color(0xFF52DF83);
+  static const Color green200 = Color(0xFF21B354);
+
+  // Green Alpha Variant
+  static const Color greenAlpha10 = Color(0x1A52DF83);
+  static const Color greenAlpha30 = Color(0x4D52DF83);
+  static const Color greenAlpha50 = Color(0x8052DF83);
 }
