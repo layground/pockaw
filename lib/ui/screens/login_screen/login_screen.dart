@@ -1,9 +1,11 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pockaw/config/app_router.dart';
 import 'package:pockaw/ui/themes/app_colors.dart';
+import 'package:pockaw/ui/themes/app_radius.dart';
 import 'package:pockaw/ui/themes/app_spacing.dart';
 import 'package:pockaw/ui/themes/app_text_styles.dart';
 import 'package:pockaw/ui/widgets/buttons/buttons.dart';
@@ -68,23 +70,39 @@ class LoginScreen extends StatelessWidget {
                       ],
                     ),
                     const Gap(AppSpacing.spacing20),
-                    const Column(
+                    Column(
                       children: [
                         Row(
                           children: [
-                            Expanded(
+                            const Expanded(
                               child: CustomTextField(
                                 label: 'Nickname',
                                 hint: 'Enter your nickname...',
                                 icon: TablerIcons.letter_case,
                               ),
                             ),
-                            Gap(AppSpacing.spacing16),
-                            CircleIconButton(
-                              icon: TablerIcons.photo,
-                              radius: 38,
-                              backgroundColor: AppColors.secondary100,
-                              foregroundColor: AppColors.secondary800,
+                            const Gap(AppSpacing.spacing16),
+                            Container(
+                              padding:
+                                  const EdgeInsets.all(AppSpacing.spacing4),
+                              decoration: BoxDecoration(
+                                color: AppColors.secondary100,
+                                borderRadius: BorderRadius.circular(
+                                  AppRadius.radius8,
+                                ),
+                              ),
+                              child: DottedBorder(
+                                borderType: BorderType.Circle,
+                                strokeCap: StrokeCap.round,
+                                dashPattern: const [8, 8],
+                                color: AppColors.primary600,
+                                child: const CircleIconButton(
+                                  icon: TablerIcons.photo,
+                                  radius: 33,
+                                  backgroundColor: AppColors.secondary100,
+                                  foregroundColor: AppColors.secondary800,
+                                ),
+                              ),
                             ),
                           ],
                         ),
