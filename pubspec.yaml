@@ -32,6 +32,7 @@ dependencies:
     sdk: flutter
 
   auto_size_text_field: ^2.2.4
+  dotted_border: ^2.1.0
   drift: ^2.21.0
   flex_color_scheme: ^7.3.1
   flutter_expandable_fab: ^2.3.0
