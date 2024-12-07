@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pockaw/ui/themes/app_colors.dart';
+import 'package:pockaw/ui/themes/app_font_families.dart';
 import 'package:pockaw/ui/themes/app_font_weights.dart';
 
 class AppTextStyles {
@@ -91,6 +92,41 @@ class AppTextStyles {
 
   static const body5 = TextStyle(
     fontSize: 10.0,
+    fontVariations: [AppFontWeights.regular],
+    color: AppColors.primary900,
+  );
+
+  static const numericHeading = TextStyle(
+    fontFamily: AppFontFamilies.urbanist,
+    fontSize: 36.0,
+    fontVariations: [AppFontWeights.bold],
+    color: AppColors.primary900,
+  );
+
+  static const numericTitle = TextStyle(
+    fontFamily: AppFontFamilies.urbanist,
+    fontSize: 24.0,
+    fontVariations: [AppFontWeights.bold],
+    color: AppColors.primary900,
+  );
+
+  static const numericLarge = TextStyle(
+    fontFamily: AppFontFamilies.urbanist,
+    fontSize: 20.0,
+    fontVariations: [AppFontWeights.bold],
+    color: AppColors.primary900,
+  );
+
+  static const numericMedium = TextStyle(
+    fontFamily: AppFontFamilies.urbanist,
+    fontSize: 16.0,
+    fontVariations: [AppFontWeights.semiBold],
+    color: AppColors.primary900,
+  );
+
+  static const numericRegular = TextStyle(
+    fontFamily: AppFontFamilies.urbanist,
+    fontSize: 12.0,
     fontVariations: [AppFontWeights.regular],
     color: AppColors.primary900,
   );
