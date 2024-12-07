@@ -4,13 +4,15 @@ import 'package:pockaw/ui/screens/components/custom_bottom_app_bar.dart';
 import 'package:pockaw/ui/screens/home_screen/components/home_app_bar.dart';
 import 'package:pockaw/ui/screens/home_screen/components/home_balance_card.dart';
 import 'package:pockaw/ui/screens/home_screen/components/home_transaction_card.dart';
+import 'package:pockaw/ui/screens/home_screen/components/my_goals_carousel.dart';
+import 'package:pockaw/ui/screens/home_screen/components/recent_transaction_list.dart';
 import 'package:pockaw/ui/themes/app_colors.dart';
 import 'package:pockaw/ui/themes/app_font_weights.dart';
 import 'package:pockaw/ui/themes/app_radius.dart';
 import 'package:pockaw/ui/themes/app_spacing.dart';
 import 'package:pockaw/ui/themes/app_text_styles.dart';
-import 'package:pockaw/ui/widgets/progress_indocators/custom_progress_indicator.dart';
-import 'package:pockaw/ui/widgets/progress_indocators/custom_progress_indicator_legend.dart';
+import 'package:pockaw/ui/widgets/progress_indicators/custom_progress_indicator.dart';
+import 'package:pockaw/ui/widgets/progress_indicators/custom_progress_indicator_legend.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -138,6 +140,8 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
+              const MyGoalsCarousel(),
+              const RecentTransactionList(),
             ],
           ),
           const Positioned(
