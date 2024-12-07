@@ -7,11 +7,13 @@ class CircleIconButton extends StatelessWidget {
   final Color? foregroundColor;
   final Color? splashColor;
   final IconData icon;
+  final Widget? child;
   final GestureTapCallback? onTap;
 
   const CircleIconButton({
     super.key,
     required this.icon,
+    this.child,
     this.radius = 38,
     this.backgroundColor,
     this.foregroundColor,
@@ -33,10 +35,11 @@ class CircleIconButton extends StatelessWidget {
         child: SizedBox(
           width: radius! * 2,
           height: radius! * 2,
-          child: Icon(
-            icon,
-            color: foregroundColor,
-          ),
+          child: child ??
+              Icon(
+                icon,
+                color: foregroundColor,
+              ),
         ),
       ),
     );
