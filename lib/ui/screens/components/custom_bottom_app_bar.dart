@@ -15,14 +15,14 @@ class CustomBottomAppBar extends StatelessWidget {
         horizontal: AppSpacing.spacing16,
       ),
       decoration: BoxDecoration(
-        color: AppColors.tertiary,
+        color: AppColors.primary,
         borderRadius: BorderRadius.circular(999),
         boxShadow: const [
           BoxShadow(
-            color: Colors.black12,
-            offset: Offset(0, 2),
+            color: AppColors.darkAlpha30,
+            offset: Offset(0, 4),
             spreadRadius: 0,
-            blurRadius: 10,
+            blurRadius: 4,
           )
         ],
       ),
@@ -32,22 +32,22 @@ class CustomBottomAppBar extends StatelessWidget {
           CircleIconButton(
             radius: 28,
             icon: TablerIcons.home,
-            backgroundColor: AppColors.secondaryAlpha10,
-            foregroundColor: AppColors.secondary,
+            backgroundColor: AppColors.tertiaryAlpha20,
+            foregroundColor: AppColors.secondary200,
             onTap: () {},
           ),
           CircleIconButton(
             radius: 28,
             icon: TablerIcons.plus,
-            backgroundColor: AppColors.primary,
-            foregroundColor: AppColors.light,
+            backgroundColor: AppColors.tertiary300,
+            foregroundColor: AppColors.primary,
             onTap: () {},
           ),
           CircleIconButton(
             radius: 28,
             icon: TablerIcons.receipt,
             backgroundColor: Colors.transparent,
-            foregroundColor: AppColors.primary500,
+            foregroundColor: AppColors.secondary200,
             onTap: () {},
           ),
         ],
