@@ -4,8 +4,8 @@
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.24.1-blue?logo=flutter)
 ![Dart](https://img.shields.io/badge/Dart-3.5.1-blue?logo=dart)
-![Platform](https://img.shields.io/badge/platform-Android%20%7C%20Web%20%7C%20(soon)%20iOS,%20Windows,%20MacOS-orange)
-![8%](https://progress-bar.xyz/8/?title=MVP+Launch+)
+![Platform](https://img.shields.io/badge/platform-Android%20%7C%20Web%20%7C%20(soon)%20iOS,%20Windows,%20MacOS-purple)
+![8%](https://progress-bar.xyz/8/?title=MVP+Launch+&progress_color=628e97)
 
 ![License](https://img.shields.io/badge/license-GPLv3-blue)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
