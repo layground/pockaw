@@ -10,7 +10,7 @@ import 'package:pockaw/ui/themes/app_spacing.dart';
 import 'package:pockaw/ui/themes/app_text_styles.dart';
 import 'package:pockaw/ui/widgets/buttons/buttons.dart';
 import 'package:pockaw/ui/widgets/buttons/circle_button.dart';
-import 'package:pockaw/ui/widgets/text_fields/custom_text_field.dart';
+import 'package:pockaw/ui/widgets/form_fields/custom_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -146,7 +146,7 @@ class LoginScreen extends StatelessWidget {
               ),
               child: Button(
                 label: 'Login',
-                onPressed: () => context.push(AppRouter.home),
+                onPressed: () => context.push(AppRouter.dashboard),
               ),
             ),
           )
