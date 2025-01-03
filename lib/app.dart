@@ -12,6 +12,8 @@ class MyApp extends StatelessWidget {
       title: 'Pockaw',
       debugShowCheckedModeBanner: false,
       theme: FlexThemeData.light(
+        background: Colors.white,
+        scaffoldBackground: Colors.white,
         scheme: FlexScheme.bigStone,
         useMaterial3: true,
         fontFamily: 'Montserrat',

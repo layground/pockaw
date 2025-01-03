@@ -12,7 +12,7 @@ class TransactionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 64,
+      height: 57,
       child: Row(
         children: [
           Stack(
@@ -20,7 +20,7 @@ class TransactionTile extends StatelessWidget {
               AspectRatio(
                 aspectRatio: 1 / 1,
                 child: Container(
-                  padding: const EdgeInsets.all(AppSpacing.spacing20),
+                  padding: const EdgeInsets.all(AppSpacing.spacing16),
                   decoration: BoxDecoration(
                     color: AppColors.secondary100,
                     borderRadius: BorderRadius.circular(
@@ -36,20 +36,6 @@ class TransactionTile extends StatelessWidget {
                   ),
                 ),
               ),
-              const Positioned(
-                top: 4,
-                left: 4,
-                child: CircleAvatar(
-                  radius: 10,
-                  backgroundColor: AppColors.light,
-                  child: Icon(
-                    TablerIcons.plus,
-                    size: 12,
-                    color: AppColors.green200,
-                    weight: 2,
-                  ),
-                ),
-              )
             ],
           ),
           const Gap(AppSpacing.spacing12),
@@ -68,6 +54,7 @@ class TransactionTile extends StatelessWidget {
                   'Rp. 1.120.300',
                   style: AppTextStyles.numericLarge.copyWith(
                     color: AppColors.secondary900,
+                    height: 1.12,
                   ),
                 ),
                 const Text(

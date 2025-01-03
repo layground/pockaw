@@ -37,7 +37,7 @@ class CustomFab extends StatelessWidget {
                 customBorder: const CircleBorder(),
                 onLongPress: () {
                   debugPrint('quick action');
-                  context.push(AppRouter.expenseForm);
+                  context.push(AppRouter.transactionForm);
                 },
                 onTap: toggleFAB,
                 child: Container(
@@ -92,7 +92,7 @@ class CustomFab extends StatelessWidget {
                     ),
                     onPressed: () {
                       toggleFAB();
-                      context.push(AppRouter.expenseForm);
+                      context.push(AppRouter.transactionForm);
                     },
                   ),
                 ],
