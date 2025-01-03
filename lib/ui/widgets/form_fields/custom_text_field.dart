@@ -10,14 +10,28 @@ class CustomTextField extends StatelessWidget {
   final String label;
   final TextEditingController? controller;
   final String? hint;
+  final Color? hintColor;
+  final Color? background;
   final IconData? icon;
+  final IconData? suffixIcon;
+  final BoxBorder? border;
+  final bool readOnly;
+  final int? minLines;
+  final int? maxLines;
 
   const CustomTextField({
     super.key,
     required this.label,
     this.controller,
     this.hint,
+    this.hintColor,
+    this.background,
     this.icon,
+    this.suffixIcon,
+    this.border,
+    this.readOnly = false,
+    this.maxLines,
+    this.minLines,
   });
 
   @override
@@ -26,13 +40,14 @@ class CustomTextField extends StatelessWidget {
       padding: const EdgeInsets.all(AppSpacing.spacing20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppRadius.radius8),
-        color: AppColors.secondary100,
+        color: background ?? AppColors.secondary100,
+        border: border,
       ),
       child: Row(
         children: [
           if (icon != null)
-            const Icon(
-              TablerIcons.letter_case,
+            Icon(
+              icon ?? TablerIcons.letter_case,
               color: AppColors.secondary800,
             ),
           if (icon != null) const Gap(AppSpacing.spacing12),
@@ -50,13 +65,16 @@ class CustomTextField extends StatelessWidget {
                 TextField(
                   controller: controller,
                   style: AppTextStyles.body2,
+                  readOnly: readOnly,
+                  minLines: minLines,
+                  maxLines: maxLines,
                   decoration: InputDecoration(
                     isDense: true,
                     filled: true,
-                    fillColor: AppColors.secondary100,
+                    fillColor: background ?? AppColors.secondary100,
                     hintText: hint ?? 'Enter...',
                     hintStyle: AppTextStyles.body2.copyWith(
-                      color: AppColors.primary300,
+                      color: hintColor ?? AppColors.primary300,
                     ),
                     contentPadding: EdgeInsets.zero,
                     border: InputBorder.none,
@@ -67,6 +85,17 @@ class CustomTextField extends StatelessWidget {
               ],
             ),
           ),
+          if (suffixIcon == null)
+            const SizedBox()
+          else
+            const Gap(AppSpacing.spacing12),
+          if (suffixIcon == null)
+            const SizedBox()
+          else
+            Icon(
+              suffixIcon ?? TablerIcons.letter_case,
+              color: AppColors.secondary800,
+            ),
         ],
       ),
     );
