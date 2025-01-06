@@ -98,8 +98,8 @@ These tools help us bring **Pockaw** to life with efficiency, collaboration, and
 
 Connect with other Pockies, share tips, and contribute to the growth of Pockaw. Whether you're seeking advice, reporting issues, or sharing feedback, our community spaces are here for you.
 
-* **Discord Server**: Engage conversation with the community.
-* **GitHub Discussions**: Join in-depth technical features discussion.
+* **[Discord Server](https://discord.gg/xt5wDe4w)**: Engage conversation with the community.
+* **[GitHub Discussions](https://github.com/agil3st/pockaw/discussions/categories)**: Join in-depth technical features discussion.
 
 ***
 
