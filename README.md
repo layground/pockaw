@@ -1,4 +1,4 @@
-# Welcome to Pockaw
+# Welcome to Pockaw!
 
 <img src="https://github.com/agil3st/pockaw/blob/master/assets/icon/icon.jpg?raw=true" alt="Pockaw Logo" width="250" height="250">
 
@@ -32,7 +32,7 @@
 
 ## 📝 Overview
 
-Say Goodbye to Spreadsheets-based expense and budget tracking! **Pockaw** is your intuitive, user-friendly app for seamless expense and budget tracking, tailored for both personal use and small businesses. Designed to be your reliable financial buddy, Pockaw offers powerful features to simplify cash flow management:
+**Hello, Pockies!** say goodbye to spreadsheet-based expense and budget tracking! **Pockaw** is your new intuitive, user-friendly app for seamless pocket and wallet-sized finance buddy, tailored for both personal use and small businesses. **Pockaw** offers powerful features to simplify cash flow management:
 
 * **💸 Expense Tracking**: Easily log daily expenses and categorize them (e.g., groceries, entertainment), so you know exactly where your money goes.
 * **💰 Income Management**: Track multiple income sources, from salaries to side hustles, in one convenient place.
@@ -45,7 +45,7 @@ Say Goodbye to Spreadsheets-based expense and budget tracking! **Pockaw** is you
 
 ### 🌟 What Will You Get
 
-* **100% Free & Open Source**: Completely free, with open access to the source code — FOREVER!
+* **100% Free & Open Source**: Completely free, no hidden costs, with open access to the source code — FOREVER!
 * **Cross-Platform**: Seamless use across Android, iOS*, macOS*, Windows, Linux*, and even the browser. Take your budget management anywhere!
 * **No Registration Needed**: Jump right in without the hassle of creating an account or request any access like spreadsheet-based does.
 * **No Ads, Always**: Say goodbye to annoying ads; Pockaw is focused solely on helping you manage your finances.
@@ -54,7 +54,7 @@ Say Goodbye to Spreadsheets-based expense and budget tracking! **Pockaw** is you
 
 **🎉 Signature Feature**
 
-* **Advanced Goal Planning:** Set up multiple checklist goals for any occasion, from a wedding, new house, to wishlist shopping.
+* **Advanced Goal Planning:** Set up multiple checklist goals for any occasion, from a wedding gifts, new house furniture, to wishlist shopping.
 
 > \* Coming soon
 
@@ -86,20 +86,28 @@ Say Goodbye to Spreadsheets-based expense and budget tracking! **Pockaw** is you
 ### 🔧 Tools We Use
 
 * 🎨**Figma**: Our go-to design tool for creating beautiful, user-friendly interfaces.
+* 💻**Flutter & Dart**: The powerhouse behind Pockaw's cross-platform experience, allowing us to build one app for multiple devices.
 * 🛠️**GitHub**: Serving as our central hub for issue tracking and project management, keeping us organized and on track.
 * 🌐**Crowdin**: Enabling seamless collaborative translation and localization so Pockaw reaches users in their native languages.
-* 💻**Flutter & Dart**: The powerhouse behind Pockaw’s cross-platform experience, allowing us to build one app for multiple devices.
-* 💬**Discord**: Join our community forum on Discord for open discussions, updates, and direct feedback.
 
 These tools help us bring **Pockaw** to life with efficiency, collaboration, and community-driven improvements.
 
 ***
 
-## ⚙️ Installation
+## 🤝 Community
+
+Connect with other Pockies, share tips, and contribute to the growth of Pockaw. Whether you're seeking advice, reporting issues, or sharing feedback, our community spaces are here for you.
+
+* **Discord Server**: Engage conversation with the community.
+* **GitHub Discussions**: Join in-depth technical features discussion.
+
+***
+
+## ⚙️ Installation to Contribute
 
 1. **Clone this repository**
    ```
-   git clone https://github.com/yourusername/pockaw.git
+   git clone https://github.com/agil3st/pockaw.git
    ```
 2. **Install dependencies**
    Navigate to the project folder and run:
@@ -109,7 +117,7 @@ These tools help us bring **Pockaw** to life with efficiency, collaboration, and
 3. **Run the app**
    Open the project in your preferred IDE (VSCode or Android Studio) and hit **Run** to launch **Pockaw**.
 
-Pockaw is now set up and ready to go! 🎉
+**Pockaw** is now set up and ready to go! 🎉
 
 ***
 
@@ -118,7 +126,7 @@ Pockaw is now set up and ready to go! 🎉
 ### Q1 - Core Setup & MVP Launch ![8%](https://progress-bar.xyz/8/?width=40)
 - [x] **Splash & Onboarding** - Design and implement welcoming splash screen and onboarding process.
 - [ ] **Authentication** - Enable login for offline use, allowing user sessions without registration.
-- [ ] **Wallet & Pockets** - Add multiple wallets, set balances, and rename wallets/pockets for easy management.
+- [ ] **Pockets & Wallets** - Add multiple sources, set balances, and customize for easy management.
 - [ ] **Expense & Income Tracking** - Allow users to log income/expenses with details like category, date, title, and notes.
 - [ ] **Custom Categories** - Enable users to create and manage custom categories for better personalization.
 
@@ -138,6 +146,17 @@ Pockaw is now set up and ready to go! 🎉
 - [ ] **Notification Tracking Suggestions** - Suggest transaction logging based on device notifications without automatic entry, ensuring user control.
 - [ ] **Data Sync & Backup** - Implement cloud sync and backup options to store data securely across devices.
 
+## 🖥️ Platform Release Priority
+- [ ] **Android**
+- [ ] **Web**
+- [ ] **Windows**
+- [ ] **iOS** *
+- [ ] **MacOS** *
+- [ ] **Linux** **
+- \* Sponsors or donations are required to register to the Apple Developer Program.
+- \** Will be followed after Windows release is stable.
+
+
 ---
 
 ### 🚀 Innovation and Future Releases
@@ -148,7 +167,7 @@ Pockaw is now set up and ready to go! 🎉
 🔔**Enhanced Mobile Experience**
 **Notification Suggestions**: Pockaw will read device notifications from other apps when users make payments or receive transfers, offering personalized suggestions for tracking those transactions in your budget.
 
-These planned features aim to make Pockaw even smarter and more user-friendly, providing insights and suggestions to simplify your financial management.
+These planned features aim to make **Pockaw** even smarter and more user-friendly, providing insights and suggestions to simplify your financial management.
 
 ***
 
