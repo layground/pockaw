@@ -5,7 +5,7 @@ This section provides essential tools, assets, and documentation to support effe
 ## Assets
 
 * **Primary Assets**
-    * Icons, Images, and Illustrations will prioritize to use [GitAsset](https://gitaset.co/) with \<u>Personal License\</u>.
+    * Icons, Images, and Illustrations will prioritize to use [GitAsset](https://gitaset.co/) with Personal License.
 * **Icons & Logos**
     * App Icon: High-resolution icons for app branding and usage across platforms.
     * <img src="https://github.com/agil3st/pockaw/blob/master/assets/icon/icon.jpg?raw=true" alt="Pockaw Logo" width="250" height="250">
@@ -15,6 +15,7 @@ This section provides essential tools, assets, and documentation to support effe
     * Heading Font: [Montserrat](https://fonts.google.com/specimen/Montserrat)
     * Body Font: [Montserrat](https://fonts.google.com/specimen/Montserrat)
     * Label Font: [Montserrat](https://fonts.google.com/specimen/Montserrat)
+    * Numeric Font: [Urbanist](https://fonts.google.com/specimen/Urbanist)
 * **Colors**
     * [Brand Color Scheme](https://coolors.co/4169e1-50c878-87ceeb-ffc107-98ff98-2d2d2d-d3d3d3-fffff0) by coolors.co
 * **Other**
