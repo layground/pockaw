@@ -4,6 +4,11 @@ This section provides essential tools, assets, and documentation to support effe
 
 ## Assets
 
+* **Design File**
+    * You can access our design file on [Figma](https://www.figma.com/design/Zp7JCVYQ5a8IdUKr65ONCy/Pockaw?node-id=464-312&t=mHuTdI7maK6nfd5p-1) and share your valuable input.
+
+## Assets
+
 * **Primary Assets**
     * Icons, Images, and Illustrations will prioritize to use [GitAsset](https://gitaset.co/) with Personal License.
 * **Icons & Logos**
