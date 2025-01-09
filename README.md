@@ -1,6 +1,6 @@
 # Welcome to Pockaw!
 
-<img src="https://github.com/agil3st/pockaw/blob/master/assets/icon/icon.jpg?raw=true" alt="Pockaw Logo" width="250" height="250">
+<img src="https://i.postimg.cc/QtSzTvrm/Pockaw-Cover.jpg" alt="Pockaw Cover">
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.24.1-blue?logo=flutter)
 ![Dart](https://img.shields.io/badge/Dart-3.5.1-blue?logo=dart)
@@ -12,6 +12,7 @@
 ![Contributions](https://img.shields.io/badge/contributions-welcome-brightgreen)
 ![Forks](https://img.shields.io/github/forks/agil3st/pockaw)
 ![Stars](https://img.shields.io/github/stars/agil3st/pockaw)
+[![Join our Discord](https://img.shields.io/badge/Join_our_Discord-7289DA?logo=discord&logoColor=white)](https://discord.gg/xt5wDe4w)
 
 ## Download Pockaw (Coming Soon)
 
@@ -99,7 +100,7 @@ These tools help us bring **Pockaw** to life with efficiency, collaboration, and
 Connect with other Pockies, share tips, and contribute to the growth of Pockaw. Whether you're seeking advice, reporting issues, or sharing feedback, our community spaces are here for you.
 
 * **[Discord Server](https://discord.gg/xt5wDe4w)**: Engage conversation with the community.
-* **[GitHub Discussions](https://github.com/agil3st/pockaw/discussions/categories)**: Join in-depth technical features discussion.
+* **[GitHub Discussions](https://github.com/agil3st/pockaw/discussions)**: Join in-depth technical features discussion.
 
 ***
 
@@ -123,28 +124,36 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 
 ## 📆 Roadmap
 
-### Q1 - Core Setup & MVP Launch ![8%](https://progress-bar.xyz/8/?width=40)
+### Q1 (March 2025) - Core Setup & MVP Launch ![8%](https://progress-bar.xyz/8/?width=40)
 - [x] **Splash & Onboarding** - Design and implement welcoming splash screen and onboarding process.
 - [ ] **Authentication** - Enable login for offline use, allowing user sessions without registration.
 - [ ] **Pockets & Wallets** - Add multiple sources, set balances, and customize for easy management.
 - [ ] **Expense & Income Tracking** - Allow users to log income/expenses with details like category, date, title, and notes.
 - [ ] **Custom Categories** - Enable users to create and manage custom categories for better personalization.
+- [ ] **Publish on Google Play** - The first fully offline experience of Pockaw.
 
-### Q2 - Enhanced Budgeting & Analytics ![0%](https://progress-bar.xyz/0/?width=40)
+### Q2 (June 2025) - Enhanced Budgeting & Analytics ![0%](https://progress-bar.xyz/0/?width=40)
 - [ ] **Budget Goals & Tracking** - Set monthly/weekly spending goals and visualize budget adherence.
 - [ ] **Expense Summary & Analytics** - Add charts for monthly income/expense trends, custom filters, and analytics.
 - [ ] **User Reminders & Notifications** - Implement notifications for due dates and spending goals.
 - [ ] **Advanced Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
 
-### Q3 - Enhanced User Experience ![0%](https://progress-bar.xyz/0/?width=40)
-- [ ] **Multi-Currency Support** - Support multiple currencies for wallets and transactions.
+### Q3 (September 2025) - Enhanced User Experience ![0%](https://progress-bar.xyz/0/?width=40)
+- [ ] **Transaction Reminder** - Forgetting things? Chill! Pockaw will remind you to record transactions.
 - [ ] **Advanced Customization** - Let users set date format, first day of the week/month, and other preferences in settings.
 - [ ] **Improved Accessibility** - Add accessibility features, including screen reader support and keyboard navigation.
+- [ ] **Release on Web** - Get a wider view and perspective of Pockaw (of course need a bit of connection).
 
-### Q4 - Innovative Features ![0%](https://progress-bar.xyz/0/?width=40)
+### Q4 (December 2025) - Shields On! ![0%](https://progress-bar.xyz/0/?width=40)
+- [ ] **Data Sync & Backup** - Implement cloud sync and backup options to store data securely across devices.
+- [ ] **Biometrics and PIN** - Add layers of security so you are in charge of your own wealth condition.
+- [ ] **Release on Desktop** - Windows users will get the official desktop look and feel of Pockaw. **
+
+### Innovative Features ![0%](https://progress-bar.xyz/0/?width=40)
+- [ ] **Multi-Currency Support** - Feel free to set a different currency of your each wallet. Yes! each wallet.
 - [ ] **AI Summarization** - Allow users to ask AI for summaries, e.g., “summarize my expenses this month.”
 - [ ] **Notification Tracking Suggestions** - Suggest transaction logging based on device notifications without automatic entry, ensuring user control.
-- [ ] **Data Sync & Backup** - Implement cloud sync and backup options to store data securely across devices.
+- These features are promising but not a promise. We will need to see first on how this project and community grow.
 
 ## 🖥️ Platform Release Priority
 - [ ] **Android**
@@ -153,8 +162,8 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 - [ ] **iOS** *
 - [ ] **MacOS** *
 - [ ] **Linux** **
-- \* Sponsors or donations are required to register to the Apple Developer Program.
-- \** Will be followed after Windows release is stable.
+- \* Sponsors and/or donations are expected as Apple Developer Program registration cost dollars a year.
+- \** Linux will followed after Windows release is stable.
 
 
 ---
@@ -168,6 +177,24 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 **Notification Suggestions**: Pockaw will read device notifications from other apps when users make payments or receive transfers, offering personalized suggestions for tracking those transactions in your budget.
 
 These planned features aim to make **Pockaw** even smarter and more user-friendly, providing insights and suggestions to simplify your financial management.
+
+***
+
+## 🎨 Design Files
+We're excited to share our design files with the community! These files are made available to encourage collaboration, gather feedback, and provide learning opportunities for designers and developers alike.
+
+Feel free to explore, experiment, and contribute your ideas!
+
+### Access the Design Files
+You can find the design files here:  
+[👉 View Pockaw Design Files](https://www.figma.com/design/Zp7JCVYQ5a8IdUKr65ONCy/Pockaw?node-id=464-312&t=mHuTdI7maK6nfd5p-1)
+
+### Guidelines for Use
+- The design files are provided under the [Creative Commons License](https://creativecommons.org/licenses/).
+- Use them for feedback, personal projects, or contributions to Pockaw.
+- Please do not use the designs for commercial purposes without prior approval.
+
+Let us know your thoughts or submit your own suggestions through [GitHub Discussions](https://github.com/agil3st/pockaw/discussions) or on Discord!
 
 ***
 
