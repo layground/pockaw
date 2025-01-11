@@ -208,6 +208,9 @@ For a detailed list of all resources, including links and specific guidelines, c
 
 We welcome contributions to Pockaw! Feel free to **fork** this project, **submit issues**, or open **pull requests (PRs)** to help us enhance the app. Your input is invaluable in making Pockaw better for everyone!
 
+### 🖥️ Landing Page
+Interested in making some changes for our landing page? Just head to our dedicated [landing page repo](https://github.com/agil3st/pockaw-landing-page) then do above steps. 
+
 ***
 
 ## 📄 License
