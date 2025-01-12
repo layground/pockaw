@@ -1,6 +1,6 @@
 # Welcome to Pockaw!
 
-<img src="https://i.postimg.cc/VkPHCwyD/Cover.webp" alt="Pockaw Cover">
+<img src="https://pockaw.com/assets/images/pockaw-cover-github_readme.webp" alt="Pockaw Cover">
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.24.1-blue?logo=flutter)
 ![Dart](https://img.shields.io/badge/Dart-3.5.1-blue?logo=dart)
