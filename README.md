@@ -1,6 +1,6 @@
 # Welcome to Pockaw!
 
-<img src="https://i.postimg.cc/QtSzTvrm/Pockaw-Cover.jpg" alt="Pockaw Cover">
+<img src="https://i.postimg.cc/VkPHCwyD/Cover.webp" alt="Pockaw Cover">
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.24.1-blue?logo=flutter)
 ![Dart](https://img.shields.io/badge/Dart-3.5.1-blue?logo=dart)
@@ -10,8 +10,8 @@
 ![License](https://img.shields.io/badge/license-GPLv3-blue)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 ![Contributions](https://img.shields.io/badge/contributions-welcome-brightgreen)
-![Forks](https://img.shields.io/github/forks/agil3st/pockaw)
-![Stars](https://img.shields.io/github/stars/agil3st/pockaw)
+![Forks](https://img.shields.io/github/forks/layground/pockaw)
+![Stars](https://img.shields.io/github/stars/layground/pockaw)
 [![Join our Discord](https://img.shields.io/badge/Join_our_Discord-7289DA?logo=discord&logoColor=white)](https://discord.gg/xt5wDe4w)
 
 ## Download Pockaw (Coming Soon)
@@ -80,6 +80,7 @@
 * 🏢**Large Enterprises**: If your business requires bank integration, payroll systems, or vendor payment management, this app may not be the best fit.
 
 > **Why This Matters**
+> 
 > Defining our user target helps ensure contributors share the same vision: to build a tool focused on simplicity and accessibility for individuals and small businesses. Our goal with Pockaw is to empower users with an easy-to-use, playful, and effective budgeting tool, without the complexities often found in enterprise solutions.
 
 ***
@@ -100,7 +101,7 @@ These tools help us bring **Pockaw** to life with efficiency, collaboration, and
 Connect with other Pockies, share tips, and contribute to the growth of Pockaw. Whether you're seeking advice, reporting issues, or sharing feedback, our community spaces are here for you.
 
 * **[Discord Server](https://discord.gg/xt5wDe4w)**: Engage conversation with the community.
-* **[GitHub Discussions](https://github.com/agil3st/pockaw/discussions)**: Join in-depth technical features discussion.
+* **[GitHub Discussions](https://github.com/layground/pockaw/discussions)**: Join in-depth technical features discussion.
 
 ***
 
@@ -108,7 +109,7 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 
 1. **Clone this repository**
    ```
-   git clone https://github.com/agil3st/pockaw.git
+   git clone https://github.com/layground/pockaw.git
    ```
 2. **Install dependencies**
    Navigate to the project folder and run:
@@ -126,7 +127,7 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 
 ### Q1 (March 2025) - Core Setup & MVP Launch ![8%](https://progress-bar.xyz/8/?width=40)
 - [x] **Splash & Onboarding** - Design and implement welcoming splash screen and onboarding process.
-- [ ] **Authentication** - Enable login for offline use, allowing user sessions without registration.
+- [ ] **Authentication?** - Just fill personal data for offline use, no registration.
 - [ ] **Pockets & Wallets** - Add multiple sources, set balances, and customize for easy management.
 - [ ] **Expense & Income Tracking** - Allow users to log income/expenses with details like category, date, title, and notes.
 - [ ] **Custom Categories** - Enable users to create and manage custom categories for better personalization.
@@ -149,12 +150,6 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 - [ ] **Biometrics and PIN** - Add layers of security so you are in charge of your own wealth condition.
 - [ ] **Release on Desktop** - Windows users will get the official desktop look and feel of Pockaw. **
 
-### Innovative Features ![0%](https://progress-bar.xyz/0/?width=40)
-- [ ] **Multi-Currency Support** - Feel free to set a different currency of your each wallet. Yes! each wallet.
-- [ ] **AI Summarization** - Allow users to ask AI for summaries, e.g., “summarize my expenses this month.”
-- [ ] **Notification Tracking Suggestions** - Suggest transaction logging based on device notifications without automatic entry, ensuring user control.
-- These features are promising but not a promise. We will need to see first on how this project and community grow.
-
 ## 🖥️ Platform Release Priority
 - [ ] **Android**
 - [ ] **Web**
@@ -162,21 +157,31 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 - [ ] **iOS** *
 - [ ] **MacOS** *
 - [ ] **Linux** **
-- \* Sponsors and/or donations are expected as Apple Developer Program registration cost dollars a year.
-- \** Linux will followed after Windows release is stable.
+> * \* Sponsors and/or donations are expected as Apple Developer Program registration cost dollars a year.
+> * \** Linux will followed after Windows release is stable.
 
 
 ---
 
 ### 🚀 Innovation and Future Releases
 
+💸**Multi-Currency Support**
+
+* **1 Wallet, 1 Currency**: Set a different currency of your each wallet. Yes! each wallet.
+
 ✨**Ask AI**
-**Smart Summaries**: Utilize AI to respond to queries like "Summarize my expenses this month" or "What were my top spending categories last quarter?"—getting insights has never been easier!
+
+* **Smart Summaries**: Utilize AI to respond to queries like "Summarize my expenses this month" or "What were my top spending categories last quarter?"—getting insights has never been easier!
 
 🔔**Enhanced Mobile Experience**
-**Notification Suggestions**: Pockaw will read device notifications from other apps when users make payments or receive transfers, offering personalized suggestions for tracking those transactions in your budget.
+
+* **Notification Suggestions**: Pockaw will read device notifications from other apps when users make payments or receive transfers, offering personalized suggestions for tracking those transactions in your budget.
+
+* **Home Screen Widget**: No bother opening the app. Pockaw will appear on your mobile home screen, add transaction quickly as well as the simple summary.
 
 These planned features aim to make **Pockaw** even smarter and more user-friendly, providing insights and suggestions to simplify your financial management.
+
+> These features are **promising but not a promise**. We will need to see first on how this project and community grow.
 
 ***
 
@@ -185,22 +190,21 @@ We're excited to share our design files with the community! These files are made
 
 Feel free to explore, experiment, and contribute your ideas!
 
-### Access the Design Files
-You can find the design files here:  
-[👉 View Pockaw Design Files](https://www.figma.com/design/Zp7JCVYQ5a8IdUKr65ONCy/Pockaw?node-id=464-312&t=mHuTdI7maK6nfd5p-1)
+### Access the Design File
+You can find the Figma design file [here.](https://www.figma.com/design/Zp7JCVYQ5a8IdUKr65ONCy/Pockaw?node-id=464-312&t=mHuTdI7maK6nfd5p-1)
 
 ### Guidelines for Use
 - The design files are provided under the [Creative Commons License](https://creativecommons.org/licenses/).
 - Use them for feedback, personal projects, or contributions to Pockaw.
 - Please do not use the designs for commercial purposes without prior approval.
 
-Let us know your thoughts or submit your own suggestions through [GitHub Discussions](https://github.com/agil3st/pockaw/discussions) or on Discord!
+Let us know your thoughts or submit your own suggestions through [GitHub Discussions](https://github.com/layground/pockaw/discussions) or on Discord!
 
 ***
 
 ## 🖼️ Resources
 
-For a detailed list of all resources, including links and specific guidelines, check out the [Resources Document](https://github.com/agil3st/pockaw/blob/master/RESOURCES.md).
+For a detailed list of all resources, including links and specific guidelines, check out the [Resources Document](https://github.com/layground/pockaw/blob/master/RESOURCES.md).
 
 ***
 
@@ -209,7 +213,7 @@ For a detailed list of all resources, including links and specific guidelines, c
 We welcome contributions to Pockaw! Feel free to **fork** this project, **submit issues**, or open **pull requests (PRs)** to help us enhance the app. Your input is invaluable in making Pockaw better for everyone!
 
 ### 🖥️ Landing Page
-Interested in making some changes for our landing page? Just head to our dedicated [landing page repo](https://github.com/agil3st/pockaw-landing-page) then do above steps. 
+Interested in making some changes for our landing page? Just head to our dedicated [landing page repo](https://github.com/layground/pockaw-landing-page) then do above steps. 
 
 ***
 
