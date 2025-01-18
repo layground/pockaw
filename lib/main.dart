@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pockaw/app.dart';
+import 'package:pockaw/core/app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
