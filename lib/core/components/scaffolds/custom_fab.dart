@@ -4,7 +4,7 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
-import 'package:pockaw/router/routes.dart';
+import 'package:pockaw/core/router/routes.dart';
 
 class CustomFab extends StatelessWidget {
   CustomFab({super.key});

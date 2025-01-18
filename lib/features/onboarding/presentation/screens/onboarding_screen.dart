@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/components/buttons/buttons.dart';
-import 'package:pockaw/router/routes.dart';
+import 'package:pockaw/core/constants/app_colors.dart';
+import 'package:pockaw/core/router/routes.dart';
 
 part '../components/get_started_button.dart';
 

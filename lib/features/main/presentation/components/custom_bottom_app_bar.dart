@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pockaw/router/app_router.dart';
+import 'package:pockaw/core/components/buttons/circle_button.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
-import 'package:pockaw/core/components/buttons/circle_button.dart';
-import 'package:pockaw/router/routes.dart';
+import 'package:pockaw/core/router/routes.dart';
 
 class CustomBottomAppBar extends StatefulWidget {
   final PageController pageController;

@@ -1,8 +1,8 @@
 import 'package:go_router/go_router.dart';
-import 'package:pockaw/router/authentication_router.dart';
-import 'package:pockaw/router/onboarding_router.dart';
-import 'package:pockaw/router/routes.dart';
-import 'package:pockaw/router/transaction_router.dart';
+import 'package:pockaw/core/router/authentication_router.dart';
+import 'package:pockaw/core/router/onboarding_router.dart';
+import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/core/router/transaction_router.dart';
 
 // GoRouter configuration
 final router = GoRouter(
