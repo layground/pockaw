@@ -36,67 +36,79 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.spacing20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(AppRadius.radius8),
-        color: background ?? AppColors.secondary100,
-        border: border,
-      ),
-      child: Row(
-        children: [
-          if (icon != null)
-            Icon(
-              icon ?? TablerIcons.letter_case,
-              color: AppColors.secondary800,
-            ),
-          if (icon != null) const Gap(AppSpacing.spacing12),
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  label,
-                  style: AppTextStyles.body5.copyWith(
-                    color: AppColors.primary800,
-                  ),
-                ),
-                TextField(
-                  controller: controller,
-                  style: AppTextStyles.body2,
-                  readOnly: readOnly,
-                  minLines: minLines,
-                  maxLines: maxLines,
-                  decoration: InputDecoration(
-                    isDense: true,
-                    filled: true,
-                    fillColor: background ?? AppColors.secondary100,
-                    hintText: hint ?? 'Enter...',
-                    hintStyle: AppTextStyles.body2.copyWith(
-                      color: hintColor ?? AppColors.primary300,
+    var focus = FocusNode();
+
+    return InkWell(
+      onTap: () {
+        focus.requestFocus();
+      },
+      child: Container(
+        height: 70,
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(AppRadius.radius8),
+          color: background ?? AppColors.light,
+          border: border ??
+              Border.all(
+                color: AppColors.neutralAlpha50,
+              ),
+        ),
+        child: Row(
+          children: [
+            if (icon != null)
+              Icon(
+                icon ?? TablerIcons.letter_case,
+                color: AppColors.neutral700,
+              ),
+            if (icon != null) const Gap(AppSpacing.spacing12),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: AppTextStyles.body5.copyWith(
+                      color: AppColors.neutral600,
                     ),
-                    contentPadding: EdgeInsets.zero,
-                    border: InputBorder.none,
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
                   ),
-                ),
-              ],
+                  TextField(
+                    controller: controller,
+                    focusNode: focus,
+                    style: AppTextStyles.body2,
+                    readOnly: readOnly,
+                    minLines: minLines,
+                    maxLines: maxLines,
+                    decoration: InputDecoration(
+                      isDense: true,
+                      filled: true,
+                      fillColor: background ?? AppColors.light,
+                      hintText: hint ?? 'Enter...',
+                      hintStyle: AppTextStyles.body2.copyWith(
+                        color: hintColor ?? AppColors.neutral300,
+                      ),
+                      contentPadding: EdgeInsets.zero,
+                      border: InputBorder.none,
+                      enabledBorder: InputBorder.none,
+                      focusedBorder: InputBorder.none,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          if (suffixIcon == null)
-            const SizedBox()
-          else
-            const Gap(AppSpacing.spacing12),
-          if (suffixIcon == null)
-            const SizedBox()
-          else
-            Icon(
-              suffixIcon ?? TablerIcons.letter_case,
-              color: AppColors.secondary800,
-            ),
-        ],
+            if (suffixIcon == null)
+              const SizedBox()
+            else
+              const Gap(AppSpacing.spacing12),
+            if (suffixIcon == null)
+              const SizedBox()
+            else
+              Icon(
+                suffixIcon ?? TablerIcons.letter_case,
+                color: AppColors.secondary800,
+              ),
+          ],
+        ),
       ),
     );
   }
