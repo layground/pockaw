@@ -8,18 +8,19 @@ class BalanceCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.spacing16),
       decoration: BoxDecoration(
-        color: AppColors.secondary100,
+        color: AppColors.secondary50,
         borderRadius: BorderRadius.circular(AppRadius.radius16),
+        border: Border.all(color: AppColors.secondaryAlpha10),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'My Balance',
-            style: AppTextStyles.body3.copyWith(
-              color: AppColors.primary800,
-            ),
+            style: AppTextStyles.body3.copyWith(color: AppColors.neutral800),
           ),
+          const Gap(AppSpacing.spacing8),
+          const WalletSwitcherDropdown(),
           const Gap(AppSpacing.spacing8),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
@@ -27,13 +28,13 @@ class BalanceCard extends StatelessWidget {
               Text(
                 'Rp.',
                 style: AppTextStyles.body3.copyWith(
-                  color: AppColors.primary800,
+                  color: AppColors.neutral900,
                 ),
               ),
               Text(
                 '791.235.401',
                 style: AppTextStyles.numericHeading.copyWith(
-                  color: AppColors.primary900,
+                  color: AppColors.secondary950,
                   height: 1,
                 ),
               ),

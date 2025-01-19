@@ -18,9 +18,10 @@ class SpendingProgressChart extends StatelessWidget {
             ),
             InkWell(
               child: Text(
-                'See reports',
+                'View report',
                 style: AppTextStyles.body5.copyWith(
                   decoration: TextDecoration.underline,
+                  color: AppColors.neutral800,
                 ),
               ),
             ),

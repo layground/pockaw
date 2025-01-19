@@ -5,6 +5,7 @@ class TransactionCard extends StatelessWidget {
   final double amount;
   final double amountLastMonth;
   final Color? backgroundColor;
+  final Color? borderColor;
   final Color? titleColor;
   final Color? amountColor;
   final Color? statsBackgroundColor;
@@ -16,6 +17,7 @@ class TransactionCard extends StatelessWidget {
     required this.amount,
     required this.amountLastMonth,
     this.backgroundColor,
+    this.borderColor,
     this.titleColor,
     this.amountColor,
     this.statsBackgroundColor,
@@ -30,6 +32,7 @@ class TransactionCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: backgroundColor,
         borderRadius: BorderRadius.circular(AppRadius.radius16),
+        border: Border.all(color: borderColor ?? AppColors.neutralAlpha25),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

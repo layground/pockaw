@@ -3,6 +3,7 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pockaw/core/components/buttons/circle_button.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
+import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/router/routes.dart';
 
@@ -23,64 +24,56 @@ class _CustomBottomAppBarState extends State<CustomBottomAppBar> {
         horizontal: AppSpacing.spacing16,
       ),
       decoration: BoxDecoration(
-        color: AppColors.primary,
-        borderRadius: BorderRadius.circular(999),
-        boxShadow: const [
-          BoxShadow(
-            color: AppColors.darkAlpha30,
-            offset: Offset(0, 4),
-            spreadRadius: 0,
-            blurRadius: 4,
-          )
-        ],
+        color: AppColors.dark,
+        borderRadius: BorderRadius.circular(AppRadius.radiusFull),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           CircleIconButton(
-            radius: 28,
+            radius: 25,
             icon: TablerIcons.home,
-            backgroundColor: AppColors.secondaryAlpha50,
-            foregroundColor: AppColors.secondary200,
+            backgroundColor: Colors.transparent,
+            foregroundColor: AppColors.light,
             onTap: () {
               widget.pageController.jumpToPage(0);
               setState(() {});
             },
           ),
           CircleIconButton(
-            radius: 28,
+            radius: 25,
             icon: TablerIcons.receipt,
             backgroundColor: Colors.transparent,
-            foregroundColor: AppColors.secondary300,
+            foregroundColor: AppColors.neutral400,
             onTap: () {
               widget.pageController.jumpToPage(1);
               setState(() {});
             },
           ),
           CircleIconButton(
-            radius: 28,
+            radius: 25,
             icon: TablerIcons.plus,
-            backgroundColor: AppColors.tertiary300,
-            foregroundColor: AppColors.primary,
+            backgroundColor: AppColors.primary,
+            foregroundColor: AppColors.light,
             onTap: () {
               context.push(Routes.transactionForm);
             },
           ),
           CircleIconButton(
-            radius: 28,
+            radius: 25,
             icon: TablerIcons.target_arrow,
             backgroundColor: Colors.transparent,
-            foregroundColor: AppColors.secondary300,
+            foregroundColor: AppColors.neutral400,
             onTap: () {
               widget.pageController.jumpToPage(2);
               setState(() {});
             },
           ),
           CircleIconButton(
-            radius: 28,
+            radius: 25,
             icon: TablerIcons.database_dollar,
             backgroundColor: Colors.transparent,
-            foregroundColor: AppColors.secondary300,
+            foregroundColor: AppColors.neutral400,
             onTap: () {
               widget.pageController.jumpToPage(3);
               setState(() {});

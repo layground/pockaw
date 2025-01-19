@@ -20,11 +20,11 @@ class GreetingCard extends StatelessWidget {
           children: [
             Text(
               'Good morning,',
-              style: AppTextStyles.body4.copyWith(color: AppColors.primary600),
+              style: AppTextStyles.body4.copyWith(color: AppColors.neutral600),
             ),
             Text(
               'Jenny',
-              style: AppTextStyles.body2.copyWith(color: AppColors.primary900),
+              style: AppTextStyles.body2.copyWith(color: AppColors.dark),
             ),
           ],
         )

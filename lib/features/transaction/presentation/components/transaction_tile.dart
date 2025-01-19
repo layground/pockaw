@@ -11,55 +11,81 @@ class TransactionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 57,
+    return Container(
+      height: 72,
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.spacing8,
+        AppSpacing.spacing8,
+        AppSpacing.spacing16,
+        AppSpacing.spacing8,
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.light,
+        borderRadius: BorderRadius.circular(AppRadius.radius12),
+        border: Border.all(color: AppColors.neutralAlpha10),
+      ),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Stack(
-            children: [
-              AspectRatio(
-                aspectRatio: 1 / 1,
-                child: Container(
-                  padding: const EdgeInsets.all(AppSpacing.spacing16),
-                  decoration: BoxDecoration(
-                    color: AppColors.secondary100,
-                    borderRadius: BorderRadius.circular(
-                      AppRadius.radius12,
-                    ),
-                  ),
-                  child: const Center(
-                    child: Icon(
-                      TablerIcons.headphones,
-                      size: 24,
-                      color: AppColors.secondary950,
-                    ),
-                  ),
+          AspectRatio(
+            aspectRatio: 1 / 1,
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColors.red50,
+                borderRadius: BorderRadius.circular(AppRadius.radius12),
+                border: Border.all(color: AppColors.redAlpha10),
+              ),
+              child: const Center(
+                child: Icon(
+                  TablerIcons.headphones,
+                  color: AppColors.red,
                 ),
               ),
-            ],
+            ),
           ),
           const Gap(AppSpacing.spacing12),
           Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  '09 December',
-                  style: AppTextStyles.body5.copyWith(
-                    color: AppColors.primary700,
-                  ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Web maintenance',
+                      style: AppTextStyles.body3,
+                    ),
+                    const Gap(AppSpacing.spacing2),
+                    Text(
+                      'Dinner with friends',
+                      style: AppTextStyles.body4.copyWith(
+                        color: AppColors.neutral500,
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
-                  'Rp. 1.120.300',
-                  style: AppTextStyles.numericLarge.copyWith(
-                    color: AppColors.secondary900,
-                    height: 1.12,
-                  ),
-                ),
-                const Text(
-                  'Web maintenance',
-                  style: AppTextStyles.body4,
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      '09 December',
+                      style: AppTextStyles.body5.copyWith(
+                        color: AppColors.neutral500,
+                      ),
+                    ),
+                    const Gap(AppSpacing.spacing4),
+                    Text(
+                      'Rp. 1.120.300',
+                      style: AppTextStyles.numericMedium.copyWith(
+                        color: AppColors.red700,
+                        height: 1.12,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
