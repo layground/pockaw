@@ -7,12 +7,12 @@ class ActionButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        OutlinedIconButton(
+        CustomIconButton(
           onPressed: () {},
           icon: TablerIcons.bell,
           showBadge: true,
         ),
-        OutlinedIconButton(
+        CustomIconButton(
           onPressed: () {},
           icon: TablerIcons.settings_2,
         ),
