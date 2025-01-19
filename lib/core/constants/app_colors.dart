@@ -71,7 +71,7 @@ class AppColors {
   static const Color redAlpha25 = Color(0x40E50855);
   static const Color redAlpha50 = Color(0x80E50855);
   static const Color redAlpha75 = Color(0xBFE50855);
-  static const Color red = red800;
+  static const Color red = red600;
 
   // Purple (Purple Heart) Color Scheme
   static const Color purple50 = Color(0xFFF6F3FF);
