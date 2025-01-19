@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
+import 'package:pockaw/core/constants/app_colors.dart';
+import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/text_style_extensions.dart';
+
+part 'balance_status_bar.dart';
 
 class CustomScaffold extends Scaffold {
   CustomScaffold({
@@ -11,6 +18,8 @@ class CustomScaffold extends Scaffold {
     required Widget body,
     String title = '',
     bool showBackButton = true,
+    bool showBalance = true,
+    List<Widget>? actions,
   }) : super(
           key: key,
           body: body,
@@ -20,10 +29,9 @@ class CustomScaffold extends Scaffold {
             automaticallyImplyLeading: false,
             leading: !showBackButton
                 ? null
-                : IconButton(
+                : CustomIconButton(
                     onPressed: () => context.pop(),
-                    padding: const EdgeInsets.all(AppSpacing.spacing8),
-                    icon: const Icon(TablerIcons.arrow_narrow_left),
+                    icon: TablerIcons.arrow_narrow_left,
                   ),
             title: title.isEmpty
                 ? null
@@ -31,6 +39,8 @@ class CustomScaffold extends Scaffold {
                     title,
                     style: AppTextStyles.heading6,
                   ),
+            actions: actions,
+            bottom: !showBalance ? null : BalanceStatusBar(),
           ),
         );
 }
