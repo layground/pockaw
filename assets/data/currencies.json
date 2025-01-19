@@ -1,0 +1,154 @@
+{
+  "currencies": [
+    {
+      "symbol": "Rp",
+      "name": "Indonesian Rupiah",
+      "decimal_digits": 0,
+      "rounding": 0,
+      "iso_code": "IDR",
+      "name_plural": "Indonesian Rupiahs",
+      "country": "Indonesia",
+      "country_code": "ID"
+    },
+    {
+      "symbol": "$",
+      "name": "United States Dollar",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "USD",
+      "name_plural": "US Dollars",
+      "country": "United States",
+      "country_code": "US"
+    },
+    {
+      "symbol": "€",
+      "name": "Euro",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "EUR",
+      "name_plural": "Euros",
+      "country": "European Union",
+      "country_code": ""
+    },
+    {
+      "symbol": "¥",
+      "name": "Japanese Yen",
+      "decimal_digits": 0,
+      "rounding": 0,
+      "iso_code": "JPY",
+      "name_plural": "Japanese Yen",
+      "country": "Japan",
+      "country_code": "JP"
+    },
+    {
+      "symbol": "£",
+      "name": "British Pound Sterling",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "GBP",
+      "name_plural": "British Pounds",
+      "country": "United Kingdom",
+      "country_code": "GB"
+    },
+    {
+      "symbol": "A$",
+      "name": "Australian Dollar",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "AUD",
+      "name_plural": "Australian Dollars",
+      "country": "Australia",
+      "country_code": "AU"
+    },
+    {
+      "symbol": "C$",
+      "name": "Canadian Dollar",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "CAD",
+      "name_plural": "Canadian Dollars",
+      "country": "Canada",
+      "country_code": "CA"
+    },
+    {
+      "symbol": "Fr.",
+      "name": "Swiss Franc",
+      "decimal_digits": 2,
+      "rounding": 0.05,
+      "iso_code": "CHF",
+      "name_plural": "Swiss Francs",
+      "country": "Switzerland",
+      "country_code": "CH"
+    },
+    {
+      "symbol": "¥",
+      "name": "Chinese Yuan Renminbi",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "CNY",
+      "name_plural": "Chinese Yuan",
+      "country": "China",
+      "country_code": "CN"
+    },
+    {
+      "symbol": "₹",
+      "name": "Indian Rupee",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "INR",
+      "name_plural": "Indian Rupees",
+      "country": "India",
+      "country_code": "IN"
+    },
+    {
+      "symbol": "₩",
+      "name": "South Korean Won",
+      "decimal_digits": 0,
+      "rounding": 0,
+      "iso_code": "KRW",
+      "name_plural": "South Korean Won",
+      "country": "South Korea",
+      "country_code": "KR"
+    },
+    {
+      "symbol": "NZ$",
+      "name": "New Zealand Dollar",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "NZD",
+      "name_plural": "New Zealand Dollars",
+      "country": "New Zealand",
+      "country_code": "NZ"
+    },
+    {
+      "symbol": "₽",
+      "name": "Russian Ruble",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "RUB",
+      "name_plural": "Russian Rubles",
+      "country": "Russia",
+      "country_code": "RU"
+    },
+    {
+      "symbol": "R$",
+      "name": "Brazilian Real",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "BRL",
+      "name_plural": "Brazilian Reais",
+      "country": "Brazil",
+      "country_code": "BR"
+    },
+    {
+      "symbol": "$",
+      "name": "Mexican Peso",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "MXN",
+      "name_plural": "Mexican Pesos",
+      "country": "Mexico",
+      "country_code": "MX"
+    }
+  ]
+}
