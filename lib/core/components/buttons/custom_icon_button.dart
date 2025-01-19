@@ -41,8 +41,8 @@ class CustomIconButton extends IconButton {
               !showBadge
                   ? const SizedBox()
                   : Positioned(
-                      top: 2,
-                      right: 2,
+                      top: 3,
+                      right: 3,
                       child: _badge(),
                     )
             ],
@@ -65,7 +65,7 @@ class CustomIconButton extends IconButton {
         height: 6,
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
-          color: AppColors.red200,
+          color: AppColors.red,
         ),
       );
 }
