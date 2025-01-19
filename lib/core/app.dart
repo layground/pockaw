@@ -1,5 +1,6 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_constants.dart';
 import 'package:pockaw/core/router/app_router.dart';
 
@@ -13,9 +14,9 @@ class MyApp extends StatelessWidget {
       title: AppConstants.appName,
       debugShowCheckedModeBanner: false,
       theme: FlexThemeData.light(
+        surfaceTint: AppColors.light,
         background: Colors.white,
         scaffoldBackground: Colors.white,
-        scheme: FlexScheme.bigStone,
         useMaterial3: true,
         fontFamily: AppConstants.fontFamilyPrimary,
       ),
