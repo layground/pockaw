@@ -23,7 +23,10 @@ class ButtonChip extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: AppColors.primary),
+          color: active ? AppColors.purple50 : null,
+          border: Border.all(
+            color: active ? AppColors.purpleAlpha10 : AppColors.neutralAlpha25,
+          ),
           borderRadius: BorderRadius.circular(
             AppRadius.radiusFull,
           ),
@@ -36,12 +39,15 @@ class ButtonChip extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(active ? TablerIcons.circle_check_filled : TablerIcons.circle),
+            Icon(
+              active ? TablerIcons.circle_check_filled : TablerIcons.circle,
+              color: active ? AppColors.purple : AppColors.neutral400,
+            ),
             const Gap(AppSpacing.spacing8),
-            Text(
-              label,
-              style: AppTextStyles.body3,
-            )
+            Text(label,
+                style: AppTextStyles.body3.copyWith(
+                  color: active ? AppColors.purple : AppColors.neutral700,
+                ))
           ],
         ),
       ),
