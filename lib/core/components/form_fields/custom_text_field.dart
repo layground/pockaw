@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
@@ -16,8 +17,13 @@ class CustomTextField extends StatelessWidget {
   final IconData? suffixIcon;
   final BoxBorder? border;
   final bool readOnly;
+  final bool isRequired;
   final int? minLines;
   final int? maxLines;
+  final TextInputType? keyboardType;
+  final TextInputAction? inputAction;
+  final List<TextInputFormatter>? inputFormatters;
+  final ValueChanged<String>? onChanged;
 
   const CustomTextField({
     super.key,
@@ -30,8 +36,13 @@ class CustomTextField extends StatelessWidget {
     this.suffixIcon,
     this.border,
     this.readOnly = false,
+    this.isRequired = false,
     this.maxLines,
     this.minLines,
+    this.keyboardType,
+    this.inputAction,
+    this.inputFormatters,
+    this.onChanged,
   });
 
   @override
@@ -66,11 +77,23 @@ class CustomTextField extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    label,
-                    style: AppTextStyles.body5.copyWith(
-                      color: AppColors.neutral600,
-                    ),
+                  Row(
+                    children: [
+                      Text(
+                        label,
+                        style: AppTextStyles.body5.copyWith(
+                          color: AppColors.neutral600,
+                        ),
+                      ),
+                      if (isRequired) const Gap(AppSpacing.spacing2),
+                      if (isRequired)
+                        Text(
+                          '*',
+                          style: AppTextStyles.body5.copyWith(
+                            color: AppColors.red,
+                          ),
+                        ),
+                    ],
                   ),
                   TextField(
                     controller: controller,
@@ -79,6 +102,10 @@ class CustomTextField extends StatelessWidget {
                     readOnly: readOnly,
                     minLines: minLines,
                     maxLines: maxLines,
+                    keyboardType: keyboardType,
+                    textInputAction: inputAction,
+                    inputFormatters: inputFormatters,
+                    onChanged: onChanged,
                     decoration: InputDecoration(
                       isDense: true,
                       filled: true,
@@ -105,7 +132,8 @@ class CustomTextField extends StatelessWidget {
             else
               Icon(
                 suffixIcon ?? TablerIcons.letter_case,
-                color: AppColors.secondary800,
+                color: AppColors.neutral200,
+                size: 22,
               ),
           ],
         ),
