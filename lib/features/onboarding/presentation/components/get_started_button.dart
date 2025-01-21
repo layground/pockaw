@@ -15,7 +15,7 @@ class GetStartedButton extends StatelessWidget {
           vertical: 20,
           horizontal: 20,
         ),
-        child: Button(
+        child: PrimaryButton(
           label: 'Get Started',
           onPressed: () => context.push(Routes.login),
         ),

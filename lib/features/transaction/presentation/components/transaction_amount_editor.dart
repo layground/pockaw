@@ -2,7 +2,7 @@ import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
-import 'package:pockaw/core/components/buttons/buttons.dart';
+import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
@@ -82,7 +82,7 @@ class TransactionAmountEditor extends StatelessWidget {
             ),
           ),
           const Gap(AppSpacing.spacing16),
-          Button(
+          PrimaryButton(
             label: 'Save',
             onPressed: () {},
           ),
