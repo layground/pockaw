@@ -37,7 +37,7 @@ class CustomTextField extends StatelessWidget {
     this.border,
     this.readOnly = false,
     this.isRequired = false,
-    this.maxLines,
+    this.maxLines = 1,
     this.minLines,
     this.keyboardType,
     this.inputAction,
@@ -54,8 +54,7 @@ class CustomTextField extends StatelessWidget {
         focus.requestFocus();
       },
       child: Container(
-        height: 70,
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
+        padding: const EdgeInsets.all(AppSpacing.spacing20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppRadius.radius8),
           color: background ?? AppColors.light,
