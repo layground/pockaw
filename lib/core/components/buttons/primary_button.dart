@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:pockaw/core/components/buttons/button_state.dart';
+import 'package:pockaw/core/components/buttons/button_type.dart';
+import 'package:pockaw/core/components/loading_indicators/loading_indicator.dart';
 import 'package:pockaw/core/constants/app_button_styles.dart';
 import 'package:pockaw/core/constants/app_font_families.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
-import 'package:pockaw/core/components/buttons/button_state.dart';
-import 'package:pockaw/core/components/buttons/button_type.dart';
-import 'package:pockaw/core/components/loading_indicators/loading_indicator.dart';
 
-class Button extends FilledButton {
-  Button({
+class PrimaryButton extends FilledButton {
+  PrimaryButton({
     required String label,
     bool isLoading = false,
     String loadingText = 'Please wait...',
