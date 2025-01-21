@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
 import 'package:pockaw/core/components/buttons/button_chip.dart';
-import 'package:pockaw/core/components/buttons/buttons.dart';
+import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
+import 'package:pockaw/core/components/buttons/primary_button.dart';
+import 'package:pockaw/core/components/buttons/secondary_button.dart';
+import 'package:pockaw/core/components/form_fields/custom_numeric_field.dart';
 import 'package:pockaw/core/components/form_fields/custom_select_field.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
-import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
-import 'package:pockaw/core/constants/app_text_styles.dart';
-import 'package:pockaw/features/transaction/presentation/components/transaction_amount_editor.dart';
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class TransactionForm extends StatelessWidget {
   TransactionForm({super.key});
@@ -35,47 +34,115 @@ class TransactionForm extends StatelessWidget {
       body: Stack(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.spacing20,
+              AppSpacing.spacing16,
+              AppSpacing.spacing20,
+              100,
+            ),
             child: Form(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: const [
-                  Gap(AppSpacing.spacing12),
-                  CustomTextField(
-                    label: 'Add title',
-                    hint: 'Lunch with my friends',
-                    icon: TablerIcons.letter_case,
-                  ),
-                  Gap(AppSpacing.spacing16),
-                  CustomSelectField(
-                    label: 'Select a category',
-                    hint: 'Groceries • Cosmetics',
-                    icon: TablerIcons.category,
-                  ),
-                  Gap(AppSpacing.spacing16),
-                  CustomSelectField(
-                    label: 'Set a date',
-                    hint: '12 November 2024',
-                    icon: TablerIcons.calendar,
-                  ),
-                  Gap(AppSpacing.spacing16),
-                  CustomTextField(
-                    label: 'Write a note',
-                    hint: 'Write here...',
-                    icon: TablerIcons.note,
-                    suffixIcon: TablerIcons.corner_down_left,
-                    minLines: 1,
-                    maxLines: 3,
-                  ),
-                  Gap(AppSpacing.spacing16),
-                  CustomSelectField(
-                    label: 'Attach an image',
-                    hint: 'Upload or take a picture',
-                    icon: TablerIcons.photo,
-                    suffixIcon: TablerIcons.upload,
-                    hintColor: AppColors.dark,
-                  ),
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Gap(AppSpacing.spacing12),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ButtonChip(label: 'Income'),
+                        ButtonChip(
+                          label: 'Expense',
+                          active: true,
+                        ),
+                        ButtonChip(label: 'Transfer'),
+                      ],
+                    ),
+                    const Gap(AppSpacing.spacing12),
+                    const CustomTextField(
+                      label: 'Title',
+                      hint: 'Lunch with my friends',
+                      icon: TablerIcons.letter_case,
+                      inputAction: TextInputAction.next,
+                      keyboardType: TextInputType.name,
+                    ),
+                    const Gap(AppSpacing.spacing16),
+                    CustomNumericField(
+                      controller: _amountController,
+                      label: 'Amount',
+                      hint: '\$ 34',
+                      icon: TablerIcons.coin,
+                    ),
+                    const Gap(AppSpacing.spacing16),
+                    const CustomSelectField(
+                      label: 'Category',
+                      hint: 'Groceries • Cosmetics',
+                      icon: TablerIcons.category,
+                    ),
+                    const Gap(AppSpacing.spacing16),
+                    const CustomSelectField(
+                      label: 'Set a date',
+                      hint: '12 November 2024',
+                      icon: TablerIcons.calendar,
+                    ),
+                    const Gap(AppSpacing.spacing16),
+                    const CustomTextField(
+                      label: 'Write a note',
+                      hint: 'Write here...',
+                      icon: TablerIcons.note,
+                      suffixIcon: TablerIcons.align_left,
+                      minLines: 1,
+                      maxLines: 3,
+                    ),
+                    const Gap(AppSpacing.spacing16),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: SecondaryButton(
+                            onPressed: () {},
+                            label: 'Take picture',
+                            icon: TablerIcons.focus_centered,
+                          ),
+                        ),
+                        const Gap(AppSpacing.spacing8),
+                        Expanded(
+                          child: SecondaryButton(
+                            onPressed: () {},
+                            label: 'Pick image',
+                            icon: TablerIcons.photo,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Gap(AppSpacing.spacing16),
+                    Container(
+                      width: 100,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        color: AppColors.neutral100,
+                        borderRadius:
+                            BorderRadius.circular(AppSpacing.spacing8),
+                        border: Border.all(color: AppColors.neutralAlpha25),
+                      ),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            right: 0,
+                            top: 0,
+                            child: CustomIconButton(
+                              onPressed: () {},
+                              icon: TablerIcons.trash,
+                              backgroundColor: AppColors.red50,
+                              borderColor: AppColors.redAlpha10,
+                              color: AppColors.red,
+                              iconSize: IconSize.tiny,
+                              visualDensity: VisualDensity.compact,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -90,109 +157,9 @@ class TransactionForm extends StatelessWidget {
                 bottom: AppSpacing.spacing20,
                 top: AppSpacing.spacing20,
               ),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(AppRadius.radius24),
-                  topRight: Radius.circular(AppRadius.radius24),
-                ),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.darkAlpha30,
-                    spreadRadius: 0,
-                    blurRadius: 20,
-                    offset: Offset(0, 0),
-                  ),
-                ],
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Column(
-                    children: [
-                      const Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            'Transaction Amount',
-                            style: AppTextStyles.body3,
-                          ),
-                          Icon(
-                            TablerIcons.chevron_down,
-                            size: 20,
-                            color: AppColors.primaryAlpha25,
-                          ),
-                        ],
-                      ),
-                      InkWell(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(
-                            vertical: AppSpacing.spacing8,
-                            horizontal: AppSpacing.spacing16,
-                          ),
-                          decoration: BoxDecoration(
-                            color: AppColors.secondaryAlpha10,
-                            borderRadius:
-                                BorderRadius.circular(AppRadius.radius8),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                'Rp.',
-                                style: AppTextStyles.numericLarge.copyWith(
-                                  color: AppColors.secondary,
-                                ),
-                              ),
-                              const Gap(AppSpacing.spacing4),
-                              Text(
-                                '453.128',
-                                style: AppTextStyles.numericHeading.copyWith(
-                                  color: AppColors.secondary,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        onTap: () {
-                          WoltModalSheet.show(
-                            context: context,
-                            pageListBuilder: (context) {
-                              return [
-                                WoltModalSheetPage(
-                                  child: TransactionAmountEditor(),
-                                ),
-                              ];
-                            },
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                  const Gap(AppSpacing.spacing20),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: AppSpacing.spacing8,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ButtonChip(label: 'Income'),
-                        ButtonChip(
-                          label: 'Expense',
-                          active: true,
-                        ),
-                        ButtonChip(label: 'Transfer'),
-                      ],
-                    ),
-                  ),
-                  const Gap(AppSpacing.spacing20),
-                  Button(
-                    label: 'Save',
-                    onPressed: () {},
-                  ),
-                ],
+              child: PrimaryButton(
+                label: 'Save',
+                onPressed: () {},
               ),
             ),
           ),
