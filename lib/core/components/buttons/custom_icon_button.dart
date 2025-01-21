@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
-import 'package:pockaw/core/constants/app_spacing.dart';
 
 enum IconSize {
   large,
@@ -15,27 +14,29 @@ class CustomIconButton extends IconButton {
     Key? key,
     required GestureTapCallback onPressed,
     required IconData icon,
+    Color? backgroundColor,
+    Color? borderColor,
     Color? color,
     bool showBadge = false,
     IconSize iconSize = IconSize.medium,
+    VisualDensity visualDensity = VisualDensity.standard,
   }) : super(
           key: key,
           onPressed: onPressed,
           style: IconButton.styleFrom(
-            padding: const EdgeInsets.all(AppSpacing.spacing8),
-            backgroundColor: color ?? AppColors.purple50,
+            padding: EdgeInsets.zero,
+            backgroundColor: backgroundColor ?? AppColors.purple50,
+            visualDensity: visualDensity,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(AppRadius.radius8),
-              side: const BorderSide(
-                color: AppColors.purpleAlpha10,
-              ),
+              side: BorderSide(color: borderColor ?? AppColors.purpleAlpha10),
             ),
           ),
           icon: Stack(
             children: [
               Icon(
                 icon,
-                color: AppColors.purple800,
+                color: color ?? AppColors.purple,
                 size: _getIconSize(iconSize),
               ),
               !showBadge
