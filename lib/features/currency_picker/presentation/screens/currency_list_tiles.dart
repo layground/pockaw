@@ -55,9 +55,22 @@ class CurrencyListTiles extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                        child: Text(
-                          '${currency.symbol} • ${currency.name}',
-                          style: AppTextStyles.body2,
+                        child: Row(
+                          children: [
+                            Text(
+                              currency.name,
+                              style: AppTextStyles.body2,
+                            ),
+                            const Gap(AppSpacing.spacing4),
+                            Chip(
+                              label: Text(
+                                currency.symbol,
+                                style: AppTextStyles.body3,
+                              ),
+                              visualDensity: VisualDensity.compact,
+                              padding: EdgeInsets.zero,
+                            ),
+                          ],
                         ),
                       ),
                       Row(
@@ -65,7 +78,6 @@ class CurrencyListTiles extends StatelessWidget {
                         children: [
                           currency.countryCode.isEmpty
                               ? const SizedBox(
-                                  width: 40,
                                   height: 32,
                                 )
                               : Container(
