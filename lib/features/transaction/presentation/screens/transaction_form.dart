@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
 import 'package:pockaw/core/components/buttons/button_chip.dart';
@@ -12,10 +13,8 @@ import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 
-class TransactionForm extends StatelessWidget {
+class TransactionForm extends HookWidget {
   TransactionForm({super.key});
-
-  final _amountController = TextEditingController();
 
   final border = UnderlineInputBorder(
     borderSide: BorderSide(color: Colors.grey.shade300),
@@ -28,6 +27,12 @@ class TransactionForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final titleController = useTextEditingController();
+    final amountController = useTextEditingController();
+
+    final titleFocus = useFocusNode();
+    final amountFocus = useFocusNode();
+
     return CustomScaffold(
       context: context,
       title: 'Add Transaction',
@@ -58,37 +63,54 @@ class TransactionForm extends StatelessWidget {
                       ],
                     ),
                     const Gap(AppSpacing.spacing12),
-                    const CustomTextField(
+                    CustomTextField(
+                      controller: titleController,
+                      focusNode: titleFocus,
                       label: 'Title',
                       hint: 'Lunch with my friends',
-                      icon: TablerIcons.letter_case,
-                      inputAction: TextInputAction.next,
+                      prefixIcon: TablerIcons.letter_case,
+                      textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.name,
                     ),
                     const Gap(AppSpacing.spacing16),
                     CustomNumericField(
-                      controller: _amountController,
+                      controller: amountController,
                       label: 'Amount',
                       hint: '\$ 34',
                       icon: TablerIcons.coin,
+                      isRequired: true,
                     ),
                     const Gap(AppSpacing.spacing16),
-                    const CustomSelectField(
-                      label: 'Category',
-                      hint: 'Groceries • Cosmetics',
-                      icon: TablerIcons.category,
+                    Row(
+                      children: [
+                        SecondaryButton(
+                          onPressed: () {},
+                          icon: TablerIcons.shopping_bag_check,
+                        ),
+                        const Gap(AppSpacing.spacing8),
+                        Expanded(
+                          child: CustomSelectField(
+                            label: 'Category',
+                            hint: 'Groceries • Cosmetics',
+                            isRequired: true,
+                            onTap: () {},
+                          ),
+                        ),
+                      ],
                     ),
                     const Gap(AppSpacing.spacing16),
-                    const CustomSelectField(
+                    CustomSelectField(
                       label: 'Set a date',
                       hint: '12 November 2024',
-                      icon: TablerIcons.calendar,
+                      prefixIcon: TablerIcons.calendar,
+                      isRequired: true,
+                      onTap: () {},
                     ),
                     const Gap(AppSpacing.spacing16),
-                    const CustomTextField(
+                    CustomTextField(
                       label: 'Write a note',
                       hint: 'Write here...',
-                      icon: TablerIcons.note,
+                      prefixIcon: TablerIcons.note,
                       suffixIcon: TablerIcons.align_left,
                       minLines: 1,
                       maxLines: 3,
@@ -99,7 +121,7 @@ class TransactionForm extends StatelessWidget {
                         Expanded(
                           child: SecondaryButton(
                             onPressed: () {},
-                            label: 'Take picture',
+                            label: 'Camera',
                             icon: TablerIcons.focus_centered,
                           ),
                         ),
@@ -107,7 +129,7 @@ class TransactionForm extends StatelessWidget {
                         Expanded(
                           child: SecondaryButton(
                             onPressed: () {},
-                            label: 'Pick image',
+                            label: 'Gallery',
                             icon: TablerIcons.photo,
                           ),
                         ),
