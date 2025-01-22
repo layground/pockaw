@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+/// CustomInputBorder workaround by Vanchel:
+/// https://gist.github.com/Vanchel/d473ef4204ab54b6203020bc4f43c994
 class CustomInputBorder extends InputBorder {
   /// Creates a rounded rectangle outline border for an [InputDecorator].
   ///
