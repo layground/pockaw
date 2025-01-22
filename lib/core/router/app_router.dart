@@ -3,7 +3,7 @@ import 'package:pockaw/core/router/authentication_router.dart';
 import 'package:pockaw/core/router/onboarding_router.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/router/transaction_router.dart';
-import 'package:pockaw/features/currency_picker/presentation/components/currency_list_tiles.dart';
+import 'package:pockaw/features/currency_picker/presentation/screens/currency_list_tiles.dart';
 
 // GoRouter configuration
 final router = GoRouter(
