@@ -56,18 +56,18 @@ class Form extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     child: CustomTextField(
-                      label: 'Nickname',
-                      hint: 'Enter your nickname...',
-                      icon: TablerIcons.letter_case,
+                      label: 'Name',
+                      hint: 'John Doe',
+                      prefixIcon: TablerIcons.letter_case,
                     ),
                   ),
                   const Gap(AppSpacing.spacing16),
                   InkWell(
                     child: Container(
-                      height: 70,
-                      width: 70,
+                      height: 72,
+                      width: 72,
                       padding: const EdgeInsets.all(AppSpacing.spacing20),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(AppRadius.radius8),
