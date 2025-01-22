@@ -1,142 +1,115 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
+import 'package:pockaw/core/components/form_fields/custom_input_border.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
-import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 
-class CustomTextField extends StatelessWidget {
-  final String label;
-  final TextEditingController? controller;
-  final String? hint;
-  final Color? hintColor;
-  final Color? background;
-  final IconData? icon;
-  final IconData? suffixIcon;
-  final BoxBorder? border;
-  final bool readOnly;
-  final bool isRequired;
-  final int? minLines;
-  final int? maxLines;
-  final TextInputType? keyboardType;
-  final TextInputAction? inputAction;
-  final List<TextInputFormatter>? inputFormatters;
-  final ValueChanged<String>? onChanged;
-
-  const CustomTextField({
+class CustomTextField extends TextField {
+  CustomTextField({
     super.key,
-    required this.label,
-    this.controller,
-    this.hint,
-    this.hintColor,
-    this.background,
-    this.icon,
-    this.suffixIcon,
-    this.border,
-    this.readOnly = false,
-    this.isRequired = false,
-    this.maxLines = 1,
-    this.minLines,
-    this.keyboardType,
-    this.inputAction,
-    this.inputFormatters,
-    this.onChanged,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    var focus = FocusNode();
-
-    return InkWell(
-      onTap: () {
-        focus.requestFocus();
-      },
-      child: Container(
-        padding: const EdgeInsets.all(AppSpacing.spacing20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppRadius.radius8),
-          color: background ?? AppColors.light,
-          border: border ??
-              Border.all(
-                color: AppColors.neutralAlpha50,
-              ),
-        ),
-        child: Row(
-          children: [
-            if (icon != null)
-              Icon(
-                icon ?? TablerIcons.letter_case,
-                color: AppColors.neutral700,
-              ),
-            if (icon != null) const Gap(AppSpacing.spacing12),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        label,
-                        style: AppTextStyles.body5.copyWith(
-                          color: AppColors.neutral600,
-                        ),
-                      ),
-                      if (isRequired) const Gap(AppSpacing.spacing2),
-                      if (isRequired)
+    super.controller,
+    super.focusNode,
+    super.keyboardType,
+    super.textInputAction,
+    super.inputFormatters,
+    super.readOnly,
+    super.minLines,
+    super.maxLines,
+    super.onChanged,
+    super.onTap, // treat as a button if this not null
+    bool isRequired = false,
+    String? hint,
+    String? label,
+    IconData? prefixIcon,
+    IconData? suffixIcon,
+  }) : super(
+          style: AppTextStyles.body3,
+          decoration: InputDecoration(
+            hintText: hint,
+            hintStyle: AppTextStyles.body3.copyWith(
+              color: AppColors.neutral300,
+            ),
+            label: label == null
+                ? const SizedBox()
+                : Padding(
+                    padding: const EdgeInsets.only(top: 6),
+                    child: Row(
+                      children: [
                         Text(
-                          '*',
-                          style: AppTextStyles.body5.copyWith(
-                            color: AppColors.red,
+                          label,
+                          style: AppTextStyles.body3.copyWith(
+                            color: AppColors.neutral600,
                           ),
                         ),
-                    ],
-                  ),
-                  TextField(
-                    controller: controller,
-                    focusNode: focus,
-                    style: AppTextStyles.body2,
-                    readOnly: readOnly,
-                    minLines: minLines,
-                    maxLines: maxLines,
-                    keyboardType: keyboardType,
-                    textInputAction: inputAction,
-                    inputFormatters: inputFormatters,
-                    onChanged: onChanged,
-                    decoration: InputDecoration(
-                      isDense: true,
-                      filled: true,
-                      fillColor: background ?? AppColors.light,
-                      hintText: hint ?? 'Enter...',
-                      hintStyle: AppTextStyles.body2.copyWith(
-                        color: hintColor ?? AppColors.neutral300,
-                      ),
-                      contentPadding: EdgeInsets.zero,
-                      border: InputBorder.none,
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
+                        if (isRequired) const Gap(AppSpacing.spacing4),
+                        if (isRequired)
+                          Text(
+                            '*',
+                            style: AppTextStyles.body3.copyWith(
+                              color: AppColors.red,
+                            ),
+                          ),
+                      ],
                     ),
                   ),
-                ],
-              ),
+            filled: true,
+            fillColor: onTap != null ? AppColors.purple50 : AppColors.neutral50,
+            floatingLabelAlignment: FloatingLabelAlignment.start,
+            floatingLabelBehavior: FloatingLabelBehavior.always,
+            border: customBorder(asButton: onTap != null),
+            enabledBorder: customBorder(asButton: onTap != null),
+            focusedBorder: customBorder(asButton: onTap != null).copyWith(
+              borderSide: onTap != null
+                  ? null
+                  : const BorderSide(
+                      color: AppColors.purple,
+                    ),
             ),
-            if (suffixIcon == null)
-              const SizedBox()
-            else
-              const Gap(AppSpacing.spacing12),
-            if (suffixIcon == null)
-              const SizedBox()
-            else
-              Icon(
-                suffixIcon ?? TablerIcons.letter_case,
-                color: AppColors.neutral200,
-                size: 22,
-              ),
-          ],
+            alignLabelWithHint: label != null,
+            isDense: true,
+            contentPadding: EdgeInsets.fromLTRB(
+              prefixIcon == null ? AppSpacing.spacing20 : 0,
+              AppSpacing.spacing16,
+              0,
+              AppSpacing.spacing16,
+            ),
+            prefixIcon: prefixIcon == null
+                ? null
+                : Container(
+                    margin: const EdgeInsets.only(left: AppSpacing.spacing8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.spacing12,
+                    ),
+                    child: Icon(
+                      prefixIcon,
+                      color: AppColors.neutral700,
+                      size: 24,
+                    ),
+                  ),
+            suffixIcon: suffixIcon == null
+                ? null
+                : Container(
+                    margin: const EdgeInsets.only(right: AppSpacing.spacing8),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSpacing.spacing12,
+                    ),
+                    child: Icon(
+                      suffixIcon,
+                      color: AppColors.neutral200,
+                      size: 24,
+                    ),
+                  ),
+          ),
+        );
+
+  static CustomInputBorder customBorder({bool asButton = false}) =>
+      CustomInputBorder(
+        borderSide: BorderSide(
+          color: !asButton ? AppColors.neutralAlpha50 : AppColors.purpleAlpha10,
         ),
-      ),
-    );
-  }
+        borderRadius: BorderRadius.circular(
+          AppSpacing.spacing8,
+        ),
+      );
 }
