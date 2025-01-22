@@ -4,16 +4,17 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/text_style_extensions.dart';
 
 class SecondaryButton extends OutlinedButton {
   SecondaryButton({
     super.key,
     required super.onPressed,
-    required String label,
+    String? label,
     IconData? icon,
   }) : super(
             style: OutlinedButton.styleFrom(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(23.5),
               backgroundColor: AppColors.purple50,
               side: const BorderSide(color: AppColors.purpleAlpha10),
               shape: RoundedRectangleBorder(
@@ -21,20 +22,27 @@ class SecondaryButton extends OutlinedButton {
               ),
             ),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 if (icon != null)
                   Icon(
                     icon,
                     color: AppColors.purple,
-                    size: 24,
+                    size: 22,
                   ),
-                const Gap(AppSpacing.spacing12),
-                Text(
-                  label,
-                  style: AppTextStyles.body2.copyWith(
-                    color: AppColors.purple,
+                if (label != null) const Gap(AppSpacing.spacing8),
+                if (label != null)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 1),
+                    child: Text(
+                      label,
+                      style: AppTextStyles.body3
+                          .copyWith(
+                            color: AppColors.purple,
+                          )
+                          .semibold,
+                    ),
                   ),
-                ),
               ],
             ));
 }
