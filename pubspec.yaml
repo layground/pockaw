@@ -52,6 +52,7 @@ dependencies:
   json_annotation: ^4.9.0
   lottie: ^3.1.3
   riverpod_annotation: ^2.6.1
+  shared_preferences: ^2.3.5
   syncfusion_flutter_datepicker: ^27.1.56
   syncfusion_flutter_charts: ^27.1.56
   wolt_modal_sheet: ^0.9.3
