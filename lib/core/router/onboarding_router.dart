@@ -5,7 +5,7 @@ import 'package:pockaw/features/onboarding/presentation/screens/onboarding_scree
 class OnboardingRouter {
   static final routes = <GoRoute>[
     GoRoute(
-      path: Routes.index,
+      path: Routes.onboarding,
       builder: (context, state) => const OnboardingScreen(),
     ),
   ];

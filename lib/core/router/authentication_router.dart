@@ -6,7 +6,7 @@ import 'package:pockaw/features/main/presentation/screens/main_screen.dart';
 class AuthenticationRouter {
   static final routes = <GoRoute>[
     GoRoute(
-      path: Routes.login,
+      path: Routes.getStarted,
       builder: (context, state) => const LoginScreen(),
     ),
     GoRoute(
