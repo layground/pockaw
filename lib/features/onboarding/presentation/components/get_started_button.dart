@@ -17,7 +17,11 @@ class GetStartedButton extends StatelessWidget {
         ),
         child: PrimaryButton(
           label: 'Get Started',
-          onPressed: () => context.push(Routes.login),
+          onPressed: () async {
+            final prefs = await SharedPreferences.getInstance();
+            prefs.setBool('has_session', true);
+            if (context.mounted) context.push(Routes.index); // route '/'
+          },
         ),
       ),
     );

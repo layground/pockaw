@@ -5,6 +5,7 @@ import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part '../components/get_started_button.dart';
 
