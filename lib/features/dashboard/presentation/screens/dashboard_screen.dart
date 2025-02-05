@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
@@ -31,11 +32,20 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const PreferredSize(
+        preferredSize: Size.fromHeight(85),
+        child: Header(),
+      ),
       body: ListView(
+        padding: EdgeInsets.zero,
         children: [
-          const Header(),
           Container(
-            margin: const EdgeInsets.all(AppSpacing.spacing20),
+            margin: const EdgeInsets.fromLTRB(
+              AppSpacing.spacing20,
+              0,
+              AppSpacing.spacing20,
+              AppSpacing.spacing20,
+            ),
             child: const Column(
               children: [
                 BalanceCard(),

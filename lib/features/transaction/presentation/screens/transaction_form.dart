@@ -67,7 +67,6 @@ class TransactionForm extends HookWidget {
                     const Gap(AppSpacing.spacing12),
                     CustomTextField(
                       controller: titleController,
-                      focusNode: titleFocus,
                       label: 'Title',
                       hint: 'Lunch with my friends',
                       prefixIcon: TablerIcons.letter_case,
@@ -81,26 +80,32 @@ class TransactionForm extends HookWidget {
                       hint: '\$ 34',
                       icon: TablerIcons.coin,
                       isRequired: true,
+                      autofocus: true,
                     ),
                     const Gap(AppSpacing.spacing16),
-                    Row(
-                      children: [
-                        SecondaryButton(
-                          onPressed: () {},
-                          icon: TablerIcons.shopping_bag_check,
-                        ),
-                        const Gap(AppSpacing.spacing8),
-                        Expanded(
-                          child: CustomSelectField(
-                            label: 'Category',
-                            hint: 'Groceries • Cosmetics',
-                            isRequired: true,
-                            onTap: () {
-                              context.push(Routes.categoryList);
-                            },
+                    IntrinsicHeight(
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            height: double.infinity,
+                            child: SecondaryButton(
+                              onPressed: () {},
+                              icon: TablerIcons.shopping_bag_check,
+                            ),
                           ),
-                        ),
-                      ],
+                          const Gap(AppSpacing.spacing8),
+                          Expanded(
+                            child: CustomSelectField(
+                              label: 'Category',
+                              hint: 'Groceries • Cosmetics',
+                              isRequired: true,
+                              onTap: () {
+                                context.push(Routes.categoryList);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                     const Gap(AppSpacing.spacing16),
                     CustomSelectField(
@@ -152,8 +157,8 @@ class TransactionForm extends HookWidget {
                       child: Stack(
                         children: [
                           Positioned(
-                            right: 0,
-                            top: 0,
+                            right: 5,
+                            top: 5,
                             child: CustomIconButton(
                               onPressed: () {},
                               icon: TablerIcons.trash,
@@ -185,7 +190,9 @@ class TransactionForm extends HookWidget {
               ),
               child: PrimaryButton(
                 label: 'Save',
-                onPressed: () {},
+                onPressed: () {
+                  context.pop();
+                },
               ),
             ),
           ),

@@ -23,19 +23,38 @@ class BalanceCard extends StatelessWidget {
           const WalletSwitcherDropdown(),
           const Gap(AppSpacing.spacing8),
           Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Text(
-                'Rp.',
-                style: AppTextStyles.body3.copyWith(
-                  color: AppColors.neutral900,
-                ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Rp.',
+                    style: AppTextStyles.body3.copyWith(
+                      color: AppColors.neutral900,
+                    ),
+                  ),
+                  Text(
+                    '791.235.401',
+                    style: AppTextStyles.numericHeading.copyWith(
+                      color: AppColors.secondary950,
+                      height: 1,
+                    ),
+                  ),
+                ],
               ),
-              Text(
-                '791.235.401',
-                style: AppTextStyles.numericHeading.copyWith(
-                  color: AppColors.secondary950,
-                  height: 1,
+              const Gap(AppSpacing.spacing8),
+              Container(
+                padding: const EdgeInsets.all(AppSpacing.spacing4),
+                decoration: BoxDecoration(
+                  color: AppColors.purpleAlpha10,
+                  border: Border.all(color: AppColors.purpleAlpha10),
+                  borderRadius: BorderRadius.circular(AppRadius.radius8),
+                ),
+                child: const Icon(
+                  TablerIcons.eye,
+                  size: 14,
+                  color: AppColors.purple,
                 ),
               ),
             ],

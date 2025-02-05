@@ -53,11 +53,15 @@ class TransactionCard extends StatelessWidget {
                   color: amountColor,
                 ),
               ),
-              Text(
-                '$amount',
-                style: AppTextStyles.numericTitle.copyWith(
-                  color: amountColor,
-                  height: 1,
+              Expanded(
+                child: AutoSizeText(
+                  '$amount',
+                  style: AppTextStyles.numericTitle.copyWith(
+                    color: amountColor,
+                    height: 1,
+                  ),
+                  maxLines: 1,
+                  minFontSize: AppTextStyles.numericTitle.fontSize! - 8,
                 ),
               ),
             ],
