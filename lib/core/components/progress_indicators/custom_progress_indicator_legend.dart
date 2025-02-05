@@ -25,7 +25,7 @@ class CustomProgressIndicatorLegend extends StatelessWidget {
         Text(
           label,
           style: AppTextStyles.body5.copyWith(
-            color: AppColors.primary700,
+            color: AppColors.neutral700,
           ),
         )
       ],
