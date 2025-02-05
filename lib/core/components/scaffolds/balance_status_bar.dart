@@ -3,14 +3,14 @@ part of 'custom_scaffold.dart';
 class BalanceStatusBar extends PreferredSize {
   BalanceStatusBar({super.key})
       : super(
-          preferredSize: const Size.fromHeight(40),
+          preferredSize: const Size.fromHeight(35),
           child: Container(
-            height: 40,
+            height: 35,
             margin: const EdgeInsets.fromLTRB(
               AppSpacing.spacing20,
-              6,
+              0,
               AppSpacing.spacing20,
-              6,
+              0,
             ),
             padding: const EdgeInsetsDirectional.symmetric(
               horizontal: AppSpacing.spacing8,
