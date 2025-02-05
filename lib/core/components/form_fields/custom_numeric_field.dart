@@ -12,6 +12,7 @@ class CustomNumericField extends StatelessWidget {
   final IconData? icon;
   final IconData? suffixIcon;
   final bool isRequired;
+  final bool autofocus;
 
   const CustomNumericField({
     super.key,
@@ -23,6 +24,7 @@ class CustomNumericField extends StatelessWidget {
     this.icon,
     this.suffixIcon,
     this.isRequired = false,
+    this.autofocus = false,
   });
 
   final String currencyPrefix = '\$';
@@ -96,6 +98,7 @@ class CustomNumericField extends StatelessWidget {
       ],
       onChanged: onChanged,
       isRequired: isRequired,
+      autofocus: autofocus,
     );
   }
 }
