@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pockaw/app.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pockaw/core/app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,5 +11,5 @@ void main() {
       statusBarIconBrightness: Brightness.dark, // Adjust for light/dark icons.
     ),
   );
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
