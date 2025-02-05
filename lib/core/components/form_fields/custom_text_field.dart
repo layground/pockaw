@@ -14,6 +14,7 @@ class CustomTextField extends TextField {
     super.textInputAction,
     super.inputFormatters,
     super.readOnly,
+    super.autofocus,
     super.minLines,
     super.maxLines,
     super.onChanged,
