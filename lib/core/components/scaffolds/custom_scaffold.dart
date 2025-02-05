@@ -25,7 +25,8 @@ class CustomScaffold extends Scaffold {
           body: body,
           appBar: AppBar(
             leadingWidth: 80,
-            titleSpacing: 0,
+            titleSpacing: showBackButton ? 0 : AppSpacing.spacing20,
+            toolbarHeight: 60,
             automaticallyImplyLeading: false,
             leading: !showBackButton
                 ? null
@@ -39,7 +40,10 @@ class CustomScaffold extends Scaffold {
                     title,
                     style: AppTextStyles.heading6,
                   ),
-            actions: actions,
+            actions: [
+              ...?actions,
+              const Gap(AppSpacing.spacing20),
+            ],
             bottom: !showBalance ? null : BalanceStatusBar(),
           ),
         );
