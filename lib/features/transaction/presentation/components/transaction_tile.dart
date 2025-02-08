@@ -7,7 +7,11 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 
 class TransactionTile extends StatelessWidget {
-  const TransactionTile({super.key});
+  final bool showDate;
+  const TransactionTile({
+    super.key,
+    this.showDate = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -71,15 +75,16 @@ class TransactionTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Text(
-                      '09 December',
-                      style: AppTextStyles.body5.copyWith(
-                        color: AppColors.neutral500,
+                    if (showDate)
+                      Text(
+                        '09 December',
+                        style: AppTextStyles.body5.copyWith(
+                          color: AppColors.neutral500,
+                        ),
                       ),
-                    ),
-                    const Gap(AppSpacing.spacing4),
+                    if (showDate) const Gap(AppSpacing.spacing4),
                     Text(
-                      'Rp. 1.120.300',
+                      '1.120.300',
                       style: AppTextStyles.numericMedium.copyWith(
                         color: AppColors.red700,
                         height: 1.12,

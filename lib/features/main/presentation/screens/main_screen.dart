@@ -15,28 +15,32 @@ class MainScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final currentPage = ref.watch(pageControllerProvider);
     final pageController = PageController(initialPage: currentPage);
-    return Material(
-      child: Stack(
-        children: [
-          PageView(
-            controller: pageController,
-            onPageChanged: (value) {
-              ref.read(pageControllerProvider.notifier).setPage(value);
-            },
-            children: const [
-              DashboardScreen(),
-              TransactionScreen(),
-              GoalScreen(),
-              BudgetScreen(),
-            ],
-          ),
-          Positioned(
-            bottom: 20,
-            left: AppSpacing.spacing16,
-            right: AppSpacing.spacing16,
-            child: CustomBottomAppBar(pageController: pageController),
-          ),
-        ],
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {},
+      child: Material(
+        child: Stack(
+          children: [
+            PageView(
+              controller: pageController,
+              onPageChanged: (value) {
+                ref.read(pageControllerProvider.notifier).setPage(value);
+              },
+              children: const [
+                DashboardScreen(),
+                TransactionScreen(),
+                GoalScreen(),
+                BudgetScreen(),
+              ],
+            ),
+            Positioned(
+              bottom: 20,
+              left: AppSpacing.spacing16,
+              right: AppSpacing.spacing16,
+              child: CustomBottomAppBar(pageController: pageController),
+            ),
+          ],
+        ),
       ),
     );
   }
