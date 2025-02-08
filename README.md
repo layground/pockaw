@@ -125,7 +125,7 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 
 ## 📆 Roadmap
 
-### Q1 (March 2025) - Core Setup & MVP Launch ![8%](https://progress-bar.xyz/8/?width=40)
+### Q1 (Closed Testing #1) - Core Setup & MVP Launch ![8%](https://progress-bar.xyz/8/?width=40)
 - [x] **Splash & Onboarding** - Design and implement welcoming splash screen and onboarding process.
 - [ ] **Authentication?** - Just fill personal data for offline use, no registration.
 - [ ] **Pockets & Wallets** - Add multiple sources, set balances, and customize for easy management.
@@ -133,22 +133,31 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 - [ ] **Custom Categories** - Enable users to create and manage custom categories for better personalization.
 - [ ] **Publish on Google Play** - The first fully offline experience of Pockaw.
 
-### Q2 (June 2025) - Enhanced Budgeting & Analytics ![0%](https://progress-bar.xyz/0/?width=40)
+### Q2 - Enhanced Budgeting & Analytics ![0%](https://progress-bar.xyz/0/?width=40)
 - [ ] **Budget Goals & Tracking** - Set monthly/weekly spending goals and visualize budget adherence.
 - [ ] **Expense Summary & Analytics** - Add charts for monthly income/expense trends, custom filters, and analytics.
 - [ ] **User Reminders & Notifications** - Implement notifications for due dates and spending goals.
 - [ ] **Advanced Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
 
-### Q3 (September 2025) - Enhanced User Experience ![0%](https://progress-bar.xyz/0/?width=40)
+### Q3 (Closed Testing #2) - Enhanced User Experience ![0%](https://progress-bar.xyz/0/?width=40)
 - [ ] **Transaction Reminder** - Forgetting things? Chill! Pockaw will remind you to record transactions.
 - [ ] **Advanced Customization** - Let users set date format, first day of the week/month, and other preferences in settings.
 - [ ] **Improved Accessibility** - Add accessibility features, including screen reader support and keyboard navigation.
 - [ ] **Release on Web** - Get a wider view and perspective of Pockaw (of course need a bit of connection).
 
-### Q4 (December 2025) - Shields On! ![0%](https://progress-bar.xyz/0/?width=40)
+### Q4 (Open Beta) - Shields On! ![0%](https://progress-bar.xyz/0/?width=40)
 - [ ] **Data Sync & Backup** - Implement cloud sync and backup options to store data securely across devices.
 - [ ] **Biometrics and PIN** - Add layers of security so you are in charge of your own wealth condition.
 - [ ] **Release on Desktop** - Windows users will get the official desktop look and feel of Pockaw. **
+
+### Pre Release
+- [ ] Collect feedbacks
+- [ ] Assets finishing
+- [ ] Performance improvement
+- [ ] Create documentation page
+
+### Full Release v1.0
+- [ ] Breaking change is possible at this stage. 
 
 ## 🖥️ Platform Release Priority
 - [ ] **Android**
