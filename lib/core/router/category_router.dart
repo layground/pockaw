@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/features/category_form/presentation/screens/category_form_screen.dart';
 import 'package:pockaw/features/category_picker/presentation/screens/category_picker_screen.dart';
 
 class CategoryRouter {
@@ -7,6 +8,15 @@ class CategoryRouter {
     GoRoute(
       path: Routes.categoryList,
       builder: (context, state) => const CategoryPickerScreen(),
+    ),
+    GoRoute(
+      path: Routes.categoryListPickingParent,
+      builder: (context, state) =>
+          const CategoryPickerScreen(isPickingParent: true),
+    ),
+    GoRoute(
+      path: Routes.categoryForm,
+      builder: (context, state) => const CategoryFormScreen(),
     ),
   ];
 }

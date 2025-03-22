@@ -7,4 +7,6 @@ class Routes {
   static const String main = index;
   static const String transactionForm = '/transaction-form';
   static const String categoryList = '/categories';
+  static const String categoryListPickingParent = '/categories-pick-parent';
+  static const String categoryForm = '/category-form';
 }
