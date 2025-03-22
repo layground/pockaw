@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pockaw/core/router/authentication_router.dart';
 import 'package:pockaw/core/router/category_router.dart';
+import 'package:pockaw/core/router/goal_router.dart';
 import 'package:pockaw/core/router/onboarding_router.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/router/transaction_router.dart';
@@ -31,6 +32,7 @@ final router = GoRouter(
     ...AuthenticationRouter.routes,
     ...TransactionRouter.routes,
     ...CategoryRouter.routes,
+    ...GoalRouter.routes,
     GoRoute(
       path: Routes.currencyListTile,
       builder: (context, state) => const CurrencyListTiles(),

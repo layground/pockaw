@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
-import 'package:gap/gap.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
-import 'package:pockaw/features/goal/presentation/components/goal_card.dart';
+import 'package:pockaw/features/goal/presentation/components/goal_checklist_holder.dart';
+import 'package:pockaw/features/goal/presentation/components/goal_title_card.dart';
 
-class GoalScreen extends StatelessWidget {
-  const GoalScreen({super.key});
+class GoalDetailsScreen extends StatelessWidget {
+  const GoalDetailsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,19 +18,19 @@ class GoalScreen extends StatelessWidget {
       actions: [
         CustomIconButton(
           onPressed: () {},
-          icon: TablerIcons.plus,
+          icon: TablerIcons.edit,
           iconSize: IconSize.medium,
         ),
       ],
-      body: ListView.separated(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.spacing20,
-          vertical: AppSpacing.spacing20,
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(AppSpacing.spacing20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            GoalTitleCard(),
+            GoalChecklistHolder(),
+          ],
         ),
-        shrinkWrap: true,
-        itemCount: 3,
-        itemBuilder: (context, index) => const GoalCard(),
-        separatorBuilder: (context, index) => const Gap(AppSpacing.spacing12),
       ),
     );
   }
