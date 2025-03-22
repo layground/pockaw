@@ -13,7 +13,6 @@ class GoalDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScaffold(
       context: context,
-      showBackButton: false,
       title: 'My Goals',
       actions: [
         CustomIconButton(
