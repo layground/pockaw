@@ -5,6 +5,7 @@ import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_card.dart';
+import 'package:pockaw/features/goal/presentation/screens/goal_form_dialog.dart';
 
 class GoalScreen extends StatelessWidget {
   const GoalScreen({super.key});
@@ -17,7 +18,13 @@ class GoalScreen extends StatelessWidget {
       title: 'My Goals',
       actions: [
         CustomIconButton(
-          onPressed: () {},
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              showDragHandle: true,
+              builder: (context) => const GoalFormDialog(),
+            );
+          },
           icon: TablerIcons.plus,
           iconSize: IconSize.medium,
         ),
