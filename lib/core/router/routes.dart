@@ -11,4 +11,5 @@ class Routes {
   static const String categoryForm = '/category-form';
   static const String goalDetails = '/goal-details';
   static const String budgetDetails = '/budget-details';
+  static const String budgetForm = '/budget-form';
 }
