@@ -22,6 +22,7 @@ class CategoryDropdown extends HookConsumerWidget {
           expandableController.toggle();
         },
         child: CategoryTile(
+          title: 'Entertainment',
           suffixIcon: TablerIcons.chevron_down,
           onSuffixIconPressed: () {
             expandableController.toggle();
@@ -39,6 +40,7 @@ class CategoryDropdown extends HookConsumerWidget {
         physics: const NeverScrollableScrollPhysics(),
         separatorBuilder: (context, index) => const Gap(AppSpacing.spacing8),
         itemBuilder: (context, index) => const CategoryTile(
+          title: 'Movie',
           suffixIcon: TablerIcons.circle_check_filled,
         ),
       ),
