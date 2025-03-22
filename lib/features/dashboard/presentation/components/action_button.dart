@@ -13,7 +13,9 @@ class ActionButton extends StatelessWidget {
           showBadge: true,
         ),
         CustomIconButton(
-          onPressed: () {},
+          onPressed: () {
+            context.push(Routes.settings);
+          },
           icon: TablerIcons.settings_2,
         ),
       ],
