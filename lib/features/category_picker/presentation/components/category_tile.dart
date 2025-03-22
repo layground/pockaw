@@ -8,12 +8,14 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 
 class CategoryTile extends StatelessWidget {
+  final String title;
   final double? height;
   final double? iconSize;
   final IconData? suffixIcon;
   final GestureTapCallback? onSuffixIconPressed;
   const CategoryTile({
     super.key,
+    required this.title,
     this.onSuffixIconPressed,
     this.suffixIcon,
     this.height,
@@ -49,9 +51,9 @@ class CategoryTile extends StatelessWidget {
             ),
           ),
           const Gap(AppSpacing.spacing8),
-          const Expanded(
+          Expanded(
             child: Text(
-              'Entertainment',
+              title,
               style: AppTextStyles.body3,
             ),
           ),
