@@ -4,6 +4,7 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pockaw/core/components/buttons/button_chip.dart';
+import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/buttons/secondary_button.dart';
@@ -177,25 +178,13 @@ class TransactionForm extends HookWidget {
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              padding: const EdgeInsets.only(
-                left: AppSpacing.spacing20,
-                right: AppSpacing.spacing20,
-                bottom: AppSpacing.spacing20,
-                top: AppSpacing.spacing20,
-              ),
-              child: PrimaryButton(
-                label: 'Save',
-                onPressed: () {
-                  context.pop();
-                },
-              ),
-            ),
-          ),
+          PrimaryButton(
+            label: 'Save',
+            state: ButtonState.active,
+            onPressed: () {
+              context.pop();
+            },
+          ).floatingBottom,
         ],
       ),
     );
