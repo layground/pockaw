@@ -31,10 +31,12 @@ class AppButtonStyles {
 
   static final primaryOutlinedActive = FilledButton.styleFrom(
     backgroundColor: AppColors.light,
-    foregroundColor: AppColors.primary900,
+    foregroundColor: AppColors.primary,
     shape: defaultButtonShape.copyWith(
       side: const BorderSide(
-          color: AppColors.primary900, width: AppBorders.border2),
+        color: AppColors.primary,
+        width: AppBorders.border2,
+      ),
     ),
     padding: defaultButtonPadding,
   );

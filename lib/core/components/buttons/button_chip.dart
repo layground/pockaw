@@ -38,6 +38,7 @@ class ButtonChip extends StatelessWidget {
           AppSpacing.spacing8,
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               active ? TablerIcons.circle_check_filled : TablerIcons.circle,
