@@ -7,6 +7,7 @@ import 'package:pockaw/core/router/category_router.dart';
 import 'package:pockaw/core/router/goal_router.dart';
 import 'package:pockaw/core/router/onboarding_router.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/core/router/settings_router.dart';
 import 'package:pockaw/core/router/transaction_router.dart';
 import 'package:pockaw/features/currency_picker/presentation/screens/currency_list_tiles.dart';
 import 'package:pockaw/features/splash/presentation/screens/splash_screen.dart';
@@ -35,6 +36,7 @@ final router = GoRouter(
     ...CategoryRouter.routes,
     ...GoalRouter.routes,
     ...BudgetRouter.routes,
+    ...SettingsRouter.routes,
     GoRoute(
       path: Routes.currencyListTile,
       builder: (context, state) => const CurrencyListTiles(),
