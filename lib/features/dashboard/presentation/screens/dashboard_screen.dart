@@ -4,7 +4,6 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
 import 'package:pockaw/core/components/buttons/circle_button.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
-import 'package:pockaw/core/components/goal_card/goal_card.dart';
 import 'package:pockaw/core/components/progress_indicators/custom_progress_indicator.dart';
 import 'package:pockaw/core/components/progress_indicators/custom_progress_indicator_legend.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
@@ -13,6 +12,7 @@ import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/features/dashboard/presentation/components/my_goals/my_goals_carousel.dart';
+import 'package:pockaw/features/goal/presentation/components/goal_card.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tile.dart';
 import 'package:pockaw/features/wallet_switcher/presentation/screens/wallet_switcher_dropdown.dart';
 

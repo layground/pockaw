@@ -1,0 +1,70 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+import 'package:gap/gap.dart';
+import 'package:pockaw/core/components/buttons/button_state.dart';
+import 'package:pockaw/core/components/buttons/primary_button.dart';
+import 'package:pockaw/core/components/form_fields/custom_select_field.dart';
+import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
+import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/constants/app_text_styles.dart';
+
+class GoalFormDialog extends StatelessWidget {
+  const GoalFormDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          padding: const EdgeInsets.fromLTRB(
+            AppSpacing.spacing20,
+            0,
+            AppSpacing.spacing20,
+            AppSpacing.spacing20,
+          ),
+          child: Form(
+            child: Column(
+              children: [
+                const Text(
+                  'Add Goal',
+                  style: AppTextStyles.body1,
+                ),
+                const Gap(AppSpacing.spacing32),
+                CustomTextField(
+                  label: 'Title',
+                  hint: 'Lunch with my friends',
+                  isRequired: true,
+                  prefixIcon: TablerIcons.letter_case,
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.name,
+                ),
+                const Gap(AppSpacing.spacing16),
+                CustomSelectField(
+                  label: 'Set a date',
+                  hint: '12 November 2024',
+                  prefixIcon: TablerIcons.calendar,
+                  isRequired: true,
+                  onTap: () {},
+                ),
+                const Gap(AppSpacing.spacing16),
+                CustomTextField(
+                  label: 'Write a note',
+                  hint: 'Write here...',
+                  prefixIcon: TablerIcons.note,
+                  suffixIcon: TablerIcons.align_left,
+                  minLines: 1,
+                  maxLines: 3,
+                ),
+              ],
+            ),
+          ),
+        ),
+        PrimaryButton(
+          label: 'Save',
+          state: ButtonState.active,
+          onPressed: () {},
+        ).floatingBottom,
+      ],
+    );
+  }
+}

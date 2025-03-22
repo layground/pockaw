@@ -127,4 +127,25 @@ extension ButtonExtension on ButtonStyleButton {
           child: this,
         ),
       );
+
+  Widget floatingBottomWithContent({required Widget content}) {
+    return Positioned(
+      bottom: 0,
+      left: 0,
+      right: 0,
+      child: Container(
+        color: AppColors.light,
+        padding: const EdgeInsets.symmetric(
+          vertical: 20,
+          horizontal: 20,
+        ),
+        child: Column(
+          children: [
+            content,
+            this,
+          ],
+        ),
+      ),
+    );
+  }
 }
