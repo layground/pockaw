@@ -4,6 +4,7 @@ import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/button_type.dart';
 import 'package:pockaw/core/components/loading_indicators/loading_indicator.dart';
 import 'package:pockaw/core/constants/app_button_styles.dart';
+import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_font_families.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
@@ -12,6 +13,7 @@ class PrimaryButton extends FilledButton {
   PrimaryButton({
     required String label,
     bool isLoading = false,
+    bool isOutlined = false,
     String loadingText = 'Please wait...',
     IconData? icon,
     ButtonType type = ButtonType.primary,
@@ -109,4 +111,20 @@ class PrimaryButton extends FilledButton {
         }
     }
   }
+}
+
+extension ButtonExtension on ButtonStyleButton {
+  Widget get floatingBottom => Positioned(
+        bottom: 0,
+        left: 0,
+        right: 0,
+        child: Container(
+          color: AppColors.light,
+          padding: const EdgeInsets.symmetric(
+            vertical: 20,
+            horizontal: 20,
+          ),
+          child: this,
+        ),
+      );
 }
