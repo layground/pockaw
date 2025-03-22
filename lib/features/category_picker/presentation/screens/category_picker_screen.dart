@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pockaw/core/components/buttons/button_chip.dart'
     show ButtonChip;
 import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/category_picker/presentation/components/category_dropdown.dart';
 
 class CategoryPickerScreen extends StatelessWidget {
-  const CategoryPickerScreen({super.key});
+  final bool isPickingParent;
+  const CategoryPickerScreen({
+    super.key,
+    this.isPickingParent = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,11 +57,14 @@ class CategoryPickerScreen extends StatelessWidget {
               )
             ],
           ),
-          PrimaryButton(
-            label: 'Add New Category',
-            state: ButtonState.outlinedActive,
-            onPressed: () {},
-          ).floatingBottom,
+          if (!isPickingParent)
+            PrimaryButton(
+              label: 'Add New Category',
+              state: ButtonState.outlinedActive,
+              onPressed: () {
+                context.push(Routes.categoryForm);
+              },
+            ).floatingBottom,
         ],
       ),
     );
