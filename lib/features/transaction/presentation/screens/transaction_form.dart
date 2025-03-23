@@ -5,16 +5,16 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pockaw/core/components/buttons/button_chip.dart';
 import 'package:pockaw/core/components/buttons/button_state.dart';
-import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/buttons/secondary_button.dart';
 import 'package:pockaw/core/components/form_fields/custom_numeric_field.dart';
 import 'package:pockaw/core/components/form_fields/custom_select_field.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
-import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/features/transaction/presentation/components/transaction_image_picker.dart';
+import 'package:pockaw/features/transaction/presentation/components/transaction_image_preview.dart';
 
 class TransactionForm extends HookWidget {
   TransactionForm({super.key});
@@ -126,52 +126,9 @@ class TransactionForm extends HookWidget {
                     maxLines: 3,
                   ),
                   const Gap(AppSpacing.spacing16),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SecondaryButton(
-                          onPressed: () {},
-                          label: 'Camera',
-                          icon: TablerIcons.focus_centered,
-                        ),
-                      ),
-                      const Gap(AppSpacing.spacing8),
-                      Expanded(
-                        child: SecondaryButton(
-                          onPressed: () {},
-                          label: 'Gallery',
-                          icon: TablerIcons.photo,
-                        ),
-                      ),
-                    ],
-                  ),
+                  const TransactionImagePicker(),
                   const Gap(AppSpacing.spacing16),
-                  Container(
-                    width: 100,
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: AppColors.neutral100,
-                      borderRadius: BorderRadius.circular(AppSpacing.spacing8),
-                      border: Border.all(color: AppColors.neutralAlpha25),
-                    ),
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          right: 5,
-                          top: 5,
-                          child: CustomIconButton(
-                            onPressed: () {},
-                            icon: TablerIcons.trash,
-                            backgroundColor: AppColors.red50,
-                            borderColor: AppColors.redAlpha10,
-                            color: AppColors.red,
-                            iconSize: IconSize.tiny,
-                            visualDensity: VisualDensity.compact,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                  const TransactionImagePreview(),
                 ],
               ),
             ),
