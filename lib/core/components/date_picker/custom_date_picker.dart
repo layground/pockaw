@@ -54,12 +54,16 @@ class CustomDatePicker {
 
   static Future<List<DateTime?>?> selectDateRange(
     BuildContext context,
-    List<DateTime?> selectedDateRange,
-  ) async {
+    List<DateTime?> selectedDateRange, {
+    DateTime? firstDate,
+    DateTime? lastDate,
+  }) async {
     var dates = await showCalendarDatePicker2Dialog(
       context: context,
       config: _datePickerConfig.copyWith(
         calendarType: CalendarDatePicker2Type.range,
+        firstDate: firstDate,
+        lastDate: lastDate,
       ),
       dialogSize: const Size(325, 400),
       value: selectedDateRange,
