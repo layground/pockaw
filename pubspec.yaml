@@ -33,6 +33,7 @@ dependencies:
 
   auto_size_text: ^3.0.0
   auto_size_text_field: ^2.2.4
+  calendar_date_picker2: ^2.0.0
   country_flags: ^3.2.0
   dotted_border: ^2.1.0
   drift: ^2.21.0

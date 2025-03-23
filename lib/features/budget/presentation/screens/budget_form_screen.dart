@@ -12,6 +12,7 @@ import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/features/budget/presentation/components/budget_date_range_picker.dart';
 
 class BudgetFormScreen extends StatelessWidget {
   const BudgetFormScreen({super.key});
@@ -57,7 +58,7 @@ class BudgetFormScreen extends StatelessWidget {
                   },
                 ),
                 const Gap(AppSpacing.spacing16),
-                CustomNumericField(
+                const CustomNumericField(
                   // controller: amountController,
                   label: 'Amount',
                   hint: '\$ 34',
@@ -65,15 +66,9 @@ class BudgetFormScreen extends StatelessWidget {
                   isRequired: true,
                 ),
                 const Gap(AppSpacing.spacing16),
-                CustomSelectField(
-                  label: 'Set a date',
-                  hint: '12 November 2024',
-                  prefixIcon: TablerIcons.calendar,
-                  isRequired: true,
-                  onTap: () {},
-                ),
+                const BudgetDateRangePicker(),
                 const Gap(AppSpacing.spacing16),
-                CustomConfirmCheckbox(
+                const CustomConfirmCheckbox(
                   title: 'Mark this budget as routine',
                   subtitle: 'No need to create this budget every time.',
                   checked: false,

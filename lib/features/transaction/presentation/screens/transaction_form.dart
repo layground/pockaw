@@ -13,6 +13,7 @@ import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/features/transaction/presentation/components/transaction_date_picker.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_image_picker.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_image_preview.dart';
 
@@ -109,13 +110,7 @@ class TransactionForm extends HookWidget {
                     ),
                   ),
                   const Gap(AppSpacing.spacing16),
-                  CustomSelectField(
-                    label: 'Set a date',
-                    hint: '12 November 2024',
-                    prefixIcon: TablerIcons.calendar,
-                    isRequired: true,
-                    onTap: () {},
-                  ),
+                  const TransactionDatePicker(),
                   const Gap(AppSpacing.spacing16),
                   CustomTextField(
                     label: 'Write a note',
