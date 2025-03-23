@@ -28,13 +28,13 @@ class CustomDatePicker {
 
   static Future<DateTime?> selectSingleDate(
     BuildContext context,
-    List<DateTime?> selectedDate,
+    DateTime? selectedDate,
   ) async {
     var dates = await showCalendarDatePicker2Dialog(
       context: context,
       config: _datePickerConfig,
       dialogSize: const Size(325, 400),
-      value: selectedDate,
+      value: [selectedDate],
       borderRadius: BorderRadius.circular(15),
     );
 
