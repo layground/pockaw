@@ -19,7 +19,7 @@ class GoalDateRangePicker extends HookConsumerWidget {
     return CustomSelectField(
       controller: dateFieldController,
       label: 'Date to achieve goal',
-      hint: '12 November 2024 - 12 November 2026',
+      hint: '12 Nov 2024 - 12 Nov 2026',
       prefixIcon: TablerIcons.calendar,
       isRequired: true,
       onTap: () async {
