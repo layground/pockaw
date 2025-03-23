@@ -6,6 +6,11 @@ extension DateTimeExtension on DateTime {
     return DateFormat("d MMMM yyyy").format(this);
   }
 
+  /// Format: 12 Nov 2024
+  String toDayShortMonthYear() {
+    return DateFormat("d MMM yyyy").format(this);
+  }
+
   /// Format: March 13, 2025
   String toMonthDayYear() {
     return DateFormat("MMMM d, yyyy").format(this);
