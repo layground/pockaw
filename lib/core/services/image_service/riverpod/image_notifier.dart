@@ -8,32 +8,37 @@ class ImageNotifier extends StateNotifier<ImageState> {
 
   ImageNotifier(this._imageService) : super(ImageState());
 
-  Future<void> pickImage() async {
+  Future<String?> pickImage() async {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
       final image = await _imageService.pickImageFromGallery();
       state = state.copyWith(imageFile: image, isLoading: false);
+      return state.savedPath;
     } catch (e) {
       state = state.copyWith(
         error: 'Failed to pick image: $e',
         isLoading: false,
       );
     }
+
+    return '';
   }
 
-  Future<void> takePhoto() async {
+  Future<String?> takePhoto() async {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
       final image = await _imageService.takePhoto();
       state = state.copyWith(imageFile: image, isLoading: false);
+      return state.savedPath;
     } catch (e) {
       state = state.copyWith(
         error: 'Failed to take photo: $e',
         isLoading: false,
       );
     }
+    return '';
   }
 
   Future<String?> saveImage() async {

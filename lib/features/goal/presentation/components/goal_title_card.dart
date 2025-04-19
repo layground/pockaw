@@ -11,13 +11,13 @@ class GoalTitleCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: EdgeInsets.all(AppSpacing.spacing20),
+      padding: const EdgeInsets.all(AppSpacing.spacing20),
       decoration: BoxDecoration(
         color: AppColors.secondary50,
         border: Border.all(color: AppColors.secondaryAlpha10),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
-      child: Column(
+      child: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

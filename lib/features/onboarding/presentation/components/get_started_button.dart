@@ -1,10 +1,10 @@
 part of '../screens/onboarding_screen.dart';
 
-class GetStartedButton extends StatelessWidget {
+class GetStartedButton extends ConsumerWidget {
   const GetStartedButton({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return Positioned(
       bottom: 0,
       left: 0,
@@ -17,10 +17,8 @@ class GetStartedButton extends StatelessWidget {
         ),
         child: PrimaryButton(
           label: 'Get Started',
-          onPressed: () async {
-            final prefs = await SharedPreferences.getInstance();
-            prefs.setBool('has_session', true);
-            if (context.mounted) context.push(Routes.index); // route '/'
+          onPressed: () {
+            if (context.mounted) context.push(Routes.getStarted); // route '/'
           },
         ),
       ),

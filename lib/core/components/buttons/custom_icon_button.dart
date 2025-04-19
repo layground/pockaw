@@ -51,13 +51,9 @@ class CustomIconButton extends IconButton {
         );
 
   static double _getIconSize(IconSize size) => switch (size) {
-        // TODO: Handle this case.
         IconSize.large => 26,
-        // TODO: Handle this case.
         IconSize.medium => 22,
-        // TODO: Handle this case.
         IconSize.small => 18,
-        // TODO: Handle this case.
         IconSize.tiny => 14,
       };
 
