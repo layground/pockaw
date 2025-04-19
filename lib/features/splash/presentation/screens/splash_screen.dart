@@ -4,15 +4,17 @@ import 'package:go_router/go_router.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/router/app_router.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 
 class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context, ref) {
-    ref.read(authProvider.future).then(
-      (hasSession) {
-        if (!hasSession) {
+    final auth = ref.read(authStateProvider.notifier);
+    auth.getSession().then(
+      (user) {
+        if (user == null) {
           GoRouter.of(rootNavKey.currentContext!).go(Routes.onboarding);
         } else {
           GoRouter.of(rootNavKey.currentContext!).go(Routes.main);

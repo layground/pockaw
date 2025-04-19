@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
@@ -10,16 +12,27 @@ import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/core/services/image_service/domain/image_state.dart';
+import 'package:pockaw/core/services/image_service/image_service.dart';
+import 'package:pockaw/core/services/image_service/riverpod/image_notifier.dart';
+import 'package:pockaw/features/authentication/domain/models/user_model.dart';
+import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/currency_picker/presentation/components/currency_picker_field.dart';
+import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
 
 part '../components/form.dart';
 part '../components/logo.dart';
+part '../components/login_info.dart';
+part '../components/login_image_picker.dart';
+part '../components/get_started_description.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends HookConsumerWidget {
   const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final nameField = useTextEditingController();
+
     return Scaffold(
       backgroundColor: AppColors.light,
       body: Stack(
@@ -28,17 +41,16 @@ class LoginScreen extends StatelessWidget {
           Container(
             // color: Colors.yellow,
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: const SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Logo(),
-                  Gap(AppSpacing.spacing48),
-                  Form(),
-                ],
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Logo(),
+                const Gap(AppSpacing.spacing48),
+                Form(
+                  nameField: nameField,
+                ),
+              ],
             ),
           ),
           Positioned(
@@ -53,7 +65,18 @@ class LoginScreen extends StatelessWidget {
               ),
               child: PrimaryButton(
                 label: 'Login',
-                onPressed: () => context.push(Routes.main),
+                onPressed: () {
+                  final user = UserModel(
+                    id: 1,
+                    name: nameField.text,
+                    email: 'user@mail.com',
+                    profilePicture: ref.read(loginImageProvider).savedPath,
+                    currency: ref.read(currencyProvider),
+                  );
+
+                  ref.read(authStateProvider.notifier).setUser(user);
+                  context.push(Routes.main);
+                },
               ),
             ),
           )

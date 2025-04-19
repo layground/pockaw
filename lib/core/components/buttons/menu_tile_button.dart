@@ -9,16 +9,19 @@ class MenuTileButton extends StatelessWidget {
   final String label;
   final IconData icon;
   final IconData? suffixIcon;
+  final GestureTapCallback? onTap;
   const MenuTileButton({
     super.key,
     required this.label,
     required this.icon,
     this.suffixIcon,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: onTap,
       tileColor: AppColors.secondary50,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppRadius.radius8),
