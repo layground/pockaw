@@ -34,9 +34,6 @@ class TransactionForm extends HookWidget {
     final titleController = useTextEditingController();
     final amountController = useTextEditingController();
 
-    final titleFocus = useFocusNode();
-    final amountFocus = useFocusNode();
-
     return CustomScaffold(
       context: context,
       title: 'Add Transaction',

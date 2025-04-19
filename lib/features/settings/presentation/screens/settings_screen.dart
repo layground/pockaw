@@ -6,8 +6,6 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pockaw/core/components/buttons/menu_tile_button.dart';
-import 'package:pockaw/core/components/buttons/primary_button.dart';
-import 'package:pockaw/core/components/buttons/secondary_button.dart';
 import 'package:pockaw/core/components/chips/custom_currency_chip.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
@@ -16,7 +14,6 @@ import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/settings/presentation/components/settings_group_holder.dart';
-import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 part '../components/app_version_info.dart';
 part '../components/profile_card.dart';

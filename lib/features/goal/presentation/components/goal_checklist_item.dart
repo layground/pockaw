@@ -13,13 +13,13 @@ class GoalChecklistItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(AppSpacing.spacing12),
+      padding: const EdgeInsets.all(AppSpacing.spacing12),
       decoration: BoxDecoration(
         color: AppColors.primaryAlpha10,
         border: Border.all(color: AppColors.primaryAlpha10),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
-      child: Column(
+      child: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(

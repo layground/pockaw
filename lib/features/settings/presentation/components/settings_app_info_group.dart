@@ -31,14 +31,14 @@ class SettingsAppInfoGroup extends ConsumerWidget {
             showAdaptiveDialog(
               context: context,
               builder: (context) => AlertDialog.adaptive(
-                title: Text('Logout'),
-                content: Text('Continue to logout from this accout?'),
+                title: const Text('Logout'),
+                content: const Text('Continue to logout from this accout?'),
                 actions: [
                   TextButton(
                     onPressed: () {
                       context.pop();
                     },
-                    child: Text('No'),
+                    child: const Text('No'),
                   ),
                   TextButton(
                     onPressed: () {
@@ -46,7 +46,7 @@ class SettingsAppInfoGroup extends ConsumerWidget {
                       ref.read(authStateProvider.notifier).logout();
                       context.replace(Routes.onboarding);
                     },
-                    child: Text('Yes'),
+                    child: const Text('Yes'),
                   ),
                 ],
               ),
