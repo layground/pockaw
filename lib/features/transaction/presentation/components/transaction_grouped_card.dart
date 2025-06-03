@@ -46,7 +46,7 @@ class TransactionGroupedCard extends StatelessWidget {
             shrinkWrap: true,
             padding: EdgeInsets.zero,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: 5,
+            itemCount: 1,
             itemBuilder: (context, index) => const TransactionTile(
               showDate: false,
             ),

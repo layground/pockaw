@@ -7,14 +7,22 @@ import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/core/db/app_database.dart'; // for Goal model
 
 class GoalCard extends StatelessWidget {
-  const GoalCard({super.key});
+  final Goal goal;
+  const GoalCard({Key? key, required this.goal}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.push(Routes.goalDetails),
+      onTap: () {
+        print('🔍  Navigating to GoalDetails for goalId=${goal.id}');
+        context.push(
+          Routes.goalDetails,
+          extra: goal.id, // <-- pass the ID along
+        );
+      },
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.spacing12),
         decoration: BoxDecoration(
@@ -24,18 +32,20 @@ class GoalCard extends StatelessWidget {
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  'Build my dream PC',
-                  style: AppTextStyles.body3,
+                Expanded(
+                  child: Text(
+                    goal.title,
+                    style: AppTextStyles.body3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-                Icon(
+                const Icon(
                   TablerIcons.chevron_right,
                   color: AppColors.purple,
                   size: 20,

@@ -1,3 +1,5 @@
+// lib/features/goal/presentation/components/goal_checklist_item.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
@@ -6,9 +8,11 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/db/app_database.dart'; // for ChecklistItem
 
 class GoalChecklistItem extends StatelessWidget {
-  const GoalChecklistItem({super.key});
+  final ChecklistItem item;
+  const GoalChecklistItem({Key? key, required this.item}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,42 +23,46 @@ class GoalChecklistItem extends StatelessWidget {
         border: Border.all(color: AppColors.primaryAlpha10),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
-      child: const Column(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Title + status icon
           Row(
             children: [
               Expanded(
                 child: Text(
-                  'Buy NVIDIA graphic card',
+                  item.title,
                   style: AppTextStyles.body3,
                 ),
               ),
-              Icon(TablerIcons.circle_check_filled)
+              const Icon(
+                // you could make this conditional on a “done” flag later
+                TablerIcons.circle_check_filled,
+                color: AppColors.purple,
+              )
             ],
           ),
-          Gap(AppSpacing.spacing4),
+          const Gap(AppSpacing.spacing4),
+          // Chips for amount and link
           Wrap(
-            crossAxisAlignment: WrapCrossAlignment.start,
-            alignment: WrapAlignment.start,
-            runAlignment: WrapAlignment.start,
             runSpacing: AppSpacing.spacing4,
             spacing: AppSpacing.spacing4,
             children: [
               CustomChip(
-                label: 'Rp. 2.455.999',
+                label: 'Rp. ${item.amount?.toStringAsFixed(2)}',
                 background: AppColors.tertiary100,
                 foreground: AppColors.dark,
                 borderColor: AppColors.tertiaryAlpha25,
               ),
-              CustomChip(
-                label: 'site.com',
-                background: AppColors.tertiary100,
-                foreground: AppColors.dark,
-                borderColor: AppColors.tertiaryAlpha25,
-              ),
+              if (item.link != null && item.link!.isNotEmpty)
+                CustomChip(
+                  label: item.link!,
+                  background: AppColors.tertiary100,
+                  foreground: AppColors.dark,
+                  borderColor: AppColors.tertiaryAlpha25,
+                ),
             ],
-          )
+          ),
         ],
       ),
     );

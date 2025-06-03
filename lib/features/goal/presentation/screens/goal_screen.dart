@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
@@ -7,11 +8,15 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_card.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_form_dialog.dart';
 
-class GoalScreen extends StatelessWidget {
+import '../riverpod/goals_list_provider.dart';
+
+class GoalScreen extends ConsumerWidget {
   const GoalScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final asyncGoals = ref.watch(goalsListProvider);
+
     return CustomScaffold(
       context: context,
       showBackButton: false,
@@ -29,15 +34,15 @@ class GoalScreen extends StatelessWidget {
           iconSize: IconSize.medium,
         ),
       ],
-      body: ListView.separated(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.spacing20,
-          vertical: AppSpacing.spacing20,
+      body: asyncGoals.when(
+        data: (goals) => ListView.separated(
+          padding: const EdgeInsets.all(AppSpacing.spacing20),
+          itemCount: goals.length,
+          itemBuilder: (_, i) => GoalCard(goal: goals[i]),
+          separatorBuilder: (_, __) => const Gap(AppSpacing.spacing12),
         ),
-        shrinkWrap: true,
-        itemCount: 3,
-        itemBuilder: (context, index) => const GoalCard(),
-        separatorBuilder: (context, index) => const Gap(AppSpacing.spacing12),
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (e, st) => Center(child: Text('Error: $e')),
       ),
     );
   }

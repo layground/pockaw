@@ -17,8 +17,6 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
-import 'package:pockaw/features/dashboard/presentation/components/my_goals/my_goals_carousel.dart';
-import 'package:pockaw/features/goal/presentation/components/goal_card.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tile.dart';
 import 'package:pockaw/features/wallet_switcher/presentation/screens/wallet_switcher_dropdown.dart';
 
@@ -27,7 +25,7 @@ part '../components/balance_card.dart';
 part '../components/cash_flow_cards.dart';
 part '../components/greeting_card.dart';
 part '../components/header.dart';
-part '../components/my_goals/goals_carousel.dart';
+// part '../components/my_goals/goals_carousel.dart';
 part '../components/recent_transaction_list.dart';
 part '../components/spending_progress_chart.dart';
 part '../components/transaction_card.dart';
@@ -62,7 +60,7 @@ class DashboardScreen extends StatelessWidget {
               ],
             ),
           ),
-          const MyGoalsCarousel(),
+          // const MyGoalsCarousel(),
           const RecentTransactionList(),
         ],
       ),
