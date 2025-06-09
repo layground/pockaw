@@ -79,7 +79,7 @@ class TransactionCard extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
-                  TablerIcons.arrow_up,
+                  HugeIcons.strokeRoundedArrowUp01,
                   size: 14,
                   color: statsIconColor,
                 ),

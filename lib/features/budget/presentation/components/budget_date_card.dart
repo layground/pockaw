@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+
 import 'package:gap/gap.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
@@ -23,7 +24,7 @@ class BudgetDateCard extends StatelessWidget {
         children: [
           CustomIconButton(
             onPressed: () {},
-            icon: TablerIcons.calendar,
+            icon: HugeIcons.strokeRoundedCalendar01,
           ),
           const Gap(AppSpacing.spacing4),
           Column(

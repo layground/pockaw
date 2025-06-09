@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: FlexThemeData.light(
         surfaceTint: AppColors.light,
-        background: Colors.white,
+        appBarBackground: Colors.white,
         scaffoldBackground: Colors.white,
         useMaterial3: true,
         fontFamily: AppConstants.fontFamilyPrimary,

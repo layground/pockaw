@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/router/routes.dart';
 
@@ -47,7 +48,7 @@ class CustomFab extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
-                    TablerIcons.plus,
+                    HugeIcons.strokeRoundedPlusSign,
                     color: AppColors.light,
                   ),
                 ),
@@ -55,7 +56,7 @@ class CustomFab extends StatelessWidget {
             ),
             closeButtonBuilder: DefaultFloatingActionButtonBuilder(
               shape: const CircleBorder(),
-              child: const Icon(TablerIcons.x),
+              child: const Icon(HugeIcons.strokeRoundedCancel01),
             ),
             onOpen: () {},
             onClose: () {},
@@ -72,7 +73,7 @@ class CustomFab extends StatelessWidget {
                     heroTag: null,
                     shape: const CircleBorder(),
                     child: const Icon(
-                      TablerIcons.arrow_bar_to_down,
+                      HugeIcons.strokeRoundedMoneyReceive01,
                       color: Colors.green,
                     ),
                     onPressed: () {},
@@ -87,7 +88,7 @@ class CustomFab extends StatelessWidget {
                     heroTag: null,
                     shape: const CircleBorder(),
                     child: const Icon(
-                      TablerIcons.arrow_bar_up,
+                      HugeIcons.strokeRoundedMoneySend01,
                       color: Colors.red,
                     ),
                     onPressed: () {

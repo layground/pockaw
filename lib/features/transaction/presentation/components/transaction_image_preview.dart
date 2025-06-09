@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
@@ -37,7 +38,7 @@ class TransactionImagePreview extends ConsumerWidget {
               onPressed: () {
                 imageNotifier.clearSelection();
               },
-              icon: TablerIcons.trash,
+              icon: HugeIcons.strokeRoundedDelete01,
               backgroundColor: AppColors.red50,
               borderColor: AppColors.redAlpha10,
               color: AppColors.red,

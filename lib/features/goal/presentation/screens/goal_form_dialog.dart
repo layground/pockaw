@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+
 import 'package:gap/gap.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
@@ -34,7 +35,7 @@ class GoalFormDialog extends StatelessWidget {
                   label: 'Title',
                   hint: 'Lunch with my friends',
                   isRequired: true,
-                  prefixIcon: TablerIcons.letter_case,
+                  prefixIcon: HugeIcons.strokeRoundedArrangeByLettersAZ,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.name,
                 ),
@@ -44,8 +45,8 @@ class GoalFormDialog extends StatelessWidget {
                 CustomTextField(
                   label: 'Write a note',
                   hint: 'Write here...',
-                  prefixIcon: TablerIcons.note,
-                  suffixIcon: TablerIcons.align_left,
+                  prefixIcon: HugeIcons.strokeRoundedNote,
+                  suffixIcon: HugeIcons.strokeRoundedAlignLeft,
                   minLines: 1,
                   maxLines: 3,
                 ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 
 class CircleIconButton extends StatelessWidget {
@@ -36,9 +37,9 @@ class CircleIconButton extends StatelessWidget {
           width: radius! * 2,
           height: radius! * 2,
           child: child ??
-              Icon(
-                icon,
-                color: foregroundColor,
+              HugeIcon(
+                icon: icon,
+                color: foregroundColor ?? Colors.black,
               ),
         ),
       ),

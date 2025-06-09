@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+
 import 'package:gap/gap.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/progress_indicators/progress_bar.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
@@ -24,7 +25,7 @@ class BudgetCard extends StatelessWidget {
         children: [
           CategoryTile(
             title: 'Sport',
-            suffixIcon: TablerIcons.chevron_right,
+            suffixIcon: HugeIcons.strokeRoundedArrowRight01,
           ),
           Gap(AppSpacing.spacing8),
           Row(

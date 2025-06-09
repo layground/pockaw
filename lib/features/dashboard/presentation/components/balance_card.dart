@@ -52,7 +52,7 @@ class BalanceCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(AppRadius.radius8),
                 ),
                 child: const Icon(
-                  TablerIcons.eye,
+                  HugeIcons.strokeRoundedEye,
                   size: 14,
                   color: AppColors.purple,
                 ),

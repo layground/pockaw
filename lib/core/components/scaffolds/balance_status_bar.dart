@@ -27,7 +27,7 @@ class BalanceStatusBar extends PreferredSize {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       const Icon(
-                        TablerIcons.wallet,
+                        HugeIcons.strokeRoundedWallet01,
                         size: 16,
                         color: AppColors.purple,
                       ),

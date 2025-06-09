@@ -2,9 +2,10 @@ import 'package:expandable/expandable.dart'
     show ExpandableController, ExpandablePanel, ExpandableThemeData;
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart' show useMemoized;
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 
 import 'category_tile.dart';
@@ -23,7 +24,7 @@ class CategoryDropdown extends HookConsumerWidget {
         },
         child: CategoryTile(
           title: 'Entertainment',
-          suffixIcon: TablerIcons.chevron_down,
+          suffixIcon: HugeIcons.strokeRoundedArrowDown01,
           onSuffixIconPressed: () {
             expandableController.toggle();
           },
@@ -41,7 +42,7 @@ class CategoryDropdown extends HookConsumerWidget {
         separatorBuilder: (context, index) => const Gap(AppSpacing.spacing8),
         itemBuilder: (context, index) => const CategoryTile(
           title: 'Movie',
-          suffixIcon: TablerIcons.circle_check_filled,
+          suffixIcon: HugeIcons.strokeRoundedCheckmarkCircle01,
         ),
       ),
       theme: const ExpandableThemeData(

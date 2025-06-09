@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/button_chip.dart';
 import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
@@ -68,7 +68,7 @@ class TransactionForm extends HookWidget {
                     controller: titleController,
                     label: 'Title',
                     hint: 'Lunch with my friends',
-                    prefixIcon: TablerIcons.letter_case,
+                    prefixIcon: HugeIcons.strokeRoundedArrangeByLettersAZ,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.name,
                   ),
@@ -77,7 +77,7 @@ class TransactionForm extends HookWidget {
                     controller: amountController,
                     label: 'Amount',
                     hint: '\$ 34',
-                    icon: TablerIcons.coin,
+                    icon: HugeIcons.strokeRoundedCoins01,
                     isRequired: true,
                     autofocus: true,
                   ),
@@ -89,7 +89,7 @@ class TransactionForm extends HookWidget {
                           height: double.infinity,
                           child: SecondaryButton(
                             onPressed: () {},
-                            icon: TablerIcons.shopping_bag_check,
+                            icon: HugeIcons.strokeRoundedShoppingBag01,
                           ),
                         ),
                         const Gap(AppSpacing.spacing8),
@@ -112,8 +112,8 @@ class TransactionForm extends HookWidget {
                   CustomTextField(
                     label: 'Write a note',
                     hint: 'Write here...',
-                    prefixIcon: TablerIcons.note,
-                    suffixIcon: TablerIcons.align_left,
+                    prefixIcon: HugeIcons.strokeRoundedNote,
+                    suffixIcon: HugeIcons.strokeRoundedAlignLeft,
                     minLines: 1,
                     maxLines: 3,
                   ),

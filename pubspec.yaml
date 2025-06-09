@@ -38,23 +38,18 @@ dependencies:
   dotted_border: ^2.1.0
   drift: ^2.21.0
   expandable: ^5.0.1
-  flex_color_scheme: ^7.3.1
+  flex_color_scheme: ^8.2.0
   flutter_expandable_fab: ^2.3.0
   flutter_hooks: ^0.20.5
   flutter_local_notifications: ^17.2.4
   flutter_riverpod: ^2.6.1
   flutter_svg: ^2.0.10+1
-#  flutter_tabler_icons: ^1.43.0
-  flutter_tabler_icons:
-    git:
-      url: https://github.com/bigbadbob2003/flutter_tabler_icons.git
-      ref: 715a109f2f9f053f52ab8ed0a457d8443b4c2555
-#  fluttertoast: ^8.2.12
   freezed_annotation: ^2.3.2
   gap: ^3.0.1
   go_router: ^14.3.0
   google_fonts: ^6.2.1
   hooks_riverpod: ^2.6.1
+  hugeicons: ^0.0.11
   image_picker: ^1.1.2
   intl: ^0.18.0
   json_annotation: ^4.9.0

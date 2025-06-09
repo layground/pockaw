@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
@@ -41,7 +41,7 @@ class TransactionTile extends StatelessWidget {
               ),
               child: const Center(
                 child: Icon(
-                  TablerIcons.headphones,
+                  HugeIcons.strokeRoundedHeadphones,
                   color: AppColors.red,
                 ),
               ),

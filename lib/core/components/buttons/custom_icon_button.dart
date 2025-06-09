@@ -42,8 +42,8 @@ class CustomIconButton extends IconButton {
               !showBadge
                   ? const SizedBox()
                   : Positioned(
-                      top: 3,
-                      right: 3,
+                      top: 2,
+                      right: 2,
                       child: _badge(),
                     )
             ],

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
@@ -32,7 +33,7 @@ class CustomScaffold extends Scaffold {
                 ? null
                 : CustomIconButton(
                     onPressed: () => context.pop(),
-                    icon: TablerIcons.arrow_narrow_left,
+                    icon: HugeIcons.strokeRoundedArrowLeft01,
                   ),
             title: title.isEmpty
                 ? null

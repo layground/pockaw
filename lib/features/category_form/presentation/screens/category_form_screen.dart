@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/buttons/secondary_button.dart';
@@ -42,7 +43,7 @@ class CategoryFormScreen extends HookWidget {
                     label: 'Title',
                     hint: 'Lunch with my friends',
                     isRequired: true,
-                    prefixIcon: TablerIcons.letter_case,
+                    prefixIcon: HugeIcons.strokeRoundedTextSmallcaps,
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.name,
                   ),
@@ -54,7 +55,7 @@ class CategoryFormScreen extends HookWidget {
                           height: double.infinity,
                           child: SecondaryButton(
                             onPressed: () {},
-                            icon: TablerIcons.shopping_bag_check,
+                            icon: HugeIcons.strokeRoundedShoppingBag01,
                           ),
                         ),
                         const Gap(AppSpacing.spacing8),
@@ -74,8 +75,8 @@ class CategoryFormScreen extends HookWidget {
                   CustomTextField(
                     label: 'Description',
                     hint: 'Write simple description...',
-                    prefixIcon: TablerIcons.note,
-                    suffixIcon: TablerIcons.align_left,
+                    prefixIcon: HugeIcons.strokeRoundedNote,
+                    suffixIcon: HugeIcons.strokeRoundedAlignLeft,
                     minLines: 1,
                     maxLines: 3,
                   ),

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/date_picker/custom_date_picker.dart';
 import 'package:pockaw/core/components/form_fields/custom_select_field.dart';
 import 'package:pockaw/core/extensions/date_time_extension.dart';
@@ -20,7 +21,7 @@ class BudgetDateRangePicker extends HookConsumerWidget {
       controller: dateFieldController,
       label: 'Set a date range',
       hint: '12 Nov 2024 - 12 Nov 2026',
-      prefixIcon: TablerIcons.calendar,
+      prefixIcon: HugeIcons.strokeRoundedCalendar01,
       isRequired: true,
       onTap: () async {
         final dateRange = await CustomDatePicker.selectDateRange(

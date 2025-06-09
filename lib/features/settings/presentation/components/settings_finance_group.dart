@@ -10,15 +10,15 @@ class SettingsFinanceGroup extends StatelessWidget {
       settingTiles: [
         MenuTileButton(
           label: 'Fund Sources',
-          icon: TablerIcons.wallet,
+          icon: HugeIcons.strokeRoundedWallet01,
         ),
         MenuTileButton(
           label: 'Categories',
-          icon: TablerIcons.category_2,
+          icon: HugeIcons.strokeRoundedCatalogue,
         ),
         MenuTileButton(
           label: 'Change Currency',
-          icon: TablerIcons.moneybag,
+          icon: HugeIcons.strokeRoundedMoney01,
         ),
       ],
     );

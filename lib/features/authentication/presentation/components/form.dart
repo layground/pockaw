@@ -35,7 +35,7 @@ class Form extends HookConsumerWidget {
                         controller: nameField,
                         label: 'Name',
                         hint: 'John Doe',
-                        prefixIcon: TablerIcons.letter_case,
+                        prefixIcon: HugeIcons.strokeRoundedTextSmallcaps,
                       ),
                     ),
                     const Gap(AppSpacing.spacing16),
