@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:pockaw/core/router/routes.dart';
-import 'package:pockaw/features/category_form/presentation/screens/category_form_screen.dart';
+import 'package:pockaw/features/category/presentation/screens/category_form_screen.dart';
 import 'package:pockaw/features/category_picker/presentation/screens/category_picker_screen.dart';
 
 class CategoryRouter {
