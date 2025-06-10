@@ -6,7 +6,16 @@ class TransactionRouter {
   static final routes = <GoRoute>[
     GoRoute(
       path: Routes.transactionForm,
-      builder: (context, state) => TransactionForm(),
+      builder: (context, state) => TransactionForm(transactionID: ''),
+    ),
+    GoRoute(
+      path: '/transaction/:id', // Matches the path used in push
+      builder: (context, state) {
+        final String transactionId =
+            '${state.pathParameters['id']}'; // Access the ID
+        // Pass the ID to your TransactionForm or a wrapper widget
+        return TransactionForm(transactionID: transactionId);
+      },
     ),
   ];
 }

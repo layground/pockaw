@@ -19,6 +19,8 @@ import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/dashboard/presentation/components/my_goals/my_goals_carousel.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_card.dart';
+import 'package:pockaw/features/transaction/application/providers/transaction_providers.dart';
+import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tile.dart';
 import 'package:pockaw/features/wallet_switcher/presentation/screens/wallet_switcher_dropdown.dart';
 
@@ -42,6 +44,18 @@ class DashboardScreen extends StatelessWidget {
         preferredSize: Size.fromHeight(85),
         child: Header(),
       ),
+      floatingActionButton:
+          (Platform.isWindows || Platform.isLinux || Platform.isMacOS)
+          ? FloatingActionButton(
+              onPressed: () {
+                context.push(Routes.transactionForm);
+              },
+              child: const HugeIcon(
+                icon: HugeIcons.strokeRoundedAdd01,
+                color: Colors.white,
+              ),
+            )
+          : null,
       body: ListView(
         padding: EdgeInsets.zero,
         children: [
@@ -58,7 +72,7 @@ class DashboardScreen extends StatelessWidget {
                 Gap(AppSpacing.spacing12),
                 CashFlowCards(),
                 Gap(AppSpacing.spacing12),
-                SpendingProgressChart()
+                SpendingProgressChart(),
               ],
             ),
           ),
