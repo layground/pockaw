@@ -1,4 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:pockaw/features/category/data/model/category_model.dart';
+import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 
 part 'transaction_model.freezed.dart';
 part 'transaction_model.g.dart';
@@ -13,7 +15,8 @@ class Transaction with _$Transaction {
     required double amount,
     required DateTime date,
     required String title,
-    required String category,
+    required CategoryModel category,
+    required WalletModel wallet,
     String? notes,
     String? imagePath,
     bool? isRecurring,

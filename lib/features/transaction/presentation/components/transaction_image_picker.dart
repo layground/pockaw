@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
@@ -16,18 +18,20 @@ class TransactionImagePicker extends ConsumerWidget {
 
     return Row(
       children: [
-        Expanded(
-          child: SecondaryButton(
-            onPressed: () async {
-              imageNotifier.takePhoto().then((value) {
-                imageNotifier.saveImage();
-              });
-            },
-            label: 'Camera',
-            icon: HugeIcons.strokeRoundedCamera01,
+        if (Platform.isAndroid || Platform.isIOS)
+          Expanded(
+            child: SecondaryButton(
+              onPressed: () async {
+                imageNotifier.takePhoto().then((value) {
+                  imageNotifier.saveImage();
+                });
+              },
+              label: 'Camera',
+              icon: HugeIcons.strokeRoundedCamera01,
+            ),
           ),
-        ),
-        const Gap(AppSpacing.spacing8),
+        if (Platform.isAndroid || Platform.isIOS)
+          const Gap(AppSpacing.spacing8),
         Expanded(
           child: SecondaryButton(
             onPressed: () {

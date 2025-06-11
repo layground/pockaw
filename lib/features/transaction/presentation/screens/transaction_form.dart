@@ -15,11 +15,15 @@ import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/core/services/image_service/riverpod/image_notifier.dart';
+import 'package:pockaw/core/utils/logger.dart';
+import 'package:pockaw/features/category/data/model/category_model.dart';
 import 'package:pockaw/features/transaction/application/providers/transaction_providers.dart'; // Import provider
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_date_picker.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_image_picker.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_image_preview.dart';
+import 'package:pockaw/features/wallet/data/repositories/wallet_repo.dart';
 import 'package:uuid/uuid.dart';
 import 'package:pockaw/features/transaction/presentation/riverpod/date_picker_provider.dart'; // Assuming this is needed for date picker state
 
@@ -69,8 +73,9 @@ class TransactionForm extends HookConsumerWidget {
     final selectedTransactionType = useState<TransactionType>(
       transactionToEdit?.transactionType ?? TransactionType.expense,
     );
-    final selectedCategory = useState<String?>(transactionToEdit?.category);
-    final imagePath = useState<String?>(transactionToEdit?.imagePath);
+    final selectedCategory = useState<CategoryModel?>(
+      transactionToEdit?.category,
+    );
 
     // For generating unique IDs
     const uuid = Uuid();
@@ -158,13 +163,14 @@ class TransactionForm extends HookConsumerWidget {
                         Expanded(
                           child: CustomSelectField(
                             label: 'Category',
-                            hint: 'Groceries • Cosmetics',
+                            hint:
+                                '${selectedCategory.value?.title ?? ''} • ${selectedCategory.value?.subCategories?.first.title ?? ''}',
                             isRequired: true,
                             onTap: () async {
                               // Navigate to category selection and update state
-                              final category = await context.push<String>(
-                                Routes.categoryList,
-                              );
+                              final category = await context
+                                  .push<CategoryModel>(Routes.categoryList);
+                              Log.d(category?.toJson(), label: 'category');
                               if (category != null) {
                                 selectedCategory.value = category;
                               }
@@ -199,8 +205,7 @@ class TransactionForm extends HookConsumerWidget {
           ),
           PrimaryButton(
             label: 'Save',
-            state:
-                ButtonState.active, // Or determine state based on form validity
+            state: ButtonState.active,
             onPressed: () {
               // Basic validation (can be expanded)
               if (titleController.text.isEmpty ||
@@ -216,6 +221,7 @@ class TransactionForm extends HookConsumerWidget {
 
               // Get the current date from the date picker provider
               final dateFromPicker = ref.read(datePickerProvider);
+              final imagePicker = ref.read(imageProvider);
 
               if (transactionToEdit == null) {
                 // Creating a new transaction
@@ -226,11 +232,12 @@ class TransactionForm extends HookConsumerWidget {
                   date: dateFromPicker, // Use date from provider
                   title: titleController.text,
                   category: selectedCategory.value!,
+                  wallet: wallets.first,
                   notes: notesController.text.isNotEmpty
                       ? notesController.text
                       : null,
-                  imagePath: imagePath.value,
-                  isRecurring: null, // Or get from form if added
+                  imagePath: imagePicker.imageFile?.path,
+                  isRecurring: false, // Or get from form if added
                 );
                 // TODO: Add newTransaction to your state (e.g., via Riverpod Notifier)
                 print('Saving New Transaction: ${newTransaction.toJson()}');
@@ -245,7 +252,7 @@ class TransactionForm extends HookConsumerWidget {
                   notes: notesController.text.isNotEmpty
                       ? notesController.text
                       : null,
-                  imagePath: imagePath.value,
+                  imagePath: imagePicker.imageFile?.path,
                   // isRecurring: ... // Update if in form
                 );
                 // TODO: Update updatedTransaction in your state (e.g., via Riverpod Notifier)

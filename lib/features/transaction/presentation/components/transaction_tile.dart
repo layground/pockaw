@@ -67,7 +67,7 @@ class TransactionTile extends StatelessWidget {
                       Text(transaction.title, style: AppTextStyles.body3),
                       const Gap(AppSpacing.spacing2),
                       Text(
-                        transaction.category,
+                        transaction.category.title,
                         style: AppTextStyles.body4.copyWith(
                           color: AppColors.neutral500,
                         ),

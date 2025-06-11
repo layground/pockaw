@@ -7,6 +7,7 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/features/category/data/repositories/category_repo.dart';
 import 'package:pockaw/features/category_picker/presentation/components/category_tile.dart';
 
 class BudgetCard extends StatelessWidget {
@@ -21,20 +22,17 @@ class BudgetCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppRadius.radius8),
         border: Border.all(color: AppColors.darkAlpha10),
       ),
-      child: const Column(
+      child: Column(
         children: [
           CategoryTile(
-            title: 'Sport',
+            category: categories.first,
             suffixIcon: HugeIcons.strokeRoundedArrowRight01,
           ),
           Gap(AppSpacing.spacing8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                '155.000 left',
-                style: AppTextStyles.body4,
-              ),
+              Text('155.000 left', style: AppTextStyles.body4),
               Text(
                 '345.000 of 500.000',
                 textAlign: TextAlign.right,
@@ -43,10 +41,7 @@ class BudgetCard extends StatelessWidget {
             ],
           ),
           Gap(AppSpacing.spacing8),
-          ProgressBar(
-            value: 0.52,
-            foreground: AppColors.purpleAlpha50,
-          )
+          ProgressBar(value: 0.52, foreground: AppColors.purpleAlpha50),
         ],
       ),
     );

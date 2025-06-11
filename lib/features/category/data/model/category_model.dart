@@ -23,6 +23,9 @@ class CategoryModel with _$CategoryModel {
 
     /// An optional description for the category.
     String? description,
+
+    /// A list of sub-categories. Null or empty if this category has no sub-categories.
+    List<CategoryModel>? subCategories,
   }) = _CategoryModel;
 
   /// Creates a `CategoryModel` instance from a JSON map.
@@ -34,6 +37,10 @@ class CategoryModel with _$CategoryModel {
 extension CategoryModelUtils on CategoryModel {
   /// Checks if this category is a top-level category (i.e., it has no parent).
   bool get isTopLevelCategory => parentId == null;
+
+  /// Checks if this category has any sub-categories.
+  bool get hasSubCategories =>
+      subCategories != null && subCategories!.isNotEmpty;
 
   /// A display string that might include parent information if desired,
   /// or simply the title. For now, it just returns the title.

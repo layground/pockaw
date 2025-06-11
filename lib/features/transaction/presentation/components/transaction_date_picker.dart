@@ -25,21 +25,24 @@ class TransactionDatePicker extends HookConsumerWidget {
       prefixIcon: HugeIcons.strokeRoundedCalendar01,
       isRequired: true,
       onTap: () async {
-        var date =
-            await CustomDatePicker.selectSingleDate(context, selectedDate);
+        var date = await CustomDatePicker.selectSingleDate(
+          context,
+          selectedDate,
+        );
 
         if (date != null) {
-          final selectedDateTime = date.add(Duration(
-            hours: DateTime.now().hour,
-            minutes: DateTime.now().minute,
-            seconds: DateTime.now().second,
-          ));
+          final selectedDateTime = date.add(
+            Duration(
+              hours: DateTime.now().hour,
+              minutes: DateTime.now().minute,
+              seconds: DateTime.now().second,
+            ),
+          );
 
-          selectedDateNotifier.state = selectedDateTime;
+          selectedDateNotifier.state = date;
 
-          Log.e(selectedDateTime, label: 'selected date');
-          dateFieldController.text =
-              selectedDateTime.toDayMonthYearTime12Hour();
+          Log.d(selectedDateTime, label: 'selected date');
+          dateFieldController.text = date.toDayMonthYearTime12Hour();
         }
       },
     );

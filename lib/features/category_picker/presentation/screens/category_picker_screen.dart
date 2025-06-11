@@ -8,14 +8,12 @@ import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/features/category/data/repositories/category_repo.dart';
 import 'package:pockaw/features/category_picker/presentation/components/category_dropdown.dart';
 
 class CategoryPickerScreen extends StatelessWidget {
   final bool isPickingParent;
-  const CategoryPickerScreen({
-    super.key,
-    this.isPickingParent = false,
-  });
+  const CategoryPickerScreen({super.key, this.isPickingParent = false});
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +30,7 @@ class CategoryPickerScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: ButtonChip(
-                        label: 'Expense',
-                        active: true,
-                      ),
-                    ),
+                    Expanded(child: ButtonChip(label: 'Expense', active: true)),
                     Gap(AppSpacing.spacing12),
                     Expanded(child: ButtonChip(label: 'Income')),
                   ],
@@ -50,11 +43,12 @@ class CategoryPickerScreen extends StatelessWidget {
                 ),
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 3,
-                itemBuilder: (context, index) => const CategoryDropdown(),
+                itemCount: categories.length,
+                itemBuilder: (context, index) =>
+                    CategoryDropdown(category: categories[index]),
                 separatorBuilder: (context, index) =>
                     const Gap(AppSpacing.spacing12),
-              )
+              ),
             ],
           ),
           if (!isPickingParent)
