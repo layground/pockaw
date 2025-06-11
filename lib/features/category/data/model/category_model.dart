@@ -33,7 +33,6 @@ class CategoryModel with _$CategoryModel {
       _$CategoryModelFromJson(json);
 }
 
-/// Utility extensions for the [CategoryModel].
 extension CategoryModelUtils on CategoryModel {
   /// Checks if this category is a top-level category (i.e., it has no parent).
   bool get isTopLevelCategory => parentId == null;
