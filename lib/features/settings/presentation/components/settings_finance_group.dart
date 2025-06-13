@@ -5,7 +5,7 @@ class SettingsFinanceGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SettingsGroupHolder(
+    return SettingsGroupHolder(
       title: 'Finance',
       settingTiles: [
         MenuTileButton(
@@ -15,6 +15,7 @@ class SettingsFinanceGroup extends StatelessWidget {
         MenuTileButton(
           label: 'Categories',
           icon: HugeIcons.strokeRoundedCatalogue,
+          onTap: () => context.push(Routes.categoryList),
         ),
         MenuTileButton(
           label: 'Change Currency',

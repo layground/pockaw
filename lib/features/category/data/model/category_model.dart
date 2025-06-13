@@ -8,7 +8,7 @@ part 'category_model.g.dart';
 class CategoryModel with _$CategoryModel {
   const factory CategoryModel({
     /// The unique identifier for the category. Null if the category is new and not yet saved.
-    String? id,
+    int? id,
 
     /// The display name of the category (e.g., "Groceries", "Salary").
     required String title,
@@ -19,7 +19,7 @@ class CategoryModel with _$CategoryModel {
 
     /// The identifier of the parent category, if this is a sub-category.
     /// Null if this is a top-level category.
-    String? parentId,
+    int? parentId,
 
     /// An optional description for the category.
     String? description,

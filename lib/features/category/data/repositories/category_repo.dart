@@ -1,13 +1,12 @@
 import 'package:pockaw/features/category/data/model/category_model.dart';
-import 'package:uuid/uuid.dart';
-
-const _uuid = Uuid();
 
 // --- Top Level Category IDs (for easy reference when creating sub-categories) ---
-final String _foodAndDrinksId = _uuid.v4();
-final String _transportationId = _uuid.v4();
-final String _housingId = _uuid.v4();
-final String _shoppingId = _uuid.v4();
+const int _foodAndDrinksId = 1;
+const int _transportationId = 2;
+const int _housingId = 3;
+const int _shoppingId = 4;
+const int _entertainmentId = 5;
+const int _healthId = 6;
 
 final List<CategoryModel> categories = [
   // --- Top Level Categories ---
@@ -18,7 +17,7 @@ final List<CategoryModel> categories = [
     description: 'Expenses related to eating out, groceries, coffee, etc.',
     subCategories: [
       CategoryModel(
-        id: _uuid.v4(),
+        id: 101,
         title: 'Groceries',
         iconName:
             'HugeIcons.strokeRoundedShoppingBasket01', // Example icon name
@@ -26,13 +25,13 @@ final List<CategoryModel> categories = [
         description: 'Weekly grocery shopping.',
       ),
       CategoryModel(
-        id: _uuid.v4(),
+        id: 102,
         title: 'Restaurants',
         iconName: 'HugeIcons.strokeRoundedPlate', // Example icon name
         parentId: _foodAndDrinksId,
       ),
       CategoryModel(
-        // Example of a category without an ID (perhaps newly created, not yet saved)
+        id: 103, // Giving it an ID for consistency in mock data, can be null if intended
         title: 'Coffee Shops',
         iconName: 'HugeIcons.strokeRoundedCoffee', // Example icon name
         parentId: _foodAndDrinksId,
@@ -46,7 +45,7 @@ final List<CategoryModel> categories = [
     description: 'Costs for public transport, fuel, ride-sharing, etc.',
     subCategories: [
       CategoryModel(
-        id: _uuid.v4(),
+        id: 201,
         title: 'Fuel',
         iconName: 'HugeIcons.strokeRoundedGasStation', // Example icon name
         parentId: _transportationId,
@@ -67,7 +66,7 @@ final List<CategoryModel> categories = [
     description: 'Purchases for clothing, electronics, gifts, etc.',
     subCategories: [
       CategoryModel(
-        id: _uuid.v4(),
+        id: 401,
         title: 'Clothing',
         iconName: 'HugeIcons.strokeRoundedTShirt', // Example icon name
         parentId: _shoppingId,
@@ -76,14 +75,14 @@ final List<CategoryModel> categories = [
     ],
   ),
   CategoryModel(
-    id: _uuid.v4(),
+    id: _entertainmentId,
     title: 'Entertainment',
     iconName: 'HugeIcons.strokeRoundedCinema', // Example icon name
     description: 'Movies, concerts, hobbies, subscriptions.',
     subCategories: [],
   ),
   CategoryModel(
-    id: _uuid.v4(),
+    id: _healthId,
     title: 'Health & Wellness',
     iconName: 'HugeIcons.strokeRoundedMedicalCrossCircle', // Example icon name
     subCategories: [],
