@@ -8,14 +8,22 @@ import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/core/db/app_database.dart'; // for Goal model
 
 class GoalCard extends StatelessWidget {
-  const GoalCard({super.key});
+  final Goal goal;
+  const GoalCard({Key? key, required this.goal}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => context.push(Routes.goalDetails),
+      onTap: () {
+        print('🔍  Navigating to GoalDetails for goalId=${goal.id}');
+        context.push(
+          Routes.goalDetails,
+          extra: goal.id, // <-- pass the ID along
+        );
+      },
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.spacing12),
         decoration: BoxDecoration(
@@ -25,16 +33,18 @@ class GoalCard extends StatelessWidget {
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  'Build my dream PC',
-                  style: AppTextStyles.body3,
+                Expanded(
+                  child: Text(
+                    goal.title,
+                    style: AppTextStyles.body3,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
                 Icon(
                   HugeIcons.strokeRoundedArrowRight01,
@@ -55,20 +65,14 @@ class GoalCard extends StatelessWidget {
                   decoration: ShapeDecoration(
                     color: AppColors.purpleAlpha10,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        AppRadius.radiusFull,
-                      ),
+                      borderRadius: BorderRadius.circular(AppRadius.radiusFull),
                     ),
                   ),
                   child: LinearProgressIndicator(
                     value: 0.76,
                     backgroundColor: Colors.transparent,
-                    valueColor: const AlwaysStoppedAnimation(
-                      AppColors.purple,
-                    ),
-                    borderRadius: BorderRadius.circular(
-                      AppRadius.radiusFull,
-                    ),
+                    valueColor: const AlwaysStoppedAnimation(AppColors.purple),
+                    borderRadius: BorderRadius.circular(AppRadius.radiusFull),
                   ),
                 ),
                 const Gap(AppSpacing.spacing8),

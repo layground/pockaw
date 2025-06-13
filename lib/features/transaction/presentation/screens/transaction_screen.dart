@@ -54,7 +54,7 @@ class TransactionScreen extends HookWidget {
                       shrinkWrap: true,
                       padding: EdgeInsets.zero,
                       physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 3,
+                      itemCount: 1,
                       itemBuilder: (context, index) =>
                           const TransactionGroupedCard(),
                       separatorBuilder: (context, index) =>

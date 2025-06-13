@@ -6,7 +6,11 @@ class GoalRouter {
   static final routes = <GoRoute>[
     GoRoute(
       path: Routes.goalDetails,
-      builder: (context, state) => const GoalDetailsScreen(),
+      builder: (context, state) {
+        final goalId = state.extra as int;
+        print('🗂️  Routing to GoalDetailsScreen for goalId=$goalId');
+        return GoalDetailsScreen(goalId: goalId);
+      },
     ),
   ];
 }

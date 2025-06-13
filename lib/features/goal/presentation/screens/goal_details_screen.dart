@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 
@@ -12,10 +14,12 @@ import 'package:pockaw/features/goal/presentation/components/goal_title_card.dar
 import 'package:pockaw/features/goal/presentation/screens/goal_checklist_form_dialog.dart';
 
 class GoalDetailsScreen extends StatelessWidget {
-  const GoalDetailsScreen({super.key});
+  final int goalId;
+  const GoalDetailsScreen({Key? key, required this.goalId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    print('📄  GoalDetailsScreen.build: goalId=$goalId');
     return CustomScaffold(
       context: context,
       title: 'My Goals',
@@ -28,8 +32,8 @@ class GoalDetailsScreen extends StatelessWidget {
       ],
       body: Stack(
         children: [
-          const SingleChildScrollView(
-            padding: EdgeInsets.fromLTRB(
+          SingleChildScrollView(
+            padding: const EdgeInsets.fromLTRB(
               AppSpacing.spacing20,
               AppSpacing.spacing20,
               AppSpacing.spacing20,
@@ -38,8 +42,8 @@ class GoalDetailsScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                GoalTitleCard(),
-                GoalChecklistHolder(),
+                const GoalTitleCard(),
+                GoalChecklistHolder(goalId: goalId),
               ],
             ),
           ),
@@ -47,10 +51,11 @@ class GoalDetailsScreen extends StatelessWidget {
             label: 'Add Checklist Item',
             state: ButtonState.outlinedActive,
             onPressed: () {
+              print('➕  Opening checklist dialog for goalId=$goalId');
               showModalBottomSheet(
                 context: context,
                 showDragHandle: true,
-                builder: (context) => const GoalChecklistFormDialog(),
+                builder: (context) => GoalChecklistFormDialog(goalId: goalId),
               );
             },
           ).floatingBottomWithContent(
