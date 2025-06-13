@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/features/goal/data/model/checklist_item_model.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_checklist_item.dart';
-import 'package:pockaw/core/db/app_database.dart'; // for ChecklistItem
 
 class GoalChecklist extends StatelessWidget {
-  final List<ChecklistItem> items;
-  const GoalChecklist({Key? key, required this.items}) : super(key: key);
+  final List<ChecklistItemModel> items;
+  const GoalChecklist({super.key, required this.items});
 
   @override
   Widget build(BuildContext context) {

@@ -9,11 +9,11 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
-import 'package:pockaw/core/db/app_database.dart'; // for ChecklistItem
+import 'package:pockaw/features/goal/data/model/checklist_item_model.dart';
 
 class GoalChecklistItem extends StatelessWidget {
-  final ChecklistItem item;
-  const GoalChecklistItem({Key? key, required this.item}) : super(key: key);
+  final ChecklistItemModel item;
+  const GoalChecklistItem({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {

@@ -7,9 +7,8 @@ import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_card.dart';
+import 'package:pockaw/features/goal/presentation/riverpod/goals_list_provider.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_form_dialog.dart';
-
-import '../riverpod/goals_list_provider.dart';
 
 class GoalScreen extends ConsumerWidget {
   const GoalScreen({super.key});
@@ -28,6 +27,7 @@ class GoalScreen extends ConsumerWidget {
             showModalBottomSheet(
               context: context,
               showDragHandle: true,
+              backgroundColor: Colors.white,
               builder: (context) => const GoalFormDialog(),
             );
           },

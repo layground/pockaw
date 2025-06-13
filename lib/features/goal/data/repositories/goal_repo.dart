@@ -1,11 +1,8 @@
 import 'package:pockaw/features/goal/data/model/goal_model.dart';
-import 'package:uuid/uuid.dart';
-
-const _uuid = Uuid();
 
 final List<GoalModel> goals = [
   GoalModel(
-    id: _uuid.v4(),
+    id: 1,
     title: 'New Laptop for Work',
     targetAmount: 1200.00,
     currentAmount: 750.00,
@@ -19,7 +16,7 @@ final List<GoalModel> goals = [
     ), // Created a month ago
   ),
   GoalModel(
-    id: _uuid.v4(),
+    id: 2,
     title: 'Summer Vacation to Bali',
     targetAmount: 2500.00,
     currentAmount: 1800.50,
@@ -32,7 +29,7 @@ final List<GoalModel> goals = [
         'savings_account_bali_trip', // Example associated account
   ),
   GoalModel(
-    id: _uuid.v4(),
+    id: 3,
     title: 'Emergency Fund',
     targetAmount: 5000.00,
     currentAmount: 5000.00, // Achieved
@@ -43,7 +40,7 @@ final List<GoalModel> goals = [
     ), // Created a year ago
   ),
   GoalModel(
-    id: _uuid.v4(),
+    id: 4,
     title: 'Learn Guitar Course',
     targetAmount: 300.00,
     currentAmount: 150.00,
@@ -60,7 +57,7 @@ final List<GoalModel> goals = [
     createdAt: DateTime.now(),
   ),
   GoalModel(
-    id: _uuid.v4(),
+    id: 5,
     title: 'Down Payment for Car',
     targetAmount: 3000.00,
     currentAmount: 250.75,

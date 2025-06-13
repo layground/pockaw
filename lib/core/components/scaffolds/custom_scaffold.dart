@@ -23,6 +23,7 @@ class CustomScaffold extends Scaffold {
     List<Widget>? actions,
     super.floatingActionButton,
   }) : super(
+         resizeToAvoidBottomInset: true,
          appBar: AppBar(
            leadingWidth: 80,
            titleSpacing: showBackButton ? 0 : AppSpacing.spacing20,

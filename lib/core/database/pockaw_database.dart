@@ -1,13 +1,19 @@
 import 'package:drift/drift.dart';
 import 'package:drift_flutter/drift_flutter.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pockaw/core/database/daos/category_dao.dart';
+import 'package:pockaw/core/database/daos/checklist_item_dao.dart';
+import 'package:pockaw/core/database/daos/goal_dao.dart';
 import 'package:pockaw/core/database/tables/category_table.dart';
+import 'package:pockaw/core/database/tables/checklist_item_table.dart';
+import 'package:pockaw/core/database/tables/goal_table.dart';
 
 part 'pockaw_database.g.dart';
 
-@DriftDatabase(tables: [Categories], daos: [CategoryDao])
+@DriftDatabase(
+  tables: [Categories, Goals, ChecklistItems],
+  daos: [CategoryDao, GoalDao, ChecklistItemDao],
+)
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
@@ -62,11 +68,3 @@ class AppDatabase extends _$AppDatabase {
     );
   }
 }
-
-final databaseProvider = Provider<AppDatabase>((ref) {
-  final db = AppDatabase();
-  // Close the database when the provider is disposed.
-  // This is good practice to release resources.
-  ref.onDispose(() => db.close());
-  return db;
-});

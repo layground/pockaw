@@ -15,7 +15,7 @@ import 'package:pockaw/features/goal/presentation/screens/goal_checklist_form_di
 
 class GoalDetailsScreen extends StatelessWidget {
   final int goalId;
-  const GoalDetailsScreen({Key? key, required this.goalId}) : super(key: key);
+  const GoalDetailsScreen({super.key, required this.goalId});
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +31,7 @@ class GoalDetailsScreen extends StatelessWidget {
         ),
       ],
       body: Stack(
+        fit: StackFit.expand,
         children: [
           SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(
@@ -55,28 +56,21 @@ class GoalDetailsScreen extends StatelessWidget {
               showModalBottomSheet(
                 context: context,
                 showDragHandle: true,
+                backgroundColor: Colors.white,
                 builder: (context) => GoalChecklistFormDialog(goalId: goalId),
               );
             },
           ).floatingBottomWithContent(
             content: Container(
-              margin: const EdgeInsets.only(
-                bottom: AppSpacing.spacing8,
-              ),
+              margin: const EdgeInsets.only(bottom: AppSpacing.spacing8),
               padding: const EdgeInsets.symmetric(
                 horizontal: AppSpacing.spacing2,
               ),
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    'Total Goal Target',
-                    style: AppTextStyles.body2,
-                  ),
-                  Text(
-                    'Rp. 7.550.499',
-                    style: AppTextStyles.numericLarge,
-                  ),
+                  Text('Total Goal Target', style: AppTextStyles.body2),
+                  Text('Rp. 7.550.499', style: AppTextStyles.numericLarge),
                 ],
               ),
             ),

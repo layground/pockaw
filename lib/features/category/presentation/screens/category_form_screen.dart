@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'package:drift/drift.dart' show Value;
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -13,11 +12,12 @@ import 'package:pockaw/core/components/form_fields/custom_select_field.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
-import 'package:pockaw/core/database/pockaw_database.dart';
+import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
 import 'package:pockaw/core/database/tables/category_table.dart'
     show CategoryTableExtensions;
+import 'package:pockaw/features/category/presentation/riverpod/category_form_service.dart';
 import 'package:pockaw/features/category/presentation/riverpod/category_providers.dart';
 
 class CategoryFormScreen extends HookConsumerWidget {
@@ -154,52 +154,17 @@ class CategoryFormScreen extends HookConsumerWidget {
             label: 'Save',
             state: ButtonState.active,
             onPressed: () async {
-              // Basic validation
-              if (titleController.text.trim().isEmpty) {
-                // Show an error message (e.g., using a SnackBar)
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Category title cannot be empty.'),
-                    backgroundColor: Colors.redAccent,
-                  ),
-                );
-                return;
-              }
-
-              final db = ref.read(databaseProvider);
-
-              // Create a CategoriesCompanion from form data
-              final categoryCompanion = CategoriesCompanion(
-                id: categoryId == null
-                    ? const Value.absent()
-                    : Value(categoryId!),
-                title: Value(titleController.text.trim()),
-                iconName: Value(
-                  'HugeIcons.strokeRoundedShoppingBag01',
-                ), // TODO: Implement icon picker
-                parentId: Value(
-                  selectedParentCategory?.id,
-                ), // Use selected parent ID
-                description: Value(
-                  descriptionController.text.trim().isEmpty
-                      ? null
-                      : descriptionController.text.trim(),
+              final cat = CategoryFormService();
+              cat.save(
+                context,
+                ref,
+                CategoryModel(
+                  title: titleController.text.trim(),
+                  description: descriptionController.text.trim(),
+                  parentId: selectedParentCategory?.id,
+                  iconName: 'HugeIcons.strokeRoundedShoppingBag01',
                 ),
               );
-
-              try {
-                await db.categoryDao.upsertCategory(
-                  categoryCompanion,
-                ); // Use upsert for create/update
-                // Clear the selected parent state after saving
-                ref.read(selectedParentCategoryProvider.notifier).state = null;
-                context.pop(); // Go back after successful save
-              } catch (e) {
-                // Handle database save errors
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Failed to save category: $e')),
-                );
-              }
             },
           ).floatingBottom,
         ],

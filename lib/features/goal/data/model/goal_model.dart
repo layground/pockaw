@@ -8,7 +8,7 @@ part 'goal_model.g.dart';
 class GoalModel with _$GoalModel {
   const factory GoalModel({
     /// The unique identifier for the goal. Null if the goal is new and not yet saved.
-    String? id,
+    int? id,
 
     /// The name or title of the financial goal (e.g., "New Laptop", "Vacation Fund").
     required String title,

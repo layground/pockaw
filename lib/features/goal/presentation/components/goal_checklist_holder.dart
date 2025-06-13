@@ -10,7 +10,7 @@ import 'package:pockaw/features/goal/presentation/components/goal_checklist_item
 
 class GoalChecklistHolder extends ConsumerWidget {
   final int goalId;
-  const GoalChecklistHolder({Key? key, required this.goalId}) : super(key: key);
+  const GoalChecklistHolder({super.key, required this.goalId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,10 +29,12 @@ class GoalChecklistHolder extends ConsumerWidget {
               const GoalChecklistTitle(),
               const Gap(AppSpacing.spacing12),
               // render each item
-              ...items.map((item) => Padding(
-                    padding: const EdgeInsets.only(bottom: AppSpacing.spacing8),
-                    child: GoalChecklistItem(item: item),
-                  )),
+              ...items.map(
+                (item) => Padding(
+                  padding: const EdgeInsets.only(bottom: AppSpacing.spacing8),
+                  child: GoalChecklistItem(item: item),
+                ),
+              ),
             ],
           );
         },

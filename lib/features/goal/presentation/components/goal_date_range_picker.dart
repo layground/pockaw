@@ -27,6 +27,8 @@ class GoalDateRangePicker extends HookConsumerWidget {
         final dateRange = await CustomDatePicker.selectDateRange(
           context,
           selectedDate,
+          firstDate: DateTime.now().add(Duration(days: 1)),
+          lastDate: DateTime.now().add(Duration(days: 365 * 5)),
         );
 
         if (dateRange != null) {

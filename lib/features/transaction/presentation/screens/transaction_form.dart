@@ -239,8 +239,7 @@ class TransactionForm extends HookConsumerWidget {
                   imagePath: imagePicker.imageFile?.path,
                   isRecurring: false, // Or get from form if added
                 );
-                // TODO: Add newTransaction to your state (e.g., via Riverpod Notifier)
-                print('Saving New Transaction: ${newTransaction.toJson()}');
+                Log.d('Saving New Transaction: ${newTransaction.toJson()}');
               } else {
                 // Updating an existing transaction
                 final updatedTransaction = transactionToEdit.copyWith(
@@ -255,8 +254,7 @@ class TransactionForm extends HookConsumerWidget {
                   imagePath: imagePicker.imageFile?.path,
                   // isRecurring: ... // Update if in form
                 );
-                // TODO: Update updatedTransaction in your state (e.g., via Riverpod Notifier)
-                print('Updating Transaction: ${updatedTransaction.toJson()}');
+                Log.d('Updating Transaction: ${updatedTransaction.toJson()}');
               }
               context.pop(); // Go back after saving
             },

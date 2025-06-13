@@ -1,6 +1,5 @@
 // lib/features/goal/presentation/screens/goal_checklist_form_dialog.dart
 
-import 'package:drift/drift.dart' hide Column;
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -9,15 +8,14 @@ import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/form_fields/custom_numeric_field.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
+import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
-import 'package:pockaw/core/constants/app_text_styles.dart';
-import 'package:pockaw/core/db/app_database.dart';
-import 'package:pockaw/features/goal/presentation/riverpod/checklist_actions_provider.dart';
+import 'package:pockaw/features/goal/data/model/checklist_item_model.dart';
+import 'package:pockaw/features/goal/presentation/services/goal_form_service.dart';
 
 class GoalChecklistFormDialog extends ConsumerStatefulWidget {
   final int goalId;
-  const GoalChecklistFormDialog({Key? key, required this.goalId})
-    : super(key: key);
+  const GoalChecklistFormDialog({super.key, required this.goalId});
 
   @override
   ConsumerState<GoalChecklistFormDialog> createState() =>
@@ -40,68 +38,72 @@ class _GoalChecklistFormDialogState
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          padding: const EdgeInsets.fromLTRB(
-            AppSpacing.spacing20,
-            0,
-            AppSpacing.spacing20,
-            AppSpacing.spacing20,
-          ),
-          child: Form(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Text('Add Goal Checklist', style: AppTextStyles.body1),
-                const Gap(AppSpacing.spacing32),
-                CustomTextField(
-                  controller: _titleController,
-                  label: 'Title',
-                  hint: 'Lunch with my friends',
-                  isRequired: true,
-                  prefixIcon: HugeIcons.strokeRoundedArrangeByLettersAZ,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.name,
-                ),
-                const Gap(AppSpacing.spacing16),
-                CustomNumericField(
-                  controller: _amountController,
-                  label: 'Price amount',
-                  hint: '\$ 34',
-                  icon: HugeIcons.strokeRoundedCoins01,
-                  isRequired: true,
-                ),
-                const Gap(AppSpacing.spacing16),
-                CustomTextField(
-                  controller: _linkController,
-                  label: 'Link or place to buy',
-                  hint: 'Insert or paste link here...',
-                  prefixIcon: HugeIcons.strokeRoundedLink01,
-                  suffixIcon: HugeIcons.strokeRoundedClipboard,
-                ),
-              ],
+    return CustomScaffold(
+      context: context,
+      showBalance: false,
+      showBackButton: false,
+      title: 'Add Goal Checklist',
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Container(
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.spacing20,
+              0,
+              AppSpacing.spacing20,
+              AppSpacing.spacing20,
+            ),
+            child: Form(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CustomTextField(
+                    controller: _titleController,
+                    label: 'Title',
+                    hint: 'Lunch with my friends',
+                    isRequired: true,
+                    prefixIcon: HugeIcons.strokeRoundedArrangeByLettersAZ,
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.name,
+                  ),
+                  const Gap(AppSpacing.spacing16),
+                  CustomNumericField(
+                    controller: _amountController,
+                    label: 'Price amount',
+                    hint: '\$ 34',
+                    icon: HugeIcons.strokeRoundedCoins01,
+                    isRequired: true,
+                  ),
+                  const Gap(AppSpacing.spacing16),
+                  CustomTextField(
+                    controller: _linkController,
+                    label: 'Link or place to buy',
+                    hint: 'Insert or paste link here...',
+                    prefixIcon: HugeIcons.strokeRoundedLink01,
+                    suffixIcon: HugeIcons.strokeRoundedClipboard,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        PrimaryButton(
-          label: 'Save',
-          state: ButtonState.active,
-          onPressed: () async {
-            final actions = ref.read(checklistActionsProvider);
-            final amount = double.tryParse(_amountController.text) ?? 0;
-            await actions.add(
-              ChecklistItemsCompanion(
-                goalId: Value(widget.goalId),
-                title: Value(_titleController.text),
-                amount: Value(amount),
-                link: Value(_linkController.text),
-              ),
-            );
-            Navigator.of(context).pop();
-          },
-        ).floatingBottom,
-      ],
+          PrimaryButton(
+            label: 'Save',
+            state: ButtonState.active,
+            onPressed: () async {
+              GoalFormService().saveChecklist(
+                context,
+                ref,
+                ChecklistItemModel(
+                  title: _titleController.text,
+                  amount: double.tryParse(_amountController.text) ?? 0,
+                  link: _linkController.text,
+                  goalId: widget.goalId,
+                ),
+              );
+            },
+          ).floatingBottom,
+        ],
+      ),
     );
   }
 }

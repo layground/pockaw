@@ -1,0 +1,60 @@
+import 'package:drift/drift.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pockaw/core/database/database_provider.dart';
+import 'package:pockaw/core/database/pockaw_database.dart';
+import 'package:pockaw/features/category/data/model/category_model.dart';
+import 'package:pockaw/features/category/presentation/riverpod/category_providers.dart';
+import 'package:toastification/toastification.dart';
+
+class CategoryFormService {
+  Future<void> save(
+    BuildContext context,
+    WidgetRef ref,
+    CategoryModel categoryModel,
+  ) async {
+    // Basic validation
+    if (categoryModel.title.isEmpty) {
+      // Show an error message (e.g., using a SnackBar)
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Category title cannot be empty.'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+      return;
+    }
+
+    final db = ref.read(databaseProvider);
+
+    // Create a CategoriesCompanion from form data
+    final categoryCompanion = CategoriesCompanion(
+      id: categoryModel.id == null
+          ? const Value.absent()
+          : Value(categoryModel.id!),
+      title: Value(categoryModel.title),
+      iconName: Value(categoryModel.iconName),
+      parentId: Value(categoryModel.parentId), // Use selected parent ID
+      description: Value(categoryModel.description ?? ''),
+    );
+
+    try {
+      await db.categoryDao.upsertCategory(
+        categoryCompanion,
+      ); // Use upsert for create/update
+      // Clear the selected parent state after saving
+      ref.read(selectedParentCategoryProvider.notifier).state = null;
+      if (!context.mounted) return;
+      context.pop(); // Go back after successful save
+    } catch (e) {
+      // Handle database save errors
+      if (!context.mounted) return;
+      toastification.show(
+        context: context, // optional if you use ToastificationWrapper
+        title: Text('Failed to save category: $e'),
+        autoCloseDuration: const Duration(seconds: 5),
+      );
+    }
+  }
+}

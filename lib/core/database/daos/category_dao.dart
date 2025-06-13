@@ -70,7 +70,7 @@ class CategoryDao extends DatabaseAccessor<AppDatabase>
   /// Updates an existing category in the database.
   /// This uses `replace` which means all fields of the [category] object will be updated.
   /// Returns `true` if the update was successful, `false` otherwise.
-  Future<bool> updateExistingCategory(Category category) {
+  Future<bool> updateCategory(Category category) {
     return update(categories).replace(category);
   }
 

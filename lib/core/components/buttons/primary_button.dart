@@ -19,38 +19,36 @@ class PrimaryButton extends FilledButton {
     ButtonType type = ButtonType.primary,
     ButtonState state = ButtonState.active,
     VoidCallback? onPressed,
-    Key? key,
+    super.key,
   }) : super(
-          key: key,
-          onPressed: isLoading ? null : onPressed,
-          style: _styleFromTypeAndState(
-            type: type,
-            state: state,
-            isLoading: isLoading,
-          ).copyWith(
-            textStyle: WidgetStatePropertyAll<TextStyle>(
-              AppTextStyles.heading6.copyWith(
-                fontFamily: AppFontFamilies.montserrat,
-              ),
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (isLoading)
-                const SizedBox.square(
-                  dimension: 16,
-                  child: LoadingIndicator(color: Colors.grey),
-                ),
-              if (isLoading) const Gap(AppSpacing.spacing12),
-              if (icon != null) Icon(icon),
-              if (icon != null) const Gap(AppSpacing.spacing8),
-              Text(
-                isLoading ? loadingText : label,
-              ),
-            ],
-          ),
-        );
+         onPressed: isLoading ? null : onPressed,
+         style:
+             _styleFromTypeAndState(
+               type: type,
+               state: state,
+               isLoading: isLoading,
+             ).copyWith(
+               textStyle: WidgetStatePropertyAll<TextStyle>(
+                 AppTextStyles.heading6.copyWith(
+                   fontFamily: AppFontFamilies.montserrat,
+                 ),
+               ),
+             ),
+         child: Row(
+           mainAxisAlignment: MainAxisAlignment.center,
+           children: [
+             if (isLoading)
+               const SizedBox.square(
+                 dimension: 16,
+                 child: LoadingIndicator(color: Colors.grey),
+               ),
+             if (isLoading) const Gap(AppSpacing.spacing12),
+             if (icon != null) Icon(icon),
+             if (icon != null) const Gap(AppSpacing.spacing8),
+             Text(isLoading ? loadingText : label),
+           ],
+         ),
+       );
 
   static ButtonStyle _styleFromTypeAndState({
     ButtonType type = ButtonType.primary,
@@ -115,18 +113,15 @@ class PrimaryButton extends FilledButton {
 
 extension ButtonExtension on ButtonStyleButton {
   Widget get floatingBottom => Positioned(
-        bottom: 0,
-        left: 0,
-        right: 0,
-        child: Container(
-          color: AppColors.light,
-          padding: const EdgeInsets.symmetric(
-            vertical: 20,
-            horizontal: 20,
-          ),
-          child: this,
-        ),
-      );
+    bottom: 0,
+    left: 0,
+    right: 0,
+    child: Container(
+      color: AppColors.light,
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+      child: this,
+    ),
+  );
 
   Widget floatingBottomWithContent({required Widget content}) {
     return Positioned(
@@ -135,16 +130,8 @@ extension ButtonExtension on ButtonStyleButton {
       right: 0,
       child: Container(
         color: AppColors.light,
-        padding: const EdgeInsets.symmetric(
-          vertical: 20,
-          horizontal: 20,
-        ),
-        child: Column(
-          children: [
-            content,
-            this,
-          ],
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        child: Column(children: [content, this]),
       ),
     );
   }
