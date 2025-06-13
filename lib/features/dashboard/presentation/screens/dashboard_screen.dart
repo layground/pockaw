@@ -44,18 +44,6 @@ class DashboardScreen extends StatelessWidget {
         preferredSize: Size.fromHeight(85),
         child: Header(),
       ),
-      floatingActionButton:
-          (Platform.isWindows || Platform.isLinux || Platform.isMacOS)
-          ? FloatingActionButton(
-              onPressed: () {
-                context.push(Routes.transactionForm);
-              },
-              child: const HugeIcon(
-                icon: HugeIcons.strokeRoundedAdd01,
-                color: Colors.white,
-              ),
-            )
-          : null,
       body: ListView(
         padding: EdgeInsets.zero,
         children: [

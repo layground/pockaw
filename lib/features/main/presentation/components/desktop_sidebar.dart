@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/main/presentation/components/custom_bottom_app_bar.dart';
 import 'package:pockaw/features/main/presentation/riverpod/main_page_view_riverpod.dart';
 
@@ -19,14 +21,11 @@ class DesktopSidebar extends ConsumerWidget {
         vertical: AppSpacing.spacing16,
         // horizontal: AppSpacing.spacing8, // ListTile will handle its own padding
       ),
-      decoration: const BoxDecoration(
-        color: AppColors.dark,
-      ),
-      child: ListView(
+      decoration: const BoxDecoration(color: AppColors.dark),
+      child: Column(
         // Using ListView for scrollability if items exceed height
         // mainAxisAlignment: MainAxisAlignment.start, // Align items to the top
         // crossAxisAlignment: CrossAxisAlignment.stretch, // Make ListTiles fill width
-        padding: EdgeInsets.zero, // Remove ListView's default padding
         children: <Widget>[
           _buildSidebarItem(
             context: context,
@@ -60,6 +59,16 @@ class DesktopSidebar extends ConsumerWidget {
             pageIndex: 3,
             onTap: () => pageController.jumpToPage(3),
           ),
+          Spacer(),
+          _buildSidebarItem(
+            context: context,
+            ref: ref,
+            title: 'New Transaction',
+            icon: HugeIcons.strokeRoundedAdd01,
+            onTap: () {
+              context.push(Routes.transactionForm);
+            },
+          ),
         ],
       ),
     );
@@ -77,31 +86,37 @@ class DesktopSidebar extends ConsumerWidget {
     final Color itemColor = isSpecialAction
         ? AppColors.primary
         : ref
-            .read(pageControllerProvider.notifier)
-            .getIconColor(pageIndex ?? -1);
+              .read(pageControllerProvider.notifier)
+              .getIconColor(pageIndex ?? -1);
 
     return ListTile(
       leading: Icon(icon, color: itemColor, size: 26),
       title: Text(
         title,
         style: TextStyle(
-            color: itemColor,
-            fontWeight: (pageIndex != null &&
-                        ref.watch(pageControllerProvider) == pageIndex) ||
-                    isSpecialAction
-                ? FontWeight.bold
-                : FontWeight.normal),
+          color: itemColor,
+          fontWeight:
+              (pageIndex != null &&
+                      ref.watch(pageControllerProvider) == pageIndex) ||
+                  isSpecialAction
+              ? FontWeight.bold
+              : FontWeight.normal,
+        ),
       ),
       onTap: onTap,
       contentPadding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.spacing20, vertical: AppSpacing.spacing4),
+        horizontal: AppSpacing.spacing20,
+        vertical: AppSpacing.spacing4,
+      ),
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppRadius.radius12)),
+        borderRadius: BorderRadius.circular(AppRadius.radius12),
+      ),
       hoverColor: AppColors.light.withAlpha(10),
       selected:
           pageIndex != null && ref.watch(pageControllerProvider) == pageIndex,
-      selectedTileColor:
-          AppColors.primary.withAlpha(15), // Subtle selection indication
+      selectedTileColor: AppColors.primary.withAlpha(
+        15,
+      ), // Subtle selection indication
     );
   }
 }
