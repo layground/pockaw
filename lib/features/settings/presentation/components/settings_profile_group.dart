@@ -10,7 +10,7 @@ class SettingsProfileGroup extends StatelessWidget {
       settingTiles: [
         MenuTileButton(
           label: 'Personal Details',
-          icon: TablerIcons.user,
+          icon: HugeIcons.strokeRoundedUser,
         ),
       ],
     );

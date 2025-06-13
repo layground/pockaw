@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+
 import 'package:gap/gap.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:intl/intl.dart';
 import 'package:vibration/vibration.dart';
 
@@ -180,7 +181,7 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
                   child: Center(
                     child: keys[index] == '{backspace}'
                         ? const Icon(
-                            TablerIcons.backspace,
+                            HugeIcons.strokeRoundedArrowLeft04,
                             size: 30,
                           )
                         : Text(

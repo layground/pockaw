@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/form_fields/custom_confirm_checkbox.dart';
@@ -27,7 +28,7 @@ class BudgetFormScreen extends StatelessWidget {
       actions: [
         CustomIconButton(
           onPressed: () {},
-          icon: TablerIcons.trash,
+          icon: HugeIcons.strokeRoundedDelete01,
           color: AppColors.red,
           borderColor: AppColors.redAlpha10,
           backgroundColor: AppColors.redAlpha10,
@@ -44,7 +45,7 @@ class BudgetFormScreen extends StatelessWidget {
                   // controller: titleController,
                   label: 'Fund Source',
                   hint: 'Primary Wallet',
-                  prefixIcon: TablerIcons.wallet,
+                  prefixIcon: HugeIcons.strokeRoundedWallet01,
                   readOnly: true,
                 ),
                 const Gap(AppSpacing.spacing16),
@@ -52,7 +53,7 @@ class BudgetFormScreen extends StatelessWidget {
                   label: 'Category',
                   hint: 'Groceries • Cosmetics',
                   isRequired: true,
-                  prefixIcon: TablerIcons.category_2,
+                  prefixIcon: HugeIcons.strokeRoundedPackage,
                   onTap: () {
                     context.push(Routes.categoryList);
                   },
@@ -62,7 +63,7 @@ class BudgetFormScreen extends StatelessWidget {
                   // controller: amountController,
                   label: 'Amount',
                   hint: '\$ 34',
-                  icon: TablerIcons.coin,
+                  icon: HugeIcons.strokeRoundedCoins01,
                   isRequired: true,
                 ),
                 const Gap(AppSpacing.spacing16),

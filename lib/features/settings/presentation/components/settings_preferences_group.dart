@@ -10,7 +10,7 @@ class SettingsPreferencesGroup extends StatelessWidget {
       settingTiles: [
         MenuTileButton(
           label: 'Notifications',
-          icon: TablerIcons.bell,
+          icon: HugeIcons.strokeRoundedHotelBell,
         ),
       ],
     );

@@ -1,7 +1,8 @@
 import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+
 import 'package:gap/gap.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
@@ -31,7 +32,7 @@ class TransactionAmountEditor extends StatelessWidget {
                 style: AppTextStyles.body3,
               ),
               Icon(
-                TablerIcons.chevron_down,
+                HugeIcons.strokeRoundedArrowDown01,
                 size: 20,
                 color: AppColors.primaryAlpha25,
               ),

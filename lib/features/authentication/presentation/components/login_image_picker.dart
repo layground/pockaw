@@ -43,7 +43,9 @@ class LoginImagePicker extends ConsumerWidget {
                   fit: BoxFit.cover,
                 ),
         ),
-        child: image.imageFile == null ? const Icon(TablerIcons.upload) : null,
+        child: image.imageFile == null
+            ? const Icon(HugeIcons.strokeRoundedUpload01)
+            : null,
       ),
     );
   }

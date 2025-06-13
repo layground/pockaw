@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+
 import 'package:gap/gap.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/chips/custom_chip.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
@@ -30,7 +31,7 @@ class GoalChecklistItem extends StatelessWidget {
                   style: AppTextStyles.body3,
                 ),
               ),
-              Icon(TablerIcons.circle_check_filled)
+              Icon(HugeIcons.strokeRoundedCheckmarkCircle01)
             ],
           ),
           Gap(AppSpacing.spacing4),

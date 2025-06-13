@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
@@ -36,7 +37,7 @@ class GoalCard extends StatelessWidget {
                   style: AppTextStyles.body3,
                 ),
                 Icon(
-                  TablerIcons.chevron_right,
+                  HugeIcons.strokeRoundedArrowRight01,
                   color: AppColors.purple,
                   size: 20,
                 ),
@@ -84,7 +85,7 @@ class GoalCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const Icon(
-                            TablerIcons.circle_check,
+                            HugeIcons.strokeRoundedCheckmarkCircle01,
                             color: AppColors.neutralAlpha50,
                             size: 20,
                           ),
@@ -104,7 +105,7 @@ class GoalCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           const Icon(
-                            TablerIcons.circle,
+                            HugeIcons.strokeRoundedCircle,
                             color: AppColors.purple900,
                             size: 20,
                           ),

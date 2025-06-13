@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/circle_button.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/progress_indicators/custom_progress_indicator.dart';
@@ -19,6 +19,8 @@ import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/dashboard/presentation/components/my_goals/my_goals_carousel.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_card.dart';
+import 'package:pockaw/features/transaction/application/providers/transaction_providers.dart';
+import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tile.dart';
 import 'package:pockaw/features/wallet_switcher/presentation/screens/wallet_switcher_dropdown.dart';
 
@@ -58,7 +60,7 @@ class DashboardScreen extends StatelessWidget {
                 Gap(AppSpacing.spacing12),
                 CashFlowCards(),
                 Gap(AppSpacing.spacing12),
-                SpendingProgressChart()
+                SpendingProgressChart(),
               ],
             ),
           ),

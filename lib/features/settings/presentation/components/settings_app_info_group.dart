@@ -12,21 +12,21 @@ class SettingsAppInfoGroup extends ConsumerWidget {
       settingTiles: [
         const MenuTileButton(
           label: 'Privacy Policy',
-          icon: TablerIcons.hammer,
-          suffixIcon: TablerIcons.external_link,
+          icon: HugeIcons.strokeRoundedLegalHammer,
+          suffixIcon: HugeIcons.strokeRoundedLink01,
         ),
         const MenuTileButton(
           label: 'Terms and Conditions',
-          icon: TablerIcons.report,
-          suffixIcon: TablerIcons.external_link,
+          icon: HugeIcons.strokeRoundedFileExport,
+          suffixIcon: HugeIcons.strokeRoundedLink01,
         ),
         const MenuTileButton(
           label: 'Delete My Data',
-          icon: TablerIcons.trash_x,
+          icon: HugeIcons.strokeRoundedDelete01,
         ),
         MenuTileButton(
           label: 'Logout',
-          icon: TablerIcons.logout,
+          icon: HugeIcons.strokeRoundedLogout01,
           onTap: () {
             showAdaptiveDialog(
               context: context,

@@ -5,20 +5,21 @@ class SettingsFinanceGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SettingsGroupHolder(
+    return SettingsGroupHolder(
       title: 'Finance',
       settingTiles: [
         MenuTileButton(
           label: 'Fund Sources',
-          icon: TablerIcons.wallet,
+          icon: HugeIcons.strokeRoundedWallet01,
         ),
         MenuTileButton(
           label: 'Categories',
-          icon: TablerIcons.category_2,
+          icon: HugeIcons.strokeRoundedCatalogue,
+          onTap: () => context.push(Routes.categoryList),
         ),
         MenuTileButton(
           label: 'Change Currency',
-          icon: TablerIcons.moneybag,
+          icon: HugeIcons.strokeRoundedMoney01,
         ),
       ],
     );

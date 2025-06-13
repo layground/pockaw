@@ -6,17 +6,18 @@ class ActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      spacing: 10,
       children: [
         CustomIconButton(
           onPressed: () {},
-          icon: TablerIcons.bell,
+          icon: HugeIcons.strokeRoundedNotification02,
           showBadge: true,
         ),
         CustomIconButton(
           onPressed: () {
             context.push(Routes.settings);
           },
-          icon: TablerIcons.settings_2,
+          icon: HugeIcons.strokeRoundedSettings01,
         ),
       ],
     );

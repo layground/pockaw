@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
+
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/secondary_button.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/services/image_service/riverpod/image_notifier.dart';
@@ -15,18 +18,20 @@ class TransactionImagePicker extends ConsumerWidget {
 
     return Row(
       children: [
-        Expanded(
-          child: SecondaryButton(
-            onPressed: () async {
-              imageNotifier.takePhoto().then((value) {
-                imageNotifier.saveImage();
-              });
-            },
-            label: 'Camera',
-            icon: TablerIcons.focus_centered,
+        if (Platform.isAndroid || Platform.isIOS)
+          Expanded(
+            child: SecondaryButton(
+              onPressed: () async {
+                imageNotifier.takePhoto().then((value) {
+                  imageNotifier.saveImage();
+                });
+              },
+              label: 'Camera',
+              icon: HugeIcons.strokeRoundedCamera01,
+            ),
           ),
-        ),
-        const Gap(AppSpacing.spacing8),
+        if (Platform.isAndroid || Platform.isIOS)
+          const Gap(AppSpacing.spacing8),
         Expanded(
           child: SecondaryButton(
             onPressed: () {
@@ -35,7 +40,7 @@ class TransactionImagePicker extends ConsumerWidget {
               });
             },
             label: 'Gallery',
-            icon: TablerIcons.photo,
+            icon: HugeIcons.strokeRoundedImage01,
           ),
         ),
       ],
