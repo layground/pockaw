@@ -9,8 +9,10 @@ import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/form_fields/custom_numeric_field.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/string_extension.dart';
 import 'package:pockaw/core/utils/logger.dart';
+import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/goal/data/model/goal_model.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/date_picker_provider.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_date_range_picker.dart';
@@ -22,6 +24,7 @@ class GoalFormDialog extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final defaultCurrency = ref.read(authStateProvider).defaultCurrency;
     final dateRange = ref.watch(datePickerProvider);
     final titleController = useTextEditingController();
     final noteController = useTextEditingController();
@@ -34,7 +37,8 @@ class GoalFormDialog extends HookConsumerWidget {
       if (isEditing) {
         titleController.text = goal!.title;
         noteController.text = goal!.description ?? '';
-        targetAmountController.text = '${goal!.targetAmount}';
+        targetAmountController.text =
+            '$defaultCurrency ${goal!.targetAmount.toPriceFormat()}';
         titleController.text = goal!.title;
       }
 
@@ -42,6 +46,7 @@ class GoalFormDialog extends HookConsumerWidget {
     }, const []);
 
     return CustomBottomSheet(
+      title: '${isEditing ? 'Edit' : 'New'} Goal',
       child: Form(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -69,7 +74,7 @@ class GoalFormDialog extends HookConsumerWidget {
             CustomNumericField(
               controller: targetAmountController,
               label: 'Target amount',
-              hint: '\$ 1,500',
+              hint: '$defaultCurrency 1,500',
               icon: HugeIcons.strokeRoundedCoins01,
               isRequired: true,
             ),

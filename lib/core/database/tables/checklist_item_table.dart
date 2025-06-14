@@ -21,9 +21,9 @@ extension ChecklistItemTableExtensions on ChecklistItem {
       id: id,
       goalId: goalId,
       title: title,
-      amount: amount,
-      link: link,
-      completed: completed,
+      amount: amount ?? 0.0,
+      link: link ?? '',
+      completed: completed ?? false,
     );
   }
 }

@@ -13,6 +13,8 @@ import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
+import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/goal/data/model/goal_model.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_checklist_holder.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_title_card.dart';
@@ -28,6 +30,7 @@ class GoalDetailsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     print('📄  GoalDetailsScreen.build: goalId=$goalId');
+    final auth = ref.watch(authStateProvider);
     final goalAsync = ref.watch(goalDetailsProvider(goalId));
 
     return CustomScaffold(
@@ -139,7 +142,7 @@ class GoalDetailsScreen extends ConsumerWidget {
                   goalAsync.when(
                     data: (GoalModel goal) {
                       return Text(
-                        '${goal.targetAmount}',
+                        '${auth.defaultCurrency} ${goal.targetAmount.toPriceFormat()}',
                         style: AppTextStyles.numericLarge,
                       );
                     },

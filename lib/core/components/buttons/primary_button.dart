@@ -16,6 +16,7 @@ class PrimaryButton extends FilledButton {
     bool isOutlined = false,
     String loadingText = 'Please wait...',
     IconData? icon,
+    EdgeInsets? padding,
     ButtonType type = ButtonType.primary,
     ButtonState state = ButtonState.active,
     VoidCallback? onPressed,
@@ -33,6 +34,9 @@ class PrimaryButton extends FilledButton {
                    fontFamily: AppFontFamilies.montserrat,
                  ),
                ),
+               padding: padding == null
+                   ? null
+                   : WidgetStatePropertyAll<EdgeInsetsGeometry>(padding),
              ),
          child: Row(
            mainAxisAlignment: MainAxisAlignment.center,

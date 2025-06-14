@@ -59,31 +59,62 @@ class GoalFormService {
     BuildContext context,
     WidgetRef ref, {
     required ChecklistItemModel checklistItem,
-    bool isEditing = false,
   }) async {
     final actions = ref.read(checklistActionsProvider);
+    bool isEditing = checklistItem.id != null;
+    Log.d(isEditing, label: 'isEditing');
+
     if (!isEditing) {
       await actions.add(
         ChecklistItemsCompanion(
-          goalId: Value(checklistItem.id ?? 1),
+          goalId: Value(checklistItem.goalId),
           title: Value(checklistItem.title),
           amount: Value(checklistItem.amount),
           link: Value(checklistItem.link),
+          completed: Value(false),
         ),
       );
     } else {
       await actions.update(
         ChecklistItem(
           id: checklistItem.id ?? 0,
-          goalId: checklistItem.id ?? 1,
+          goalId: checklistItem.goalId,
           title: checklistItem.title,
           amount: checklistItem.amount,
           link: checklistItem.link,
+          completed: checklistItem.completed,
         ),
       );
     }
 
     if (!context.mounted) return;
     context.pop();
+  }
+
+  Future<void> toggleComplete(
+    BuildContext context,
+    WidgetRef ref, {
+    required ChecklistItemModel checklistItem,
+  }) async {
+    final actions = ref.read(checklistActionsProvider);
+    await actions.update(
+      ChecklistItem(
+        id: checklistItem.id ?? 0,
+        goalId: checklistItem.goalId,
+        title: checklistItem.title,
+        amount: checklistItem.amount,
+        link: checklistItem.link,
+        completed: checklistItem.completed,
+      ),
+    );
+  }
+
+  void deleteChecklist(
+    BuildContext context,
+    WidgetRef ref, {
+    required ChecklistItemModel checklistItem,
+  }) {
+    final actions = ref.read(checklistActionsProvider);
+    actions.delete(checklistItem.id ?? 0);
   }
 }

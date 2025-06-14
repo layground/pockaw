@@ -4,8 +4,13 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 
 class CustomBottomSheet extends StatelessWidget {
+  final String title;
   final Widget child;
-  const CustomBottomSheet({super.key, required this.child});
+  const CustomBottomSheet({
+    super.key,
+    required this.title,
+    required this.child,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,7 @@ class CustomBottomSheet extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const Text('Add Goal', style: AppTextStyles.body1),
+            Text(title, style: AppTextStyles.body1),
             const Gap(AppSpacing.spacing32),
             ...[child],
           ],

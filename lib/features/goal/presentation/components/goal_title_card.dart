@@ -3,6 +3,7 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/features/goal/data/model/goal_model.dart';
 
 class GoalTitleCard extends StatelessWidget {
@@ -24,7 +25,7 @@ class GoalTitleCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            '${goal.startDate} - ${goal.endDate}',
+            '${goal.startDate?.toDayShortMonthYear()} - ${goal.endDate.toDayShortMonthYear()}',
             style: AppTextStyles.body5,
           ),
           Text(goal.title, style: AppTextStyles.body2),
