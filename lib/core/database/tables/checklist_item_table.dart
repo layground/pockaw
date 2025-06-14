@@ -11,6 +11,7 @@ class ChecklistItems extends Table {
   TextColumn get title => text().withLength(min: 1, max: 100)();
   RealColumn get amount => real().nullable()();
   TextColumn get link => text().nullable()();
+  BoolColumn get completed => boolean().nullable()();
 }
 
 extension ChecklistItemTableExtensions on ChecklistItem {
@@ -22,6 +23,7 @@ extension ChecklistItemTableExtensions on ChecklistItem {
       title: title,
       amount: amount,
       link: link,
+      completed: completed,
     );
   }
 }

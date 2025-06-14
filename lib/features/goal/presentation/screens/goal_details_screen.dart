@@ -1,34 +1,89 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 
 import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
+import 'package:pockaw/core/components/loading_indicators/loading_indicator.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/database/database_provider.dart';
+import 'package:pockaw/features/goal/data/model/goal_model.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_checklist_holder.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_title_card.dart';
+import 'package:pockaw/features/goal/presentation/riverpod/date_picker_provider.dart';
+import 'package:pockaw/features/goal/presentation/riverpod/goal_details_provider.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_checklist_form_dialog.dart';
+import 'package:pockaw/features/goal/presentation/screens/goal_form_dialog.dart';
 
-class GoalDetailsScreen extends StatelessWidget {
+class GoalDetailsScreen extends ConsumerWidget {
   final int goalId;
   const GoalDetailsScreen({super.key, required this.goalId});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     print('📄  GoalDetailsScreen.build: goalId=$goalId');
+    final goalAsync = ref.watch(goalDetailsProvider(goalId));
+
     return CustomScaffold(
       context: context,
       title: 'My Goals',
+      showBalance: false,
       actions: [
         CustomIconButton(
-          onPressed: () {},
-          icon: HugeIcons.strokeRoundedEdit01,
+          onPressed: () {
+            if (goalAsync.value != null) {
+              ref.read(datePickerProvider.notifier).state =
+                  goalAsync.value!.goalDates;
+
+              showModalBottomSheet(
+                context: context,
+                showDragHandle: true,
+                isScrollControlled: true,
+                backgroundColor: Colors.white,
+                builder: (context) => GoalFormDialog(goal: goalAsync.value!),
+              );
+            }
+          },
+          icon: HugeIcons.strokeRoundedEdit02,
           iconSize: IconSize.medium,
         ),
+        if (goalAsync.value != null)
+          CustomIconButton(
+            onPressed: () {
+              showAdaptiveDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: Text('Delete Goal'),
+                    content: Text('Are you sure want to delete this goal?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => context.pop(),
+                        child: Text('Cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          final db = ref.read(databaseProvider);
+                          db.goalDao.deleteGoal(goalId);
+                          context.pop();
+                          context.pop();
+                        },
+                        child: Text('Delete'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            icon: HugeIcons.strokeRoundedDelete02,
+            iconSize: IconSize.medium,
+          ),
       ],
       body: Stack(
         fit: StackFit.expand,
@@ -40,12 +95,22 @@ class GoalDetailsScreen extends StatelessWidget {
               AppSpacing.spacing20,
               150,
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const GoalTitleCard(),
-                GoalChecklistHolder(goalId: goalId),
-              ],
+            child: goalAsync.when(
+              data: (GoalModel goal) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    GoalTitleCard(goal: goal),
+                    GoalChecklistHolder(goalId: goalId),
+                  ],
+                );
+              },
+              error: (Object error, StackTrace stackTrace) {
+                return Center(child: Text('Error: $error'));
+              },
+              loading: () {
+                return Center(child: LoadingIndicator());
+              },
             ),
           ),
           PrimaryButton(
@@ -67,11 +132,22 @@ class GoalDetailsScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                 horizontal: AppSpacing.spacing2,
               ),
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text('Total Goal Target', style: AppTextStyles.body2),
-                  Text('Rp. 7.550.499', style: AppTextStyles.numericLarge),
+                  goalAsync.when(
+                    data: (GoalModel goal) {
+                      return Text(
+                        '${goal.targetAmount}',
+                        style: AppTextStyles.numericLarge,
+                      );
+                    },
+                    error: (Object error, StackTrace stackTrace) {
+                      return Container();
+                    },
+                    loading: () => Container(),
+                  ),
                 ],
               ),
             ),

@@ -18,7 +18,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 2;
+  int get schemaVersion => 3;
 
   @override
   MigrationStrategy get migration {
@@ -47,13 +47,13 @@ class AppDatabase extends _$AppDatabase {
           await m.createTable(
             categories,
           ); // Recreate 'categories' with the new schema (v2)
-          // 'categories' here refers to the TableInfo object.
         }
-        // Add more migration steps for future schema versions as needed:
-        // For example, if migrating from version 2 to 3:
-        // if (from == 2 && to == 3) {
-        //   await m.addColumn(someOtherTable, someOtherTable.newColumn);
-        // }
+        if (from == 2 && to == 3) {
+          await m.deleteTable('goals');
+          await m.createTable(goals);
+          await m.deleteTable('checklist_items');
+          await m.createTable(checklistItems);
+        }
       },
     );
   }

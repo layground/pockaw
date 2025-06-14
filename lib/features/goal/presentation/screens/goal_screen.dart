@@ -29,7 +29,7 @@ class GoalScreen extends ConsumerWidget {
               showDragHandle: true,
               isScrollControlled: true,
               backgroundColor: Colors.white,
-              builder: (context) => const GoalFormDialog(),
+              builder: (context) => GoalFormDialog(),
             );
           },
           icon: HugeIcons.strokeRoundedPlusSign,
@@ -37,12 +37,18 @@ class GoalScreen extends ConsumerWidget {
         ),
       ],
       body: asyncGoals.when(
-        data: (goals) => ListView.separated(
-          padding: const EdgeInsets.all(AppSpacing.spacing20),
-          itemCount: goals.length,
-          itemBuilder: (_, i) => GoalCard(goal: goals[i]),
-          separatorBuilder: (_, __) => const Gap(AppSpacing.spacing12),
-        ),
+        data: (goals) {
+          if (goals.isEmpty) {
+            return Center(child: Text('No goals. Add one!'));
+          }
+
+          return ListView.separated(
+            padding: const EdgeInsets.all(AppSpacing.spacing20),
+            itemCount: goals.length,
+            itemBuilder: (_, i) => GoalCard(goal: goals[i]),
+            separatorBuilder: (_, __) => const Gap(AppSpacing.spacing12),
+          );
+        },
         loading: () => const Center(child: CircularProgressIndicator()),
         error: (e, st) => Center(child: Text('Error: $e')),
       ),

@@ -23,6 +23,8 @@ class ChecklistItemModel with _$ChecklistItemModel {
 
     /// An optional web link related to the checklist item (e.g., a link to a product page).
     String? link,
+
+    bool? completed,
   }) = _ChecklistItemModel;
 
   /// Creates a `ChecklistItemModel` instance from a JSON map.

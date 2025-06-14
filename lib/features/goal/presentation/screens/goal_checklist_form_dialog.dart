@@ -7,12 +7,19 @@ import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/form_fields/custom_numeric_field.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/extensions/string_extension.dart';
+import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/goal/data/model/checklist_item_model.dart';
 import 'package:pockaw/features/goal/presentation/services/goal_form_service.dart';
 
 class GoalChecklistFormDialog extends ConsumerStatefulWidget {
   final int goalId;
-  const GoalChecklistFormDialog({super.key, required this.goalId});
+  final ChecklistItemModel? checklistItemModel;
+  const GoalChecklistFormDialog({
+    super.key,
+    required this.goalId,
+    this.checklistItemModel,
+  });
 
   @override
   ConsumerState<GoalChecklistFormDialog> createState() =>
@@ -24,6 +31,20 @@ class _GoalChecklistFormDialogState
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   final _linkController = TextEditingController();
+  bool isEditing = false;
+
+  @override
+  void initState() {
+    isEditing = widget.checklistItemModel != null;
+
+    if (isEditing) {
+      _titleController.text = widget.checklistItemModel!.title;
+      _amountController.text = '${widget.checklistItemModel!.amount}';
+      _linkController.text = widget.checklistItemModel!.link ?? '';
+    }
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -68,10 +89,18 @@ class _GoalChecklistFormDialogState
               label: 'Save',
               state: ButtonState.active,
               onPressed: () async {
+                Log.d(_titleController.text, label: 'title');
+                Log.d(
+                  _amountController.text.takeNumericAsDouble(),
+                  label: 'amount',
+                );
+                Log.d(_linkController.text, label: 'link');
+                // return;
                 GoalFormService().saveChecklist(
                   context,
                   ref,
-                  ChecklistItemModel(
+                  isEditing: isEditing,
+                  checklistItem: ChecklistItemModel(
                     title: _titleController.text,
                     amount: double.tryParse(_amountController.text) ?? 0,
                     link: _linkController.text,
