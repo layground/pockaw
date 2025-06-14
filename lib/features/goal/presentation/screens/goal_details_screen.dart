@@ -56,6 +56,7 @@ class GoalDetailsScreen extends StatelessWidget {
               showModalBottomSheet(
                 context: context,
                 showDragHandle: true,
+                isScrollControlled: true,
                 backgroundColor: Colors.white,
                 builder: (context) => GoalChecklistFormDialog(goalId: goalId),
               );

@@ -27,6 +27,7 @@ class GoalScreen extends ConsumerWidget {
             showModalBottomSheet(
               context: context,
               showDragHandle: true,
+              isScrollControlled: true,
               backgroundColor: Colors.white,
               builder: (context) => const GoalFormDialog(),
             );
