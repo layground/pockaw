@@ -14,8 +14,8 @@ class SettingsFinanceGroup extends StatelessWidget {
         ),
         MenuTileButton(
           label: 'Categories',
-          icon: HugeIcons.strokeRoundedCatalogue,
-          onTap: () => context.push(Routes.categoryList),
+          icon: HugeIcons.strokeRoundedStructure01,
+          onTap: () => context.push(Routes.manageCategories),
         ),
         MenuTileButton(
           label: 'Change Currency',

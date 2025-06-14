@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
-import 'package:pockaw/features/transaction/data/repositories/local/transaction_repo.dart'; // Assuming this is the correct path
 
 /// Provider to expose the list of transactions.
 ///
@@ -9,7 +8,7 @@ import 'package:pockaw/features/transaction/data/repositories/local/transaction_
 /// For this static list, a simple Provider is sufficient.
 final transactionListProvider = Provider<List<Transaction>>((ref) {
   // Directly return the static list from your repository
-  return transactions;
+  return [];
 });
 
 // You could also add providers for specific filtered lists if needed, for example:

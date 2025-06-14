@@ -15,14 +15,14 @@ class CategoryModel with _$CategoryModel {
 
     /// The identifier or name of the icon associated with this category.
     /// This could be a key to lookup an icon from a predefined set (e.g., "HugeIcons.strokeRoundedShoppingBag01").
-    required String iconName,
+    @Default('') String iconName,
 
     /// The identifier of the parent category, if this is a sub-category.
     /// Null if this is a top-level category.
     int? parentId,
 
     /// An optional description for the category.
-    String? description,
+    @Default('') String? description,
 
     /// A list of sub-categories. Null or empty if this category has no sub-categories.
     List<CategoryModel>? subCategories,

@@ -7,6 +7,8 @@ import 'package:pockaw/core/database/daos/goal_dao.dart';
 import 'package:pockaw/core/database/tables/category_table.dart';
 import 'package:pockaw/core/database/tables/checklist_item_table.dart';
 import 'package:pockaw/core/database/tables/goal_table.dart';
+import 'package:pockaw/core/services/data_population_service/category_population_service.dart';
+import 'package:pockaw/core/utils/logger.dart';
 
 part 'pockaw_database.g.dart';
 
@@ -26,6 +28,10 @@ class AppDatabase extends _$AppDatabase {
       onCreate: (Migrator m) async {
         // Called when the database is created for the first time.
         await m.createAll(); // Creates all tables defined in this database
+        // After tables are created, populate default categories.
+        // Note: 'this' refers to the AppDatabase instance.
+        Log.i('Populating default categories via onCreate...');
+        await CategoryPopulationService.populate(this);
       },
       onUpgrade: (Migrator m, int from, int to) async {
         // Called when the schemaVersion increases.

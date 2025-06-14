@@ -13,12 +13,12 @@ class SettingsAppInfoGroup extends ConsumerWidget {
         const MenuTileButton(
           label: 'Privacy Policy',
           icon: HugeIcons.strokeRoundedLegalHammer,
-          suffixIcon: HugeIcons.strokeRoundedLink01,
+          suffixIcon: HugeIcons.strokeRoundedSquareArrowUpRight,
         ),
         const MenuTileButton(
           label: 'Terms and Conditions',
           icon: HugeIcons.strokeRoundedFileExport,
-          suffixIcon: HugeIcons.strokeRoundedLink01,
+          suffixIcon: HugeIcons.strokeRoundedSquareArrowUpRight,
         ),
         const MenuTileButton(
           label: 'Delete My Data',

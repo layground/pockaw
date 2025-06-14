@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/database/database_provider.dart';
+import 'package:pockaw/core/utils/logger.dart'; // Import your logger
 import 'package:pockaw/core/database/pockaw_database.dart';
 import 'package:pockaw/core/database/tables/category_table.dart'
     show CategoryTableExtensions; // Import for toModel()
@@ -13,6 +14,12 @@ final hierarchicalCategoriesProvider = StreamProvider<List<CategoryModel>>((
   final db = ref.watch(databaseProvider);
 
   return db.categoryDao.watchAllCategories().map((flatDriftCategories) {
+    Log.d(
+      'Flat Drift Categories from DB (count: ${flatDriftCategories.length})',
+    );
+    // for (var cat in flatDriftCategories) {
+    //   Log.d('- ID: ${cat.id}, Title: ${cat.title}, ParentID: ${cat.parentId}');
+    // }
     return _buildCategoryHierarchy(flatDriftCategories);
   });
 });
@@ -47,14 +54,19 @@ List<CategoryModel> _buildCategoryHierarchy(
     }
 
     return children.map((child) {
-      // Recursively find and assign subCategories for the current child.
-      return child.copyWith(subCategories: buildChildrenForParent(child.id));
-    }).toList();
+        // Recursively find and assign subCategories for the current child.
+        return child.copyWith(subCategories: buildChildrenForParent(child.id));
+      }).toList()
+      // Sort children alphabetically by title for consistent display
+      ..sort((a, b) => a.title.compareTo(b.title));
   }
 
   // Start building the hierarchy from top-level categories (those with parentId == null).
-  return buildChildrenForParent(null) ??
-      []; // If no top-level categories, return an empty list.
+  final List<CategoryModel> topLevelCategories =
+      buildChildrenForParent(null) ?? [];
+  // Sort top-level categories alphabetically
+  topLevelCategories.sort((a, b) => a.title.compareTo(b.title));
+  return topLevelCategories;
 }
 
 /// Provider to temporarily hold the selected parent category when navigating

@@ -2,9 +2,11 @@ import 'package:drift/drift.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/database/pockaw_database.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
+import 'package:pockaw/features/category/presentation/riverpod/category_actions_provider.dart';
 import 'package:pockaw/features/category/presentation/riverpod/category_providers.dart';
 import 'package:toastification/toastification.dart';
 
@@ -15,13 +17,18 @@ class CategoryFormService {
     CategoryModel categoryModel,
   ) async {
     // Basic validation
-    if (categoryModel.title.isEmpty) {
+    if (categoryModel.title.isEmpty || categoryModel.parentId == null) {
       // Show an error message (e.g., using a SnackBar)
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Category title cannot be empty.'),
-          backgroundColor: Colors.redAccent,
+      toastification.show(
+        context: context, // optional if you use ToastificationWrapper
+        title: Text(
+          'Title and parent category cannot be empty.',
+          style: AppTextStyles.body2,
         ),
+        applyBlurEffect: true,
+        style: ToastificationStyle.flatColored,
+        type: ToastificationType.error,
+        autoCloseDuration: const Duration(seconds: 3),
       );
       return;
     }
@@ -56,5 +63,14 @@ class CategoryFormService {
         autoCloseDuration: const Duration(seconds: 5),
       );
     }
+  }
+
+  void delete(
+    BuildContext context,
+    WidgetRef ref, {
+    required CategoryModel categoryModel,
+  }) {
+    final actions = ref.read(categoriesActionsProvider);
+    actions.delete(categoryModel.id ?? 0);
   }
 }
