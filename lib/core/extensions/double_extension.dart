@@ -18,4 +18,20 @@ extension DoubleFormattingExtensions on double {
       return NumberFormat("#,##0.00", locale).format(this);
     }
   }
+
+  /// Calculates the percentage difference between this value (current) and a previous value.
+  ///
+  /// Returns 0.0 if previousValue is 0 to avoid division by zero.
+  ///
+  /// Example:
+  /// - `current: 110, previous: 100` results in `10.0` (10% increase)
+  /// - `current: 90, previous: 100` results in `-10.0` (10% decrease)
+  double calculatePercentDifference(double previousValue) {
+    if (previousValue == 0) {
+      // If previous value was 0, any current value is an "infinite" increase if positive,
+      // or 0% change if current is also 0. For simplicity, return 100% if current is > 0, else 0.
+      return this > 0 ? 100.0 : 0.0;
+    }
+    return ((this - previousValue) / previousValue) * 100;
+  }
 }

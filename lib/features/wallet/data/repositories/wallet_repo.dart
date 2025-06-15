@@ -1,11 +1,11 @@
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 
-List<WalletModel> wallets = [
+const List<WalletModel> wallets = [
   WalletModel(
     id: 1,
-    name: 'Primary Checking',
-    balance: 1250.75,
-    currency: 'USD',
+    name: 'My Wallet',
+    balance: 12342000,
+    currency: 'IDR',
     iconName: 'HugeIcons.strokeRoundedBank', // Example icon name
     colorHex: 'FF4CAF50', // Green
   ),

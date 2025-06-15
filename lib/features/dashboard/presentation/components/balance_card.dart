@@ -1,10 +1,12 @@
 part of '../screens/dashboard_screen.dart';
 
-class BalanceCard extends StatelessWidget {
+class BalanceCard extends ConsumerWidget {
   const BalanceCard({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final wallet = ref.watch(walletProvider);
+
     return Container(
       padding: const EdgeInsets.all(AppSpacing.spacing16),
       decoration: BoxDecoration(
@@ -29,13 +31,13 @@ class BalanceCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Rp.',
+                    wallet.currency,
                     style: AppTextStyles.body3.copyWith(
                       color: AppColors.neutral900,
                     ),
                   ),
                   Text(
-                    '791.235.401',
+                    wallet.balance.toPriceFormat(),
                     style: AppTextStyles.numericHeading.copyWith(
                       color: AppColors.secondary950,
                       height: 1,

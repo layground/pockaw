@@ -1,9 +1,10 @@
 part of '../screens/dashboard_screen.dart';
 
-class TransactionCard extends StatelessWidget {
+class TransactionCard extends ConsumerWidget {
   final String title;
   final double amount;
   final double amountLastMonth;
+  final double percentDifference;
   final Color? backgroundColor;
   final Color? borderColor;
   final Color? titleColor;
@@ -16,6 +17,7 @@ class TransactionCard extends StatelessWidget {
     required this.title,
     required this.amount,
     required this.amountLastMonth,
+    required this.percentDifference,
     this.backgroundColor,
     this.borderColor,
     this.titleColor,
@@ -26,7 +28,9 @@ class TransactionCard extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final wallet = ref.watch(walletProvider);
+
     return Container(
       padding: const EdgeInsets.all(AppSpacing.spacing16),
       decoration: BoxDecoration(
@@ -37,25 +41,18 @@ class TransactionCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: AppTextStyles.body3.copyWith(
-              color: titleColor,
-            ),
-          ),
+          Text(title, style: AppTextStyles.body3.copyWith(color: titleColor)),
           const Gap(AppSpacing.spacing8),
           Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                'Rp.',
-                style: AppTextStyles.body3.copyWith(
-                  color: amountColor,
-                ),
+                wallet.currency,
+                style: AppTextStyles.body3.copyWith(color: amountColor),
               ),
               Expanded(
                 child: AutoSizeText(
-                  '$amount',
+                  amount.toPriceFormat(),
                   style: AppTextStyles.numericTitle.copyWith(
                     color: amountColor,
                     height: 1,
@@ -73,19 +70,22 @@ class TransactionCard extends StatelessWidget {
               vertical: AppSpacing.spacing4,
             ),
             decoration: BoxDecoration(
-                color: statsBackgroundColor,
-                borderRadius: BorderRadius.circular(AppRadius.radiusFull)),
+              color: statsBackgroundColor,
+              borderRadius: BorderRadius.circular(AppRadius.radiusFull),
+            ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
-                  HugeIcons.strokeRoundedArrowUp01,
+                  percentDifference.isNegative
+                      ? HugeIcons.strokeRoundedArrowDown01
+                      : HugeIcons.strokeRoundedArrowUp01,
                   size: 14,
                   color: statsIconColor,
                 ),
                 const Gap(AppSpacing.spacing2),
                 Text(
-                  '10%',
+                  '${percentDifference.toStringAsFixed(1)}%',
                   style: AppTextStyles.body5.copyWith(
                     color: statsForegroundColor,
                   ),
