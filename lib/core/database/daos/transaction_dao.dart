@@ -2,35 +2,36 @@ import 'package:drift/drift.dart';
 import 'package:pockaw/core/database/pockaw_database.dart';
 import 'package:pockaw/core/database/tables/category_table.dart';
 import 'package:pockaw/core/database/tables/transaction_table.dart';
+import 'package:pockaw/core/database/tables/wallet_table.dart'; // Import WalletTable
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
-import 'package:pockaw/features/wallet/data/repositories/wallet_repo.dart';
 
 part 'transaction_dao.g.dart';
 
 @DriftAccessor(
-  tables: [Transactions, Categories /*, Wallets */],
-) // Add Wallets when defined
+  tables: [Transactions, Categories, Wallets], // Add Wallets table
+)
 class TransactionDao extends DatabaseAccessor<AppDatabase>
     with _$TransactionDaoMixin {
   TransactionDao(super.db);
 
   /// Helper to convert a database row (Transaction, Category, Wallet) to a TransactionModel.
-  /// This assumes you have a way to fetch Wallet data. For simplicity,
-  /// a placeholder WalletModel is used. Replace with actual Wallet fetching.
   Future<TransactionModel> _mapToTransactionModel(
     Transaction transactionData,
     Category categoryData,
-    // Wallet walletData, // Uncomment when Wallet table/DAO is ready
+    Wallet walletData,
   ) async {
     return TransactionModel(
       id: transactionData.id,
-      transactionType: TransactionType.expense,
+      transactionType: TransactionType.values.firstWhere(
+        (e) => e.toDbValue() == transactionData.transactionType,
+        orElse: () => TransactionType.expense,
+      ),
       amount: transactionData.amount,
       date: transactionData.date,
       title: transactionData.title,
       category: categoryData.toModel(), // Using CategoryTableExtensions
-      wallet: wallets.first, // Replace with actual fetched WalletModel
+      wallet: walletData.toModel(), // Replace with actual fetched WalletModel
       notes: transactionData.notes,
       imagePath: transactionData.imagePath,
       isRecurring: transactionData.isRecurring,
@@ -62,7 +63,10 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
   Stream<List<TransactionModel>> watchAllTransactionsWithDetails() {
     final query = select(transactions).join([
       innerJoin(categories, categories.id.equalsExp(transactions.categoryId)),
-      // innerJoin(wallets, wallets.id.equalsExp(transactions.walletId)), // Uncomment when Wallets table is ready
+      innerJoin(
+        db.wallets,
+        db.wallets.id.equalsExp(transactions.walletId),
+      ), // Use db.wallets
     ]);
 
     return query.watch().asyncMap((rows) async {
@@ -70,12 +74,42 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
       for (final row in rows) {
         final transactionData = row.readTable(transactions);
         final categoryData = row.readTable(categories);
-        // final walletData = row.readTable(wallets); // Uncomment
+        final walletData = row.readTable(db.wallets); // Use db.wallets
         result.add(
           await _mapToTransactionModel(
             transactionData,
             categoryData,
-            /* walletData */
+            walletData,
+          ),
+        );
+      }
+      return result;
+    });
+  }
+
+  /// Watches all transactions for a specific wallet with their associated category and wallet details.
+  Stream<List<TransactionModel>> watchTransactionsByWalletIdWithDetails(
+    int walletId,
+  ) {
+    Log.d(
+      '🔍 Subscribing to watchTransactionsByWalletIdWithDetails($walletId)',
+    );
+    final query = select(transactions).join([
+      innerJoin(categories, categories.id.equalsExp(transactions.categoryId)),
+      innerJoin(db.wallets, db.wallets.id.equalsExp(transactions.walletId)),
+    ])..where(transactions.walletId.equals(walletId)); // Filter by walletId
+
+    return query.watch().asyncMap((rows) async {
+      final result = <TransactionModel>[];
+      for (final row in rows) {
+        final transactionData = row.readTable(transactions);
+        final categoryData = row.readTable(categories);
+        final walletData = row.readTable(db.wallets);
+        result.add(
+          await _mapToTransactionModel(
+            transactionData,
+            categoryData,
+            walletData,
           ),
         );
       }
@@ -92,7 +126,9 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
       date: Value(transactionModel.date),
       title: Value(transactionModel.title),
       categoryId: Value(transactionModel.category.id!),
-      walletId: Value(transactionModel.wallet.id),
+      walletId: Value(
+        transactionModel.wallet.id!,
+      ), // Assuming wallet.id will not be null here
       notes: Value(transactionModel.notes),
       imagePath: Value(transactionModel.imagePath),
       isRecurring: Value(transactionModel.isRecurring),
@@ -111,7 +147,9 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
       date: Value(transactionModel.date),
       title: Value(transactionModel.title),
       categoryId: Value(transactionModel.category.id!),
-      walletId: Value(transactionModel.wallet.id),
+      walletId: Value(
+        transactionModel.wallet.id!,
+      ), // Assuming wallet.id will not be null here
       notes: Value(transactionModel.notes),
       imagePath: Value(transactionModel.imagePath),
       isRecurring: Value(transactionModel.isRecurring),
@@ -134,7 +172,9 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
       date: Value(transactionModel.date),
       title: Value(transactionModel.title),
       categoryId: Value(transactionModel.category.id!),
-      walletId: Value(transactionModel.wallet.id),
+      walletId: Value(
+        transactionModel.wallet.id!,
+      ), // Assuming wallet.id will not be null here
       notes: Value(transactionModel.notes),
       imagePath: Value(transactionModel.imagePath),
       isRecurring: Value(transactionModel.isRecurring),

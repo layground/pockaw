@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:intl/intl.dart'; // For currency formatting in the extension
+import 'package:intl/intl.dart';
+import 'package:pockaw/features/currency_picker/data/models/currency.dart'; // For currency formatting in the extension
 
 part 'wallet_model.freezed.dart';
 part 'wallet_model.g.dart';
@@ -9,16 +10,16 @@ part 'wallet_model.g.dart';
 class WalletModel with _$WalletModel {
   const factory WalletModel({
     /// The unique identifier for the wallet.
-    required int id,
+    int? id,
 
     /// The name of the wallet (e.g., "Primary Checking", "Savings").
-    required String name,
+    @Default('My Wallet') String name,
 
     /// The current balance of the wallet.
-    required double balance,
+    @Default(0.0) double balance,
 
     /// The currency code for the wallet's balance (e.g., "USD", "EUR", "NGN").
-    required String currency,
+    @Default('IDR') String currency,
 
     /// Optional: The identifier or name of the icon associated with this wallet.
     String? iconName,
@@ -42,5 +43,9 @@ extension WalletModelUtils on WalletModel {
       symbol: currency,
     ); // Basic example, locale might need to be dynamic
     return format.format(balance);
+  }
+
+  Currency? currencyByIsoCode(List<Currency> currencies) {
+    return currencies.fromIsoCode(currency);
   }
 }

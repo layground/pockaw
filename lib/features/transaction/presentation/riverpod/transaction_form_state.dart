@@ -11,7 +11,7 @@ import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/presentation/riverpod/date_picker_provider.dart';
-import 'package:pockaw/features/wallet/data/repositories/wallet_repo.dart'; // For wallets.first placeholder
+import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart'; // To access activeWalletProvider
 
 class TransactionFormState {
   final TextEditingController titleController;
@@ -61,6 +61,14 @@ class TransactionFormState {
     final db = ref.read(databaseProvider);
     final dateFromPicker = ref.read(datePickerProvider);
     final imagePickerState = ref.read(imageProvider);
+    final activeWallet = ref.read(activeWalletProvider).valueOrNull;
+
+    if (activeWallet == null || activeWallet.id == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('No active wallet selected.')),
+      );
+      return;
+    }
 
     final transactionToSave = TransactionModel(
       id: isEditing ? initialTransaction?.id : null,
@@ -69,8 +77,7 @@ class TransactionFormState {
       date: dateFromPicker,
       title: titleController.text,
       category: selectedCategory.value!,
-      wallet:
-          wallets.first, // Placeholder: Replace with actual wallet selection
+      wallet: activeWallet, // Use the currently active wallet
       notes: notesController.text.isNotEmpty ? notesController.text : null,
       imagePath: imagePickerState.imageFile?.path,
       isRecurring:
@@ -83,9 +90,13 @@ class TransactionFormState {
     );
 
     try {
+      int? savedTransactionId;
       if (!isEditing) {
-        await db.transactionDao.addTransaction(transactionToSave);
+        savedTransactionId = await db.transactionDao.addTransaction(
+          transactionToSave,
+        );
       } else {
+        // For updates, the ID is already in transactionToSave.id
         if (transactionToSave.id == null) {
           Log.e('Error: Attempting to update transaction without an ID.');
           ScaffoldMessenger.of(context).showSnackBar(
@@ -96,6 +107,34 @@ class TransactionFormState {
           return;
         }
         await db.transactionDao.updateTransaction(transactionToSave);
+        savedTransactionId = transactionToSave.id;
+      }
+
+      // Update wallet balance
+      if (savedTransactionId != null) {
+        double newBalance = activeWallet.balance;
+        if (transactionToSave.transactionType == TransactionType.income) {
+          newBalance += transactionToSave.amount;
+        } else if (transactionToSave.transactionType ==
+            TransactionType.expense) {
+          newBalance -= transactionToSave.amount;
+        }
+        // For TransactionType.transfer, balance is typically handled by moving amounts
+        // between two wallets, which is a more complex operation not covered here.
+        // This example only adjusts the balance of the single active wallet.
+
+        if (transactionToSave.transactionType != TransactionType.transfer) {
+          final updatedWallet = activeWallet.copyWith(balance: newBalance);
+          await db.walletDao.updateWallet(updatedWallet);
+          // Refresh the active wallet provider to reflect the new balance
+          // This will notify all listeners of activeWalletProvider
+          ref
+              .read(activeWalletProvider.notifier)
+              .setActiveWallet(updatedWallet);
+          Log.d(
+            'Wallet balance updated for ${activeWallet.name}. New balance: $newBalance',
+          );
+        }
       }
       if (context.mounted) {
         context.pop();

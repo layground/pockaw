@@ -13,26 +13,33 @@ import 'package:pockaw/features/currency_picker/data/models/currency.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
 
 class CurrencyPickerField extends HookConsumerWidget {
-  const CurrencyPickerField({
-    super.key,
-  });
+  final Currency? defaultCurrency;
+  const CurrencyPickerField({super.key, this.defaultCurrency});
 
   @override
   Widget build(BuildContext context, ref) {
     Currency currency = ref.watch(currencyProvider);
     final currencyController = useTextEditingController();
 
+    useEffect(() {
+      if (defaultCurrency != null) {
+        currencyController.text = defaultCurrency!.name;
+      }
+      return null;
+    }, [defaultCurrency]);
+
     return Stack(
       children: [
         CustomTextField(
           controller: currencyController,
           label: 'Currency',
-          hint: '\$ • US Dollar',
+          hint: 'USD',
           prefixIcon: HugeIcons.strokeRoundedFlag01,
           readOnly: true,
           onTap: () async {
-            final Currency? selectedCurrency =
-                await context.push(Routes.currencyListTile);
+            final Currency? selectedCurrency = await context.push(
+              Routes.currencyListTile,
+            );
             if (selectedCurrency != null) {
               ref.read(currencyProvider.notifier).state = selectedCurrency;
               currencyController.text = selectedCurrency.name;
@@ -45,12 +52,8 @@ class CurrencyPickerField extends HookConsumerWidget {
           top: 16,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(
-                AppRadius.radius4,
-              ),
-              border: Border.all(
-                color: AppColors.neutralAlpha25,
-              ),
+              borderRadius: BorderRadius.circular(AppRadius.radius4),
+              border: Border.all(color: AppColors.neutralAlpha25),
             ),
             child: currency.country.isEmpty
                 ? Container(
@@ -68,7 +71,7 @@ class CurrencyPickerField extends HookConsumerWidget {
                     shape: const RoundedRectangle(AppRadius.radius4),
                   ),
           ),
-        )
+        ),
       ],
     );
   }

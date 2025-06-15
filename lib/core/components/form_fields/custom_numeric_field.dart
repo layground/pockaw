@@ -7,6 +7,7 @@ import 'package:pockaw/features/authentication/presentation/riverpod/auth_provid
 
 class CustomNumericField extends ConsumerWidget {
   final String label;
+  final String? defaultCurreny;
   final TextEditingController? controller;
   final String? hint;
   final Color? hintColor;
@@ -19,6 +20,7 @@ class CustomNumericField extends ConsumerWidget {
   const CustomNumericField({
     super.key,
     required this.label,
+    this.defaultCurreny,
     this.controller,
     this.hint,
     this.hintColor,
@@ -31,7 +33,8 @@ class CustomNumericField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    String defaultCurrency = ref.read(authStateProvider).defaultCurrency;
+    String defaultCurrency =
+        defaultCurreny ?? ref.read(authStateProvider).defaultCurrency;
     var lastFormattedValue = '';
 
     void onChanged(String value) {
