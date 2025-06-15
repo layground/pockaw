@@ -10,15 +10,21 @@ class SettingsAppInfoGroup extends ConsumerWidget {
     return SettingsGroupHolder(
       title: 'App Info',
       settingTiles: [
-        const MenuTileButton(
+        MenuTileButton(
           label: 'Privacy Policy',
           icon: HugeIcons.strokeRoundedLegalHammer,
           suffixIcon: HugeIcons.strokeRoundedSquareArrowUpRight,
+          onTap: () {
+            LinkLauncher.launch('https://pockaw.com/privacy-policy.html');
+          },
         ),
-        const MenuTileButton(
+        MenuTileButton(
           label: 'Terms and Conditions',
           icon: HugeIcons.strokeRoundedFileExport,
           suffixIcon: HugeIcons.strokeRoundedSquareArrowUpRight,
+          onTap: () {
+            LinkLauncher.launch('https://pockaw.com/terms-and-conditions.html');
+          },
         ),
         const MenuTileButton(
           label: 'Delete My Data',
