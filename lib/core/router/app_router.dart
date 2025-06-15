@@ -10,6 +10,7 @@ import 'package:pockaw/core/router/onboarding_router.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/router/settings_router.dart';
 import 'package:pockaw/core/router/transaction_router.dart';
+import 'package:pockaw/core/router/wallet_router.dart';
 import 'package:pockaw/features/splash/presentation/screens/splash_screen.dart';
 
 final rootNavKey = GlobalKey<NavigatorState>();
@@ -35,5 +36,6 @@ final router = GoRouter(
     ...BudgetRouter.routes,
     ...SettingsRouter.routes,
     ...CurrencyRouter.routes,
+    ...WalletRouter.routes,
   ],
 );

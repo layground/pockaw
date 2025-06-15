@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'currency.freezed.dart';
@@ -18,4 +19,10 @@ class Currency with _$Currency {
 
   factory Currency.fromJson(Map<String, dynamic> json) =>
       _$CurrencyFromJson(json);
+}
+
+extension CurrencyUtils on List<Currency> {
+  Currency? fromIsoCode(String code) {
+    return firstWhereOrNull((currency) => currency.isoCode == code);
+  }
 }

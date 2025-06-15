@@ -5,7 +5,7 @@ import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:intl/intl.dart';
 
 /// Extension on Transaction to provide UI-specific properties based on type.
-extension TransactionUIExtensions on Transaction {
+extension TransactionUIExtensions on TransactionModel {
   IconData get iconData {
     switch (transactionType) {
       case TransactionType.income:
@@ -24,18 +24,18 @@ extension TransactionUIExtensions on Transaction {
       case TransactionType.expense:
         return AppColors.red;
       case TransactionType.transfer:
-        return AppColors.primary; // Assuming AppColors.blue exists
+        return AppColors.tertiary;
     }
   }
 
   Color get backgroundColor {
     switch (transactionType) {
       case TransactionType.income:
-        return AppColors.green200;
+        return AppColors.greenAlpha10;
       case TransactionType.expense:
         return AppColors.red50;
       case TransactionType.transfer:
-        return AppColors.primary; // Assuming AppColors.blue50 exists
+        return AppColors.tertiaryAlpha10;
     }
   }
 
@@ -46,7 +46,7 @@ extension TransactionUIExtensions on Transaction {
       case TransactionType.expense:
         return AppColors.redAlpha10;
       case TransactionType.transfer:
-        return AppColors.primary; // Assuming AppColors.blueAlpha10 exists
+        return AppColors.tertiaryAlpha10;
     }
   }
 

@@ -8,30 +8,45 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
+import 'package:pockaw/features/category/presentation/screens/category_form_screen.dart';
 
 import 'category_tile.dart';
 
 class CategoryDropdown extends HookConsumerWidget {
+  final bool isManageCategory;
   final CategoryModel category;
-  const CategoryDropdown({super.key, required this.category});
+  const CategoryDropdown({
+    super.key,
+    this.isManageCategory = false,
+    required this.category,
+  });
 
   @override
   Widget build(BuildContext context, ref) {
     final expandableController = useMemoized(() => ExpandableController(), []);
 
-    final List<CategoryModel> subCategories =
-        category.subCategories ?? [category];
+    final List<CategoryModel> subCategories = category.subCategories ?? [];
 
     return ExpandablePanel(
       controller: expandableController,
       header: InkWell(
-        onDoubleTap: () {
+        onTap: () {
           expandableController.toggle();
         },
         child: CategoryTile(
           category: category,
-          suffixIcon: HugeIcons.strokeRoundedArrowDown01,
+          suffixIcon: expandableController.expanded
+              ? HugeIcons.strokeRoundedArrowDown01
+              : HugeIcons.strokeRoundedArrowRight01,
+          onSelectCategory: (selectedCategory) {
+            Log.d(selectedCategory.toJson(), label: 'category');
+            // if picking category, then return to previous screen with selected category
+            if (!isManageCategory) {
+              context.pop(selectedCategory);
+            }
+          },
           onSuffixIconPressed: () {
             expandableController.toggle();
           },
@@ -48,15 +63,30 @@ class CategoryDropdown extends HookConsumerWidget {
         physics: const NeverScrollableScrollPhysics(),
         separatorBuilder: (context, index) => const Gap(AppSpacing.spacing8),
         itemBuilder: (context, index) {
-          final cat = subCategories[index];
+          final subCategory = subCategories[index];
           return CategoryTile(
-            category: cat,
+            category: subCategory,
             suffixIcon: HugeIcons.strokeRoundedCheckmarkCircle01,
             onSelectCategory: (selectedCategory) {
               CategoryModel newCategory = category.copyWith(
                 subCategories: [selectedCategory],
               );
-              context.pop(newCategory);
+
+              Log.d(newCategory.toJson(), label: 'category');
+
+              // if picking category, then return to previous screen with selected category
+              if (!isManageCategory) {
+                context.pop(newCategory);
+              } else {
+                showModalBottomSheet(
+                  context: context,
+                  showDragHandle: true,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.white,
+                  builder: (context) =>
+                      CategoryFormScreen(categoryId: selectedCategory.id),
+                );
+              }
             },
           );
         },

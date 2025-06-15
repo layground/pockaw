@@ -9,13 +9,30 @@ import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/date_picker_provider.dart';
 
 class GoalDateRangePicker extends HookConsumerWidget {
-  const GoalDateRangePicker({super.key});
+  final List<DateTime?>? initialDate;
+  const GoalDateRangePicker({super.key, this.initialDate});
 
   @override
   Widget build(BuildContext context, ref) {
     final selectedDate = ref.watch(datePickerProvider);
     final selectedDateNotifier = ref.read(datePickerProvider.notifier);
     final dateFieldController = useTextEditingController();
+
+    void updateDate() {
+      final startDate = initialDate!.first ?? DateTime.now();
+      final endDate =
+          initialDate!.last ?? DateTime.now().add(Duration(days: 1));
+      dateFieldController.text =
+          '${startDate.toDayShortMonthYear()} - ${endDate.toDayShortMonthYear()}';
+    }
+
+    useEffect(() {
+      if (initialDate != null) {
+        updateDate();
+      }
+
+      return null;
+    }, [selectedDate]);
 
     return CustomSelectField(
       controller: dateFieldController,
@@ -33,8 +50,7 @@ class GoalDateRangePicker extends HookConsumerWidget {
 
         if (dateRange != null) {
           selectedDateNotifier.state = dateRange;
-          dateFieldController.text =
-              '${dateRange.first!.toDayShortMonthYear()} - ${dateRange.last!.toDayShortMonthYear()}';
+          updateDate();
         }
       },
     );

@@ -2,22 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/components/tabs/custom_tab.dart';
 import 'package:pockaw/core/components/tabs/custom_tab_bar.dart';
+import 'package:pockaw/core/extensions/date_time_extension.dart';
 
 class TransactionTabBar extends HookConsumerWidget {
-  final TabController tabController;
-  const TransactionTabBar({super.key, required this.tabController});
+  final List<DateTime> monthsForTabs;
+
+  const TransactionTabBar({super.key, required this.monthsForTabs});
 
   @override
   Widget build(BuildContext context, ref) {
+    final now = DateTime.now(); // To pass to toMonthTabLabel
+
     return CustomTabBar(
-      tabController: tabController,
-      tabs: [
-        CustomTab(label: 'Oct 2024'),
-        CustomTab(label: 'Nov 2024'),
-        CustomTab(label: "Dec 2024"),
-        CustomTab(label: 'Last month'),
-        CustomTab(label: 'This month'),
-      ],
+      tabs: monthsForTabs
+          .map((monthDate) => CustomTab(label: monthDate.toMonthTabLabel(now)))
+          .toList(),
     );
   }
 }

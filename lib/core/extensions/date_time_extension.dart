@@ -26,16 +26,44 @@ extension DateTimeExtension on DateTime {
     return DateFormat("MM/yyyy").format(this);
   }
 
-  /// Returns "Today", "Yesterday", "Tomorrow" if applicable, otherwise "13 March 2025"
-  String toRelativeOrFormatted(DateTime date) {
+  /// Returns "Today", "Yesterday" if applicable, otherwise "13 March 2025".
+  /// Compares `this` date to the current date.
+  String toRelativeDayFormatted() {
     final now = DateTime.now();
-    final difference = now.difference(date).inDays;
+    // Normalize 'this' (the date instance) and 'now' to midnight for accurate day difference
+    final thisDateAtMidnight = DateTime(year, month, day);
+    final nowDateAtMidnight = DateTime(now.year, now.month, now.day);
 
-    if (difference == 0) return "Today";
-    if (difference == -1) return "Yesterday";
-    if (difference == 1) return "Tomorrow";
+    final differenceInDays = nowDateAtMidnight
+        .difference(thisDateAtMidnight)
+        .inDays;
 
-    return toDayMonthYear(); // Default format
+    if (differenceInDays == 0) {
+      return "Today"; // thisDateAtMidnight is today
+    }
+    if (differenceInDays == 1) {
+      return "Yesterday"; // thisDateAtMidnight was yesterday
+    }
+    // For other dates (further in the past or future if transactions could be future-dated)
+    return toDayMonthYear(); // Default format: "13 March 2025"
+  }
+
+  /// Returns "This Month", "Last Month", or "Oct 2024" for tab labels.
+  /// Compares `this` month to the `currentDate` month.
+  String toMonthTabLabel(DateTime currentDate) {
+    final thisMonthStart = DateTime(year, month, 1);
+    final currentMonthStart = DateTime(currentDate.year, currentDate.month, 1);
+    final lastMonthStart = DateTime(currentDate.year, currentDate.month - 1, 1);
+
+    if (thisMonthStart.year == currentMonthStart.year &&
+        thisMonthStart.month == currentMonthStart.month) {
+      return "This Month";
+    }
+    if (thisMonthStart.year == lastMonthStart.year &&
+        thisMonthStart.month == lastMonthStart.month) {
+      return "Last Month";
+    }
+    return DateFormat("MMM yyyy").format(this); // e.g., "Oct 2024"
   }
 
   /// Format: 13 March 2025 05.44 am / 13 March 2025 05.44 pm

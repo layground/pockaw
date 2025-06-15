@@ -9,21 +9,15 @@ class CustomDatePicker {
     calendarType: CalendarDatePicker2Type.single,
     lastDate: DateTime.now(),
     dayTextStyle: AppTextStyles.body4,
-    selectedDayTextStyle: AppTextStyles.body4.copyWith(
-      color: AppColors.light,
-    ),
+    selectedDayTextStyle: AppTextStyles.body4.copyWith(color: AppColors.light),
     monthTextStyle: AppTextStyles.body4,
     selectedMonthTextStyle: AppTextStyles.body4.copyWith(
       color: AppColors.light,
     ),
     yearTextStyle: AppTextStyles.body4,
-    selectedYearTextStyle: AppTextStyles.body4.copyWith(
-      color: AppColors.light,
-    ),
+    selectedYearTextStyle: AppTextStyles.body4.copyWith(color: AppColors.light),
     weekdayLabelTextStyle: AppTextStyles.body4,
-    todayTextStyle: AppTextStyles.body4.copyWith(
-      color: AppColors.primary,
-    ),
+    todayTextStyle: AppTextStyles.body4.copyWith(color: AppColors.primary),
   );
 
   static Future<DateTime?> selectSingleDate(
@@ -39,13 +33,15 @@ class CustomDatePicker {
     );
 
     if (dates != null && dates.first != null) {
-      final selectedDateTime = dates.first!.add(Duration(
-        hours: DateTime.now().hour,
-        minutes: DateTime.now().minute,
-        seconds: DateTime.now().second,
-      ));
+      final selectedDateTime = dates.first!.add(
+        Duration(
+          hours: DateTime.now().hour,
+          minutes: DateTime.now().minute,
+          seconds: DateTime.now().second,
+        ),
+      );
 
-      Log.e(selectedDateTime, label: 'selected date');
+      Log.d(selectedDateTime, label: 'selected date');
       return selectedDateTime;
     }
 
@@ -88,7 +84,7 @@ class CustomDatePicker {
         selectedEndDate = dates.last!.add(duration);
       }
 
-      Log.e([selectedStartDate, selectedEndDate], label: 'selected date range');
+      Log.d([selectedStartDate, selectedEndDate], label: 'selected date range');
       return [selectedStartDate, selectedEndDate];
     }
 

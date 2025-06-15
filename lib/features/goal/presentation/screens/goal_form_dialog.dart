@@ -1,107 +1,113 @@
-// lib/features/goal/presentation/screens/goal_form_dialog.dart
-
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-import 'package:gap/gap.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
 import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
+import 'package:pockaw/core/components/form_fields/custom_numeric_field.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
-import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/core/extensions/string_extension.dart';
+import 'package:pockaw/core/utils/logger.dart';
+import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/goal/data/model/goal_model.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/date_picker_provider.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_date_range_picker.dart';
 import 'package:pockaw/features/goal/presentation/services/goal_form_service.dart'; // for Value
 
-class GoalFormDialog extends ConsumerStatefulWidget {
-  const GoalFormDialog({super.key});
+class GoalFormDialog extends HookConsumerWidget {
+  final GoalModel? goal;
+  const GoalFormDialog({super.key, this.goal});
 
   @override
-  ConsumerState<GoalFormDialog> createState() => _GoalFormDialogState();
-}
-
-class _GoalFormDialogState extends ConsumerState<GoalFormDialog> {
-  final _titleController = TextEditingController();
-  final _noteController = TextEditingController();
-
-  @override
-  void dispose() {
-    _titleController.dispose();
-    _noteController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final defaultCurrency = ref.read(authStateProvider).defaultCurrency;
     final dateRange = ref.watch(datePickerProvider);
+    final titleController = useTextEditingController();
+    final noteController = useTextEditingController();
+    final targetAmountController = useTextEditingController();
 
-    return CustomScaffold(
-      context: context,
-      showBalance: false,
-      showBackButton: false,
-      title: 'Add Goal',
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          Container(
-            padding: const EdgeInsets.fromLTRB(
-              AppSpacing.spacing20,
-              0,
-              AppSpacing.spacing20,
-              AppSpacing.spacing20,
+    bool isEditing = false;
+
+    useEffect(() {
+      isEditing = goal != null;
+      if (isEditing) {
+        titleController.text = goal!.title;
+        noteController.text = goal!.description ?? '';
+        targetAmountController.text =
+            '$defaultCurrency ${goal!.targetAmount.toPriceFormat()}';
+      }
+
+      return null;
+    }, const []);
+
+    return CustomBottomSheet(
+      title: '${isEditing ? 'Edit' : 'New'} Goal',
+      child: Form(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          spacing: AppSpacing.spacing16,
+          children: [
+            CustomTextField(
+              controller: titleController,
+              label: 'Title',
+              hint: 'Lunch with my friends',
+              isRequired: true,
+              prefixIcon: HugeIcons.strokeRoundedArrangeByLettersAZ,
+              textInputAction: TextInputAction.next,
+              keyboardType: TextInputType.name,
             ),
-            child: Form(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CustomTextField(
-                    controller: _titleController,
-                    label: 'Title',
-                    hint: 'Lunch with my friends',
-                    isRequired: true,
-                    prefixIcon: HugeIcons.strokeRoundedArrangeByLettersAZ,
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.name,
-                  ),
-                  const Gap(AppSpacing.spacing16),
-                  const GoalDateRangePicker(),
-                  const Gap(AppSpacing.spacing16),
-                  CustomTextField(
-                    controller: _noteController,
-                    label: 'Write a note',
-                    hint: 'Write here...',
-                    prefixIcon: HugeIcons.strokeRoundedNote,
-                    suffixIcon: HugeIcons.strokeRoundedAlignLeft,
-                    minLines: 1,
-                    maxLines: 3,
-                  ),
-                ],
-              ),
+            GoalDateRangePicker(initialDate: dateRange),
+            CustomTextField(
+              controller: noteController,
+              label: 'Write a note',
+              hint: 'Write here...',
+              prefixIcon: HugeIcons.strokeRoundedNote,
+              suffixIcon: HugeIcons.strokeRoundedAlignLeft,
+              minLines: 1,
+              maxLines: 3,
             ),
-          ),
-          PrimaryButton(
-            label: 'Save',
-            state: ButtonState.active,
-            onPressed: () {
-              GoalFormService().save(
-                context,
-                ref,
-                GoalModel(
-                  title: _titleController.text,
-                  targetAmount: 0,
+            CustomNumericField(
+              controller: targetAmountController,
+              label: 'Target amount',
+              hint: '$defaultCurrency 1,500',
+              icon: HugeIcons.strokeRoundedCoins01,
+              isRequired: true,
+            ),
+            PrimaryButton(
+              label: 'Save',
+              state: ButtonState.active,
+              onPressed: () {
+                final selectedDate = ref.watch(datePickerProvider);
+                Log.d(titleController.text, label: 'title');
+                Log.d(selectedDate, label: 'selected date');
+                Log.d(noteController.text, label: 'note');
+                Log.d(targetAmountController.text, label: 'target');
+
+                final newGoal = GoalModel(
+                  id: goal?.id,
+                  title: titleController.text,
+                  description: noteController.text,
+                  targetAmount: targetAmountController.text
+                      .takeNumericAsDouble(),
                   createdAt: DateTime.now(),
-                  deadlineDate: dateRange.length > 1 && dateRange[1] != null
+                  startDate: dateRange.first,
+                  endDate: dateRange.length > 1 && dateRange[1] != null
                       ? dateRange[1]!
                       : dateRange.first!,
-                ),
-              );
-            },
-          ).floatingBottom,
-        ],
+                );
+
+                Log.d(newGoal.toJson(), label: 'new goal');
+                // return;
+
+                GoalFormService().save(context, ref, goal: newGoal);
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

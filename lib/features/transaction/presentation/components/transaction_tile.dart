@@ -10,7 +10,7 @@ import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_ui_extension.dart';
 
 class TransactionTile extends StatelessWidget {
-  final Transaction transaction;
+  final TransactionModel transaction;
   final bool showDate;
   const TransactionTile({
     super.key,
@@ -42,14 +42,14 @@ class TransactionTile extends StatelessWidget {
               aspectRatio: 1 / 1,
               child: Container(
                 decoration: BoxDecoration(
-                  color: AppColors.red50,
+                  color: transaction.backgroundColor,
                   borderRadius: BorderRadius.circular(AppRadius.radius12),
-                  border: Border.all(color: AppColors.redAlpha10),
+                  border: Border.all(color: transaction.borderColor),
                 ),
-                child: const Center(
+                child: Center(
                   child: Icon(
                     HugeIcons.strokeRoundedHeadphones,
-                    color: AppColors.red,
+                    color: transaction.iconColor,
                   ),
                 ),
               ),
@@ -90,7 +90,7 @@ class TransactionTile extends StatelessWidget {
                       Text(
                         transaction.formattedAmount,
                         style: AppTextStyles.numericMedium.copyWith(
-                          color: AppColors.red700,
+                          color: transaction.amountColor,
                           height: 1.12,
                         ),
                       ),

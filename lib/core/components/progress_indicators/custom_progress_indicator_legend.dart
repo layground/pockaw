@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
@@ -16,18 +15,14 @@ class CustomProgressIndicatorLegend extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
+      spacing: AppSpacing.spacing4,
       children: [
-        CircleAvatar(
-          backgroundColor: color,
-          radius: 5,
-        ),
-        const Gap(AppSpacing.spacing4),
+        CircleAvatar(backgroundColor: color, radius: 5),
         Text(
           label,
-          style: AppTextStyles.body5.copyWith(
-            color: AppColors.neutral700,
-          ),
-        )
+          style: AppTextStyles.body5.copyWith(color: AppColors.neutral700),
+        ),
       ],
     );
   }

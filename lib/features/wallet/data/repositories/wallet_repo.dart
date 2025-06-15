@@ -1,19 +1,26 @@
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
-import 'package:uuid/uuid.dart';
 
-const _uuid = Uuid();
-
-List<WalletModel> wallets = [
+const List<WalletModel> defaultWallets = [
   WalletModel(
-    id: _uuid.v4(),
-    name: 'Primary Checking',
-    balance: 1250.75,
-    currency: 'USD',
+    name: 'My Wallet',
+    balance: 0,
+    currency: 'IDR',
+    iconName: 'HugeIcons.strokeRoundedBank', // Example icon name
+    colorHex: 'FF4CAF50', // Green
+  ),
+];
+
+const List<WalletModel> wallets = [
+  WalletModel(
+    id: 1,
+    name: 'My Wallet',
+    balance: 12342000,
+    currency: 'IDR',
     iconName: 'HugeIcons.strokeRoundedBank', // Example icon name
     colorHex: 'FF4CAF50', // Green
   ),
   WalletModel(
-    id: _uuid.v4(),
+    id: 2,
     name: 'Savings Account',
     balance: 5820.00,
     currency: 'USD',
@@ -21,7 +28,7 @@ List<WalletModel> wallets = [
     colorHex: 'FF2196F3', // Blue
   ),
   WalletModel(
-    id: _uuid.v4(),
+    id: 3,
     name: 'Naira Wallet',
     balance: 150000.00,
     currency: 'NGN',
@@ -29,7 +36,7 @@ List<WalletModel> wallets = [
     colorHex: 'FFFF9800', // Orange
   ),
   WalletModel(
-    id: _uuid.v4(),
+    id: 4,
     name: 'Vacation Fund',
     balance: 750.50,
     currency: 'EUR',

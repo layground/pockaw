@@ -6,7 +6,7 @@ class ActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      spacing: 10,
+      spacing: 0,
       children: [
         CustomIconButton(
           onPressed: () {},

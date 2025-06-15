@@ -12,9 +12,7 @@ class ChecklistItemDao extends DatabaseAccessor<AppDatabase>
 
   /// Inserts a new checklist item, returns its new ID
   Future<int> addChecklistItem(ChecklistItemsCompanion entry) async {
-    Log.d(
-      '➕  addChecklistItem → goalId=${entry.goalId.value}, title="${entry.title.value}"',
-    );
+    Log.d('➕  addChecklistItem → ${entry.toString()}');
     final id = await into(checklistItems).insert(entry);
     Log.d('✔️  ChecklistItem inserted with id=$id');
     return id;
@@ -30,7 +28,7 @@ class ChecklistItemDao extends DatabaseAccessor<AppDatabase>
 
   /// Updates an existing checklist item
   Future<bool> updateChecklistItem(ChecklistItem item) async {
-    Log.d('✏️  updateChecklistItem → id=${item.id}, title="${item.title}"');
+    Log.d('✏️  updateChecklistItem → ${item.toString()}');
     final success = await update(checklistItems).replace(item);
     Log.d('✔️  updateChecklistItem success=$success');
     return success;

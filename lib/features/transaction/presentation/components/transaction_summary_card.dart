@@ -5,17 +5,18 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 
 class TransactionSummaryCard extends StatelessWidget {
-  const TransactionSummaryCard({super.key});
+  final List<TransactionModel> transactions;
+  const TransactionSummaryCard({super.key, required this.transactions});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.spacing20,
-      ),
+      margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
       padding: const EdgeInsets.all(AppSpacing.spacing16),
       decoration: BoxDecoration(
         color: AppColors.purpleAlpha10,
@@ -30,13 +31,11 @@ class TransactionSummaryCard extends StatelessWidget {
             children: [
               Text(
                 'Earning',
-                style: AppTextStyles.body3.copyWith(
-                  color: AppColors.purple950,
-                ),
+                style: AppTextStyles.body3.copyWith(color: AppColors.purple950),
               ),
               Expanded(
                 child: Text(
-                  '2.200.122',
+                  transactions.totalIncome.toPriceFormat(),
                   textAlign: TextAlign.end,
                   style: AppTextStyles.numericMedium.copyWith(
                     color: AppColors.primary600,
@@ -51,13 +50,11 @@ class TransactionSummaryCard extends StatelessWidget {
             children: [
               Text(
                 'Spending',
-                style: AppTextStyles.body3.copyWith(
-                  color: AppColors.purple950,
-                ),
+                style: AppTextStyles.body3.copyWith(color: AppColors.purple950),
               ),
               Expanded(
                 child: Text(
-                  '2.200.122',
+                  '- ${transactions.totalExpenses.toPriceFormat()}',
                   textAlign: TextAlign.end,
                   style: AppTextStyles.numericMedium.copyWith(
                     color: AppColors.red700,
@@ -83,7 +80,7 @@ class TransactionSummaryCard extends StatelessWidget {
               ),
               Expanded(
                 child: Text(
-                  '2.200.122',
+                  transactions.total.toPriceFormat(),
                   textAlign: TextAlign.end,
                   style: AppTextStyles.numericMedium.copyWith(
                     color: AppColors.purple950,

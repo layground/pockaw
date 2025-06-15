@@ -9,13 +9,14 @@ class SettingsFinanceGroup extends StatelessWidget {
       title: 'Finance',
       settingTiles: [
         MenuTileButton(
-          label: 'Fund Sources',
+          label: 'Wallets',
           icon: HugeIcons.strokeRoundedWallet01,
+          onTap: () => context.push(Routes.manageWallets),
         ),
         MenuTileButton(
           label: 'Categories',
-          icon: HugeIcons.strokeRoundedCatalogue,
-          onTap: () => context.push(Routes.categoryList),
+          icon: HugeIcons.strokeRoundedStructure01,
+          onTap: () => context.push(Routes.manageCategories),
         ),
         MenuTileButton(
           label: 'Change Currency',

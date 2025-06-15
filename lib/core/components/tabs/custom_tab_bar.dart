@@ -4,26 +4,18 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 
 class CustomTabBar extends StatelessWidget {
-  final TabController tabController;
+  final TabController? tabController;
   final List<Tab> tabs;
-  const CustomTabBar({
-    super.key,
-    required this.tabController,
-    required this.tabs,
-  });
+  const CustomTabBar({super.key, this.tabController, required this.tabs});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.spacing8),
-      margin: const EdgeInsets.symmetric(
-        horizontal: AppSpacing.spacing20,
-      ),
+      margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
-        border: Border.all(
-          color: AppColors.secondaryAlpha25,
-        ),
+        border: Border.all(color: AppColors.secondaryAlpha25),
       ),
       child: SizedBox(
         height: 30,

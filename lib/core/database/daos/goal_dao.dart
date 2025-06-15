@@ -13,7 +13,7 @@ class GoalDao extends DatabaseAccessor<AppDatabase> with _$GoalDaoMixin {
 
   /// Inserts a new Goal, returns its auto-incremented ID
   Future<int> addGoal(GoalsCompanion entry) async {
-    Log.d('📝  addGoal → title="${entry.title.value}"');
+    Log.d('📝  addGoal → ${entry.toString()}');
     final id = await into(goals).insert(entry);
     Log.d('✔️  Goal inserted with id=$id');
     return id;
@@ -28,9 +28,21 @@ class GoalDao extends DatabaseAccessor<AppDatabase> with _$GoalDaoMixin {
     });
   }
 
+  /// Streams single goal;
+  Stream<Goal> watchGoalByID(int id) {
+    Log.d('🔍  Subscribing to watchGoalByID($id)');
+    return (select(goals)..where((g) => g.id.equals(id))).watchSingle();
+  }
+
+  /// Fetches a single goal by its ID, or null if not found.
+  Future<Goal?> getGoalById(int id) {
+    Log.d('🔍  Fetching getGoalById(id=$id)');
+    return (select(goals)..where((g) => g.id.equals(id))).getSingleOrNull();
+  }
+
   /// Updates an existing goal (matching by .id)
   Future<bool> updateGoal(Goal goal) async {
-    Log.d('✏️  updateGoal → id=${goal.id}, title="${goal.title}"');
+    Log.d('✏️  updateGoal → ${goal.toString()}');
     final success = await update(goals).replace(goal);
     Log.d('✔️  updateGoal success=$success');
     return success;

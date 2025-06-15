@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
+import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 
-class CustomNumericField extends StatelessWidget {
+class CustomNumericField extends ConsumerWidget {
   final String label;
+  final String? defaultCurreny;
   final TextEditingController? controller;
   final String? hint;
   final Color? hintColor;
@@ -17,6 +20,7 @@ class CustomNumericField extends StatelessWidget {
   const CustomNumericField({
     super.key,
     required this.label,
+    this.defaultCurreny,
     this.controller,
     this.hint,
     this.hintColor,
@@ -27,18 +31,20 @@ class CustomNumericField extends StatelessWidget {
     this.autofocus = false,
   });
 
-  final String currencyPrefix = '\$';
-
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    String defaultCurrency =
+        defaultCurreny ?? ref.read(authStateProvider).defaultCurrency;
     var lastFormattedValue = '';
 
     void onChanged(String value) {
       if (value == lastFormattedValue) return;
 
       // Remove the currency prefix and sanitize input
-      String sanitizedValue =
-          value.replaceAll(currencyPrefix, '').replaceAll(' ', '').trim();
+      String sanitizedValue = value
+          .replaceAll(defaultCurrency, '')
+          .replaceAll(' ', '')
+          .trim();
 
       // Replace commas (thousand separator) with empty for parsing
       sanitizedValue = sanitizedValue.replaceAll(',', '');
@@ -61,8 +67,8 @@ class CustomNumericField extends StatelessWidget {
 
       // Combine integer and decimal parts
       String formattedValue = (decimalPart.isNotEmpty || parts.length == 2)
-          ? "$currencyPrefix $formattedInteger.$decimalPart"
-          : "$currencyPrefix $formattedInteger";
+          ? "$defaultCurrency $formattedInteger.$decimalPart"
+          : "$defaultCurrency $formattedInteger";
 
       if (formattedInteger.isEmpty) {
         formattedValue = '';
@@ -106,7 +112,9 @@ class CustomNumericField extends StatelessWidget {
 class SingleDotInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     // Check if the new input contains more than one dot
     if (newValue.text.split('.').length > 2) {
       return oldValue; // Reject the new input
@@ -118,7 +126,9 @@ class SingleDotInputFormatter extends TextInputFormatter {
 class DecimalInputFormatter extends TextInputFormatter {
   @override
   TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
+    TextEditingValue oldValue,
+    TextEditingValue newValue,
+  ) {
     final text = newValue.text;
 
     // Allow only numbers, a single dot, and two digits after the dot

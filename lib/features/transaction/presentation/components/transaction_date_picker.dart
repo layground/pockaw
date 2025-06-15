@@ -10,7 +10,8 @@ import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/transaction/presentation/riverpod/date_picker_provider.dart';
 
 class TransactionDatePicker extends HookConsumerWidget {
-  const TransactionDatePicker({super.key});
+  final DateTime? initialDate;
+  const TransactionDatePicker({super.key, this.initialDate});
 
   @override
   Widget build(BuildContext context, ref) {
@@ -18,10 +19,17 @@ class TransactionDatePicker extends HookConsumerWidget {
     final selectedDateNotifier = ref.read(datePickerProvider.notifier);
     final dateFieldController = useTextEditingController();
 
+    useEffect(() {
+      dateFieldController.text =
+          initialDate?.toDayMonthYearTime12Hour() ??
+          selectedDate.toDayMonthYearTime12Hour();
+      return null;
+    }, []);
+
     return CustomSelectField(
       controller: dateFieldController,
       label: 'Set a date',
-      hint: '12 November 2024',
+      hint: '12 November 2024 08.00 AM',
       prefixIcon: HugeIcons.strokeRoundedCalendar01,
       isRequired: true,
       onTap: () async {
@@ -31,17 +39,8 @@ class TransactionDatePicker extends HookConsumerWidget {
         );
 
         if (date != null) {
-          final selectedDateTime = date.add(
-            Duration(
-              hours: DateTime.now().hour,
-              minutes: DateTime.now().minute,
-              seconds: DateTime.now().second,
-            ),
-          );
-
           selectedDateNotifier.state = date;
-
-          Log.d(selectedDateTime, label: 'selected date');
+          Log.d(date, label: 'selected date');
           dateFieldController.text = date.toDayMonthYearTime12Hour();
         }
       },

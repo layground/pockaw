@@ -20,7 +20,8 @@ class GoalModel with _$GoalModel {
     @Default(0.0) double currentAmount,
 
     /// The optional deadline date by which the goal should be achieved.
-    DateTime? deadlineDate,
+    DateTime? startDate,
+    required DateTime endDate,
 
     /// The identifier or name of the icon associated with this goal.
     String? iconName,
@@ -29,10 +30,10 @@ class GoalModel with _$GoalModel {
     String? description,
 
     /// The date when the goal was created.
-    required DateTime createdAt,
+    DateTime? createdAt,
 
     /// Optional ID of an associated account or fund source for this goal.
-    String? associatedAccountId,
+    int? associatedAccountId,
   }) = _GoalModel;
 
   /// Creates a `GoalModel` instance from a JSON map.
@@ -61,15 +62,10 @@ extension GoalModelUtils on GoalModel {
   /// Returns null if there is no deadline.
   /// Returns a negative number if the deadline has passed.
   int? get daysLeft {
-    if (deadlineDate == null) return null;
     final now = DateTime.now();
     // Compare date parts only to ensure 'today' counts as 0 days left if it's the deadline
     final today = DateTime(now.year, now.month, now.day);
-    final deadlineDay = DateTime(
-      deadlineDate!.year,
-      deadlineDate!.month,
-      deadlineDate!.day,
-    );
+    final deadlineDay = DateTime(endDate.year, endDate.month, endDate.day);
     return deadlineDay.difference(today).inDays;
   }
 
@@ -78,4 +74,9 @@ extension GoalModelUtils on GoalModel {
     final dl = daysLeft;
     return dl != null && dl < 0 && !isAchieved;
   }
+
+  List<DateTime> get goalDates => [
+    startDate ?? endDate.subtract(Duration(days: 1)),
+    endDate,
+  ];
 }
