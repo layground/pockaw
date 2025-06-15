@@ -8,9 +8,9 @@ part 'transaction_model.g.dart';
 enum TransactionType { income, expense, transfer }
 
 @freezed
-class Transaction with _$Transaction {
-  const factory Transaction({
-    required String id,
+class TransactionModel with _$TransactionModel {
+  const factory TransactionModel({
+    int? id,
     required TransactionType transactionType,
     required double amount,
     required DateTime date,
@@ -20,8 +20,38 @@ class Transaction with _$Transaction {
     String? notes,
     String? imagePath,
     bool? isRecurring,
-  }) = _Transaction;
+  }) = _TransactionModel;
 
-  factory Transaction.fromJson(Map<String, dynamic> json) =>
-      _$TransactionFromJson(json);
+  factory TransactionModel.fromJson(Map<String, dynamic> json) =>
+      _$TransactionModelFromJson(json);
+}
+
+extension TransactionList on List<TransactionModel> {
+  double get totalIncome {
+    double total = 0;
+    for (var transaction in this) {
+      if (transaction.transactionType == TransactionType.income) {
+        // Assuming a 'type' field
+        total += transaction.amount;
+      }
+    }
+    return total;
+  }
+
+  double get totalExpenses {
+    double total = 0;
+    for (var transaction in this) {
+      if (transaction.transactionType == TransactionType.expense) {
+        // Assuming a 'type' field
+        total += transaction.amount;
+      }
+    }
+    return total;
+  }
+
+  double get total {
+    double total = 0;
+    total = totalIncome - totalExpenses;
+    return total;
+  }
 }

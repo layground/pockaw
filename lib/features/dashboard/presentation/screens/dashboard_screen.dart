@@ -17,9 +17,9 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
-import 'package:pockaw/features/transaction/application/providers/transaction_providers.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tile.dart';
+import 'package:pockaw/features/transaction/presentation/riverpod/transaction_providers.dart';
 import 'package:pockaw/features/wallet_switcher/presentation/screens/wallet_switcher_dropdown.dart';
 
 part '../components/action_button.dart';
@@ -43,7 +43,7 @@ class DashboardScreen extends StatelessWidget {
         child: Header(),
       ),
       body: ListView(
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.only(bottom: 100),
         children: [
           Container(
             margin: const EdgeInsets.fromLTRB(

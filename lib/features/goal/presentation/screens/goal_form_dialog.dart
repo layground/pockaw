@@ -39,7 +39,6 @@ class GoalFormDialog extends HookConsumerWidget {
         noteController.text = goal!.description ?? '';
         targetAmountController.text =
             '$defaultCurrency ${goal!.targetAmount.toPriceFormat()}';
-        titleController.text = goal!.title;
       }
 
       return null;

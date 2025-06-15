@@ -5,82 +5,127 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
-import 'package:pockaw/features/transaction/application/providers/transaction_providers.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tile.dart';
 import 'package:intl/intl.dart';
 
 class TransactionGroupedCard extends ConsumerWidget {
-  const TransactionGroupedCard({super.key});
+  final List<TransactionModel> transactions;
+  const TransactionGroupedCard({super.key, required this.transactions});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final allTransactions = ref.watch(transactionListProvider);
+    if (transactions.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.spacing20,
+          vertical:
+              AppSpacing.spacing40, // More vertical space for empty message
+        ),
+        child: Center(
+          child: Text(
+            'No transactions to display.',
+            style: AppTextStyles.body3,
+          ),
+        ),
+      );
+    }
 
-    // Filter transactions for "Today"
-    final now = DateTime.now();
-    final todayTransactions = allTransactions.where((t) {
-      return t.date.year == now.year &&
-          t.date.month == now.month &&
-          t.date.day == now.day;
-    }).toList();
+    // 1. Group transactions by date (ignoring time)
+    final Map<DateTime, List<TransactionModel>> groupedByDate = {};
+    for (final transaction in transactions) {
+      final dateKey = DateTime(
+        transaction.date.year,
+        transaction.date.month,
+        transaction.date.day,
+      );
+      groupedByDate.putIfAbsent(dateKey, () => []).add(transaction);
+    }
 
-    // Calculate total for today's transactions
-    final double todayTotal = todayTransactions.fold(0.0, (sum, item) {
-      return sum +
-          (item.transactionType == TransactionType.income
-              ? item.amount
-              : -item.amount);
-    });
+    // 2. Sort date keys in descending order (most recent first)
+    final sortedDateKeys = groupedByDate.keys.toList()
+      ..sort((a, b) => b.compareTo(a));
 
-    return Container(
-      width: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
-      padding: const EdgeInsets.all(AppSpacing.spacing16),
-      decoration: BoxDecoration(
-        color: AppColors.light,
-        border: Border.all(color: AppColors.neutralAlpha10),
-        borderRadius: BorderRadius.circular(AppRadius.radius8),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
+    // 3. Build a ListView for these groups
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
+      itemCount: sortedDateKeys.length,
+      itemBuilder: (context, index) {
+        final dateKey = sortedDateKeys[index];
+        final transactionsForDay = groupedByDate[dateKey]!;
+
+        final double dayTotal = transactionsForDay.fold(0.0, (sum, item) {
+          if (item.transactionType == TransactionType.income) {
+            return sum + item.amount;
+          } else if (item.transactionType == TransactionType.expense) {
+            return sum - item.amount;
+          }
+          return sum;
+        });
+
+        final String displayDate = dateKey.toRelativeDayFormatted();
+
+        return Container(
+          padding: const EdgeInsets.all(AppSpacing.spacing16),
+          decoration: BoxDecoration(
+            color: AppColors.light,
+            border: Border.all(color: AppColors.neutralAlpha10),
+            borderRadius: BorderRadius.circular(AppRadius.radius8),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Today', style: AppTextStyles.body2.bold),
-              Expanded(
-                child: Text(
-                  NumberFormat.currency(
-                    locale: "en_US",
-                    symbol: "",
-                    decimalDigits: 2,
-                  ).format(todayTotal),
-                  textAlign: TextAlign.end,
-                  style: AppTextStyles.numericMedium.copyWith(
-                    color: todayTotal >= 0
-                        ? AppColors.green200
-                        : AppColors.red700,
+              Row(
+                children: [
+                  Text(displayDate, style: AppTextStyles.body2.bold),
+                  Expanded(
+                    child: Text(
+                      NumberFormat.currency(
+                        locale:
+                            "en_US", // Consider device locale or app setting
+                        symbol:
+                            "", // No currency symbol, assuming it's handled by amount formatting or context
+                        decimalDigits: 2,
+                      ).format(dayTotal),
+                      textAlign: TextAlign.end,
+                      style: AppTextStyles.numericMedium.copyWith(
+                        color: dayTotal > 0
+                            ? AppColors.green200
+                            : (dayTotal < 0
+                                  ? AppColors.red700
+                                  : AppColors.neutral700), // Neutral for zero
+                      ),
+                    ),
                   ),
-                ),
+                ],
+              ),
+              const Gap(AppSpacing.spacing12),
+              // Transactions list for the day
+              ListView.separated(
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: transactionsForDay.length,
+                itemBuilder: (context, itemIndex) {
+                  final transaction = transactionsForDay[itemIndex];
+                  return TransactionTile(
+                    transaction: transaction,
+                    showDate: false, // Date is in the group header
+                  );
+                },
+                separatorBuilder: (context, itemIndex) =>
+                    const Gap(AppSpacing.spacing16),
               ),
             ],
           ),
-          const Gap(AppSpacing.spacing12),
-          ListView.separated(
-            shrinkWrap: true,
-            padding: EdgeInsets.zero,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: todayTransactions.length,
-            itemBuilder: (context, index) {
-              final transaction = todayTransactions[index];
-              return TransactionTile(transaction: transaction, showDate: false);
-            },
-            separatorBuilder: (context, index) =>
-                const Gap(AppSpacing.spacing16),
-          ),
-        ],
-      ),
+        );
+      },
+      separatorBuilder: (context, index) => const Gap(AppSpacing.spacing16),
     );
   }
 }

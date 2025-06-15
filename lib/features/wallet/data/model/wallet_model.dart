@@ -9,7 +9,7 @@ part 'wallet_model.g.dart';
 class WalletModel with _$WalletModel {
   const factory WalletModel({
     /// The unique identifier for the wallet.
-    required String id,
+    required int id,
 
     /// The name of the wallet (e.g., "Primary Checking", "Savings").
     required String name,
