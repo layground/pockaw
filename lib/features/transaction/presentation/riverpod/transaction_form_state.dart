@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
+import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/string_extension.dart';
@@ -11,7 +13,8 @@ import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/presentation/riverpod/date_picker_provider.dart';
-import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart'; // To access activeWalletProvider
+import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
+import 'package:toastification/toastification.dart';
 
 class TransactionFormState {
   final TextEditingController titleController;
@@ -112,41 +115,94 @@ class TransactionFormState {
 
       // Update wallet balance
       if (savedTransactionId != null) {
-        double newBalance = activeWallet.balance;
-        if (transactionToSave.transactionType == TransactionType.income) {
-          newBalance += transactionToSave.amount;
-        } else if (transactionToSave.transactionType ==
-            TransactionType.expense) {
-          newBalance -= transactionToSave.amount;
-        }
-        // For TransactionType.transfer, balance is typically handled by moving amounts
-        // between two wallets, which is a more complex operation not covered here.
-        // This example only adjusts the balance of the single active wallet.
-
-        if (transactionToSave.transactionType != TransactionType.transfer) {
-          final updatedWallet = activeWallet.copyWith(balance: newBalance);
-          await db.walletDao.updateWallet(updatedWallet);
-          // Refresh the active wallet provider to reflect the new balance
-          // This will notify all listeners of activeWalletProvider
-          ref
-              .read(activeWalletProvider.notifier)
-              .setActiveWallet(updatedWallet);
-          Log.d(
-            'Wallet balance updated for ${activeWallet.name}. New balance: $newBalance',
-          );
-        }
+        await updateWallet(ref, transactionToSave);
       }
+
       if (context.mounted) {
         context.pop();
       }
     } catch (e) {
       Log.e('Error saving transaction: $e');
       if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to save transaction: $e')),
+        toastification.show(
+          description: Text('Failed to save transaction: $e'),
         );
       }
     }
+  }
+
+  Future<void> updateWallet(
+    WidgetRef ref,
+    TransactionModel initialTransaction, {
+    bool isDeleting = false,
+  }) async {
+    final db = ref.read(databaseProvider);
+    final activeWallet = ref.read(activeWalletProvider).valueOrNull;
+
+    if (activeWallet != null) {
+      double newBalance = activeWallet.balance;
+      if (initialTransaction.transactionType == TransactionType.income) {
+        if (isDeleting) {
+          newBalance -= initialTransaction.amount;
+        } else {
+          newBalance += initialTransaction.amount;
+        }
+      } else if (initialTransaction.transactionType ==
+          TransactionType.expense) {
+        if (isDeleting) {
+          newBalance += initialTransaction.amount;
+        } else {
+          newBalance -= initialTransaction.amount;
+        }
+      }
+      // For TransactionType.transfer, balance is typically handled by moving amounts
+      // between two wallets, which is a more complex operation not covered here.
+      // This example only adjusts the balance of the single active wallet.
+
+      if (initialTransaction.transactionType != TransactionType.transfer) {
+        final updatedWallet = activeWallet.copyWith(balance: newBalance);
+        await db.walletDao.updateWallet(updatedWallet);
+        // Refresh the active wallet provider to reflect the new balance
+        // This will notify all listeners of activeWalletProvider
+        ref.read(activeWalletProvider.notifier).setActiveWallet(updatedWallet);
+        Log.d(
+          'Wallet balance updated for ${activeWallet.name}. New balance: $newBalance',
+        );
+      }
+    }
+  }
+
+  Future<void> deleteTransaction(WidgetRef ref, BuildContext context) async {
+    // Skip if not editing just in case
+    if (!isEditing) return;
+
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: true,
+      builder: (context) => AlertBottomSheet(
+        context: context,
+        title: 'Delete Transaction',
+        content: Text(
+          'Continue to delete this transaction?',
+          style: AppTextStyles.body2,
+        ),
+        onConfirm: () async {
+          if (context.mounted) {
+            context.pop(); // close dialog
+            context.pop(); // close form
+          }
+
+          await updateWallet(ref, initialTransaction!, isDeleting: true);
+
+          final db = ref.read(databaseProvider);
+          final id = await db.transactionDao.deleteTransaction(
+            initialTransaction!.id!,
+          );
+
+          Log.d(id, label: 'deleted transaction id');
+        },
+      ),
+    );
   }
 
   void dispose() {
