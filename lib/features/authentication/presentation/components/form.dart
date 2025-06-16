@@ -2,10 +2,7 @@ part of '../screens/login_screen.dart';
 
 class Form extends HookConsumerWidget {
   final TextEditingController nameField;
-  const Form({
-    super.key,
-    required this.nameField,
-  });
+  const Form({super.key, required this.nameField});
 
   @override
   Widget build(BuildContext context, ref) {
@@ -16,19 +13,18 @@ class Form extends HookConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Get Started',
-                style: AppTextStyles.heading5,
-              ),
+              Text('Get Started', style: AppTextStyles.heading5),
               Gap(AppSpacing.spacing4),
               GetStartedDescription(),
             ],
           ),
           const Gap(AppSpacing.spacing20),
           Column(
+            spacing: AppSpacing.spacing16,
             children: [
               IntrinsicHeight(
                 child: Row(
+                  spacing: AppSpacing.spacing8,
                   children: [
                     Expanded(
                       child: CustomTextField(
@@ -38,13 +34,11 @@ class Form extends HookConsumerWidget {
                         prefixIcon: HugeIcons.strokeRoundedTextSmallcaps,
                       ),
                     ),
-                    const Gap(AppSpacing.spacing16),
                     const LoginImagePicker(),
                   ],
                 ),
               ),
-              const Gap(AppSpacing.spacing16),
-              const CurrencyPickerField(),
+              const CreateFirstWalletField(),
             ],
           ),
           const Gap(AppSpacing.spacing20),

@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -17,10 +18,12 @@ import 'package:pockaw/core/services/image_service/domain/image_state.dart';
 import 'package:pockaw/core/services/image_service/image_service.dart';
 import 'package:pockaw/core/services/image_service/riverpod/image_notifier.dart';
 import 'package:pockaw/core/services/keyboard_service/virtual_keyboard_service.dart';
+import 'package:pockaw/core/services/url_launcher/url_launcher.dart';
 import 'package:pockaw/features/authentication/data/models/user_model.dart';
+import 'package:pockaw/features/authentication/presentation/components/create_first_wallet_field.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
-import 'package:pockaw/features/currency_picker/presentation/components/currency_picker_field.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
+import 'package:toastification/toastification.dart';
 
 part '../components/form.dart';
 part '../components/logo.dart';
@@ -68,9 +71,23 @@ class LoginScreen extends HookConsumerWidget {
                 onPressed: () {
                   KeyboardService.closeKeyboard();
 
+                  final username = nameField.text.trim();
+
+                  if (username.isEmpty) {
+                    toastification.show(
+                      description: Text(
+                        'Please enter a name.',
+                        style: AppTextStyles.body2,
+                      ),
+                      type: ToastificationType.error,
+                      autoCloseDuration: const Duration(seconds: 3),
+                    );
+                    return;
+                  }
+
                   final user = UserModel(
                     id: 1,
-                    name: nameField.text.trim(),
+                    name: username,
                     email: 'user@mail.com',
                     profilePicture: ref.read(loginImageProvider).savedPath,
                     currency: ref.read(currencyProvider),

@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/database/database_provider.dart';
+import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 // import 'package:pockaw/features/wallet/data/repositories/wallet_repo.dart'; // No longer needed for hardcoded list
 
@@ -47,9 +48,32 @@ class ActiveWalletNotifier extends StateNotifier<AsyncValue<WalletModel?>> {
     state = AsyncValue.data(wallet);
   }
 
-  void updateActiveWallet(WalletModel? wallet) {
-    if (wallet == state.valueOrNull) {
-      state = AsyncValue.data(wallet);
+  void updateActiveWallet(WalletModel? newWalletData) {
+    final currentActiveWallet = state.valueOrNull;
+    final currentActiveWalletId = currentActiveWallet?.id;
+
+    if (newWalletData != null && newWalletData.id == currentActiveWalletId) {
+      // If the incoming wallet data is for the currently active wallet ID
+      Log.d(
+        'Updating active wallet ID ${newWalletData.id} with new data: ${newWalletData.toJson()}',
+        label: 'ActiveWalletNotifier',
+      );
+      // Update the state with the new WalletModel instance.
+      // This ensures watchers receive the new object.
+      state = AsyncValue.data(newWalletData);
+    } else if (newWalletData != null && currentActiveWalletId == null) {
+      // This case is more for setActiveWallet, but if update is called when no active wallet, set it.
+      Log.d(
+        'Setting active wallet (was null) to ID ${newWalletData.id} via updateActiveWallet: ${newWalletData.toJson()}',
+        label: 'ActiveWalletNotifier',
+      );
+      state = AsyncValue.data(newWalletData);
+    } else if (newWalletData == null && currentActiveWalletId != null) {
+      Log.d(
+        'Clearing active wallet (was ID $currentActiveWalletId) via updateActiveWallet.',
+        label: 'ActiveWalletNotifier',
+      );
+      state = const AsyncValue.data(null);
     }
   }
 

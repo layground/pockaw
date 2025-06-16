@@ -13,6 +13,7 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
+import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/string_extension.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/currency_picker/presentation/components/currency_picker_field.dart';
@@ -22,8 +23,15 @@ import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:toastification/toastification.dart';
 
 class WalletFormBottomSheet extends HookConsumerWidget {
-  final WalletModel? wallet; // Nullable for add mode
-  const WalletFormBottomSheet({super.key, this.wallet});
+  final WalletModel? wallet;
+  final bool showDeleteButton;
+  final Function(WalletModel)? onSave;
+  const WalletFormBottomSheet({
+    super.key,
+    this.wallet,
+    this.showDeleteButton = true,
+    this.onSave,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -41,7 +49,9 @@ class WalletFormBottomSheet extends HookConsumerWidget {
     useEffect(() {
       if (isEditing && wallet != null) {
         nameController.text = wallet!.name;
-        balanceController.text = wallet!.balance.toString();
+        balanceController.text = wallet!.balance == 0
+            ? ''
+            : '${wallet?.currency} ${wallet?.balance.toPriceFormat()}';
         currencyController.text = wallet!.currency;
       }
       return null;
@@ -85,22 +95,29 @@ class WalletFormBottomSheet extends HookConsumerWidget {
                   colorHex: wallet?.colorHex, // Preserve or add UI to change
                 );
 
-                Log.d(newWallet.toJson(), label: 'New Wallet');
                 // return;
 
                 final db = ref.read(databaseProvider);
                 try {
                   if (isEditing) {
+                    Log.d(newWallet.toJson(), label: 'edit wallet');
                     // update the wallet
-                    await db.walletDao.updateWallet(newWallet);
+                    bool success = await db.walletDao.updateWallet(newWallet);
+                    Log.d(success, label: 'edit wallet');
 
                     // only update active wallet if condition is met
                     ref
                         .read(activeWalletProvider.notifier)
                         .updateActiveWallet(newWallet);
                   } else {
-                    await db.walletDao.addWallet(newWallet);
+                    Log.d(newWallet.toJson(), label: 'new wallet');
+                    int id = await db.walletDao.addWallet(newWallet);
+                    Log.d(id, label: 'new wallet');
                   }
+
+                  onSave?.call(
+                    newWallet,
+                  ); // Call the onSave callback if provided
                   if (context.mounted) context.pop(); // Close bottom sheet
                 } catch (e) {
                   // Handle error, e.g., show a SnackBar
@@ -110,7 +127,7 @@ class WalletFormBottomSheet extends HookConsumerWidget {
                 }
               },
             ),
-            if (isEditing)
+            if (isEditing && showDeleteButton)
               TextButton(
                 child: Text(
                   'Delete',
