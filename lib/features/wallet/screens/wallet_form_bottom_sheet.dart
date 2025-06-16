@@ -15,6 +15,7 @@ import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/currency_picker/presentation/components/currency_picker_field.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
+import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:toastification/toastification.dart';
 
 class WalletFormBottomSheet extends HookConsumerWidget {
@@ -87,7 +88,13 @@ class WalletFormBottomSheet extends HookConsumerWidget {
                 final db = ref.read(databaseProvider);
                 try {
                   if (isEditing) {
+                    // update the wallet
                     await db.walletDao.updateWallet(newWallet);
+
+                    // only update active wallet if condition is met
+                    ref
+                        .read(activeWalletProvider.notifier)
+                        .updateActiveWallet(newWallet);
                   } else {
                     await db.walletDao.addWallet(newWallet);
                   }

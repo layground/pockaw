@@ -42,6 +42,12 @@ class ActiveWalletNotifier extends StateNotifier<AsyncValue<WalletModel?>> {
     state = AsyncValue.data(wallet);
   }
 
+  void updateActiveWallet(WalletModel? wallet) {
+    if (wallet == state.valueOrNull) {
+      state = AsyncValue.data(wallet);
+    }
+  }
+
   /// Refreshes the data for the currently active wallet from the database.
   /// Useful if the wallet data might have changed externally or by other operations.
   Future<void> refreshActiveWallet() async {
