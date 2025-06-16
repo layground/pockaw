@@ -119,6 +119,7 @@ class GoalChecklistFormDialog extends HookConsumerWidget {
                     context: context,
                     showDragHandle: true,
                     builder: (context) => AlertBottomSheet(
+                      context: context,
                       title: 'Delete Checklist',
                       content: Text(
                         'Continue to delete this item?',
