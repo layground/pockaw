@@ -63,7 +63,7 @@ class LoginScreen extends HookConsumerWidget {
                 horizontal: AppSpacing.spacing20,
               ),
               child: PrimaryButton(
-                label: 'Login',
+                label: 'Start Journey',
                 onPressed: () {
                   final user = UserModel(
                     id: 1,

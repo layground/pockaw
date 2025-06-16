@@ -35,27 +35,20 @@ class SettingsAppInfoGroup extends ConsumerWidget {
           label: 'Logout',
           icon: HugeIcons.strokeRoundedLogout01,
           onTap: () {
-            showAdaptiveDialog(
+            showModalBottomSheet(
               context: context,
-              builder: (context) => AlertDialog.adaptive(
-                title: const Text('Logout'),
-                content: const Text('Continue to logout from this accout?'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      context.pop();
-                    },
-                    child: const Text('No'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      context.pop(); // close dialog
-                      ref.read(authStateProvider.notifier).logout();
-                      context.replace(Routes.onboarding);
-                    },
-                    child: const Text('Yes'),
-                  ),
-                ],
+              showDragHandle: true,
+              builder: (context) => AlertBottomSheet(
+                title: 'Logout',
+                content: const Text(
+                  'Continue to logout from this accout?',
+                  style: AppTextStyles.body2,
+                ),
+                onConfirm: () {
+                  context.pop(); // close dialog
+                  ref.read(authStateProvider.notifier).logout();
+                  context.replace(Routes.onboarding);
+                },
               ),
             );
           },
