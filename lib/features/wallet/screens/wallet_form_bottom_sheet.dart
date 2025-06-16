@@ -133,6 +133,14 @@ class WalletFormBottomSheet extends HookConsumerWidget {
                         // db.walletDao.deleteWallet(wallet!.id!);
                         context.pop(); // close this dialog
                         context.pop(); // close form dialog
+                        toastification.show(
+                          autoCloseDuration: Duration(seconds: 3),
+                          showProgressBar: true,
+                          description: Text(
+                            'Delete a wallet is coming soon...',
+                            style: AppTextStyles.body2,
+                          ),
+                        );
                       },
                     ),
                   );

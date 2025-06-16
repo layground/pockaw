@@ -87,7 +87,13 @@ class BalanceCard extends ConsumerWidget {
               Positioned(
                 right: 0,
                 top: 0,
-                child: WalletAmountVisibilityButton(),
+                child: Row(
+                  spacing: AppSpacing.spacing8,
+                  children: [
+                    WalletAmountEditButton(),
+                    WalletAmountVisibilityButton(),
+                  ],
+                ),
               ),
             ],
           ),

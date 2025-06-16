@@ -12,7 +12,8 @@ final allWalletsStreamProvider = StreamProvider.autoDispose<List<WalletModel>>((
 });
 
 final walletAmountVisibilityProvider = StateProvider<bool>((ref) {
-  return false;
+  // set default to visible
+  return true;
 });
 
 /// StateNotifier for managing the active wallet.
