@@ -12,7 +12,7 @@ class ProfileCard extends ConsumerWidget {
           backgroundColor: AppColors.darkAlpha30,
           radius: 50,
           child: CircleAvatar(
-            backgroundColor: AppColors.tertiary800,
+            backgroundColor: AppColors.neutral100,
             backgroundImage: auth.profilePicture == null
                 ? null
                 : FileImage(File(auth.profilePicture!)),
@@ -23,15 +23,10 @@ class ProfileCard extends ConsumerWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              auth.name,
-              style: AppTextStyles.body1,
-            ),
+            Text(auth.name, style: AppTextStyles.body1),
             Text(
               'The Clever Squirrel',
-              style: AppTextStyles.body2.copyWith(
-                color: AppColors.darkAlpha50,
-              ),
+              style: AppTextStyles.body2.copyWith(color: AppColors.darkAlpha50),
             ),
             const Gap(AppSpacing.spacing8),
             CustomCurrencyChip(

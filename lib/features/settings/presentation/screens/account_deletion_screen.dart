@@ -13,6 +13,7 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/core/services/keyboard_service/virtual_keyboard_service.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:toastification/toastification.dart';
@@ -28,6 +29,7 @@ class AccountDeletionScreen extends HookConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) async {
+    KeyboardService.closeKeyboard();
     showModalBottomSheet(
       context: context,
       showDragHandle: true,
@@ -54,6 +56,7 @@ class AccountDeletionScreen extends HookConsumerWidget {
     BuildContext context,
   ) async {
     ref.read(accountDeletionLoadingProvider.notifier).state = true;
+    await Future.delayed(Duration(milliseconds: 1200));
 
     try {
       final db = ref.read(databaseProvider);
@@ -89,31 +92,10 @@ class AccountDeletionScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final isLoading = ref.watch(accountDeletionLoadingProvider);
     // Assuming UserModel has a 'name' property. Adjust if it's different (e.g., 'username').
-    final currentUser = ref.read(
-      authStateProvider,
-    ); // This gets the UserModel directly
+    final currentUser = ref.read(authStateProvider);
+
     final userName = currentUser.name;
-
-    final confirmationInputController = useTextEditingController();
-    final isChallengeMet = useState(userName.isEmpty);
-
-    useEffect(() {
-      if (userName.isEmpty) {
-        // No challenge, so effectively met.
-        // This ensures the button is enabled if no challenge is set.
-        if (isChallengeMet.value == false) isChallengeMet.value = true;
-        return null;
-      }
-
-      void listener() {
-        isChallengeMet.value = confirmationInputController.text == userName;
-      }
-
-      confirmationInputController.addListener(listener);
-      // Initial check in case the controller is pre-filled or challenge is empty
-      listener();
-      return () => confirmationInputController.removeListener(listener);
-    }, [confirmationInputController, userName]);
+    final isChallengeMet = useState(false); // Initialize to false
 
     return Stack(
       children: [
@@ -146,9 +128,11 @@ class AccountDeletionScreen extends HookConsumerWidget {
                 ),
                 const Gap(AppSpacing.spacing8),
                 CustomTextField(
-                  controller: confirmationInputController,
                   hint: 'Enter your username',
                   label: 'Challenge Confirmation',
+                  onChanged: (value) {
+                    isChallengeMet.value = value == userName;
+                  },
                 ),
                 const Spacer(),
                 PrimaryButton(

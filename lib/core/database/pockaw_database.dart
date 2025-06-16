@@ -124,8 +124,8 @@ class AppDatabase extends _$AppDatabase {
     }
 
     // Recreate all tables
-    await migrator.createAll();
-    Log.i('All tables have been recreated during reset.');
+    // await migrator.createAll();
+    // Log.i('All tables have been recreated during reset.');
 
     // Repopulate initial data (delegating to the same logic as onCreate)
     await migration.onCreate(
@@ -133,10 +133,10 @@ class AppDatabase extends _$AppDatabase {
     ); // This will call m.createAll() again, then populate.
     // More direct would be to call populate services directly.
     // Let's call population services directly to avoid redundant createAll.
-    Log.i('Populating default categories during reset...');
-    await CategoryPopulationService.populate(this);
-    Log.i('Populating default wallets during reset...');
-    await WalletPopulationService.populate(this);
+    // Log.i('Populating default categories during reset...');
+    // await CategoryPopulationService.populate(this);
+    // Log.i('Populating default wallets during reset...');
+    // await WalletPopulationService.populate(this);
 
     Log.i('Database reset and data population complete.');
   }

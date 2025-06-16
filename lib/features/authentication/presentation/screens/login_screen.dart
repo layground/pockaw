@@ -16,6 +16,7 @@ import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/services/image_service/domain/image_state.dart';
 import 'package:pockaw/core/services/image_service/image_service.dart';
 import 'package:pockaw/core/services/image_service/riverpod/image_notifier.dart';
+import 'package:pockaw/core/services/keyboard_service/virtual_keyboard_service.dart';
 import 'package:pockaw/features/authentication/data/models/user_model.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/currency_picker/presentation/components/currency_picker_field.dart';
@@ -65,9 +66,11 @@ class LoginScreen extends HookConsumerWidget {
               child: PrimaryButton(
                 label: 'Start Journey',
                 onPressed: () {
+                  KeyboardService.closeKeyboard();
+
                   final user = UserModel(
                     id: 1,
-                    name: nameField.text,
+                    name: nameField.text.trim(),
                     email: 'user@mail.com',
                     profilePicture: ref.read(loginImageProvider).savedPath,
                     currency: ref.read(currencyProvider),
