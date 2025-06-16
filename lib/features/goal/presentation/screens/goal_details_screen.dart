@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
 
 import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
@@ -59,27 +60,24 @@ class GoalDetailsScreen extends ConsumerWidget {
         if (goalAsync.value != null)
           CustomIconButton(
             onPressed: () {
-              showAdaptiveDialog(
+              showModalBottomSheet(
                 context: context,
+                showDragHandle: true,
                 builder: (context) {
-                  return AlertDialog(
-                    title: Text('Delete Goal'),
-                    content: Text('Are you sure want to delete this goal?'),
-                    actions: [
-                      TextButton(
-                        onPressed: () => context.pop(),
-                        child: Text('Cancel'),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          final db = ref.read(databaseProvider);
-                          db.goalDao.deleteGoal(goalId);
-                          context.pop();
-                          context.pop();
-                        },
-                        child: Text('Delete'),
-                      ),
-                    ],
+                  return AlertBottomSheet(
+                    context: context,
+                    title: 'Delete Goal',
+                    content: Text(
+                      'Are you sure want to delete this goal?',
+                      style: AppTextStyles.body2,
+                    ),
+                    confirmText: 'Delete',
+                    onConfirm: () {
+                      final db = ref.read(databaseProvider);
+                      db.goalDao.deleteGoal(goalId);
+                      context.pop();
+                      context.pop();
+                    },
                   );
                 },
               );
