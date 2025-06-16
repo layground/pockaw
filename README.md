@@ -127,14 +127,15 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 
 ### Q1 (Closed Testing #1) - Core Setup & MVP Launch ![8%](https://progress-bar.xyz/8/?width=40)
 - [x] **Splash & Onboarding** - Design and implement welcoming splash screen and onboarding process.
-- [ ] **Authentication?** - Just fill personal data for offline use, no registration.
-- [ ] **Pockets & Wallets** - Add multiple sources, set balances, and customize for easy management.
-- [ ] **Expense & Income Tracking** - Allow users to log income/expenses with details like category, date, title, and notes.
-- [ ] **Custom Categories** - Enable users to create and manage custom categories for better personalization.
+- [x] **Authentication?** - Just fill personal data for offline use, no registration.
+- [x] **Multiple Wallets** - Add multiple sources, set balances, and customize for easy management.
+- [x] **Expense & Income Tracking** - Allow users to log income/expenses with details like category, date, title, and notes.
+- [x] **Custom Categories** - Enable users to create and manage custom categories for better personalization.
 - [ ] **Publish on Google Play** - The first fully offline experience of Pockaw.
 
 ### Q2 - Enhanced Budgeting & Analytics ![0%](https://progress-bar.xyz/0/?width=40)
-- [ ] **Budget Goals & Tracking** - Set monthly/weekly spending goals and visualize budget adherence.
+- [x] **Goals Tracking** - Create goals and its checklist items to breakdown your target.
+- [ ] **Budget Tracking** - Set monthly/weekly spending budgets and get the visualization.
 - [ ] **Expense Summary & Analytics** - Add charts for monthly income/expense trends, custom filters, and analytics.
 - [ ] **User Reminders & Notifications** - Implement notifications for due dates and spending goals.
 - [ ] **Advanced Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
@@ -160,7 +161,7 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 - [ ] Breaking change is possible at this stage. 
 
 ## 🖥️ Platform Release Priority
-- [ ] **Android**
+- [ ] **Android** - Android _.apk_ published on GitHub
 - [ ] **Web**
 - [ ] **Windows**
 - [ ] **iOS** *
