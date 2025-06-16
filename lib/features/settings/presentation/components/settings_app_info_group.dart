@@ -31,28 +31,6 @@ class SettingsAppInfoGroup extends ConsumerWidget {
           icon: HugeIcons.strokeRoundedDelete01,
           onTap: () => context.push(Routes.accountDeletion),
         ),
-        MenuTileButton(
-          label: 'Logout',
-          icon: HugeIcons.strokeRoundedLogout01,
-          onTap: () {
-            showModalBottomSheet(
-              context: context,
-              showDragHandle: true,
-              builder: (context) => AlertBottomSheet(
-                title: 'Logout',
-                content: const Text(
-                  'Continue to logout from this accout?',
-                  style: AppTextStyles.body2,
-                ),
-                onConfirm: () {
-                  context.pop(); // close dialog
-                  ref.read(authStateProvider.notifier).logout();
-                  context.replace(Routes.onboarding);
-                },
-              ),
-            );
-          },
-        ),
       ],
     );
   }
