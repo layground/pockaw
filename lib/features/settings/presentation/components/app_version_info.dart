@@ -1,16 +1,20 @@
 part of '../screens/settings_screen.dart';
 
-class AppVersionInfo extends StatelessWidget {
+class AppVersionInfo extends ConsumerWidget {
   const AppVersionInfo({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const Padding(
+  Widget build(BuildContext context, ref) {
+    final packageInfo = ref.read(packageInfoServiceProvider);
+    return Padding(
       padding: EdgeInsets.all(8.0),
       child: Column(
         children: [
           Text('App Version', style: AppTextStyles.body3),
-          Text('0.0.1 (1) • Release: 15 June 2025', style: AppTextStyles.body4),
+          Text(
+            '${packageInfo.version} • Build ${packageInfo.buildNumber}',
+            style: AppTextStyles.body4,
+          ),
         ],
       ),
     );

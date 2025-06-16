@@ -15,7 +15,7 @@ class SettingsAppInfoGroup extends ConsumerWidget {
           icon: HugeIcons.strokeRoundedLegalHammer,
           suffixIcon: HugeIcons.strokeRoundedSquareArrowUpRight,
           onTap: () {
-            LinkLauncher.launch('https://pockaw.com/privacy-policy.html');
+            LinkLauncher.launch(AppConstants.privacyPolicyUrl);
           },
         ),
         MenuTileButton(
@@ -23,41 +23,13 @@ class SettingsAppInfoGroup extends ConsumerWidget {
           icon: HugeIcons.strokeRoundedFileExport,
           suffixIcon: HugeIcons.strokeRoundedSquareArrowUpRight,
           onTap: () {
-            LinkLauncher.launch('https://pockaw.com/terms-and-conditions.html');
+            LinkLauncher.launch(AppConstants.termsAndConditionsUrl);
           },
-        ),
-        const MenuTileButton(
-          label: 'Delete My Data',
-          icon: HugeIcons.strokeRoundedDelete01,
         ),
         MenuTileButton(
-          label: 'Logout',
-          icon: HugeIcons.strokeRoundedLogout01,
-          onTap: () {
-            showAdaptiveDialog(
-              context: context,
-              builder: (context) => AlertDialog.adaptive(
-                title: const Text('Logout'),
-                content: const Text('Continue to logout from this accout?'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      context.pop();
-                    },
-                    child: const Text('No'),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      context.pop(); // close dialog
-                      ref.read(authStateProvider.notifier).logout();
-                      context.replace(Routes.onboarding);
-                    },
-                    child: const Text('Yes'),
-                  ),
-                ],
-              ),
-            );
-          },
+          label: 'Delete My Data',
+          icon: HugeIcons.strokeRoundedDelete01,
+          onTap: () => context.push(Routes.accountDeletion),
         ),
       ],
     );

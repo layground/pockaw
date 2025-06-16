@@ -18,14 +18,18 @@ import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
+import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tile.dart';
 import 'package:pockaw/features/transaction/presentation/riverpod/transaction_providers.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
+import 'package:pockaw/features/wallet/screens/wallet_form_bottom_sheet.dart';
 import 'package:pockaw/features/wallet_switcher/presentation/screens/wallet_switcher_dropdown.dart';
 
 part '../components/action_button.dart';
 part '../components/balance_card.dart';
+part '../components/wallet_amount_visibility_button.dart';
+part '../components/wallet_amount_edit_button.dart';
 part '../components/cash_flow_cards.dart';
 part '../components/greeting_card.dart';
 part '../components/header.dart';

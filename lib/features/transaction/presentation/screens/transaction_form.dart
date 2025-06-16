@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart'; // Import hooks_riverpod
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/button_state.dart';
+import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
@@ -45,9 +47,16 @@ class TransactionForm extends HookConsumerWidget {
 
     return CustomScaffold(
       context: context,
-      title: !isEditing
-          ? 'Add Transaction'
-          : 'Edit Transaction', // Dynamic title
+      title: !isEditing ? 'Add Transaction' : 'Edit Transaction',
+      actions: [
+        if (isEditing)
+          CustomIconButton(
+            onPressed: () {
+              formState.deleteTransaction(ref, context);
+            },
+            icon: HugeIcons.strokeRoundedDelete02,
+          ),
+      ],
       body: Stack(
         fit: StackFit.expand,
         children: [

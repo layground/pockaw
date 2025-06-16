@@ -40,54 +40,60 @@ class BalanceCard extends ConsumerWidget {
             borderRadius: BorderRadius.circular(AppRadius.radius16),
             border: Border.all(color: AppColors.secondaryAlpha10),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Stack(
             children: [
-              Text(
-                'My Balance',
-                style: AppTextStyles.body3.copyWith(
-                  color: AppColors.neutral800,
-                ),
-              ),
-              const Gap(AppSpacing.spacing8),
-              const WalletSwitcherDropdown(),
-              const Gap(AppSpacing.spacing8),
-              Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: AppSpacing.spacing8,
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        wallet.currency,
-                        style: AppTextStyles.body3.copyWith(
-                          color: AppColors.neutral900,
-                        ),
-                      ),
-                      Text(
-                        wallet.balance.toPriceFormat(),
-                        style: AppTextStyles.numericHeading.copyWith(
-                          color: AppColors.secondary950,
-                          height: 1,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    'My Balance',
+                    style: AppTextStyles.body3.copyWith(
+                      color: AppColors.neutral800,
+                    ),
                   ),
-                  const Gap(AppSpacing.spacing8),
-                  Container(
-                    padding: const EdgeInsets.all(AppSpacing.spacing4),
-                    decoration: BoxDecoration(
-                      color: AppColors.purpleAlpha10,
-                      border: Border.all(color: AppColors.purpleAlpha10),
-                      borderRadius: BorderRadius.circular(AppRadius.radius8),
-                    ),
-                    child: const Icon(
-                      HugeIcons.strokeRoundedEye,
-                      size: 14,
-                      color: AppColors.purple,
-                    ),
+                  const WalletSwitcherDropdown(),
+                  Consumer(
+                    builder: (context, ref, child) {
+                      final isVisible = ref.watch(
+                        walletAmountVisibilityProvider,
+                      );
+
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            !isVisible ? '' : wallet.currency,
+                            style: AppTextStyles.body3.copyWith(
+                              color: AppColors.neutral900,
+                            ),
+                          ),
+                          Text(
+                            !isVisible
+                                ? '•••••••••••'
+                                : wallet.balance.toPriceFormat(),
+                            style: AppTextStyles.numericHeading.copyWith(
+                              color: AppColors.secondary950,
+                              height: 1,
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ],
+              ),
+              Positioned(
+                right: 0,
+                top: 0,
+                child: Row(
+                  spacing: AppSpacing.spacing8,
+                  children: [
+                    WalletAmountEditButton(),
+                    WalletAmountVisibilityButton(),
+                  ],
+                ),
               ),
             ],
           ),

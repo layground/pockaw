@@ -25,9 +25,8 @@ class TransactionScreen extends ConsumerWidget {
       actions: [
         CustomIconButton(
           onPressed: () {},
-          icon: HugeIcons.strokeRoundedSearch01,
+          icon: HugeIcons.strokeRoundedSearch02,
         ),
-        const Gap(10),
         CustomIconButton(
           onPressed: () {},
           icon: HugeIcons.strokeRoundedFilter,

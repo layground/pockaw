@@ -1,6 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/database/database_provider.dart';
-import 'package:pockaw/core/utils/logger.dart'; // Import your logger
 import 'package:pockaw/core/database/pockaw_database.dart';
 import 'package:pockaw/core/database/tables/category_table.dart'
     show CategoryTableExtensions; // Import for toModel()
@@ -14,12 +13,6 @@ final hierarchicalCategoriesProvider = StreamProvider<List<CategoryModel>>((
   final db = ref.watch(databaseProvider);
 
   return db.categoryDao.watchAllCategories().map((flatDriftCategories) {
-    Log.d(
-      'Flat Drift Categories from DB (count: ${flatDriftCategories.length})',
-    );
-    // for (var cat in flatDriftCategories) {
-    //   Log.d('- ID: ${cat.id}, Title: ${cat.title}, ParentID: ${cat.parentId}');
-    // }
     return _buildCategoryHierarchy(flatDriftCategories);
   });
 });

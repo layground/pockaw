@@ -4,8 +4,9 @@ final loginImageServiceProvider = Provider<ImageService>((ref) {
   return ImageService();
 });
 
-final loginImageProvider =
-    StateNotifierProvider<ImageNotifier, ImageState>((ref) {
+final loginImageProvider = StateNotifierProvider<ImageNotifier, ImageState>((
+  ref,
+) {
   final imageService = ref.watch(loginImageServiceProvider);
   return ImageNotifier(imageService);
 });
@@ -19,12 +20,11 @@ class LoginImagePicker extends ConsumerWidget {
 
     return InkWell(
       onTap: () {
-        ref.read(loginImageProvider.notifier).pickImage().then(
-          (value) {
-            ref.read(loginImageProvider.notifier).saveImage();
-            ref.read(authStateProvider.notifier).getUser();
-          },
-        );
+        KeyboardService.closeKeyboard();
+        ref.read(loginImageProvider.notifier).pickImage().then((value) {
+          ref.read(loginImageProvider.notifier).saveImage();
+          ref.read(authStateProvider.notifier).getUser();
+        });
       },
       child: Container(
         height: double.infinity,
@@ -33,9 +33,7 @@ class LoginImagePicker extends ConsumerWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppRadius.radius8),
           color: AppColors.light,
-          border: Border.all(
-            color: AppColors.neutralAlpha50,
-          ),
+          border: Border.all(color: AppColors.neutralAlpha50),
           image: image.imageFile == null
               ? null
               : DecorationImage(

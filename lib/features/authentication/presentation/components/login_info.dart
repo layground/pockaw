@@ -9,7 +9,7 @@ class LoginInfo extends StatelessWidget {
       TextSpan(
         text:
             'Use your name to login into different account.\nWe only store your data into local database '
-            'on this device. So you are in charge!',
+            'on this device. So you are in charge! ',
         style: AppTextStyles.body4,
         children: [
           TextSpan(
@@ -19,6 +19,10 @@ class LoginInfo extends StatelessWidget {
               decorationColor: AppColors.secondary,
               color: AppColors.secondary,
             ),
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                LinkLauncher.launch(AppConstants.privacyPolicyUrl);
+              },
           ),
         ],
       ),

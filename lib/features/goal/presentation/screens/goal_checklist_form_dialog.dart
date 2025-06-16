@@ -3,6 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
 import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
 import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
@@ -114,31 +115,26 @@ class GoalChecklistFormDialog extends HookConsumerWidget {
                   style: AppTextStyles.body2.copyWith(color: AppColors.red),
                 ),
                 onPressed: () {
-                  showAdaptiveDialog(
+                  showModalBottomSheet(
                     context: context,
-                    builder: (context) => AlertDialog.adaptive(
-                      title: Text('Delete Checklist'),
-                      content: Text('Continue to delete this item?'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            context.pop();
-                          },
-                          child: Text('Cancel'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            GoalFormService().deleteChecklist(
-                              context,
-                              ref,
-                              checklistItem: checklistItemModel!,
-                            );
-                            context.pop();
-                            context.pop();
-                          },
-                          child: Text('Delete'),
-                        ),
-                      ],
+                    showDragHandle: true,
+                    builder: (context) => AlertBottomSheet(
+                      context: context,
+                      title: 'Delete Checklist',
+                      content: Text(
+                        'Continue to delete this item?',
+                        style: AppTextStyles.body2,
+                      ),
+                      confirmText: 'Delete',
+                      onConfirm: () {
+                        GoalFormService().deleteChecklist(
+                          context,
+                          ref,
+                          checklistItem: checklistItemModel!,
+                        );
+                        context.pop(); // close this dialog
+                        context.pop(); // close edit dialog
+                      },
                     ),
                   );
                 },

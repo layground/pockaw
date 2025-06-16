@@ -15,4 +15,5 @@ class Routes {
   static const String budgetDetails = '/budget-details';
   static const String budgetForm = '/budget-form';
   static const String settings = '/settings';
+  static const String accountDeletion = '/account-deletion';
 }

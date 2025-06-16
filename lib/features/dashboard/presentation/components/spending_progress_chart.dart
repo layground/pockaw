@@ -31,11 +31,10 @@ class SpendingProgressChart extends ConsumerWidget {
             children: [
               _buildHeader(context),
               const Gap(AppSpacing.spacing8),
-              const Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: AppSpacing.spacing16),
-                  child: Text('No spending recorded this month.'),
-                ),
+              CustomProgressIndicator(
+                value: 0,
+                color: AppColors.neutral200,
+                radius: BorderRadius.circular(AppRadius.radiusFull),
               ),
             ],
           );
