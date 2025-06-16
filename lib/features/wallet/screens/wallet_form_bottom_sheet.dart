@@ -3,12 +3,15 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
 import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
 import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/form_fields/custom_numeric_field.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
+import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/extensions/string_extension.dart';
 import 'package:pockaw/core/utils/logger.dart';
@@ -107,6 +110,34 @@ class WalletFormBottomSheet extends HookConsumerWidget {
                 }
               },
             ),
+            if (isEditing)
+              TextButton(
+                child: Text(
+                  'Delete',
+                  style: AppTextStyles.body2.copyWith(color: AppColors.red),
+                ),
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    showDragHandle: true,
+                    builder: (context) => AlertBottomSheet(
+                      context: context,
+                      title: 'Delete Wallet',
+                      content: Text(
+                        'All transactions, budgets, and goals will also be deleted. This action cannot be undone.',
+                        style: AppTextStyles.body2,
+                      ),
+                      confirmText: 'Delete',
+                      onConfirm: () {
+                        // final db = ref.read(databaseProvider);
+                        // db.walletDao.deleteWallet(wallet!.id!);
+                        context.pop(); // close this dialog
+                        context.pop(); // close form dialog
+                      },
+                    ),
+                  );
+                },
+              ),
           ],
         ),
       ),
