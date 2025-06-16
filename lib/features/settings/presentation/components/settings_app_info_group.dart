@@ -15,7 +15,7 @@ class SettingsAppInfoGroup extends ConsumerWidget {
           icon: HugeIcons.strokeRoundedLegalHammer,
           suffixIcon: HugeIcons.strokeRoundedSquareArrowUpRight,
           onTap: () {
-            LinkLauncher.launch('https://pockaw.com/privacy-policy.html');
+            LinkLauncher.launch(AppConstants.privacyPolicyUrl);
           },
         ),
         MenuTileButton(
@@ -23,7 +23,7 @@ class SettingsAppInfoGroup extends ConsumerWidget {
           icon: HugeIcons.strokeRoundedFileExport,
           suffixIcon: HugeIcons.strokeRoundedSquareArrowUpRight,
           onTap: () {
-            LinkLauncher.launch('https://pockaw.com/terms-and-conditions.html');
+            LinkLauncher.launch(AppConstants.termsAndConditionsUrl);
           },
         ),
         MenuTileButton(
