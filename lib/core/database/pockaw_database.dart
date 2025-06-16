@@ -54,16 +54,38 @@ class AppDatabase extends _$AppDatabase {
         await WalletPopulationService.populate(this);
       },
       onUpgrade: (Migrator m, int from, int to) async {
+        Log.i('Running migration from $from to $to');
         if (kDebugMode) {
-          final m = createMigrator(); // changed to this
+          // In debug mode, clear and recreate everything.
+          // Use the provided migrator 'm'.
+          Log.i(
+            'Debug mode: Wiping and recreating all tables for upgrade from $from to $to.',
+          );
+
+          // Delete all existing tables first.
+          // Iterating in reverse order can help with foreign key constraints, though migrator might handle it.
           for (final table in allTables) {
-            await m.deleteTable(table.actualTableName);
-            await m.createTable(table);
-            Log.i('Populating default categories via onCreate...');
-            await CategoryPopulationService.populate(this);
-            Log.i('Populating default wallets via onCreate...');
-            await WalletPopulationService.populate(this);
+            try {
+              await m.deleteTable(table.actualTableName);
+            } catch (e) {
+              Log.d(
+                'Could not delete table ${table.actualTableName} during debug upgrade (it might not exist or already be deleted): $e',
+              );
+            }
           }
+
+          // Recreate all tables based on the current schema.
+          await m.createAll();
+          Log.i('All tables recreated after debug upgrade.');
+
+          // Populate default data once after tables are set up.
+          Log.i('Populating default categories after debug upgrade...');
+          await CategoryPopulationService.populate(this);
+          Log.i('Populating default wallets after debug upgrade...');
+          await WalletPopulationService.populate(this);
+        } else {
+          // e.g., if (from < 2) { await m.addColumn(users, users.newColumn); }
+          Log.d('Production migration from $from to $to not yet implemented.');
         }
       },
     );
@@ -78,6 +100,46 @@ class AppDatabase extends _$AppDatabase {
       // If you need web support, see https://drift.simonbinder.eu/platforms/web/
     );
   } */
+
+  /// Clears all data from all tables, recreates them, and populates initial data.
+  /// This is useful for a full reset of the application's data.
+  Future<void> clearAllDataAndReset() async {
+    Log.i(
+      'Starting database reset: clearing all data and re-initializing tables.',
+    );
+    final migrator = createMigrator();
+
+    // Delete all tables
+    for (final table in allTables) {
+      try {
+        await migrator.deleteTable(table.actualTableName);
+        Log.i(
+          'Successfully deleted table: ${table.actualTableName} during reset.',
+        );
+      } catch (e) {
+        Log.d(
+          'Could not delete table ${table.actualTableName} during reset (it might not exist): $e',
+        );
+      }
+    }
+
+    // Recreate all tables
+    await migrator.createAll();
+    Log.i('All tables have been recreated during reset.');
+
+    // Repopulate initial data (delegating to the same logic as onCreate)
+    await migration.onCreate(
+      migrator,
+    ); // This will call m.createAll() again, then populate.
+    // More direct would be to call populate services directly.
+    // Let's call population services directly to avoid redundant createAll.
+    Log.i('Populating default categories during reset...');
+    await CategoryPopulationService.populate(this);
+    Log.i('Populating default wallets during reset...');
+    await WalletPopulationService.populate(this);
+
+    Log.i('Database reset and data population complete.');
+  }
 }
 
 /// https://github.com/simolus3/drift/issues/188

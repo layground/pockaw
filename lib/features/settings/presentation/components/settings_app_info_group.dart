@@ -26,9 +26,10 @@ class SettingsAppInfoGroup extends ConsumerWidget {
             LinkLauncher.launch('https://pockaw.com/terms-and-conditions.html');
           },
         ),
-        const MenuTileButton(
+        MenuTileButton(
           label: 'Delete My Data',
           icon: HugeIcons.strokeRoundedDelete01,
+          onTap: () => context.push(Routes.accountDeletion),
         ),
         MenuTileButton(
           label: 'Logout',

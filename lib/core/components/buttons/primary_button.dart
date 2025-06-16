@@ -30,7 +30,7 @@ class PrimaryButton extends FilledButton {
                isLoading: isLoading,
              ).copyWith(
                textStyle: WidgetStatePropertyAll<TextStyle>(
-                 AppTextStyles.heading6.copyWith(
+                 AppTextStyles.body1.copyWith(
                    fontFamily: AppFontFamilies.montserrat,
                  ),
                ),
