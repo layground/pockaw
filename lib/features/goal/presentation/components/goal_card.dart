@@ -20,6 +20,9 @@ class GoalCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
+      borderRadius: BorderRadius.circular(
+        12,
+      ), // Match container's border radius for ripple effect
       onTap: () {
         Log.d('🔍  Navigating to GoalDetails for goalId=${goal.id}');
         context.push(
@@ -71,11 +74,25 @@ class GoalCard extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(AppRadius.radiusFull),
                     ),
                   ),
-                  child: LinearProgressIndicator(
-                    value: 0.76,
-                    backgroundColor: Colors.transparent,
-                    valueColor: const AlwaysStoppedAnimation(AppColors.purple),
-                    borderRadius: BorderRadius.circular(AppRadius.radiusFull),
+                  child: Builder(
+                    builder: (context) {
+                      final double progress = goal.targetAmount > 0
+                          ? (goal.currentAmount / goal.targetAmount).clamp(
+                              0.0,
+                              1.0,
+                            )
+                          : 0.0;
+                      return LinearProgressIndicator(
+                        value: progress,
+                        backgroundColor: Colors.transparent,
+                        valueColor: const AlwaysStoppedAnimation(
+                          AppColors.purple,
+                        ),
+                        borderRadius: BorderRadius.circular(
+                          AppRadius.radiusFull,
+                        ),
+                      );
+                    },
                   ),
                 ),
                 const Gap(AppSpacing.spacing8),
@@ -101,17 +118,23 @@ class GoalCard extends ConsumerWidget {
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: itemsToShow.map((item) {
+                              final bool isCompleted = item.completed;
+                              final Color itemColor = isCompleted
+                                  ? AppColors.neutralAlpha50
+                                  : AppColors.purple900;
+                              final IconData itemIconData = isCompleted
+                                  ? HugeIcons.strokeRoundedCheckmarkCircle01
+                                  : HugeIcons.strokeRoundedCircle;
+
                               return Padding(
                                 padding: const EdgeInsets.only(
                                   bottom: AppSpacing.spacing4,
                                 ),
                                 child: Row(
                                   children: [
-                                    const Icon(
-                                      HugeIcons
-                                          .strokeRoundedCircle, // Or HugeIcons.strokeRoundedCheckmarkCircle01 for completed
-                                      color: AppColors
-                                          .purple900, // Or AppColors.neutralAlpha50 for completed
+                                    Icon(
+                                      itemIconData,
+                                      color: itemColor,
                                       size: 20,
                                     ),
                                     const Gap(AppSpacing.spacing4),
@@ -119,8 +142,10 @@ class GoalCard extends ConsumerWidget {
                                       child: Text(
                                         item.title,
                                         style: AppTextStyles.body4.copyWith(
-                                          color: AppColors
-                                              .purple900, // Or AppColors.neutralAlpha50 for completed
+                                          color: itemColor,
+                                          decoration: isCompleted
+                                              ? TextDecoration.lineThrough
+                                              : null,
                                         ),
                                         overflow: TextOverflow.ellipsis,
                                       ),
