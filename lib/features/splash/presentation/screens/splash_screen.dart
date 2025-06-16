@@ -5,6 +5,7 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/router/app_router.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/core/services/package_info/package_info_provider.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
@@ -22,6 +23,10 @@ class SplashScreen extends HookConsumerWidget {
         // Initialize database (this also triggers onCreate population services)
         final db = ref.read(databaseProvider);
         Log.d(db.schemaVersion, label: 'schema version');
+
+        // Initialize PackageInfoService
+        final packageInfoService = ref.read(packageInfoServiceProvider);
+        await packageInfoService.init();
 
         // Fetch currencies and populate the static provider
         // Using ref.read(currenciesProvider.future) to get the future directly
