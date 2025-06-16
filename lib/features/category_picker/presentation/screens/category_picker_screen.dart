@@ -78,6 +78,7 @@ class CategoryPickerScreen extends ConsumerWidget {
               label: 'Add New Category',
               state: ButtonState.outlinedActive,
               onPressed: () {
+                ref.read(selectedParentCategoryProvider.notifier).state = null;
                 showModalBottomSheet(
                   context: context,
                   showDragHandle: true,
