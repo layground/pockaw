@@ -60,125 +60,182 @@ class GoalCard extends ConsumerWidget {
               ],
             ),
             const Gap(AppSpacing.spacing16),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: 20,
-                  padding: const EdgeInsets.all(AppSpacing.spacing4),
-                  decoration: ShapeDecoration(
-                    color: AppColors.purpleAlpha10,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(AppRadius.radiusFull),
-                    ),
-                  ),
-                  child: Builder(
-                    builder: (context) {
-                      final double progress = goal.targetAmount > 0
-                          ? (goal.currentAmount / goal.targetAmount).clamp(
-                              0.0,
-                              1.0,
-                            )
-                          : 0.0;
-                      return LinearProgressIndicator(
-                        value: progress,
-                        backgroundColor: Colors.transparent,
-                        valueColor: const AlwaysStoppedAnimation(
-                          AppColors.purple,
-                        ),
-                        borderRadius: BorderRadius.circular(
-                          AppRadius.radiusFull,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                const Gap(AppSpacing.spacing8),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppSpacing.spacing4,
-                  ),
-                  child: ref
-                      .watch(checklistItemsProvider(goal.id!))
-                      .when(
-                        data: (checklistItems) {
-                          if (checklistItems.isEmpty) {
-                            return Text(
-                              'No checklist items yet.',
-                              style: AppTextStyles.body4.copyWith(
-                                color: AppColors.neutralAlpha50,
-                              ),
-                            );
-                          }
-                          // Display up to 2 checklist items, for example
-                          final itemsToShow = checklistItems.take(2).toList();
-                          return Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: itemsToShow.map((item) {
-                              final bool isCompleted = item.completed;
-                              final Color itemColor = isCompleted
-                                  ? AppColors.neutralAlpha50
-                                  : AppColors.purple900;
-                              final IconData itemIconData = isCompleted
-                                  ? HugeIcons.strokeRoundedCheckmarkCircle01
-                                  : HugeIcons.strokeRoundedCircle;
+            // This entire section's content (progress bar + checklist preview)
+            // will now be determined by the state of checklistItemsProvider.
+            ref
+                .watch(checklistItemsProvider(goal.id!))
+                .when(
+                  data: (checklistItems) {
+                    final int totalItems = checklistItems.length;
+                    final int completedItems = checklistItems
+                        .where((item) => item.completed)
+                        .length;
+                    final double progress = totalItems > 0
+                        ? (completedItems / totalItems).toDouble()
+                        : 0.0;
 
-                              return Padding(
-                                padding: const EdgeInsets.only(
-                                  bottom: AppSpacing.spacing4,
-                                ),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      itemIconData,
-                                      color: itemColor,
-                                      size: 20,
-                                    ),
-                                    const Gap(AppSpacing.spacing4),
-                                    Expanded(
-                                      child: Text(
-                                        item.title,
-                                        style: AppTextStyles.body4.copyWith(
-                                          color: itemColor,
-                                          decoration: isCompleted
-                                              ? TextDecoration.lineThrough
-                                              : null,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }).toList(),
-                          );
-                        },
-                        loading: () => const SizedBox(
+                    return Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
                           height: 20,
-                          child: Center(
-                            child: SizedBox(
-                              width: 20,
-                              height: 20,
-                              child: CircularProgressIndicator(strokeWidth: 2),
+                          padding: const EdgeInsets.all(AppSpacing.spacing4),
+                          decoration: ShapeDecoration(
+                            color: AppColors.purpleAlpha10,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                AppRadius.radiusFull,
+                              ),
+                            ),
+                          ),
+                          child: LinearProgressIndicator(
+                            value: progress,
+                            backgroundColor: Colors.transparent,
+                            valueColor: const AlwaysStoppedAnimation(
+                              AppColors.purple,
+                            ),
+                            borderRadius: BorderRadius.circular(
+                              AppRadius.radiusFull,
                             ),
                           ),
                         ),
-                        error: (e, st) => Text(
-                          'Error: $e',
-                          style: AppTextStyles.body4.copyWith(
-                            color: Colors.red,
+                        const Gap(AppSpacing.spacing8),
+                        Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: AppSpacing.spacing4,
                           ),
+                          child: checklistItems.isEmpty
+                              ? Text(
+                                  'No checklist items yet.',
+                                  style: AppTextStyles.body4.copyWith(
+                                    color: AppColors.neutralAlpha50,
+                                  ),
+                                )
+                              : Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: checklistItems.take(2).map((item) {
+                                    final bool isCompleted = item.completed;
+                                    final Color itemColor = isCompleted
+                                        ? AppColors.neutralAlpha50
+                                        : AppColors.purple900;
+                                    final IconData itemIconData = isCompleted
+                                        ? HugeIcons
+                                              .strokeRoundedCheckmarkCircle01
+                                        : HugeIcons.strokeRoundedCircle;
+
+                                    return Padding(
+                                      padding: const EdgeInsets.only(
+                                        bottom: AppSpacing.spacing4,
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Icon(
+                                            itemIconData,
+                                            color: itemColor,
+                                            size: 20,
+                                          ),
+                                          const Gap(AppSpacing.spacing4),
+                                          Expanded(
+                                            child: Text(
+                                              item.title,
+                                              style: AppTextStyles.body4
+                                                  .copyWith(
+                                                    color: itemColor,
+                                                    decoration: isCompleted
+                                                        ? TextDecoration
+                                                              .lineThrough
+                                                        : null,
+                                                  ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  }).toList(),
+                                ),
                         ),
-                      ),
+                      ],
+                    );
+                  },
+                  loading: () => _buildLoadingStateForChecklistSection(),
+                  error: (e, st) =>
+                      _buildErrorStateForChecklistSection(e.toString()),
                 ),
-              ],
-            ),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildLoadingStateForChecklistSection() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 20,
+          padding: const EdgeInsets.all(AppSpacing.spacing4),
+          decoration: ShapeDecoration(
+            color: AppColors.purpleAlpha10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppRadius.radiusFull),
+            ),
+          ),
+          child: LinearProgressIndicator(
+            value: null, // Indeterminate
+            backgroundColor: Colors.transparent,
+            valueColor: const AlwaysStoppedAnimation(AppColors.purple),
+            borderRadius: BorderRadius.circular(AppRadius.radiusFull),
+          ),
+        ),
+        const Gap(AppSpacing.spacing8),
+        const SizedBox(
+          height: 40, // Adjusted for potential two lines of text loading
+          child: Center(
+            child: SizedBox(
+              width: 20,
+              height: 20,
+              child: CircularProgressIndicator(strokeWidth: 2),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildErrorStateForChecklistSection(String error) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 20,
+          padding: const EdgeInsets.all(AppSpacing.spacing4),
+          decoration: ShapeDecoration(
+            color: AppColors.purpleAlpha10,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(AppRadius.radiusFull),
+            ),
+          ),
+          child: LinearProgressIndicator(
+            value: 0.0, // Show 0% on error
+            backgroundColor: Colors.transparent,
+            valueColor: const AlwaysStoppedAnimation(AppColors.purple),
+            borderRadius: BorderRadius.circular(AppRadius.radiusFull),
+          ),
+        ),
+        const Gap(AppSpacing.spacing8),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing4),
+          child: Text(
+            'Error loading checklist.', // Simplified error message
+            style: AppTextStyles.body4.copyWith(color: Colors.red),
+          ),
+        ),
+      ],
     );
   }
 }
