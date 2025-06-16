@@ -11,6 +11,10 @@ final allWalletsStreamProvider = StreamProvider.autoDispose<List<WalletModel>>((
   return db.walletDao.watchAllWallets();
 });
 
+final walletAmountVisibilityProvider = StateProvider<bool>((ref) {
+  return false;
+});
+
 /// StateNotifier for managing the active wallet.
 class ActiveWalletNotifier extends StateNotifier<AsyncValue<WalletModel?>> {
   final Ref _ref;

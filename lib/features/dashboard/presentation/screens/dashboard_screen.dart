@@ -26,6 +26,7 @@ import 'package:pockaw/features/wallet_switcher/presentation/screens/wallet_swit
 
 part '../components/action_button.dart';
 part '../components/balance_card.dart';
+part '../components/wallet_amount_visibility_button.dart';
 part '../components/cash_flow_cards.dart';
 part '../components/greeting_card.dart';
 part '../components/header.dart';
