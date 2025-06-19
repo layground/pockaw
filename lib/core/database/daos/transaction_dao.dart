@@ -142,6 +142,10 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
   Future<bool> updateTransaction(TransactionModel transactionModel) async {
     Log.d('Updating Transaction: ${transactionModel.toJson()}');
     final companion = TransactionsCompanion(
+      // For `update(table).replace(companion)`, the companion must include the primary key.
+      // transactionModel.id is expected to be non-null for an update operation.
+      // The TransactionFormState includes a check to ensure transactionToSave.id is not null before calling update.
+      id: Value(transactionModel.id!),
       transactionType: Value(transactionModel.transactionType.toDbValue()),
       amount: Value(transactionModel.amount),
       date: Value(transactionModel.date),

@@ -68,15 +68,9 @@ class CategoryDropdown extends HookConsumerWidget {
             category: subCategory,
             suffixIcon: HugeIcons.strokeRoundedCheckmarkCircle01,
             onSelectCategory: (selectedCategory) {
-              CategoryModel newCategory = category.copyWith(
-                subCategories: [selectedCategory],
-              );
-
-              Log.d(newCategory.toJson(), label: 'category');
-
               // if picking category, then return to previous screen with selected category
               if (!isManageCategory) {
-                context.pop(newCategory);
+                context.pop(selectedCategory);
               } else {
                 showModalBottomSheet(
                   context: context,

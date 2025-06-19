@@ -7,6 +7,7 @@ import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_date_picker.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_image_picker.dart';
@@ -26,6 +27,8 @@ class TransactionForm extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Log.d(transactionId, label: 'transactionId');
+
     final defaultCurrency = ref
         .read(authStateProvider)
         .defaultCurrency; // Determine if we are in "edit" mode
