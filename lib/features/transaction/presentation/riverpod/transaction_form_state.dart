@@ -1,4 +1,6 @@
 // File: f:\applications\flutter\pockaw\lib\features\transaction\presentation\hooks\use_transaction_form_state.dart
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -87,6 +89,11 @@ class TransactionFormState {
       return;
     }
 
+    String imagePath = '';
+    if (await File(imagePickerState.savedPath ?? '').exists()) {
+      imagePath = imagePickerState.savedPath ?? '';
+    }
+
     final transactionToSave = TransactionModel(
       id: isEditing ? initialTransaction?.id : null,
       transactionType: selectedTransactionType.value,
@@ -96,7 +103,8 @@ class TransactionFormState {
       category: selectedCategory.value!,
       wallet: activeWallet, // Use the currently active wallet
       notes: notesController.text.isNotEmpty ? notesController.text : null,
-      imagePath: imagePickerState.imageFile?.path,
+      // Use savedPath as it reflects the persistently saved image or null if cleared/not set
+      imagePath: imagePath,
       isRecurring:
           false, // Placeholder: Get from form if a recurring field is added
     );
@@ -299,16 +307,16 @@ TransactionFormState useTransactionFormState({
           }
           // categoryController.text is handled by another useEffect based on selectedCategory
 
-          // final imagePath = transaction.imagePath;
-          // if (imagePath != null && imagePath.isNotEmpty) {
-          //   Future.microtask(
-          //     () => ref.read(imageProvider.notifier).loadImagePath(imagePath),
-          //   );
-          // } else {
-          //   Future.microtask(
-          //     () => ref.read(imageProvider.notifier).clearImage(),
-          //   );
-          // }
+          final imagePath = transaction.imagePath;
+          if (imagePath != null && imagePath.isNotEmpty) {
+            Future.microtask(
+              () => ref.read(imageProvider.notifier).loadImagePath(imagePath),
+            );
+          } else {
+            Future.microtask(
+              () => ref.read(imageProvider.notifier).clearImage(),
+            );
+          }
         } else if (!isEditing) {
           // Only reset for new, not if transaction is just null during edit loading
           titleController.clear();
@@ -316,7 +324,8 @@ TransactionFormState useTransactionFormState({
           notesController.clear();
           selectedTransactionType.value = TransactionType.expense;
           selectedCategory.value = null;
-          // Future.microtask(() => ref.read(imageProvider.notifier).clearImage());
+          // Clear image for new transaction form
+          Future.microtask(() => ref.read(imageProvider.notifier).clearImage());
         }
         // categoryController text is updated by the separate effect below
       }

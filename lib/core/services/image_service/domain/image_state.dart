@@ -29,6 +29,11 @@ class ImageState {
 
   // Clear the current image selection
   ImageState clear() {
-    return ImageState();
+    return ImageState(
+      imageFile: null,
+      isLoading: false,
+      savedPath: null,
+      error: null,
+    );
   }
 }

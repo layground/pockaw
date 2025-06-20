@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/services/image_service/domain/image_state.dart';
 import 'package:pockaw/core/services/image_service/image_service.dart';
@@ -85,7 +87,27 @@ class ImageNotifier extends StateNotifier<ImageState> {
     }
   }
 
-  void clearSelection() {
+  /// Loads an image from a given file path and updates the state.
+  /// This is useful for displaying an existing image.
+  void loadImagePath(String path) {
+    state = state.copyWith(isLoading: true, error: null);
+    try {
+      final imageFile = File(path);
+      // We assume the path provided is already a saved/persistent path.
+      state = state.copyWith(
+        imageFile: imageFile,
+        savedPath: path,
+        isLoading: false,
+      );
+    } catch (e) {
+      state = state.copyWith(
+        error: 'Failed to load image from path: $e',
+        isLoading: false,
+      );
+    }
+  }
+
+  void clearImage() {
     state = state.clear();
   }
 }
