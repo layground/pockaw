@@ -145,7 +145,7 @@ class BudgetDao extends DatabaseAccessor<AppDatabase> with _$BudgetDaoMixin {
     final categories = await db.categoryDao.getSubCategories(
       budget.category.id!,
     );
-    final categoryIds = categories.map((c) => c.id).toList();
+    final categoryIds = [...categories.map((c) => c.id), budget.category.id!];
 
     if (categoryIds.isEmpty) {
       return 0;

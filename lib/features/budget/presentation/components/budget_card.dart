@@ -10,6 +10,7 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/budget/data/model/budget_model.dart';
 import 'package:pockaw/features/budget/presentation/riverpod/budget_providers.dart';
 import 'package:pockaw/features/category_picker/presentation/components/category_tile.dart';
@@ -20,6 +21,7 @@ class BudgetCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Log.d(budget.toJson(), label: 'budget');
     final spentAmountAsync = ref.watch(budgetSpentAmountProvider(budget));
 
     final double spentAmount = spentAmountAsync.maybeWhen(
