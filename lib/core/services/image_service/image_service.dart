@@ -73,7 +73,10 @@ class ImageService {
   Future<bool> deleteImage(String imagePath) async {
     try {
       final file = File(imagePath);
-      if (await file.exists()) {
+      final exists = await file.exists();
+      Log.i(exists, label: 'delete image file');
+      if (exists) {
+        Log.i(file.path, label: 'deleting image');
         await file.delete();
         return true;
       }

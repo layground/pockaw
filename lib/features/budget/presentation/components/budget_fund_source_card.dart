@@ -7,9 +7,11 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/features/budget/data/model/budget_model.dart';
 
 class BudgetFundSourceCard extends StatelessWidget {
-  const BudgetFundSourceCard({super.key});
+  final BudgetModel budget;
+  const BudgetFundSourceCard({super.key, required this.budget});
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +38,11 @@ class BudgetFundSourceCard extends StatelessWidget {
             children: [
               Text(
                 'Funds Source',
-                style: AppTextStyles.body5.copyWith(
-                  color: AppColors.primary,
-                ),
+                style: AppTextStyles.body3.copyWith(color: AppColors.primary),
               ),
               Text(
-                '1.233.033',
-                style: AppTextStyles.body3.copyWith(
-                  color: AppColors.primary,
-                ),
+                budget.wallet.name, // Display wallet name
+                style: AppTextStyles.body5.copyWith(color: AppColors.primary),
               ),
             ],
           ),

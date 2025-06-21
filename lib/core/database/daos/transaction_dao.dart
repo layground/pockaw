@@ -117,6 +117,48 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
     });
   }
 
+  // Get transactions for a specific budget period, category, and wallet
+  Future<List<TransactionModel>> getTransactionsForBudget({
+    required List<int> categoryIds,
+    required DateTime startDate,
+    required DateTime endDate,
+    required int walletId,
+  }) async {
+    // We need to join with Categories and Wallets to get the full TransactionModel
+    final query =
+        select(transactions).join([
+            innerJoin(
+              categories,
+              categories.id.equalsExp(transactions.categoryId),
+            ),
+            innerJoin(
+              db.wallets,
+              db.wallets.id.equalsExp(transactions.walletId),
+            ),
+          ])
+          ..where(transactions.categoryId.isIn(categoryIds))
+          ..where(transactions.date.isBetweenValues(startDate, endDate))
+          ..where(transactions.walletId.equals(walletId))
+          ..where(
+            transactions.transactionType.equals(TransactionType.expense.index),
+          ); // Only expenses
+
+    final rows = await query.get();
+    final result = <TransactionModel>[];
+    for (final row in rows) {
+      final transactionData = row.readTable(transactions);
+      final categoryData = row.readTable(categories);
+      final walletData = row.readTable(db.wallets);
+      result.add(
+        await _mapToTransactionModel(transactionData, categoryData, walletData),
+      );
+    }
+
+    Log.d(result, label: 'transactions by budget');
+
+    return result;
+  }
+
   /// Inserts a new transaction.
   Future<int> addTransaction(TransactionModel transactionModel) async {
     Log.d('Saving New Transaction: ${transactionModel.toJson()}');
@@ -142,6 +184,10 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
   Future<bool> updateTransaction(TransactionModel transactionModel) async {
     Log.d('Updating Transaction: ${transactionModel.toJson()}');
     final companion = TransactionsCompanion(
+      // For `update(table).replace(companion)`, the companion must include the primary key.
+      // transactionModel.id is expected to be non-null for an update operation.
+      // The TransactionFormState includes a check to ensure transactionToSave.id is not null before calling update.
+      id: Value(transactionModel.id!),
       transactionType: Value(transactionModel.transactionType.toDbValue()),
       amount: Value(transactionModel.amount),
       date: Value(transactionModel.date),

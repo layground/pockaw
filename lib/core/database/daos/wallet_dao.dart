@@ -11,7 +11,7 @@ part 'wallet_dao.g.dart';
 class WalletDao extends DatabaseAccessor<AppDatabase> with _$WalletDaoMixin {
   WalletDao(super.db);
 
-  Future<WalletModel> _mapToWalletModel(Wallet walletData) async {
+  WalletModel _mapToWalletModel(Wallet walletData) {
     return walletData.toModel();
   }
 
@@ -29,8 +29,17 @@ class WalletDao extends DatabaseAccessor<AppDatabase> with _$WalletDaoMixin {
         .watchSingleOrNull()
         .asyncMap((walletData) async {
           if (walletData == null) return null;
-          return await _mapToWalletModel(walletData);
+          return _mapToWalletModel(walletData);
         });
+  }
+
+  Future<Wallet?> getWalletById(int id) {
+    return (select(wallets)..where((w) => w.id.equals(id))).getSingleOrNull();
+  }
+
+  Future<List<Wallet>> getWalletsByIds(List<int> ids) {
+    if (ids.isEmpty) return Future.value([]);
+    return (select(wallets)..where((w) => w.id.isIn(ids))).get();
   }
 
   Future<int> addWallet(WalletModel walletModel) async {

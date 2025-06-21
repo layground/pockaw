@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:intl/intl.dart';
+import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/features/currency_picker/data/models/currency.dart'; // For currency formatting in the extension
 
 part 'wallet_model.freezed.dart';
@@ -35,14 +35,8 @@ class WalletModel with _$WalletModel {
 
 /// Utility extensions for the [WalletModel].
 extension WalletModelUtils on WalletModel {
-  /// Formats the balance with the appropriate currency symbol and formatting.
-  /// Note: For more robust currency formatting, consider a dedicated currency utility or package.
   String get formattedBalance {
-    final format = NumberFormat.currency(
-      locale: 'en_US',
-      symbol: currency,
-    ); // Basic example, locale might need to be dynamic
-    return format.format(balance);
+    return '$currency ${balance.toPriceFormat()}';
   }
 
   Currency? currencyByIsoCode(List<Currency> currencies) {

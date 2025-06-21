@@ -6,8 +6,21 @@ import 'package:pockaw/features/budget/presentation/screens/budget_form_screen.d
 class BudgetRouter {
   static final routes = <GoRoute>[
     GoRoute(
-      path: Routes.budgetDetails,
-      builder: (context, state) => const BudgetDetailsScreen(),
+      path: '${Routes.budgetDetails}/:budgetId',
+      builder: (context, state) {
+        final budgetId =
+            int.tryParse(state.pathParameters['budgetId'] ?? '') ?? 0;
+        return BudgetDetailsScreen(budgetId: budgetId);
+      },
+    ),
+
+    GoRoute(
+      path: '${Routes.budgetForm}/edit/:budgetId', // For editing
+      builder: (context, state) {
+        final budgetId = int.tryParse(state.pathParameters['budgetId'] ?? '');
+        // budgetId can be null if it's not a valid int, handle appropriately
+        return BudgetFormScreen(budgetId: budgetId);
+      },
     ),
     GoRoute(
       path: Routes.budgetForm,

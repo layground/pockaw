@@ -7,6 +7,11 @@ extension DateTimeExtension on DateTime {
   }
 
   /// Format: 12 Nov 2024
+  String toDayShortMonth() {
+    return DateFormat("d MMM").format(this);
+  }
+
+  /// Format: 12 Nov 2024
   String toDayShortMonthYear() {
     return DateFormat("d MMM yyyy").format(this);
   }
@@ -24,6 +29,11 @@ extension DateTimeExtension on DateTime {
   /// Format: 03/2025
   String toMonthYearNumeric() {
     return DateFormat("MM/yyyy").format(this);
+  }
+
+  /// Format: Oct 2024
+  String toMonthYear() {
+    return DateFormat("MMM yyyy").format(this);
   }
 
   /// Returns "Today", "Yesterday" if applicable, otherwise "13 March 2025".

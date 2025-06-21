@@ -8,6 +8,7 @@ import 'package:pockaw/core/constants/app_text_styles.dart';
 
 class MenuTileButton extends StatelessWidget {
   final String label;
+  final Widget? subtitle;
   final IconData icon;
   final IconData? suffixIcon;
   final GestureTapCallback? onTap;
@@ -15,6 +16,7 @@ class MenuTileButton extends StatelessWidget {
     super.key,
     required this.label,
     required this.icon,
+    this.subtitle,
     this.suffixIcon,
     this.onTap,
   });
@@ -26,17 +28,11 @@ class MenuTileButton extends StatelessWidget {
       tileColor: AppColors.secondary50,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppRadius.radius8),
-        side: const BorderSide(
-          color: AppColors.secondaryAlpha10,
-        ),
+        side: const BorderSide(color: AppColors.secondaryAlpha10),
       ),
-      title: Text(
-        label,
-        style: AppTextStyles.body3,
-      ),
-      leading: Icon(
-        icon,
-      ),
+      title: Text(label, style: AppTextStyles.body3),
+      subtitle: subtitle,
+      leading: Icon(icon),
       trailing: Icon(
         suffixIcon ?? HugeIcons.strokeRoundedArrowRight01,
         color: AppColors.secondaryAlpha50,

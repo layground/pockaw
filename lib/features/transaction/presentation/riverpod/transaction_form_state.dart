@@ -1,4 +1,6 @@
 // File: f:\applications\flutter\pockaw\lib\features\transaction\presentation\hooks\use_transaction_form_state.dart
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
@@ -12,6 +14,8 @@ import 'package:pockaw/core/services/image_service/riverpod/image_notifier.dart'
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
+import 'package:pockaw/features/category/data/repositories/category_repo.dart'
+    as category_repository; // Import the categories list
 import 'package:pockaw/features/transaction/presentation/riverpod/date_picker_provider.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:toastification/toastification.dart';
@@ -43,12 +47,24 @@ class TransactionFormState {
   String getCategoryText() {
     final cat = selectedCategory.value;
     if (cat == null) return '';
-    String hint = cat.title;
-    if (cat.subCategories?.isNotEmpty == true &&
-        cat.subCategories!.first.title.isNotEmpty) {
-      hint += ' • ${cat.subCategories!.first.title}';
+
+    if (cat.parentId != null) {
+      // It's a subcategory, find its parent to display "Parent • Sub"
+      final parent = category_repository.categories.firstWhere(
+        (parentCat) => parentCat.id == cat.parentId,
+        // Provide a fallback, though ideally parentId should always match a parent.
+        orElse: () => CategoryModel(
+          id: -1,
+          title: 'Unknown Parent',
+          iconName: '',
+          subCategories: [],
+        ),
+      );
+      return '${parent.title} • ${cat.title}';
+    } else {
+      // It's a parent category
+      return cat.title;
     }
-    return hint;
   }
 
   Future<void> saveTransaction(WidgetRef ref, BuildContext context) async {
@@ -73,6 +89,11 @@ class TransactionFormState {
       return;
     }
 
+    String imagePath = '';
+    if (await File(imagePickerState.savedPath ?? '').exists()) {
+      imagePath = imagePickerState.savedPath ?? '';
+    }
+
     final transactionToSave = TransactionModel(
       id: isEditing ? initialTransaction?.id : null,
       transactionType: selectedTransactionType.value,
@@ -82,7 +103,8 @@ class TransactionFormState {
       category: selectedCategory.value!,
       wallet: activeWallet, // Use the currently active wallet
       notes: notesController.text.isNotEmpty ? notesController.text : null,
-      imagePath: imagePickerState.imageFile?.path,
+      // Use savedPath as it reflects the persistently saved image or null if cleared/not set
+      imagePath: imagePath,
       isRecurring:
           false, // Placeholder: Get from form if a recurring field is added
     );
@@ -102,10 +124,8 @@ class TransactionFormState {
         // For updates, the ID is already in transactionToSave.id
         if (transactionToSave.id == null) {
           Log.e('Error: Attempting to update transaction without an ID.');
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Error updating transaction: Missing ID.'),
-            ),
+          toastification.show(
+            description: Text('Error updating transaction: Missing ID.'),
           );
           return;
         }
@@ -285,16 +305,16 @@ TransactionFormState useTransactionFormState({
           }
           // categoryController.text is handled by another useEffect based on selectedCategory
 
-          // final imagePath = transaction.imagePath;
-          // if (imagePath != null && imagePath.isNotEmpty) {
-          //   Future.microtask(
-          //     () => ref.read(imageProvider.notifier).loadImagePath(imagePath),
-          //   );
-          // } else {
-          //   Future.microtask(
-          //     () => ref.read(imageProvider.notifier).clearImage(),
-          //   );
-          // }
+          final imagePath = transaction.imagePath;
+          if (imagePath != null && imagePath.isNotEmpty) {
+            Future.microtask(
+              () => ref.read(imageProvider.notifier).loadImagePath(imagePath),
+            );
+          } else {
+            Future.microtask(
+              () => ref.read(imageProvider.notifier).clearImage(),
+            );
+          }
         } else if (!isEditing) {
           // Only reset for new, not if transaction is just null during edit loading
           titleController.clear();
@@ -302,7 +322,8 @@ TransactionFormState useTransactionFormState({
           notesController.clear();
           selectedTransactionType.value = TransactionType.expense;
           selectedCategory.value = null;
-          // Future.microtask(() => ref.read(imageProvider.notifier).clearImage());
+          // Clear image for new transaction form
+          Future.microtask(() => ref.read(imageProvider.notifier).clearImage());
         }
         // categoryController text is updated by the separate effect below
       }

@@ -32,6 +32,11 @@ class CategoryDao extends DatabaseAccessor<AppDatabase>
     )..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
   }
 
+  Future<List<Category>> getCategoriesByIds(List<int> ids) async {
+    if (ids.isEmpty) return [];
+    return (select(categories)..where((c) => c.id.isIn(ids))).get();
+  }
+
   /// Watches all top-level categories (those without a parentId).
   Stream<List<Category>> watchTopLevelCategories() {
     return (select(categories)..where((tbl) => tbl.parentId.isNull())).watch();

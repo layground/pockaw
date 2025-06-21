@@ -17,9 +17,12 @@ class BudgetDateRangePicker extends HookConsumerWidget {
     final selectedDateNotifier = ref.read(datePickerProvider.notifier);
     final dateFieldController = useTextEditingController();
 
+    dateFieldController.text =
+        '${selectedDate.first!.toDayShortMonthYear()} - ${selectedDate.last!.toDayShortMonthYear()}';
+
     return CustomSelectField(
       controller: dateFieldController,
-      label: 'Set a date range',
+      label: 'Set a budget period',
       hint: '12 Nov 2024 - 12 Nov 2026',
       prefixIcon: HugeIcons.strokeRoundedCalendar01,
       isRequired: true,
