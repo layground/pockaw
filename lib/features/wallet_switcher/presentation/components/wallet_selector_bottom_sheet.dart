@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
 import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
@@ -55,32 +56,23 @@ class WalletSelectorBottomSheet extends ConsumerWidget {
                 ),
                 onTap: () {
                   if (isSelected) return;
-                  showAdaptiveDialog(
+                  showModalBottomSheet(
                     context: context,
+                    showDragHandle: true,
                     builder: (context) {
-                      return AlertDialog.adaptive(
-                        title: Text('Switch Wallet'),
+                      return AlertBottomSheet(
+                        title: 'Switch Wallet',
                         content: Text(
                           'Are you sure you want to switch to ${wallet.name}?',
+                          style: AppTextStyles.body2,
                         ),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              context.pop(); // Close the dialog
-                            },
-                            child: const Text('Cancel'),
-                          ),
-                          TextButton(
-                            onPressed: () {
-                              ref
-                                  .read(activeWalletProvider.notifier)
-                                  .setActiveWallet(wallet);
-                              context.pop(); // Close the dialog
-                              context.pop(); // Close the bottom sheet
-                            },
-                            child: const Text('Continue'),
-                          ),
-                        ],
+                        onConfirm: () {
+                          ref
+                              .read(activeWalletProvider.notifier)
+                              .setActiveWallet(wallet);
+                          context.pop(); // Close the dialog
+                          context.pop(); // Close the bottom sheet
+                        },
                       );
                     },
                   );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
+import 'package:pockaw/core/components/buttons/menu_tile_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
@@ -43,50 +44,36 @@ class WalletsScreen extends ConsumerWidget {
             );
           }
           return ListView.separated(
-            padding: const EdgeInsets.all(AppSpacing.spacing16),
+            padding: const EdgeInsets.all(AppSpacing.spacing20),
             itemCount: wallets.length,
             itemBuilder: (context, index) {
               final wallet = wallets[index];
-              return Card(
-                elevation: 1,
-                margin: const EdgeInsets.symmetric(
-                  vertical: AppSpacing.spacing4,
+              return MenuTileButton(
+                label: wallet.name,
+                subtitle: Text(
+                  wallet.formattedBalance,
+                  style: AppTextStyles.body3,
                 ),
-                child: ListTile(
-                  leading: Icon(
-                    HugeIcons.strokeRoundedWallet02, // Or use wallet.iconName
-                    color: Theme.of(context).primaryColor,
-                  ),
-                  title: Text(wallet.name, style: AppTextStyles.body1),
-                  subtitle: Text(
-                    wallet.formattedBalance,
-                    style: AppTextStyles.body3,
-                  ),
-                  trailing: IconButton(
-                    icon: const Icon(HugeIcons.strokeRoundedEdit02, size: 20),
-                    onPressed: () {
-                      final defaultCurrencies = ref.read(
-                        currenciesStaticProvider,
-                      );
+                icon: HugeIcons.strokeRoundedWallet02,
+                suffixIcon: HugeIcons.strokeRoundedEdit02,
+                onTap: () {
+                  final defaultCurrencies = ref.read(currenciesStaticProvider);
 
-                      final selectedCurrency = defaultCurrencies.firstWhere(
-                        (currency) => currency.isoCode == wallet.currency,
-                        orElse: () => defaultCurrencies.first,
-                      );
+                  final selectedCurrency = defaultCurrencies.firstWhere(
+                    (currency) => currency.isoCode == wallet.currency,
+                    orElse: () => defaultCurrencies.first,
+                  );
 
-                      ref.read(currencyProvider.notifier).state =
-                          selectedCurrency;
+                  ref.read(currencyProvider.notifier).state = selectedCurrency;
 
-                      showModalBottomSheet(
-                        context: context,
-                        showDragHandle: true,
-                        isScrollControlled: true,
-                        backgroundColor: Colors.white,
-                        builder: (_) => WalletFormBottomSheet(wallet: wallet),
-                      );
-                    },
-                  ),
-                ),
+                  showModalBottomSheet(
+                    context: context,
+                    showDragHandle: true,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.white,
+                    builder: (_) => WalletFormBottomSheet(wallet: wallet),
+                  );
+                },
               );
             },
             separatorBuilder: (context, index) =>
