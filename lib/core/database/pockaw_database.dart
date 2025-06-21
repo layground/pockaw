@@ -38,29 +38,13 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 8; // Increment schema version
+  int get schemaVersion => 1; // Increment schema version
 
   @override
   MigrationStrategy get migration {
     return MigrationStrategy(
-      // beforeOpen: (openingDetails) async {
-      //   if (kDebugMode) {
-      //     final m = createMigrator(); // changed to this
-      //     for (final table in allTables) {
-      //       await m.deleteTable(table.actualTableName);
-      //       await m.createTable(table);
-      //     }
-      //   }
-      // },
-      onCreate: (Migrator m) async {
-        // Called when the database is created for the first time.
-        await m.createAll(); // Creates all tables defined in this database
-        // After tables are created, populate default categories.
-        // Note: 'this' refers to the AppDatabase instance.
-        Log.i('Populating default categories via onCreate...');
-        await CategoryPopulationService.populate(this);
-        Log.i('Populating default wallets via onCreate...');
-        await WalletPopulationService.populate(this);
+      beforeOpen: (details) async {
+        await populateData();
       },
       onUpgrade: (Migrator m, int from, int to) async {
         Log.i('Running migration from $from to $to');
@@ -73,28 +57,9 @@ class AppDatabase extends _$AppDatabase {
 
           // Delete all existing tables first.
           // Iterating in reverse order can help with foreign key constraints, though migrator might handle it.
-          for (final table in allTables) {
-            try {
-              await m.deleteTable(table.actualTableName);
-            } catch (e) {
-              Log.d(
-                'Could not delete table ${table.actualTableName} during debug upgrade (it might not exist or already be deleted): $e',
-              );
-            }
-          }
-
-          // Recreate all tables based on the current schema.
-          await m.createAll();
+          await clearAllDataAndReset();
+          await populateData();
           Log.i('All tables recreated after debug upgrade.');
-
-          // Populate default data once after tables are set up.
-          Log.i('Populating default categories after debug upgrade...');
-          await CategoryPopulationService.populate(this);
-          Log.i('Populating default wallets after debug upgrade...');
-          await WalletPopulationService.populate(this);
-        } else {
-          // e.g., if (from < 2) { await m.addColumn(users, users.newColumn); }
-          Log.d('Production migration from $from to $to not yet implemented.');
         }
       },
     );
@@ -133,21 +98,44 @@ class AppDatabase extends _$AppDatabase {
     }
 
     // Recreate all tables
-    // await migrator.createAll();
+    await migrator.createAll();
     // Log.i('All tables have been recreated during reset.');
 
     // Repopulate initial data (delegating to the same logic as onCreate)
-    await migration.onCreate(
-      migrator,
-    ); // This will call m.createAll() again, then populate.
-    // More direct would be to call populate services directly.
-    // Let's call population services directly to avoid redundant createAll.
-    // Log.i('Populating default categories during reset...');
-    // await CategoryPopulationService.populate(this);
-    // Log.i('Populating default wallets during reset...');
-    // await WalletPopulationService.populate(this);
+    // await migration.onCreate(
+    //   migrator,
+    // ); // This will call m.createAll() again, then populate.
 
     Log.i('Database reset and data population complete.');
+  }
+
+  Future<void> populateData() async {
+    // More direct would be to call populate services directly.
+    // Let's call population services directly to avoid redundant createAll.
+    Log.i('Populating default categories during reset...');
+    await CategoryPopulationService.populate(this);
+    Log.i('Populating default wallets during reset...');
+    await WalletPopulationService.populate(this);
+  }
+
+  Future<void> resetCategories() async {
+    Log.i('Deleting and recreating category table...');
+    final migrator = createMigrator();
+    await migrator.deleteTable(categories.actualTableName);
+    await migrator.createTable(categories);
+
+    Log.i('Populating default categories...');
+    await CategoryPopulationService.populate(this);
+  }
+
+  Future<void> resetWallets() async {
+    Log.i('Deleting and recreating wallet table...');
+    final migrator = createMigrator();
+    await migrator.deleteTable(wallets.actualTableName);
+    await migrator.createTable(wallets);
+
+    Log.i('Populating default wallets...');
+    await WalletPopulationService.populate(this);
   }
 }
 

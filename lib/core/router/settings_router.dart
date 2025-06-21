@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/features/developer_portal/presentation/screens/developer_portal_screen.dart';
 import 'package:pockaw/features/settings/presentation/screens/account_deletion_screen.dart';
 import 'package:pockaw/features/settings/presentation/screens/settings_screen.dart';
 
@@ -13,5 +15,10 @@ class SettingsRouter {
       path: Routes.accountDeletion,
       builder: (context, state) => const AccountDeletionScreen(),
     ),
+    if (kDebugMode)
+      GoRoute(
+        path: Routes.developerPortal,
+        builder: (context, state) => const DeveloperPortalScreen(),
+      ),
   ];
 }
