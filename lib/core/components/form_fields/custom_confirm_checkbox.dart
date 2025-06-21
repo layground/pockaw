@@ -12,11 +12,13 @@ class CustomConfirmCheckbox extends StatelessWidget {
   final String title;
   final String? subtitle;
   final bool checked;
+  final GestureTapCallback onChanged;
   const CustomConfirmCheckbox({
     super.key,
     required this.title,
     this.subtitle,
     this.checked = false,
+    required this.onChanged,
   });
 
   @override
@@ -30,7 +32,7 @@ class CustomConfirmCheckbox extends StatelessWidget {
       child: Row(
         children: [
           CustomIconButton(
-            onPressed: () {},
+            onPressed: onChanged,
             icon: checked
                 ? HugeIcons.strokeRoundedCheckmarkSquare01
                 : HugeIcons.strokeRoundedSquare,
@@ -41,18 +43,12 @@ class CustomConfirmCheckbox extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  title,
-                  style: AppTextStyles.body3,
-                ),
+                Text(title, style: AppTextStyles.body3),
                 if (subtitle != null)
-                  Text(
-                    subtitle!,
-                    style: AppTextStyles.body5,
-                  ),
+                  Text(subtitle!, style: AppTextStyles.body5),
               ],
             ),
-          )
+          ),
         ],
       ),
     );

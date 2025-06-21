@@ -1,4 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:pockaw/features/category/data/model/category_model.dart';
+import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 
 part 'budget_model.freezed.dart';
 part 'budget_model.g.dart';
@@ -8,13 +10,13 @@ part 'budget_model.g.dart';
 class BudgetModel with _$BudgetModel {
   /// The unique identifier for the budget. Null if the budget is new and not yet saved.
   const factory BudgetModel({
-    String? id,
+    int? id,
 
     /// The source of funds for this budget (e.g., "Primary Wallet", "Savings Account").
-    required String fundSource,
+    required WalletModel wallet,
 
     /// The identifier of the category this budget belongs to.
-    required String categoryId,
+    required CategoryModel category,
 
     /// The allocated amount for this budget.
     required double amount,

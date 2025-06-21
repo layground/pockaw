@@ -3,9 +3,11 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/double_extension.dart';
 
 class BudgetTotalCard extends StatelessWidget {
-  const BudgetTotalCard({super.key});
+  final double totalAmount;
+  const BudgetTotalCard({super.key, required this.totalAmount});
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +23,10 @@ class BudgetTotalCard extends StatelessWidget {
         children: [
           Text(
             'Total Budget',
-            style: AppTextStyles.body5.copyWith(
-              color: AppColors.purple,
-            ),
+            style: AppTextStyles.body5.copyWith(color: AppColors.purple),
           ),
           Text(
-            '5.943.000',
+            totalAmount.toPriceFormat(),
             style: AppTextStyles.numericMedium.copyWith(
               color: AppColors.purple900,
             ),

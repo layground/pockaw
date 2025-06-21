@@ -7,9 +7,12 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/date_time_extension.dart';
+import 'package:pockaw/features/budget/data/model/budget_model.dart';
 
 class BudgetDateCard extends StatelessWidget {
-  const BudgetDateCard({super.key});
+  final BudgetModel budget;
+  const BudgetDateCard({super.key, required this.budget});
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +35,12 @@ class BudgetDateCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Date Range',
-                style: AppTextStyles.body5.copyWith(
-                  color: AppColors.secondary,
-                ),
+                'Budget Period',
+                style: AppTextStyles.body3.copyWith(color: AppColors.secondary),
               ),
               Text(
-                '25 Jan - 24 Feb',
-                style: AppTextStyles.body3.copyWith(
-                  color: AppColors.secondary,
-                ),
+                '${budget.startDate.toDayShortMonth()} - ${budget.endDate.toDayShortMonthYear()}',
+                style: AppTextStyles.body5.copyWith(color: AppColors.secondary),
               ),
             ],
           ),

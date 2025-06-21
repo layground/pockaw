@@ -3,16 +3,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/features/budget/data/model/budget_model.dart';
+import 'package:pockaw/features/budget/presentation/riverpod/budget_providers.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tile.dart';
-import 'package:pockaw/features/transaction/presentation/riverpod/transaction_providers.dart';
 
 class BudgetTopTransactions extends ConsumerWidget {
-  const BudgetTopTransactions({super.key});
+  final BudgetModel budget;
+  const BudgetTopTransactions({super.key, required this.budget});
 
   @override
   Widget build(BuildContext context, ref) {
-    final asyncTransactions = ref.watch(transactionListProvider);
+    final asyncTransactions = ref.watch(transactionsForBudgetProvider(budget));
 
     return asyncTransactions.when(
       data: (allTransactions) {
@@ -21,22 +23,16 @@ class BudgetTopTransactions extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(vertical: AppSpacing.spacing20),
             child: Center(
               child: Text(
-                'No transactions yet to display.',
+                'No transactions to display.',
                 style: AppTextStyles.body3,
               ),
             ),
           );
         }
-        // For "top transactions", you might want to sort by amount (e.g., largest expenses)
-        // or by date (most recent). For this example, let's show the 5 most recent.
-        // You can change this logic based on your specific needs for "top transactions".
+        // Transactions are already filtered by budget criteria. Sort by date.
         final List<TransactionModel> sortedTransactions = List.from(
           allTransactions,
         )..sort((a, b) => b.date.compareTo(a.date)); // Most recent first
-
-        // If you wanted largest expenses:
-        // ..sort((a, b) => b.amount.compareTo(a.amount));
-        // final List<TransactionModel> topExpenseTransactions = sortedTransactions.where((t) => t.transactionType == TransactionType.expense).take(5).toList();
 
         final List<TransactionModel> displayTransactions = sortedTransactions
             .take(5)
@@ -53,7 +49,8 @@ class BudgetTopTransactions extends ConsumerWidget {
         );
       },
       loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, stackTrace) => Center(child: Text('Error: $error')),
+      error: (error, stackTrace) =>
+          Center(child: Text('Error: $error\n$stackTrace')),
     );
   }
 }

@@ -5,11 +5,13 @@ import 'package:drift/native.dart';
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:pockaw/core/database/daos/budget_dao.dart';
 import 'package:pockaw/core/database/daos/category_dao.dart';
 import 'package:pockaw/core/database/daos/transaction_dao.dart';
 import 'package:pockaw/core/database/daos/checklist_item_dao.dart';
 import 'package:pockaw/core/database/daos/goal_dao.dart';
 import 'package:pockaw/core/database/daos/wallet_dao.dart'; // Import new DAO
+import 'package:pockaw/core/database/tables/budgets_table.dart';
 import 'package:pockaw/core/database/tables/category_table.dart';
 import 'package:pockaw/core/database/tables/transaction_table.dart';
 import 'package:pockaw/core/database/tables/checklist_item_table.dart';
@@ -22,14 +24,21 @@ import 'package:pockaw/core/utils/logger.dart';
 part 'pockaw_database.g.dart';
 
 @DriftDatabase(
-  tables: [Categories, Goals, ChecklistItems, Transactions, Wallets],
-  daos: [CategoryDao, GoalDao, ChecklistItemDao, TransactionDao, WalletDao],
+  tables: [Categories, Goals, ChecklistItems, Transactions, Wallets, Budgets],
+  daos: [
+    CategoryDao,
+    GoalDao,
+    ChecklistItemDao,
+    TransactionDao,
+    WalletDao,
+    BudgetDao,
+  ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 7; // Increment schema version
+  int get schemaVersion => 8; // Increment schema version
 
   @override
   MigrationStrategy get migration {
