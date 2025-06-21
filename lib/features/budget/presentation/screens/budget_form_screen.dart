@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
+import 'package:pockaw/core/components/dialogs/toast.dart';
 import 'package:pockaw/core/components/form_fields/custom_confirm_checkbox.dart';
 import 'package:pockaw/core/components/form_fields/custom_numeric_field.dart';
 import 'package:pockaw/core/components/form_fields/custom_select_field.dart';
@@ -41,6 +41,7 @@ class BudgetFormScreen extends HookConsumerWidget {
 
     final formKey = useMemoized(() => GlobalKey<FormState>());
     final amountController = useTextEditingController();
+    final walletController = useTextEditingController();
     final categoryController = useTextEditingController(); // For display text
 
     final selectedCategory = useState<CategoryModel?>(null);
@@ -48,13 +49,16 @@ class BudgetFormScreen extends HookConsumerWidget {
     final isRoutine = useState(false);
 
     final activeWalletsAsync = ref.watch(activeWalletProvider);
+    final allBudgetsAsync = ref.watch(budgetListProvider);
 
     useEffect(() {
+      walletController.text =
+          activeWalletsAsync.valueOrNull?.formattedBalance ?? '';
+
       if (isEditing && budgetDetails is AsyncData<BudgetModel?>) {
         final budget = budgetDetails.value;
         if (budget != null) {
-          amountController.text =
-              '${budget.wallet.currency} ${budget.amount.toPriceFormat()}';
+          amountController.text = budget.amount.toPriceFormat();
           selectedCategory.value = budget.category;
           categoryController.text = budget.category.title; // Simplified display
           isRoutine.value = budget.isRoutine;
@@ -67,17 +71,51 @@ class BudgetFormScreen extends HookConsumerWidget {
       return null;
     }, [isEditing, budgetDetails, activeWalletsAsync]);
 
+    final remainingBudgetForEntry = useMemoized<double?>(() {
+      final wallet = selectedWallet.valueOrNull;
+      final budgets = allBudgetsAsync.valueOrNull;
+
+      // Don't calculate if essential data is missing
+      if (wallet == null || budgets == null) {
+        return null;
+      }
+      // If editing, we also need the original budget details to be loaded
+      if (isEditing && budgetDetails?.hasValue != true) {
+        return null;
+      }
+
+      double totalExistingBudgetsAmount = budgets.fold(
+        0.0,
+        (sum, budget) => sum + budget.amount,
+      );
+
+      if (isEditing) {
+        // budgetDetails is guaranteed to have value here because of the check above
+        final originalAmount = budgetDetails!.value!.amount;
+        totalExistingBudgetsAmount -= originalAmount;
+      }
+
+      final availableAmount = wallet.balance - totalExistingBudgetsAmount;
+      return availableAmount;
+    }, [selectedWallet, allBudgetsAsync, budgetDetails]);
+
+    final amountLabel = remainingBudgetForEntry != null
+        ? 'Amount (Available: ${remainingBudgetForEntry.toPriceFormat()})'
+        : 'Amount';
+
     void saveBudget() async {
       if (!(formKey.currentState?.validate() ?? false)) return;
       if (selectedCategory.value == null) {
-        toastification.show(
-          description: const Text('Please select a category.'),
+        Toast.show(
+          'Please select a category.',
+          type: ToastificationType.warning,
         );
         return;
       }
       if (selectedWallet.value == null) {
-        toastification.show(
-          description: const Text('Please select a fund source (wallet).'),
+        Toast.show(
+          'Please select a fund source (wallet).',
+          type: ToastificationType.warning,
         );
         return;
       }
@@ -86,8 +124,37 @@ class BudgetFormScreen extends HookConsumerWidget {
       if (dateRange.length < 2 ||
           dateRange[0] == null ||
           dateRange[1] == null) {
-        toastification.show(
-          description: const Text('Please select a valid date range.'),
+        Toast.show(
+          'Please select a valid date range.',
+          type: ToastificationType.warning,
+        );
+        return;
+      }
+
+      // --- Wallet Balance Validation ---
+      final newAmount = amountController.text.takeNumericAsDouble();
+      final activeWalletBalance = selectedWallet.value!.balance;
+
+      // Get all budgets to calculate the current total
+      final allBudgetsAsync = ref.read(budgetListProvider);
+      final allBudgets = allBudgetsAsync.valueOrNull ?? [];
+
+      double totalExistingBudgetsAmount = allBudgets.fold(
+        0.0,
+        (sum, budget) => sum + budget.amount,
+      );
+
+      // If editing, subtract the original amount of this budget from the total
+      if (isEditing &&
+          budgetDetails is AsyncData<BudgetModel?> &&
+          budgetDetails.value != null) {
+        totalExistingBudgetsAmount -= budgetDetails.value!.amount;
+      }
+
+      if (totalExistingBudgetsAmount + newAmount > activeWalletBalance) {
+        Toast.show(
+          'Total budget amount cannot exceed wallet balance.',
+          type: ToastificationType.warning,
         );
         return;
       }
@@ -106,18 +173,15 @@ class BudgetFormScreen extends HookConsumerWidget {
       try {
         if (isEditing) {
           await budgetDao.updateBudget(budgetToSave);
-          toastification.show(description: const Text('Budget updated!'));
+          Toast.show('Budget updated!', type: ToastificationType.success);
         } else {
           await budgetDao.addBudget(budgetToSave);
-          toastification.show(description: const Text('Budget created!'));
+          Toast.show('Budget created!', type: ToastificationType.success);
         }
         if (context.mounted) context.pop();
       } catch (e) {
         Log.e('Failed to save budget: $e');
-        toastification.show(
-          description: Text('Failed to save budget: $e'),
-          type: ToastificationType.error,
-        );
+        Toast.show('Failed to save budget: $e', type: ToastificationType.error);
       }
     }
 
@@ -146,9 +210,7 @@ class BudgetFormScreen extends HookConsumerWidget {
                     context.pop(); // close detail screen
 
                     ref.read(budgetDaoProvider).deleteBudget(budgetId!);
-                    toastification.show(
-                      description: const Text('Budget deleted!'),
-                    );
+                    Toast.show('Budget deleted!');
                   },
                 ),
               );
@@ -176,7 +238,14 @@ class BudgetFormScreen extends HookConsumerWidget {
                   100,
                 ),
                 child: Column(
+                  spacing: AppSpacing.spacing16,
                   children: [
+                    CustomSelectField(
+                      controller: walletController,
+                      label: activeWalletsAsync.value?.name,
+                      prefixIcon: HugeIcons.strokeRoundedWallet01,
+                      onTap: () {},
+                    ),
                     CustomSelectField(
                       controller: categoryController,
                       label: 'Category',
@@ -194,17 +263,14 @@ class BudgetFormScreen extends HookConsumerWidget {
                         }
                       },
                     ),
-                    const Gap(AppSpacing.spacing16),
                     CustomNumericField(
                       controller: amountController,
-                      label: 'Amount',
-                      hint: 'e.g. 500',
+                      label: amountLabel,
+                      hint: '1,000.00',
                       icon: HugeIcons.strokeRoundedCoins01,
                       isRequired: true,
                     ),
-                    const Gap(AppSpacing.spacing16),
                     const BudgetDateRangePicker(), // Manages its own state via provider
-                    const Gap(AppSpacing.spacing16),
                     CustomConfirmCheckbox(
                       title: 'Mark this budget as routine',
                       subtitle: 'No need to create this budget every time.',
