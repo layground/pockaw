@@ -97,6 +97,7 @@ class BudgetScreen extends HookConsumerWidget {
                         return ListView(
                           children: const [
                             BudgetSummaryCard(),
+                            Gap(20),
                             BudgetCardHolder(),
                             Gap(100),
                           ],

@@ -6,10 +6,10 @@ import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/date_time_extension.dart';
+import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tile.dart';
-import 'package:intl/intl.dart';
 
 class TransactionGroupedCard extends ConsumerWidget {
   final List<TransactionModel> transactions;
@@ -85,13 +85,7 @@ class TransactionGroupedCard extends ConsumerWidget {
                   Text(displayDate, style: AppTextStyles.body2.bold),
                   Expanded(
                     child: Text(
-                      NumberFormat.currency(
-                        locale:
-                            "en_US", // Consider device locale or app setting
-                        symbol:
-                            "", // No currency symbol, assuming it's handled by amount formatting or context
-                        decimalDigits: 2,
-                      ).format(dayTotal),
+                      dayTotal.toPriceFormat(),
                       textAlign: TextAlign.end,
                       style: AppTextStyles.numericMedium.copyWith(
                         color: dayTotal > 0

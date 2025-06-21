@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
+import 'package:pockaw/core/extensions/date_time_extension.dart';
+import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
-import 'package:intl/intl.dart';
 
 /// Extension on Transaction to provide UI-specific properties based on type.
 extension TransactionUIExtensions on TransactionModel {
@@ -75,11 +76,10 @@ extension TransactionUIExtensions on TransactionModel {
   /// Returns the transaction amount formatted as a string with currency symbol/prefix.
   /// Example: "+1,500.00" or "-45.50"
   String get formattedAmount {
-    final NumberFormat currencyFormatter = NumberFormat("#,##0.00", "en_US");
-    return '$amountPrefix${currencyFormatter.format(amount)}';
+    return '$amountPrefix${amount.toPriceFormat()}';
   }
 
   String get formattedDate {
-    return DateFormat('dd MMMM').format(date);
+    return date.toRelativeDayFormatted();
   }
 }

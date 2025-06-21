@@ -124,10 +124,8 @@ class TransactionFormState {
         // For updates, the ID is already in transactionToSave.id
         if (transactionToSave.id == null) {
           Log.e('Error: Attempting to update transaction without an ID.');
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Error updating transaction: Missing ID.'),
-            ),
+          toastification.show(
+            description: Text('Error updating transaction: Missing ID.'),
           );
           return;
         }
