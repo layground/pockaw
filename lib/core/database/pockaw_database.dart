@@ -38,14 +38,11 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 1; // Increment schema version
+  int get schemaVersion => 2; // Increment schema version
 
   @override
   MigrationStrategy get migration {
     return MigrationStrategy(
-      beforeOpen: (details) async {
-        await populateData();
-      },
       onUpgrade: (Migrator m, int from, int to) async {
         Log.i('Running migration from $from to $to');
         if (kDebugMode) {

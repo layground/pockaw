@@ -15,7 +15,7 @@ class CategoryPopulationService {
           categoryModel.id!,
         ), // Assuming IDs are always present in defaults
         title: Value(categoryModel.title),
-        iconName: Value(categoryModel.iconName),
+        icon: Value(categoryModel.icon),
         parentId: categoryModel.parentId == null
             ? const Value.absent()
             : Value(categoryModel.parentId),

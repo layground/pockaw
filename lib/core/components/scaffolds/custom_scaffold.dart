@@ -26,6 +26,7 @@ class CustomScaffold extends Scaffold {
     bool showBalance = true,
     List<Widget>? actions,
     super.floatingActionButton,
+    super.backgroundColor,
   }) : super(
          resizeToAvoidBottomInset: true,
          appBar: AppBar(

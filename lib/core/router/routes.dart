@@ -9,6 +9,7 @@ class Routes {
   static const String categoryList = '/categories';
   static const String manageCategories = '/manage-categories';
   static const String categoryListPickingParent = '/categories-pick-parent';
+  static const String categoryIconPicker = '/category-pick-icon';
   // static const String categoryForm = '/category-form';
   static const String manageWallets = '/manage-wallets';
   static const String goalDetails = '/goal-details';

@@ -7,7 +7,7 @@ import 'package:pockaw/features/category/data/model/category_model.dart';
 class Categories extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get title => text().withLength(min: 1, max: 100)();
-  TextColumn get iconName => text().nullable()();
+  TextColumn get icon => text().nullable()();
   IntColumn get parentId => integer().nullable().references(
     Categories,
     #id,
@@ -29,7 +29,7 @@ extension CategoryTableExtensions on Category {
     return CategoryModel(
       id: id,
       title: title,
-      iconName: iconName ?? '',
+      icon: icon ?? '',
       parentId: parentId,
       description: description,
       // subCategories are not directly available on the Drift Category object.
