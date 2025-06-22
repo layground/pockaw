@@ -1,7 +1,7 @@
 import 'package:expandable/expandable.dart'
     show ExpandableController, ExpandablePanel, ExpandableThemeData;
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart' show useMemoized;
+import 'package:flutter_hooks/flutter_hooks.dart' show useMemoized, useState;
 
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
@@ -26,31 +26,39 @@ class CategoryDropdown extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final expandableController = useMemoized(() => ExpandableController(), []);
+    final expanded = useState(false);
 
     final List<CategoryModel> subCategories = category.subCategories ?? [];
 
     return ExpandablePanel(
       controller: expandableController,
-      header: InkWell(
-        onTap: () {
-          expandableController.toggle();
+      header: CategoryTile(
+        category: category,
+        suffixIcon: expanded.value
+            ? HugeIcons.strokeRoundedArrowDown01
+            : HugeIcons.strokeRoundedArrowRight01,
+        onSelectCategory: (selectedCategory) {
+          Log.d(selectedCategory.toJson(), label: 'category');
+          // if picking category, then return to previous screen with selected category
+          if (!isManageCategory) {
+            context.pop(selectedCategory);
+          } else {
+            showModalBottomSheet(
+              context: context,
+              showDragHandle: true,
+              isScrollControlled: true,
+              backgroundColor: Colors.white,
+              builder: (context) => CategoryFormScreen(
+                categoryId: selectedCategory.id,
+                isEditingParent: true,
+              ),
+            );
+          }
         },
-        child: CategoryTile(
-          category: category,
-          suffixIcon: expandableController.expanded
-              ? HugeIcons.strokeRoundedArrowDown01
-              : HugeIcons.strokeRoundedArrowRight01,
-          onSelectCategory: (selectedCategory) {
-            Log.d(selectedCategory.toJson(), label: 'category');
-            // if picking category, then return to previous screen with selected category
-            if (!isManageCategory) {
-              context.pop(selectedCategory);
-            }
-          },
-          onSuffixIconPressed: () {
-            expandableController.toggle();
-          },
-        ),
+        onSuffixIconPressed: () {
+          expandableController.toggle();
+          expanded.value = !expanded.value;
+        },
       ),
       collapsed: Container(),
       expanded: ListView.separated(
@@ -66,7 +74,6 @@ class CategoryDropdown extends HookConsumerWidget {
           final subCategory = subCategories[index];
           return CategoryTile(
             category: subCategory,
-            suffixIcon: HugeIcons.strokeRoundedCheckmarkCircle01,
             onSelectCategory: (selectedCategory) {
               // if picking category, then return to previous screen with selected category
               if (!isManageCategory) {

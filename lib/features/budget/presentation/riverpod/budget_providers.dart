@@ -50,7 +50,7 @@ final transactionsForBudgetProvider = FutureProvider.autoDispose
       final categories = await db.categoryDao.getSubCategories(
         budget.category.id!,
       );
-      final categoryIds = categories.map((c) => c.id).toList();
+      final categoryIds = [...categories.map((c) => c.id), budget.category.id!];
 
       // Assuming TransactionDao is accessible via db.transactionDao
       // and it has a method to stream or get transactions based on budget criteria.

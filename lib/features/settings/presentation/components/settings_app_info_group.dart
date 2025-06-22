@@ -31,6 +31,12 @@ class SettingsAppInfoGroup extends ConsumerWidget {
           icon: HugeIcons.strokeRoundedDelete01,
           onTap: () => context.push(Routes.accountDeletion),
         ),
+        if (kDebugMode)
+          MenuTileButton(
+            label: 'Developer Portal',
+            icon: HugeIcons.strokeRoundedCode,
+            onTap: () => context.push(Routes.developerPortal),
+          ),
       ],
     );
   }

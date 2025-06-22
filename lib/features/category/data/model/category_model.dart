@@ -15,7 +15,7 @@ class CategoryModel with _$CategoryModel {
 
     /// The identifier or name of the icon associated with this category.
     /// This could be a key to lookup an icon from a predefined set (e.g., "HugeIcons.strokeRoundedShoppingBag01").
-    @Default('') String iconName,
+    @Default('') String icon,
 
     /// The identifier of the parent category, if this is a sub-category.
     /// Null if this is a top-level category.

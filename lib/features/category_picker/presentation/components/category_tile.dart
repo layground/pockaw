@@ -41,13 +41,17 @@ class CategoryTile extends StatelessWidget {
         child: Row(
           children: [
             Container(
-              padding: const EdgeInsets.all(AppSpacing.spacing12),
+              height: 54,
+              width: 54,
+              padding: const EdgeInsets.all(AppSpacing.spacing8),
               decoration: BoxDecoration(
                 color: AppColors.secondaryAlpha10,
                 borderRadius: BorderRadius.circular(AppRadius.radius8),
                 border: Border.all(color: AppColors.secondaryAlpha10),
               ),
-              child: Icon(HugeIcons.strokeRoundedPizza01, size: iconSize),
+              child: category.icon.isEmpty
+                  ? Icon(HugeIcons.strokeRoundedPizza01, size: iconSize)
+                  : Image.asset(category.icon, width: iconSize),
             ),
             const Gap(AppSpacing.spacing8),
             Expanded(child: Text(category.title, style: AppTextStyles.body3)),

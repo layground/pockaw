@@ -6,12 +6,12 @@ import 'package:pockaw/features/currency_picker/data/models/currency.dart';
 
 class CurrencyLocalDataSource {
   Future<List<dynamic>> getCurrencies() async {
-    Log.d('fetching...');
-    final jsonString =
-        await rootBundle.loadString('assets/data/currencies.json');
+    final jsonString = await rootBundle.loadString(
+      'assets/data/currencies.json',
+    );
     final jsonList = jsonDecode(jsonString);
-    Log.d('currencies: $jsonList');
-    Log.d('currencies: ${jsonList.runtimeType}');
+    Log.d(jsonList, label: 'currencies');
+    // Log.d('currencies: ${jsonList.runtimeType}');
     return jsonList['currencies'];
   }
 
@@ -27,14 +27,6 @@ class CurrencyLocalDataSource {
   );
 
   List<String> getAvailableCurrencies() {
-    return [
-      'ID',
-      'SG',
-      'MY',
-      'CN',
-      'JP',
-      'US',
-      'GB',
-    ];
+    return ['ID', 'SG', 'MY', 'CN', 'JP', 'US', 'GB'];
   }
 }

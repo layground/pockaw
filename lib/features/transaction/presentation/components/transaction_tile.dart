@@ -38,21 +38,18 @@ class TransactionTile extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            AspectRatio(
-              aspectRatio: 1 / 1,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: transaction.backgroundColor,
-                  borderRadius: BorderRadius.circular(AppRadius.radius12),
-                  border: Border.all(color: transaction.borderColor),
-                ),
-                child: Center(
-                  child: Icon(
-                    HugeIcons.strokeRoundedHeadphones,
-                    color: transaction.iconColor,
-                  ),
-                ),
+            Container(
+              width: 54,
+              height: 54,
+              padding: const EdgeInsets.all(AppSpacing.spacing8),
+              decoration: BoxDecoration(
+                color: transaction.backgroundColor,
+                borderRadius: BorderRadius.circular(AppRadius.radius12),
+                border: Border.all(color: transaction.borderColor),
               ),
+              child: transaction.category.icon.isEmpty
+                  ? Icon(HugeIcons.strokeRoundedPizza01, size: 25)
+                  : Image.asset(transaction.category.icon),
             ),
             const Gap(AppSpacing.spacing12),
             Expanded(

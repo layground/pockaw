@@ -56,7 +56,7 @@ class TransactionFormState {
         orElse: () => CategoryModel(
           id: -1,
           title: 'Unknown Parent',
-          iconName: '',
+          icon: '',
           subCategories: [],
         ),
       );

@@ -1,13 +1,12 @@
 import 'package:drift/drift.dart';
 import 'package:pockaw/core/database/pockaw_database.dart';
 import 'package:pockaw/core/utils/logger.dart';
-import 'package:pockaw/features/category/data/repositories/category_repo.dart'
-    as category_repo; // Use an alias
+import 'package:pockaw/features/category/data/repositories/category_repo.dart';
 
 class CategoryPopulationService {
   static Future<void> populate(AppDatabase db) async {
     Log.i('Initializing default categories...');
-    final allDefaultCategories = category_repo.categories.getAllCategories();
+    final allDefaultCategories = categories.getAllCategories();
     final categoryDao = db.categoryDao;
 
     for (final categoryModel in allDefaultCategories) {
@@ -16,7 +15,7 @@ class CategoryPopulationService {
           categoryModel.id!,
         ), // Assuming IDs are always present in defaults
         title: Value(categoryModel.title),
-        iconName: Value(categoryModel.iconName),
+        icon: Value(categoryModel.icon),
         parentId: categoryModel.parentId == null
             ? const Value.absent()
             : Value(categoryModel.parentId),
