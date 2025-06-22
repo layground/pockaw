@@ -43,6 +43,10 @@ class AppDatabase extends _$AppDatabase {
   @override
   MigrationStrategy get migration {
     return MigrationStrategy(
+      onCreate: (Migrator m) async {
+        await m.createAll();
+        await populateData();
+      },
       onUpgrade: (Migrator m, int from, int to) async {
         Log.i('Running migration from $from to $to');
         if (kDebugMode) {
