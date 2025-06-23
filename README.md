@@ -181,7 +181,7 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 
 💸**Multi-Currency Support**
 
-* **1 Wallet, 1 Currency**: Set a different currency of your each wallet. Yes! each wallet.
+* **[Done] 1 Wallet, 1 Currency**: Set a different currency of your each wallet. Yes! each wallet.
 
 ✨**Ask AI**
 
