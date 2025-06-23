@@ -15,9 +15,9 @@ import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/string_extension.dart';
 import 'package:pockaw/core/utils/logger.dart';
-import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/goal/data/model/checklist_item_model.dart';
 import 'package:pockaw/features/goal/presentation/services/goal_form_service.dart';
+import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
 class GoalChecklistFormDialog extends HookConsumerWidget {
   final int goalId;
@@ -30,7 +30,8 @@ class GoalChecklistFormDialog extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final defaultCurrency = ref.read(authStateProvider).defaultCurrency;
+    final wallet = ref.watch(activeWalletProvider);
+    final defaultCurrency = wallet.value?.currency ?? 'IDR';
     final titleController = useTextEditingController();
     final amountController = useTextEditingController();
     final linkController = useTextEditingController();
@@ -69,7 +70,7 @@ class GoalChecklistFormDialog extends HookConsumerWidget {
             CustomNumericField(
               controller: amountController,
               label: 'Price amount',
-              hint: '$defaultCurrency 34',
+              hint: '$defaultCurrency 1,000.00',
               icon: HugeIcons.strokeRoundedCoins01,
               isRequired: true,
             ),

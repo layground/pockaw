@@ -23,6 +23,7 @@ import 'package:pockaw/features/goal/presentation/riverpod/date_picker_provider.
 import 'package:pockaw/features/goal/presentation/riverpod/goal_details_provider.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_checklist_form_dialog.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_form_dialog.dart';
+import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
 class GoalDetailsScreen extends ConsumerWidget {
   final int goalId;
@@ -32,6 +33,7 @@ class GoalDetailsScreen extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     print('📄  GoalDetailsScreen.build: goalId=$goalId');
     final auth = ref.watch(authStateProvider);
+    final wallet = ref.watch(activeWalletProvider);
     final goalAsync = ref.watch(goalDetailsProvider(goalId));
 
     return CustomScaffold(
@@ -140,7 +142,7 @@ class GoalDetailsScreen extends ConsumerWidget {
                   goalAsync.when(
                     data: (GoalModel goal) {
                       return Text(
-                        '${auth.defaultCurrency} ${goal.targetAmount.toPriceFormat()}',
+                        '${wallet.value?.currency ?? auth.defaultCurrency} ${goal.targetAmount.toPriceFormat()}',
                         style: AppTextStyles.numericLarge,
                       );
                     },

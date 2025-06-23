@@ -34,6 +34,8 @@ class BudgetFormScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final wallet = ref.watch(activeWalletProvider);
+    final defaultCurrency = wallet.value?.currency ?? 'IDR';
     final isEditing = budgetId != null;
     final budgetDetails = isEditing
         ? ref.watch(budgetDetailsProvider(budgetId!))
@@ -58,7 +60,8 @@ class BudgetFormScreen extends HookConsumerWidget {
       if (isEditing && budgetDetails is AsyncData<BudgetModel?>) {
         final budget = budgetDetails.value;
         if (budget != null) {
-          amountController.text = budget.amount.toPriceFormat();
+          amountController.text =
+              '$defaultCurrency ${budget.amount.toPriceFormat()}';
           selectedCategory.value = budget.category;
           categoryController.text = budget.category.title; // Simplified display
           isRoutine.value = budget.isRoutine;
@@ -266,7 +269,7 @@ class BudgetFormScreen extends HookConsumerWidget {
                     CustomNumericField(
                       controller: amountController,
                       label: amountLabel,
-                      hint: '1,000.00',
+                      hint: '$defaultCurrency 1,000.00',
                       icon: HugeIcons.strokeRoundedCoins01,
                       isRequired: true,
                     ),
