@@ -30,7 +30,8 @@ class CustomConfirmCheckbox extends StatelessWidget {
         children: [
           CustomIconButton(
             onPressed: () {},
-            icon: checked ? TablerIcons.checkbox : TablerIcons.square,
+            iconWidget:
+                Icon(checked ? TablerIcons.checkbox : TablerIcons.square),
           ),
           const Gap(AppSpacing.spacing8),
           Expanded(

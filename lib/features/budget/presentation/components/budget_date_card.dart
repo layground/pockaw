@@ -23,7 +23,7 @@ class BudgetDateCard extends StatelessWidget {
         children: [
           CustomIconButton(
             onPressed: () {},
-            icon: TablerIcons.calendar,
+            iconWidget: Icon(TablerIcons.calendar),
           ),
           const Gap(AppSpacing.spacing4),
           Column(

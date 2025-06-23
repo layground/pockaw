@@ -9,14 +9,14 @@ class ActionButton extends StatelessWidget {
       children: [
         CustomIconButton(
           onPressed: () {},
-          icon: TablerIcons.bell,
+          iconWidget: Icon(TablerIcons.bell),
           showBadge: true,
         ),
         CustomIconButton(
           onPressed: () {
             context.push(Routes.settings);
           },
-          icon: TablerIcons.settings_2,
+          iconWidget: Icon(TablerIcons.settings_2),
         ),
       ],
     );

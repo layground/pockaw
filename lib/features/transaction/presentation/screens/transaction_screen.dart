@@ -8,13 +8,16 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_grouped_card.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_summary_card.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tab_bar.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pockaw/features/transaction/presentation/riverpod/transactions_list_provider.dart';
 
-class TransactionScreen extends HookWidget {
+class TransactionScreen extends HookConsumerWidget {
   const TransactionScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final tabController = useTabController(initialLength: 5, initialIndex: 4);
+    final transactionsAsync = ref.watch(transactionsListProvider);
 
     return CustomScaffold(
       context: context,
@@ -24,11 +27,11 @@ class TransactionScreen extends HookWidget {
       actions: [
         CustomIconButton(
           onPressed: () {},
-          icon: TablerIcons.search,
+          iconWidget: Icon(TablerIcons.search),
         ),
         CustomIconButton(
           onPressed: () {},
-          icon: TablerIcons.filter,
+          iconWidget: Icon(TablerIcons.filter),
           iconSize: IconSize.medium,
         ),
       ],
@@ -44,22 +47,19 @@ class TransactionScreen extends HookWidget {
                 const Center(child: Text('Tab 2')),
                 const Center(child: Text('Tab 3')),
                 const Center(child: Text('Tab 4')),
-                ListView(
-                  padding: const EdgeInsets.only(bottom: 120),
-                  children: [
-                    const TransactionSummaryCard(),
-                    const Gap(AppSpacing.spacing20),
-                    ListView.separated(
-                      shrinkWrap: true,
-                      padding: EdgeInsets.zero,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: 1,
-                      itemBuilder: (context, index) =>
-                          const TransactionGroupedCard(),
-                      separatorBuilder: (context, index) =>
-                          const Gap(AppSpacing.spacing16),
-                    ),
-                  ],
+                transactionsAsync.when(
+                  data: (transactions) => ListView(
+                    padding: const EdgeInsets.only(bottom: 120),
+                    children: [
+                      const TransactionSummaryCard(),
+                      const Gap(AppSpacing.spacing20),
+                      TransactionGroupedCard(
+                          transactions: transactions.reversed.toList()),
+                    ],
+                  ),
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (e, st) => Center(child: Text('Error: $e')),
                 ),
               ],
             ),

@@ -6,9 +6,11 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tile.dart';
+import 'package:pockaw/core/db/app_database.dart';
 
 class TransactionGroupedCard extends StatelessWidget {
-  const TransactionGroupedCard({super.key});
+  final List<Transaction> transactions;
+  const TransactionGroupedCard({super.key, required this.transactions});
 
   @override
   Widget build(BuildContext context) {
@@ -42,17 +44,21 @@ class TransactionGroupedCard extends StatelessWidget {
             ],
           ),
           const Gap(AppSpacing.spacing12),
-          ListView.separated(
-            shrinkWrap: true,
-            padding: EdgeInsets.zero,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: 1,
-            itemBuilder: (context, index) => const TransactionTile(
-              showDate: false,
+          if (transactions.isEmpty)
+            const Center(child: Text('No transactions yet'))
+          else
+            ListView.separated(
+              shrinkWrap: true,
+              padding: EdgeInsets.zero,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: transactions.length,
+              itemBuilder: (context, index) => TransactionTile(
+                transaction: transactions[index],
+                showDate: false,
+              ),
+              separatorBuilder: (context, index) =>
+                  const Gap(AppSpacing.spacing16),
             ),
-            separatorBuilder: (context, index) =>
-                const Gap(AppSpacing.spacing16),
-          ),
         ],
       ),
     );

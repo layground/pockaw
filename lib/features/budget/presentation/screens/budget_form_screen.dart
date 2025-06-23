@@ -13,75 +13,157 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/budget/presentation/components/budget_date_range_picker.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pockaw/core/db/database_provider.dart';
+import 'package:drift/drift.dart' as drift;
+import 'package:pockaw/core/db/app_database.dart';
 
-class BudgetFormScreen extends StatelessWidget {
+class BudgetFormScreen extends StatefulWidget {
   const BudgetFormScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return CustomScaffold(
+  State<BudgetFormScreen> createState() => _BudgetFormScreenState();
+}
+
+class _BudgetFormScreenState extends State<BudgetFormScreen> {
+  final _nameController = TextEditingController();
+  final _amountController = TextEditingController();
+  String _timeline = 'monthly';
+  final Map<String, String> _timelineLabels = {
+    'daily': 'Daily',
+    'weekly': 'Weekly',
+    'monthly': 'Monthly',
+  };
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _amountController.dispose();
+    super.dispose();
+  }
+
+  void _selectTimeline() async {
+    final selected = await showModalBottomSheet<String>(
       context: context,
-      title: 'Edit Budget',
-      showBackButton: true,
-      showBalance: false,
-      actions: [
-        CustomIconButton(
-          onPressed: () {},
-          icon: TablerIcons.trash,
-          color: AppColors.red,
-          borderColor: AppColors.redAlpha10,
-          backgroundColor: AppColors.redAlpha10,
-        ),
-      ],
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          SingleChildScrollView(
-            padding: const EdgeInsets.all(AppSpacing.spacing20),
-            child: Column(
-              children: [
-                CustomTextField(
-                  // controller: titleController,
-                  label: 'Fund Source',
-                  hint: 'Primary Wallet',
-                  prefixIcon: TablerIcons.wallet,
-                  readOnly: true,
-                ),
-                const Gap(AppSpacing.spacing16),
-                CustomSelectField(
-                  label: 'Category',
-                  hint: 'Groceries • Cosmetics',
-                  isRequired: true,
-                  prefixIcon: TablerIcons.category_2,
-                  onTap: () {
-                    context.push(Routes.categoryList);
-                  },
-                ),
-                const Gap(AppSpacing.spacing16),
-                const CustomNumericField(
-                  // controller: amountController,
-                  label: 'Amount',
-                  hint: '\$ 34',
-                  icon: TablerIcons.coin,
-                  isRequired: true,
-                ),
-                const Gap(AppSpacing.spacing16),
-                const BudgetDateRangePicker(),
-                const Gap(AppSpacing.spacing16),
-                const CustomConfirmCheckbox(
-                  title: 'Mark this budget as routine',
-                  subtitle: 'No need to create this budget every time.',
-                  checked: false,
-                )
-              ],
-            ),
+      builder: (context) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                title: const Text('Daily'),
+                onTap: () => Navigator.pop(context, 'daily'),
+                selected: _timeline == 'daily',
+              ),
+              ListTile(
+                title: const Text('Weekly'),
+                onTap: () => Navigator.pop(context, 'weekly'),
+                selected: _timeline == 'weekly',
+              ),
+              ListTile(
+                title: const Text('Monthly'),
+                onTap: () => Navigator.pop(context, 'monthly'),
+                selected: _timeline == 'monthly',
+              ),
+            ],
           ),
-          PrimaryButton(
-            label: 'Save',
-            onPressed: () {},
-          ).floatingBottom
-        ],
-      ),
+        );
+      },
+    );
+    if (selected != null && selected != _timeline) {
+      setState(() {
+        _timeline = selected;
+      });
+    }
+  }
+
+  Future<void> _saveBudget(BuildContext context, WidgetRef ref) async {
+    final db = ref.read(databaseProvider);
+    final name = _nameController.text.trim();
+    final amountText =
+        _amountController.text.replaceAll(RegExp(r'[^0-9\.]'), '');
+    final amount = double.tryParse(amountText) ?? 0.0;
+    print(
+        '[BudgetForm] Extracted data: name="$name", amount=$amount, timeline=$_timeline');
+    if (name.isEmpty || amount <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter a valid name and amount.')),
+      );
+      return;
+    }
+    final id = await db.addBudget(BudgetsCompanion(
+      name: drift.Value(name),
+      amount: drift.Value(amount),
+      timeline: drift.Value(_timeline),
+    ));
+    print('[BudgetForm] Budget added to table with id: $id');
+    if (mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Budget saved!')),
+      );
+      Navigator.of(context).pop();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(
+      builder: (context, ref, _) {
+        return CustomScaffold(
+          context: context,
+          title: 'Edit Budget',
+          showBackButton: true,
+          showBalance: false,
+          actions: [
+            CustomIconButton(
+              onPressed: () {},
+              iconWidget: Icon(TablerIcons.trash),
+              color: AppColors.red,
+              borderColor: AppColors.redAlpha10,
+              backgroundColor: AppColors.redAlpha10,
+            ),
+          ],
+          body: Stack(
+            fit: StackFit.expand,
+            children: [
+              SingleChildScrollView(
+                padding: const EdgeInsets.all(AppSpacing.spacing20),
+                child: Column(
+                  children: [
+                    CustomTextField(
+                      controller: _nameController,
+                      label: 'Name',
+                      hint: 'Enter budget name',
+                      prefixIcon: TablerIcons.edit,
+                      isRequired: true,
+                    ),
+                    const Gap(AppSpacing.spacing16),
+                    CustomNumericField(
+                      controller: _amountController,
+                      label: 'Amount',
+                      hint: '\$ 34',
+                      icon: TablerIcons.coin,
+                      isRequired: true,
+                    ),
+                    const Gap(AppSpacing.spacing16),
+                    CustomSelectField(
+                      label: 'Budget Timeline',
+                      hint: _timelineLabels[_timeline]!,
+                      isRequired: true,
+                      prefixIcon: TablerIcons.calendar,
+                      onTap: _selectTimeline,
+                    ),
+                  ],
+                ),
+              ),
+              PrimaryButton(
+                label: 'Save',
+                onPressed: () => _saveBudget(context, ref),
+              ).floatingBottom
+            ],
+          ),
+        );
+      },
     );
   }
 }

@@ -23,7 +23,7 @@ class BudgetFundSourceCard extends StatelessWidget {
         children: [
           CustomIconButton(
             onPressed: () {},
-            icon: TablerIcons.wallet,
+            iconWidget: Icon(TablerIcons.wallet),
             backgroundColor: AppColors.primary50,
             borderColor: AppColors.primaryAlpha25,
             color: AppColors.primary,

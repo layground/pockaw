@@ -7,9 +7,11 @@ import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/features/category_picker/presentation/components/category_tile.dart';
+import 'package:pockaw/core/db/app_database.dart';
 
 class BudgetCard extends StatelessWidget {
-  const BudgetCard({super.key});
+  final Budget budget;
+  const BudgetCard({super.key, required this.budget});
 
   @override
   Widget build(BuildContext context) {
@@ -20,32 +22,38 @@ class BudgetCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppRadius.radius8),
         border: Border.all(color: AppColors.darkAlpha10),
       ),
-      child: const Column(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CategoryTile(
-            title: 'Sport',
-            suffixIcon: TablerIcons.chevron_right,
-          ),
-          Gap(AppSpacing.spacing8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '155.000 left',
+                budget.name,
+                style:
+                    AppTextStyles.body3.copyWith(fontWeight: FontWeight.bold),
+              ),
+              Chip(
+                label: Text(budget.timeline),
+                backgroundColor: AppColors.purple50,
+              ),
+            ],
+          ),
+          const Gap(AppSpacing.spacing8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Amount',
                 style: AppTextStyles.body4,
               ),
               Text(
-                '345.000 of 500.000',
+                budget.amount.toStringAsFixed(2),
                 textAlign: TextAlign.right,
                 style: AppTextStyles.body4,
               ),
             ],
           ),
-          Gap(AppSpacing.spacing8),
-          ProgressBar(
-            value: 0.52,
-            foreground: AppColors.purpleAlpha50,
-          )
         ],
       ),
     );

@@ -5,11 +5,14 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/db/app_database.dart';
 
 class TransactionTile extends StatelessWidget {
+  final Transaction transaction;
   final bool showDate;
   const TransactionTile({
     super.key,
+    required this.transaction,
     this.showDate = true,
   });
 
@@ -57,13 +60,13 @@ class TransactionTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Web maintenance',
+                    Text(
+                      transaction.title,
                       style: AppTextStyles.body3,
                     ),
                     const Gap(AppSpacing.spacing2),
                     Text(
-                      'Dinner with friends',
+                      transaction.description ?? '',
                       style: AppTextStyles.body4.copyWith(
                         color: AppColors.neutral500,
                       ),
@@ -77,16 +80,16 @@ class TransactionTile extends StatelessWidget {
                   children: [
                     if (showDate)
                       Text(
-                        '09 December',
+                        _formatDate(transaction.date),
                         style: AppTextStyles.body5.copyWith(
                           color: AppColors.neutral500,
                         ),
                       ),
                     if (showDate) const Gap(AppSpacing.spacing4),
                     Text(
-                      '1.120.300',
+                      transaction.amount.toStringAsFixed(2),
                       style: AppTextStyles.numericMedium.copyWith(
-                        color: AppColors.red700,
+                        color: _amountColor(transaction.transactionType),
                         height: 1.12,
                       ),
                     ),
@@ -98,5 +101,41 @@ class TransactionTile extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String _formatDate(DateTime date) {
+    // Format as 'dd MMMM' (e.g., '09 December')
+    return '${date.day.toString().padLeft(2, '0')} ${_monthName(date.month)}';
+  }
+
+  String _monthName(int month) {
+    const months = [
+      '',
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ];
+    return months[month];
+  }
+
+  Color _amountColor(String type) {
+    switch (type) {
+      case 'income':
+        return AppColors.green200;
+      case 'transfer':
+        return AppColors.tertiary500;
+      case 'expense':
+      default:
+        return AppColors.red700;
+    }
   }
 }

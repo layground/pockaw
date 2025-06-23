@@ -7,7 +7,12 @@ class CategoryRouter {
   static final routes = <GoRoute>[
     GoRoute(
       path: Routes.categoryList,
-      builder: (context, state) => const CategoryPickerScreen(),
+      builder: (context, state) {
+        final String? initialType = state.extra as String?;
+        print(
+            '📝 CategoryRouter: Received initialType for CategoryPickerScreen: ${initialType}');
+        return CategoryPickerScreen(initialType: initialType);
+      },
     ),
     GoRoute(
       path: Routes.categoryListPickingParent,
@@ -16,7 +21,12 @@ class CategoryRouter {
     ),
     GoRoute(
       path: Routes.categoryForm,
-      builder: (context, state) => const CategoryFormScreen(),
+      builder: (context, state) {
+        final String? initialType = state.extra as String?;
+        print(
+            '📝 CategoryRouter: Received initialType for CategoryFormScreen: ${initialType}');
+        return CategoryFormScreen(initialType: initialType);
+      },
     ),
   ];
 }

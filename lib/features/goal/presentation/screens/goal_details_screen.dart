@@ -25,7 +25,7 @@ class GoalDetailsScreen extends StatelessWidget {
       actions: [
         CustomIconButton(
           onPressed: () {},
-          icon: TablerIcons.edit,
+          iconWidget: Icon(TablerIcons.edit),
           iconSize: IconSize.medium,
         ),
       ],

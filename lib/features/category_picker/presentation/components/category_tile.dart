@@ -13,6 +13,8 @@ class CategoryTile extends StatelessWidget {
   final double? iconSize;
   final IconData? suffixIcon;
   final GestureTapCallback? onSuffixIconPressed;
+  final String? icon;
+  final GestureTapCallback? onTap;
   const CategoryTile({
     super.key,
     required this.title,
@@ -20,51 +22,58 @@ class CategoryTile extends StatelessWidget {
     this.suffixIcon,
     this.height,
     this.iconSize = AppSpacing.spacing32,
+    this.icon,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      padding: const EdgeInsets.all(AppSpacing.spacing4),
-      decoration: BoxDecoration(
-        color: AppColors.secondary50,
-        borderRadius: BorderRadius.circular(AppRadius.radius8),
-        border: Border.all(
-          color: AppColors.secondaryAlpha10,
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        height: height,
+        padding: const EdgeInsets.all(AppSpacing.spacing4),
+        decoration: BoxDecoration(
+          color: AppColors.secondary50,
+          borderRadius: BorderRadius.circular(AppRadius.radius8),
+          border: Border.all(
+            color: AppColors.secondaryAlpha10,
+          ),
         ),
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(AppSpacing.spacing12),
-            decoration: BoxDecoration(
-              color: AppColors.secondaryAlpha10,
-              borderRadius: BorderRadius.circular(AppRadius.radius8),
-              border: Border.all(
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(AppSpacing.spacing12),
+              decoration: BoxDecoration(
                 color: AppColors.secondaryAlpha10,
+                borderRadius: BorderRadius.circular(AppRadius.radius8),
+                border: Border.all(
+                  color: AppColors.secondaryAlpha10,
+                ),
+              ),
+              child: Text(
+                icon ?? '❓',
+                style: TextStyle(
+                  fontSize: iconSize,
+                ),
               ),
             ),
-            child: Icon(
-              TablerIcons.pizza,
-              size: iconSize,
+            const Gap(AppSpacing.spacing8),
+            Expanded(
+              child: Text(
+                title,
+                style: AppTextStyles.body3,
+              ),
             ),
-          ),
-          const Gap(AppSpacing.spacing8),
-          Expanded(
-            child: Text(
-              title,
-              style: AppTextStyles.body3,
-            ),
-          ),
-          if (suffixIcon != null)
-            CustomIconButton(
-              onPressed: onSuffixIconPressed ?? () {},
-              icon: suffixIcon!,
-              iconSize: IconSize.small,
-              visualDensity: VisualDensity.compact,
-            ),
-        ],
+            if (suffixIcon != null)
+              CustomIconButton(
+                onPressed: onSuffixIconPressed ?? () {},
+                iconWidget: Icon(suffixIcon!),
+                iconSize: IconSize.small,
+                visualDensity: VisualDensity.compact,
+              ),
+          ],
+        ),
       ),
     );
   }

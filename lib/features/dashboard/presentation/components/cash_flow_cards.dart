@@ -1,17 +1,19 @@
 part of '../screens/dashboard_screen.dart';
 
 class CashFlowCards extends StatelessWidget {
-  const CashFlowCards({super.key});
+  final double income;
+  final double expense;
+  const CashFlowCards({super.key, required this.income, required this.expense});
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       children: [
         Expanded(
           child: TransactionCard(
             title: 'Income',
-            amount: 589234,
-            amountLastMonth: 123000,
+            amount: income,
+            amountLastMonth: 0,
             backgroundColor: AppColors.primary50,
             titleColor: AppColors.neutral900,
             borderColor: AppColors.primaryAlpha25,
@@ -21,12 +23,12 @@ class CashFlowCards extends StatelessWidget {
             statsIconColor: AppColors.primary600,
           ),
         ),
-        Gap(AppSpacing.spacing12),
+        const Gap(AppSpacing.spacing12),
         Expanded(
           child: TransactionCard(
             title: 'Expense',
-            amount: 763120,
-            amountLastMonth: 335900,
+            amount: expense,
+            amountLastMonth: 0,
             backgroundColor: AppColors.red50,
             borderColor: AppColors.redAlpha10,
             titleColor: AppColors.neutral900,

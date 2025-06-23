@@ -32,7 +32,7 @@ class CustomScaffold extends Scaffold {
                 ? null
                 : CustomIconButton(
                     onPressed: () => context.pop(),
-                    icon: TablerIcons.arrow_narrow_left,
+                    iconWidget: Icon(TablerIcons.arrow_narrow_left),
                   ),
             title: title.isEmpty
                 ? null

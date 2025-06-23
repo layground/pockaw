@@ -8,9 +8,11 @@ import 'package:pockaw/features/budget/presentation/components/budget_card.dart'
 import 'package:pockaw/features/budget/presentation/components/budget_date_card.dart';
 import 'package:pockaw/features/budget/presentation/components/budget_fund_source_card.dart';
 import 'package:pockaw/features/budget/presentation/components/budget_top_transactions_holder.dart';
+import 'package:pockaw/core/db/app_database.dart';
 
 class BudgetDetailsScreen extends StatelessWidget {
-  const BudgetDetailsScreen({super.key});
+  final Budget budget;
+  const BudgetDetailsScreen({super.key, required this.budget});
 
   @override
   Widget build(BuildContext context) {
@@ -21,20 +23,20 @@ class BudgetDetailsScreen extends StatelessWidget {
       actions: [
         CustomIconButton(
           onPressed: () {},
-          icon: TablerIcons.edit,
+          iconWidget: Icon(TablerIcons.edit),
         ),
         CustomIconButton(
           onPressed: () {},
-          icon: TablerIcons.trash,
+          iconWidget: Icon(TablerIcons.trash),
         ),
       ],
-      body: const SingleChildScrollView(
-        padding: EdgeInsets.all(AppSpacing.spacing20),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(AppSpacing.spacing20),
         child: Column(
           children: [
-            BudgetCard(),
-            Gap(AppSpacing.spacing12),
-            Row(
+            BudgetCard(budget: budget),
+            const Gap(AppSpacing.spacing12),
+            const Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(child: BudgetDateCard()),
@@ -42,8 +44,8 @@ class BudgetDetailsScreen extends StatelessWidget {
                 Expanded(child: BudgetFundSourceCard()),
               ],
             ),
-            Gap(AppSpacing.spacing12),
-            BudgetTopTransactionsHolder(),
+            const Gap(AppSpacing.spacing12),
+            const BudgetTopTransactionsHolder(),
           ],
         ),
       ),

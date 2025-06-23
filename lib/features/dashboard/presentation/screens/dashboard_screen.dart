@@ -15,10 +15,12 @@ import 'package:pockaw/core/constants/app_font_weights.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/db/app_database.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tile.dart';
 import 'package:pockaw/features/wallet_switcher/presentation/screens/wallet_switcher_dropdown.dart';
+import 'package:pockaw/features/transaction/presentation/riverpod/transactions_list_provider.dart';
 
 part '../components/action_button.dart';
 part '../components/balance_card.dart';
@@ -30,11 +32,12 @@ part '../components/recent_transaction_list.dart';
 part '../components/spending_progress_chart.dart';
 part '../components/transaction_card.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final transactionsAsync = ref.watch(transactionsListProvider);
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(85),
@@ -50,18 +53,39 @@ class DashboardScreen extends StatelessWidget {
               AppSpacing.spacing20,
               AppSpacing.spacing20,
             ),
-            child: const Column(
+            child: Column(
               children: [
-                BalanceCard(),
-                Gap(AppSpacing.spacing12),
-                CashFlowCards(),
-                Gap(AppSpacing.spacing12),
-                SpendingProgressChart()
+                const BalanceCard(),
+                const Gap(AppSpacing.spacing12),
+                transactionsAsync.when(
+                  data: (transactions) {
+                    final income = transactions
+                        .where((t) => t.transactionType == 'income')
+                        .fold<double>(0, (sum, t) => sum + (t.amount));
+                    final expense = transactions
+                        .where((t) => t.transactionType == 'expense')
+                        .fold<double>(0, (sum, t) => sum + (t.amount));
+                    return CashFlowCards(income: income, expense: expense);
+                  },
+                  loading: () => const SizedBox(
+                      height: 80,
+                      child: Center(child: CircularProgressIndicator())),
+                  error: (e, st) => SizedBox(
+                      height: 80, child: Center(child: Text('Error: $e'))),
+                ),
+                const Gap(AppSpacing.spacing12),
+                const SpendingProgressChart()
               ],
             ),
           ),
           // const MyGoalsCarousel(),
-          const RecentTransactionList(),
+          transactionsAsync.when(
+            data: (transactions) => RecentTransactionList(
+              transactions: transactions.reversed.take(5).toList(),
+            ),
+            loading: () => const Center(child: CircularProgressIndicator()),
+            error: (e, st) => Center(child: Text('Error: $e')),
+          ),
         ],
       ),
     );

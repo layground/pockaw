@@ -37,7 +37,7 @@ class TransactionImagePreview extends ConsumerWidget {
               onPressed: () {
                 imageNotifier.clearSelection();
               },
-              icon: TablerIcons.trash,
+              iconWidget: Icon(TablerIcons.trash),
               backgroundColor: AppColors.red50,
               borderColor: AppColors.redAlpha10,
               color: AppColors.red,

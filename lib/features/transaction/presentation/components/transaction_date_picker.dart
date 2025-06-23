@@ -9,13 +9,15 @@ import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/transaction/presentation/riverpod/date_picker_provider.dart';
 
 class TransactionDatePicker extends HookConsumerWidget {
-  const TransactionDatePicker({super.key});
+  final DateTime? initialDate;
+  const TransactionDatePicker({super.key, this.initialDate});
 
   @override
   Widget build(BuildContext context, ref) {
     final selectedDate = ref.watch(datePickerProvider);
     final selectedDateNotifier = ref.read(datePickerProvider.notifier);
-    final dateFieldController = useTextEditingController();
+    final dateFieldController = useTextEditingController(
+        text: initialDate?.toDayMonthYearTime12Hour() ?? '');
 
     return CustomSelectField(
       controller: dateFieldController,
@@ -39,6 +41,9 @@ class TransactionDatePicker extends HookConsumerWidget {
           Log.e(selectedDateTime, label: 'selected date');
           dateFieldController.text =
               selectedDateTime.toDayMonthYearTime12Hour();
+        } else if (initialDate != null) {
+          selectedDateNotifier.state = initialDate!;
+          dateFieldController.text = initialDate!.toDayMonthYearTime12Hour();
         }
       },
     );

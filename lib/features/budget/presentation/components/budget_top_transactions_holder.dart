@@ -19,7 +19,9 @@ class BudgetTopTransactionsHolder extends StatelessWidget {
             style: AppTextStyles.body3,
           ),
           Gap(AppSpacing.spacing12),
-          BudgetTopTransactions(),
+          BudgetTopTransactions(
+            transactions: [],
+          ),
         ],
       ),
     );

@@ -6,11 +6,14 @@ import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/db/app_database.dart'; // Import Category model
+import 'package:go_router/go_router.dart'; // Import go_router
 
 import 'category_tile.dart';
 
 class CategoryDropdown extends HookConsumerWidget {
-  const CategoryDropdown({super.key});
+  final Category category; // New parameter to accept a Category object
+  const CategoryDropdown({super.key, required this.category});
 
   @override
   Widget build(BuildContext context, ref) {
@@ -22,16 +25,23 @@ class CategoryDropdown extends HookConsumerWidget {
           expandableController.toggle();
         },
         child: CategoryTile(
-          title: 'Entertainment',
+          title: category.title, // Use category title
+          icon: category.icon, // Pass the actual emoji string
           suffixIcon: TablerIcons.chevron_down,
           onSuffixIconPressed: () {
             expandableController.toggle();
+          },
+          onTap: () {
+            print(
+                '📝 CategoryDropdown: Selected category: ${category.title}'); // Log selection
+            context.pop(category); // Return the selected category
           },
         ),
       ),
       collapsed: Container(),
       expanded: ListView.separated(
-        itemCount: 4,
+        itemCount:
+            0, // Set to 0 for now as we are not handling subcategories yet
         shrinkWrap: true,
         padding: const EdgeInsets.only(
           top: AppSpacing.spacing8,

@@ -27,7 +27,7 @@ class BudgetScreen extends HookWidget {
           onPressed: () {
             context.push(Routes.budgetForm);
           },
-          icon: TablerIcons.plus,
+          iconWidget: Icon(TablerIcons.plus),
         ),
       ],
       body: Padding(

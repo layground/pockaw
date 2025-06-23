@@ -30,7 +30,7 @@ class GoalScreen extends ConsumerWidget {
               builder: (context) => const GoalFormDialog(),
             );
           },
-          icon: TablerIcons.plus,
+          iconWidget: Icon(TablerIcons.plus),
           iconSize: IconSize.medium,
         ),
       ],

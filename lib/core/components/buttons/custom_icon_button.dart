@@ -13,7 +13,7 @@ class CustomIconButton extends IconButton {
   CustomIconButton({
     Key? key,
     required GestureTapCallback onPressed,
-    required IconData icon,
+    required Widget iconWidget,
     Color? backgroundColor,
     Color? borderColor,
     Color? color,
@@ -34,11 +34,19 @@ class CustomIconButton extends IconButton {
           ),
           icon: Stack(
             children: [
-              Icon(
-                icon,
-                color: color ?? AppColors.purple,
-                size: _getIconSize(iconSize),
-              ),
+              color != null && iconWidget is Icon
+                  ? Icon(
+                      (iconWidget as Icon).icon,
+                      color: color,
+                      size: _getIconSize(iconSize),
+                    )
+                  : SizedBox(
+                      width: _getIconSize(iconSize),
+                      height: _getIconSize(iconSize),
+                      child: FittedBox(
+                        child: iconWidget,
+                      ),
+                    ),
               !showBadge
                   ? const SizedBox()
                   : Positioned(

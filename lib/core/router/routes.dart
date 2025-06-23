@@ -6,9 +6,12 @@ class Routes {
   static const String currencyListTile = '/currency';
   static const String main = index;
   static const String transactionForm = '/transaction-form';
+  static const String transactionTest = '/transaction-test';
   static const String categoryList = '/categories';
   static const String categoryListPickingParent = '/categories-pick-parent';
   static const String categoryForm = '/category-form';
+  static const String accountList = '/accounts';
+  static const String accountForm = '/account-form';
   static const String goalDetails = '/goal-details';
   static const String budgetDetails = '/budget-details';
   static const String budgetForm = '/budget-form';

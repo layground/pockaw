@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:pockaw/core/router/account_router.dart';
 import 'package:pockaw/core/router/authentication_router.dart';
 import 'package:pockaw/core/router/budget_router.dart';
 import 'package:pockaw/core/router/category_router.dart';
@@ -31,6 +32,7 @@ final router = GoRouter(
     ...AuthenticationRouter.routes,
     ...TransactionRouter.routes,
     ...CategoryRouter.routes,
+    ...AccountRouter.routes,
     ...GoalRouter.routes, // ← your goal‐details route injected here
     ...BudgetRouter.routes,
     ...SettingsRouter.routes,
