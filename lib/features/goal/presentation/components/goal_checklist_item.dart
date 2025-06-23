@@ -12,10 +12,10 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/utils/logger.dart';
-import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/goal/data/model/checklist_item_model.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_checklist_form_dialog.dart';
 import 'package:pockaw/features/goal/presentation/services/goal_form_service.dart';
+import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
 class GoalChecklistItem extends ConsumerWidget {
   final ChecklistItemModel item;
@@ -23,7 +23,9 @@ class GoalChecklistItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final defaultCurrency = ref.read(authStateProvider).defaultCurrency;
+    final defaultCurrency =
+        ref.watch(activeWalletProvider).value?.currency ?? 'IDR';
+
     return InkWell(
       onTap: () {
         int goalId = item.goalId;

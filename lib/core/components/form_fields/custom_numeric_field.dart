@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
-import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
+import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
 class CustomNumericField extends ConsumerWidget {
   final String label;
@@ -34,7 +34,9 @@ class CustomNumericField extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     String defaultCurrency =
-        defaultCurreny ?? ref.read(authStateProvider).defaultCurrency;
+        defaultCurreny ??
+        ref.read(activeWalletProvider).value?.currency ??
+        'IDR';
     var lastFormattedValue = '';
 
     void onChanged(String value) {
