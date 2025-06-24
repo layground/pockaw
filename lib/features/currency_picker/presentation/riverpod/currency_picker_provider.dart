@@ -7,6 +7,7 @@ final currencyProvider = StateProvider<Currency>((ref) {
   return CurrencyLocalDataSource.dummy;
 });
 
+/// This provider will be filled by currenciesProvider on SplashScreen
 final currenciesStaticProvider = StateProvider<List<Currency>>((ref) {
   // Initialize with an empty list, which is good practice.
   return <Currency>[];

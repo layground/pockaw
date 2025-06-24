@@ -6,6 +6,7 @@ class ProfileCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final auth = ref.watch(authStateProvider);
+    final wallet = ref.watch(activeWalletProvider).value ?? wallets.first;
     return Row(
       children: [
         CircleAvatar(
@@ -30,8 +31,9 @@ class ProfileCard extends ConsumerWidget {
             ),
             const Gap(AppSpacing.spacing8),
             CustomCurrencyChip(
-              countryCode: auth.currency.countryCode,
-              label: '${auth.currency.name} (${auth.currency.symbol})',
+              currencyCode: wallet.currency,
+              label:
+                  '${wallet.currency} (${wallet.currencyByIsoCode(ref)?.country})',
               background: AppColors.primaryAlpha10,
               foreground: AppColors.dark,
               borderColor: AppColors.primaryAlpha25,

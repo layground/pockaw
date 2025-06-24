@@ -22,7 +22,6 @@ import 'package:pockaw/core/services/url_launcher/url_launcher.dart';
 import 'package:pockaw/features/authentication/data/models/user_model.dart';
 import 'package:pockaw/features/authentication/presentation/components/create_first_wallet_field.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
-import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
 import 'package:toastification/toastification.dart';
 
 part '../components/form.dart';
@@ -90,7 +89,6 @@ class LoginScreen extends HookConsumerWidget {
                     name: username,
                     email: 'user@mail.com',
                     profilePicture: ref.read(loginImageProvider).savedPath,
-                    currency: ref.read(currencyProvider),
                   );
 
                   ref.read(authStateProvider.notifier).setUser(user);

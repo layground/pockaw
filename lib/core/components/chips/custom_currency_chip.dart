@@ -7,7 +7,7 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 
 class CustomCurrencyChip extends StatelessWidget {
-  final String countryCode;
+  final String currencyCode;
   final String label;
   final Color? background;
   final Color? foreground;
@@ -16,7 +16,7 @@ class CustomCurrencyChip extends StatelessWidget {
   final Color? iconColor;
   const CustomCurrencyChip({
     super.key,
-    required this.countryCode,
+    required this.currencyCode,
     required this.label,
     this.background,
     this.foreground,
@@ -35,20 +35,12 @@ class CustomCurrencyChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: background ?? AppColors.primary50,
         borderRadius: BorderRadius.circular(AppRadius.radius8),
-        border: borderColor == null
-            ? null
-            : Border.all(
-                color: borderColor!,
-              ),
+        border: borderColor == null ? null : Border.all(color: borderColor!),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          CountryFlag.fromCountryCode(
-            countryCode,
-            width: 20,
-            height: 12,
-          ),
+          CountryFlag.fromCurrencyCode(currencyCode, width: 20, height: 12),
           const Gap(AppSpacing.spacing4),
           Text(
             label,

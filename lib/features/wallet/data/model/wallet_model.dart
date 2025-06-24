@@ -1,6 +1,8 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
-import 'package:pockaw/features/currency_picker/data/models/currency.dart'; // For currency formatting in the extension
+import 'package:pockaw/features/currency_picker/data/models/currency.dart';
+import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart'; // For currency formatting in the extension
 
 part 'wallet_model.freezed.dart';
 part 'wallet_model.g.dart';
@@ -39,7 +41,8 @@ extension WalletModelUtils on WalletModel {
     return '$currency ${balance.toPriceFormat()}';
   }
 
-  Currency? currencyByIsoCode(List<Currency> currencies) {
+  Currency? currencyByIsoCode(WidgetRef ref) {
+    final currencies = ref.read(currenciesStaticProvider);
     return currencies.fromIsoCode(currency);
   }
 }
