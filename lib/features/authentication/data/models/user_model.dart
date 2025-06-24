@@ -6,7 +6,7 @@ part 'user_model.g.dart';
 @freezed
 class UserModel with _$UserModel {
   factory UserModel({
-    required int id,
+    int? id,
     required String name,
     required String email,
     @Default('') String password,
@@ -17,4 +17,8 @@ class UserModel with _$UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
+}
+
+extension UserModelExtensions on UserModel {
+  String get username => name.replaceAll(' ', '').toLowerCase();
 }

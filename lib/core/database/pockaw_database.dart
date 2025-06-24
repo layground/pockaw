@@ -10,12 +10,14 @@ import 'package:pockaw/core/database/daos/category_dao.dart';
 import 'package:pockaw/core/database/daos/transaction_dao.dart';
 import 'package:pockaw/core/database/daos/checklist_item_dao.dart';
 import 'package:pockaw/core/database/daos/goal_dao.dart';
+import 'package:pockaw/core/database/daos/user_dao.dart';
 import 'package:pockaw/core/database/daos/wallet_dao.dart'; // Import new DAO
 import 'package:pockaw/core/database/tables/budgets_table.dart';
 import 'package:pockaw/core/database/tables/category_table.dart';
 import 'package:pockaw/core/database/tables/transaction_table.dart';
 import 'package:pockaw/core/database/tables/checklist_item_table.dart';
 import 'package:pockaw/core/database/tables/goal_table.dart';
+import 'package:pockaw/core/database/tables/users.dart';
 import 'package:pockaw/core/database/tables/wallet_table.dart'; // Import new table
 import 'package:pockaw/core/services/data_population_service/category_population_service.dart';
 import 'package:pockaw/core/services/data_population_service/wallet_population_service.dart'; // Import new population service
@@ -24,8 +26,17 @@ import 'package:pockaw/core/utils/logger.dart';
 part 'pockaw_database.g.dart';
 
 @DriftDatabase(
-  tables: [Categories, Goals, ChecklistItems, Transactions, Wallets, Budgets],
+  tables: [
+    Users,
+    Categories,
+    Goals,
+    ChecklistItems,
+    Transactions,
+    Wallets,
+    Budgets,
+  ],
   daos: [
+    UserDao,
     CategoryDao,
     GoalDao,
     ChecklistItemDao,

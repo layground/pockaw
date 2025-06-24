@@ -85,10 +85,11 @@ class LoginScreen extends HookConsumerWidget {
                   }
 
                   final user = UserModel(
-                    id: 1,
                     name: username,
-                    email: 'user@mail.com',
+                    email:
+                        '${username.replaceAll(' ', '').toLowerCase()}@mail.com',
                     profilePicture: ref.read(loginImageProvider).savedPath,
+                    createdAt: DateTime.now(),
                   );
 
                   ref.read(authStateProvider.notifier).setUser(user);
