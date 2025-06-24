@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
+import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 
 class PhotoViewer extends HookConsumerWidget {
   final List<Image>? images;
@@ -21,10 +23,17 @@ class PhotoViewer extends HookConsumerWidget {
     final controller = useMemoized(() => PhotoViewController());
 
     // Use a standard Scaffold for a more typical photo viewing experience
-    return CustomScaffold(
-      context: context,
-      title: 'Photo Viewer',
-      showBalance: false,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        leadingWidth: 80,
+        leading: CustomIconButton(
+          onPressed: () => context.pop(),
+          icon: HugeIcons.strokeRoundedArrowLeft01,
+        ),
+      ),
+      extendBody: true,
+      extendBodyBehindAppBar: true,
       body: PhotoView(
         controller: controller,
         imageProvider: image.image,
