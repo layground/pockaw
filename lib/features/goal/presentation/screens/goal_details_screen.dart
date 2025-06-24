@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -15,6 +16,7 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/core/extensions/screen_utils_extensions.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/goal/data/model/goal_model.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_checklist_holder.dart';
@@ -59,6 +61,7 @@ class GoalDetailsScreen extends ConsumerWidget {
           icon: HugeIcons.strokeRoundedEdit02,
           iconSize: IconSize.medium,
         ),
+        if (context.isDesktopLayout) Gap(AppSpacing.spacing16),
         if (goalAsync.value != null)
           CustomIconButton(
             onPressed: () {

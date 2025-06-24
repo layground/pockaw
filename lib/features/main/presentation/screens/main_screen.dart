@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/extensions/screen_utils_extensions.dart';
 import 'package:pockaw/features/budget/presentation/screens/budget_screen.dart';
 import 'package:pockaw/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_screen.dart';
@@ -33,27 +33,15 @@ class MainScreen extends ConsumerWidget {
       ],
     );
 
-    final Widget navigationControls =
-        CustomBottomAppBar(pageController: pageController);
-
-    final TargetPlatform platform = Theme.of(context).platform;
-    bool isDesktop = false;
-    switch (platform) {
-      case TargetPlatform.windows:
-      case TargetPlatform.linux:
-      case TargetPlatform.macOS:
-        isDesktop = true;
-        break;
-      default:
-        isDesktop = false;
-    }
-    final bool useDesktopLayout = kIsWeb || isDesktop;
+    final Widget navigationControls = CustomBottomAppBar(
+      pageController: pageController,
+    );
 
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, result) {},
       child: Material(
-        child: useDesktopLayout
+        child: context.isDesktopLayout
             ? Row(
                 children: [
                   navigationControls, // This will render as a sidebar

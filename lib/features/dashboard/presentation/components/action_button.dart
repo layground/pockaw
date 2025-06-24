@@ -6,7 +6,9 @@ class ActionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      spacing: 0,
+      spacing: context.isDesktopLayout
+          ? AppSpacing.spacing16
+          : AppSpacing.spacing0,
       children: [
         CustomIconButton(
           onPressed: () {},

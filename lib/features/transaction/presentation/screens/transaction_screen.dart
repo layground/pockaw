@@ -5,6 +5,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/extensions/screen_utils_extensions.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_grouped_card.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_summary_card.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tab_bar.dart';
@@ -27,6 +28,7 @@ class TransactionScreen extends ConsumerWidget {
           onPressed: () {},
           icon: HugeIcons.strokeRoundedSearch02,
         ),
+        if (context.isDesktopLayout) Gap(AppSpacing.spacing16),
         CustomIconButton(
           onPressed: () {},
           icon: HugeIcons.strokeRoundedFilter,

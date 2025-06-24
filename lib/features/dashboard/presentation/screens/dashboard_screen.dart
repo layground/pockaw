@@ -16,6 +16,7 @@ import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/core/extensions/screen_utils_extensions.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';

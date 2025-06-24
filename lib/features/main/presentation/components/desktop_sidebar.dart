@@ -5,18 +5,19 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/router/routes.dart';
-import 'package:pockaw/features/main/presentation/components/custom_bottom_app_bar.dart';
 import 'package:pockaw/features/main/presentation/riverpod/main_page_view_riverpod.dart';
 
 class DesktopSidebar extends ConsumerWidget {
+  static const double desktopSidebarWidth = 220.0; // Increased width for text
   final PageController pageController;
   const DesktopSidebar({super.key, required this.pageController});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      width: CustomBottomAppBar.desktopSidebarWidth, // Uses the updated width
+      width: desktopSidebarWidth, // Uses the updated width
       padding: const EdgeInsets.symmetric(
         vertical: AppSpacing.spacing16,
         // horizontal: AppSpacing.spacing8, // ListTile will handle its own padding
@@ -93,7 +94,7 @@ class DesktopSidebar extends ConsumerWidget {
       leading: Icon(icon, color: itemColor, size: 26),
       title: Text(
         title,
-        style: TextStyle(
+        style: AppTextStyles.body2.copyWith(
           color: itemColor,
           fontWeight:
               (pageIndex != null &&
