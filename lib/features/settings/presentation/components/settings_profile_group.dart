@@ -5,12 +5,13 @@ class SettingsProfileGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SettingsGroupHolder(
+    return SettingsGroupHolder(
       title: 'Profile',
       settingTiles: [
         MenuTileButton(
           label: 'Personal Details',
           icon: HugeIcons.strokeRoundedUser,
+          onTap: () => context.push(Routes.personalDetails),
         ),
       ],
     );
