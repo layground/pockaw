@@ -1,9 +1,18 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart'
     show getApplicationDocumentsDirectory;
+import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
+import 'package:pockaw/core/components/buttons/secondary_button.dart';
+import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/extensions/screen_utils_extensions.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:uuid/uuid.dart';
 
@@ -36,6 +45,45 @@ class ImageService {
     }
 
     return null;
+  }
+
+  Future<File?> pickImage(BuildContext context) async {
+    if (context.isDesktop || kIsWeb) {
+      return await pickImageFromGallery();
+    }
+
+    return await showModalBottomSheet<File?>(
+      context: context,
+      showDragHandle: true,
+      builder: (context) => CustomBottomSheet(
+        title: 'Pick Image',
+        child: Row(
+          children: [
+            Expanded(
+              child: SecondaryButton(
+                onPressed: () async {
+                  final file = await takePhoto();
+                  if (context.mounted) context.pop(file);
+                },
+                label: 'Camera',
+                icon: HugeIcons.strokeRoundedCamera01,
+              ),
+            ),
+            const Gap(AppSpacing.spacing8),
+            Expanded(
+              child: SecondaryButton(
+                onPressed: () async {
+                  final file = await pickImageFromGallery();
+                  if (context.mounted) context.pop(file);
+                },
+                label: 'Gallery',
+                icon: HugeIcons.strokeRoundedImage01,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   /// Save image to app documents directory with a unique name
