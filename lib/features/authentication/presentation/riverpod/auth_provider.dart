@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/authentication/data/repositories/user_repository.dart';
 import 'package:pockaw/features/authentication/data/models/user_model.dart';
-import 'package:pockaw/features/currency_picker/data/models/currency.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final authProvider = FutureProvider<UserModel?>((ref) async {
@@ -21,10 +20,6 @@ class AuthProvider extends StateNotifier<UserModel> {
 
   void setImage(String? imagePath) {
     state = state.copyWith(profilePicture: imagePath);
-  }
-
-  void setCurrency(Currency currency) {
-    state = state.copyWith(currency: currency);
   }
 
   UserModel getUser() => state;

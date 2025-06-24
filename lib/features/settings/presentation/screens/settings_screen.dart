@@ -18,6 +18,9 @@ import 'package:pockaw/core/services/package_info/package_info_provider.dart';
 import 'package:pockaw/core/services/url_launcher/url_launcher.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/settings/presentation/components/settings_group_holder.dart';
+import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
+import 'package:pockaw/features/wallet/data/repositories/wallet_repo.dart';
+import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
 part '../components/app_version_info.dart';
 part '../components/profile_card.dart';
