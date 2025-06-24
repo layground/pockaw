@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
+import 'package:pockaw/core/components/scaffolds/photo_viewer.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
@@ -27,19 +28,32 @@ class TransactionImagePreview extends ConsumerWidget {
 
     return Stack(
       children: [
-        Container(
-          width: 100,
-          height: 100,
-          decoration: BoxDecoration(
-            color: AppColors.neutral100,
-            borderRadius: BorderRadius.circular(AppSpacing.spacing8),
-            border: Border.all(color: AppColors.neutralAlpha25),
-          ),
-          child: Image.file(
-            imageState.imageFile!,
-            fit: BoxFit.cover,
-            errorBuilder: (context, error, stackTrace) =>
-                Center(child: Icon(HugeIcons.strokeRoundedImageNotFound01)),
+        InkWell(
+          onTap: () {
+            if (imageState.imageFile == null) {
+              return;
+            }
+
+            showAdaptiveDialog(
+              context: context,
+              builder: (context) =>
+                  PhotoViewer(image: Image.file(imageState.imageFile!)),
+            );
+          },
+          child: Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              color: AppColors.neutral100,
+              borderRadius: BorderRadius.circular(AppSpacing.spacing8),
+              border: Border.all(color: AppColors.neutralAlpha25),
+            ),
+            child: Image.file(
+              imageState.imageFile!,
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) =>
+                  Center(child: Icon(HugeIcons.strokeRoundedImageNotFound01)),
+            ),
           ),
         ),
         Positioned(
