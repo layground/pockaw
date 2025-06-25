@@ -33,7 +33,7 @@ class ProfileCard extends ConsumerWidget {
             CustomCurrencyChip(
               currencyCode: wallet.currency,
               label:
-                  '${wallet.currency} (${wallet.currencyByIsoCode(ref)?.country})',
+                  '${wallet.currencyByIsoCode(ref).symbol} - ${wallet.currencyByIsoCode(ref).country}',
               background: AppColors.primaryAlpha10,
               foreground: AppColors.dark,
               borderColor: AppColors.primaryAlpha25,

@@ -70,7 +70,7 @@ class BalanceStatusBarContent extends ConsumerWidget {
               Expanded(
                 flex: 3, // Give more space to balance
                 child: Text(
-                  '${wallet.currency} ${wallet.balance.toPriceFormat()}',
+                  '${wallet.currencyByIsoCode(ref).symbol} ${wallet.balance.toPriceFormat()}',
                   style: AppTextStyles.numericRegular.bold,
                   textAlign: TextAlign.right,
                   overflow: TextOverflow.ellipsis,

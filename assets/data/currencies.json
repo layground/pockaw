@@ -149,6 +149,106 @@
       "name_plural": "Mexican Pesos",
       "country": "Mexico",
       "country_code": "MX"
+    },
+    {
+      "symbol": "₨",
+      "name": "Pakistani Rupee",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "PKR",
+      "name_plural": "Pakistani Rupees",
+      "country": "Pakistan",
+      "country_code": "PK"
+    },
+    {
+      "symbol": "₺",
+      "name": "Turkish Lira",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "TRY",
+      "name_plural": "Turkish Lira",
+      "country": "Turkey",
+      "country_code": "TR"
+    },
+    {
+      "symbol": "kr",
+      "name": "Swedish Krona",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "SEK",
+      "name_plural": "Swedish Kronor",
+      "country": "Sweden",
+      "country_code": "SE"
+    },
+    {
+      "symbol": "kr",
+      "name": "Norwegian Krone",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "NOK",
+      "name_plural": "Norwegian Kroner",
+      "country": "Norway",
+      "country_code": "NO"
+    },
+    {
+      "symbol": "kr",
+      "name": "Danish Krone",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "DKK",
+      "name_plural": "Danish Kroner",
+      "country": "Denmark",
+      "country_code": "DK"
+    },
+    {
+      "symbol": "S$",
+      "name": "Singapore Dollar",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "SGD",
+      "name_plural": "Singapore Dollars",
+      "country": "Singapore",
+      "country_code": "SG"
+    },
+    {
+      "symbol": "HK$",
+      "name": "Hong Kong Dollar",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "HKD",
+      "name_plural": "Hong Kong Dollars",
+      "country": "Hong Kong",
+      "country_code": "HK"
+    },
+    {
+      "symbol": "R",
+      "name": "South African Rand",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "ZAR",
+      "name_plural": "South African Rand",
+      "country": "South Africa",
+      "country_code": "ZA"
+    },
+    {
+      "symbol": "฿",
+      "name": "Thai Baht",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "THB",
+      "name_plural": "Thai Baht",
+      "country": "Thailand",
+      "country_code": "TH"
+    },
+    {
+      "symbol": "RM",
+      "name": "Malaysian Ringgit",
+      "decimal_digits": 2,
+      "rounding": 0,
+      "iso_code": "MYR",
+      "name_plural": "Malaysian Ringgits",
+      "country": "Malaysia",
+      "country_code": "MY"
     }
   ]
 }

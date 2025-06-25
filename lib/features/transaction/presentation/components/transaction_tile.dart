@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_ui_extension.dart';
+import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
+import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
-class TransactionTile extends StatelessWidget {
+class TransactionTile extends ConsumerWidget {
   final TransactionModel transaction;
   final bool showDate;
   const TransactionTile({
@@ -19,7 +23,13 @@ class TransactionTile extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final currency = ref
+        .read(activeWalletProvider)
+        .value
+        ?.currencyByIsoCode(ref)
+        .symbol;
+
     return InkWell(
       onTap: () => context.push('/transaction/${transaction.id}'),
       child: Container(
@@ -85,7 +95,7 @@ class TransactionTile extends StatelessWidget {
                         ),
                       if (showDate) const Gap(AppSpacing.spacing4),
                       Text(
-                        transaction.formattedAmount,
+                        '$currency ${transaction.amountPrefix}${transaction.amount.toPriceFormat()}',
                         style: AppTextStyles.numericMedium.copyWith(
                           color: transaction.amountColor,
                           height: 1.12,

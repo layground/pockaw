@@ -16,6 +16,7 @@ import 'package:pockaw/features/goal/data/model/goal_model.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/date_picker_provider.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_date_range_picker.dart';
 import 'package:pockaw/features/goal/presentation/services/goal_form_service.dart';
+import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart'; // for Value
 
 class GoalFormDialog extends HookConsumerWidget {
@@ -24,8 +25,8 @@ class GoalFormDialog extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final wallet = ref.watch(activeWalletProvider);
-    final defaultCurrency = wallet.value?.currency ?? 'IDR';
+    final wallet = ref.read(activeWalletProvider);
+    final defaultCurrency = wallet.value?.currencyByIsoCode(ref).symbol;
     final dateRange = ref.watch(datePickerProvider);
     final titleController = useTextEditingController();
     final noteController = useTextEditingController();
@@ -74,9 +75,10 @@ class GoalFormDialog extends HookConsumerWidget {
             CustomNumericField(
               controller: targetAmountController,
               label: 'Target amount',
-              hint: '$defaultCurrency 1,500',
+              hint: '1,500',
               icon: HugeIcons.strokeRoundedCoins01,
               isRequired: true,
+              appendCurrencySymbolToHint: true,
             ),
             PrimaryButton(
               label: 'Save',

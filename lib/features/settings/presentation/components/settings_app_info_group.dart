@@ -26,11 +26,6 @@ class SettingsAppInfoGroup extends ConsumerWidget {
             LinkLauncher.launch(AppConstants.termsAndConditionsUrl);
           },
         ),
-        MenuTileButton(
-          label: 'Delete My Data',
-          icon: HugeIcons.strokeRoundedDelete01,
-          onTap: () => context.push(Routes.accountDeletion),
-        ),
         if (kDebugMode)
           MenuTileButton(
             label: 'Developer Portal',

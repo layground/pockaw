@@ -26,6 +26,7 @@ part '../components/app_version_info.dart';
 part '../components/profile_card.dart';
 part '../components/settings_app_info_group.dart';
 part '../components/settings_finance_group.dart';
+part '../components/settings_data_group.dart';
 part '../components/settings_preferences_group.dart';
 part '../components/settings_profile_group.dart';
 
@@ -46,6 +47,7 @@ class SettingsScreen extends StatelessWidget {
             SettingsProfileGroup(),
             SettingsPreferencesGroup(),
             SettingsFinanceGroup(),
+            SettingsDataGroup(),
             SettingsAppInfoGroup(),
             AppVersionInfo(),
           ],

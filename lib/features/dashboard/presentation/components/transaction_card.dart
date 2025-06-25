@@ -34,7 +34,8 @@ class TransactionCard extends ConsumerWidget {
     return activeWalletAsync.when(
       data: (activeWallet) {
         // Use a default currency if no wallet is active, or handle as an error/placeholder
-        final String currencySymbol = activeWallet?.currency ?? '';
+        final String currencySymbol =
+            activeWallet?.currencyByIsoCode(ref).symbol ?? '';
 
         return Container(
           padding: const EdgeInsets.all(AppSpacing.spacing16),
@@ -53,6 +54,7 @@ class TransactionCard extends ConsumerWidget {
               const Gap(AppSpacing.spacing8),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
+                spacing: AppSpacing.spacing2,
                 children: [
                   Text(
                     currencySymbol,

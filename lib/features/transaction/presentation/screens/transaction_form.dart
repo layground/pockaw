@@ -8,6 +8,7 @@ import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/utils/logger.dart';
+import 'package:pockaw/features/currency_picker/data/sources/currency_local_source.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_date_picker.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_image_picker.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_image_preview.dart';
@@ -18,6 +19,7 @@ import 'package:pockaw/features/transaction/presentation/components/form/transac
 import 'package:pockaw/features/transaction/presentation/components/form/transaction_notes_field.dart';
 import 'package:pockaw/features/transaction/presentation/riverpod/transaction_form_state.dart';
 import 'package:pockaw/features/transaction/presentation/riverpod/transaction_providers.dart';
+import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
 class TransactionForm extends HookConsumerWidget {
@@ -30,8 +32,9 @@ class TransactionForm extends HookConsumerWidget {
     Log.d(transactionId, label: 'transactionId');
 
     final wallet = ref.watch(activeWalletProvider);
-    final defaultCurrency =
-        wallet.value?.currency ?? 'IDR'; // Determine if we are in "edit" mode
+    final defaultCurrency = wallet.value
+        ?.currencyByIsoCode(ref)
+        .symbol; // Determine if we are in "edit" mode
     final isEditing = transactionId != null;
 
     // Fetch transaction details if in edit mode
@@ -42,7 +45,7 @@ class TransactionForm extends HookConsumerWidget {
     // Instantiate the hook. It will get the transaction data when it's ready.
     final formState = useTransactionFormState(
       ref: ref,
-      defaultCurrency: defaultCurrency,
+      defaultCurrency: defaultCurrency ?? CurrencyLocalDataSource.dummy.symbol,
       isEditing: isEditing,
       transaction:
           asyncTransaction?.valueOrNull, // Pass current data, hook handles null
@@ -117,7 +120,6 @@ class TransactionForm extends HookConsumerWidget {
         const Gap(AppSpacing.spacing16),
         TransactionAmountField(
           controller: formState.amountController,
-          defaultCurrency: formState.defaultCurrency,
           autofocus: !formState.isEditing,
         ),
         const Gap(AppSpacing.spacing16),

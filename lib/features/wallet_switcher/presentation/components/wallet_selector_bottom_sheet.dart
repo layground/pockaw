@@ -6,6 +6,7 @@ import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
 import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
@@ -43,7 +44,7 @@ class WalletSelectorBottomSheet extends ConsumerWidget {
                 // You can add icons or other details here
                 // leading: wallet.iconName != null ? Icon(...) : null,
                 subtitle: Text(
-                  wallet.formattedBalance,
+                  '${wallet.currencyByIsoCode(ref).symbol} ${wallet.balance.toPriceFormat()}',
                   style: AppTextStyles.body3,
                 ),
                 trailing: Icon(

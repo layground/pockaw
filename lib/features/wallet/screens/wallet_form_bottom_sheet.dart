@@ -51,7 +51,7 @@ class WalletFormBottomSheet extends HookConsumerWidget {
         nameController.text = wallet!.name;
         balanceController.text = wallet!.balance == 0
             ? ''
-            : '${wallet?.currency} ${wallet?.balance.toPriceFormat()}';
+            : '${wallet?.currencyByIsoCode(ref).symbol} ${wallet?.balance.toPriceFormat()}';
         currencyController.text = wallet!.currency;
       }
       return null;
@@ -75,11 +75,12 @@ class WalletFormBottomSheet extends HookConsumerWidget {
             CurrencyPickerField(defaultCurrency: currency),
             CustomNumericField(
               controller: balanceController,
-              defaultCurreny: currency.isoCode,
               label: 'Initial Balance',
-              hint: '0.00',
+              hint: '1,000.00',
               icon: HugeIcons.strokeRoundedMoney01,
               isRequired: true,
+              appendCurrencySymbolToHint: true,
+              useSelectedCurrency: true,
               // autofocus: !isEditing, // Optional: autofocus if adding new
             ),
             PrimaryButton(

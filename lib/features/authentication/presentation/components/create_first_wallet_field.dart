@@ -6,6 +6,7 @@ import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/features/currency_picker/data/sources/currency_local_source.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
+import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:pockaw/features/wallet/screens/wallet_form_bottom_sheet.dart';
 
@@ -15,14 +16,14 @@ class CreateFirstWalletField extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final wallet = ref.watch(activeWalletProvider).valueOrNull;
     final initialText = wallet != null
-        ? '${wallet.currency} ${wallet.balance.toPriceFormat()}'
+        ? '${wallet.currencyByIsoCode(ref).symbol} ${wallet.balance.toPriceFormat()}'
         : 'Setup Wallet'; // Fallback if no active wallet
 
     final textController = useTextEditingController(text: initialText);
 
     useEffect(() {
       final newText = wallet != null
-          ? '${wallet.currency} ${wallet.balance.toPriceFormat()}'
+          ? '${wallet.currencyByIsoCode(ref).symbol} ${wallet.balance.toPriceFormat()}'
           : 'Setup Wallet';
       if (textController.text != newText) {
         textController.text = newText;

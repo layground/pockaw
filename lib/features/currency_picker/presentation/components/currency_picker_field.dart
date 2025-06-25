@@ -24,7 +24,7 @@ class CurrencyPickerField extends HookConsumerWidget {
 
     useEffect(() {
       if (defaultCurrency != null) {
-        currencyController.text = defaultCurrency!.name;
+        currencyController.text = defaultCurrency!.symbolWithCountry;
       }
       return null;
     }, [defaultCurrency]);
@@ -44,7 +44,7 @@ class CurrencyPickerField extends HookConsumerWidget {
             );
             if (selectedCurrency != null) {
               ref.read(currencyProvider.notifier).state = selectedCurrency;
-              currencyController.text = selectedCurrency.name;
+              currencyController.text = selectedCurrency.symbolWithCountry;
             }
           },
         ),
