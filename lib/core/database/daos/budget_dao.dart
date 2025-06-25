@@ -117,6 +117,11 @@ class BudgetDao extends DatabaseAccessor<AppDatabase> with _$BudgetDaoMixin {
     );
   }
 
+  // Get all budgets (for backup)
+  Future<List<Budget>> getAllBudgets() {
+    return select(budgets).get();
+  }
+
   // Update an existing budget
   Future<bool> updateBudget(BudgetModel budgetModel) {
     if (budgetModel.id == null) return Future.value(false);

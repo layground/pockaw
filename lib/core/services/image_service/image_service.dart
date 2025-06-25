@@ -134,4 +134,10 @@ class ImageService {
       return false;
     }
   }
+
+  /// Returns the application's internal directory where images are stored.
+  Future<String> getAppImagesDirectory() async {
+    final appDir = await getApplicationDocumentsDirectory();
+    return path.join(appDir.path, 'pockaw_images');
+  }
 }

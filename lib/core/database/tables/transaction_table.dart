@@ -49,6 +49,26 @@ class Transactions extends Table {
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
 }
 
+extension TransactionExtension on Transaction {
+  /// Creates a [Transaction] instance from a map, typically from JSON deserialization.
+  Transaction fromJson(Map<String, dynamic> json) {
+    return Transaction(
+      id: json['id'] as int,
+      transactionType: json['transactionType'] as int,
+      amount: json['amount'] as double,
+      date: DateTime.parse(json['date'] as String),
+      title: json['title'] as String,
+      categoryId: json['categoryId'] as int,
+      walletId: json['walletId'] as int,
+      notes: json['notes'] as String?,
+      imagePath: json['imagePath'] as String?,
+      isRecurring: json['isRecurring'] as bool?,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      updatedAt: DateTime.parse(json['updatedAt'] as String),
+    );
+  }
+}
+
 /// Extension methods for the Drift-generated `Transaction` data class.
 extension TransactionTableExtensions on Transaction {
   /// Converts a Drift `Transaction` data class instance (along with its related `Category`)

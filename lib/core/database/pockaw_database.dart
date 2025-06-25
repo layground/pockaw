@@ -130,6 +130,88 @@ class AppDatabase extends _$AppDatabase {
     await WalletPopulationService.populate(this);
   }
 
+  // --- Data Management Methods ---
+
+  Future<void> _deleteAllChecklistItems() => delete(checklistItems).go();
+  Future<void> _deleteAllBudgets() => delete(budgets).go();
+  Future<void> _deleteAllTransactions() => delete(transactions).go();
+  Future<void> _deleteAllGoals() => delete(goals).go();
+  Future<void> _deleteAllUsers() => delete(users).go();
+  Future<void> _deleteAllWallets() => delete(wallets).go();
+  Future<void> _deleteAllCategories() => delete(categories).go();
+
+  /// Clears all data from all tables in the correct order to respect foreign key constraints.
+  Future<void> clearAllTables() async {
+    Log.i('Clearing all database tables...');
+    await transaction(() async {
+      // Delete in reverse dependency order
+      await _deleteAllChecklistItems();
+      await _deleteAllBudgets();
+      await _deleteAllTransactions();
+      await _deleteAllGoals();
+      await _deleteAllUsers(); // Users table has no incoming FKs from other tables
+      await _deleteAllWallets();
+      await _deleteAllCategories();
+    });
+    Log.i('All database tables cleared.');
+  }
+
+  /// Inserts data into tables in the correct order to respect foreign key constraints.
+  /// This method is designed to be used during a restore operation.
+  Future<void> insertAllData(
+    List<Map<String, dynamic>> usersData,
+    List<Map<String, dynamic>> categoriesData,
+    List<Map<String, dynamic>> walletsData,
+    List<Map<String, dynamic>> budgetsData,
+    List<Map<String, dynamic>> goalsData,
+    List<Map<String, dynamic>> checklistItemsData,
+    List<Map<String, dynamic>> transactionsData,
+  ) async {
+    Log.i('Inserting all data into database...');
+    await transaction(() async {
+      // Insert in dependency order
+      await batch(
+        (b) =>
+            b.insertAll(users, usersData.map((e) => User.fromJson(e)).toList()),
+      );
+      await batch(
+        (b) => b.insertAll(
+          categories,
+          categoriesData.map((e) => Category.fromJson(e)).toList(),
+        ),
+      );
+      await batch(
+        (b) => b.insertAll(
+          wallets,
+          walletsData.map((e) => Wallet.fromJson(e)).toList(),
+        ),
+      );
+      await batch(
+        (b) =>
+            b.insertAll(goals, goalsData.map((e) => Goal.fromJson(e)).toList()),
+      );
+      await batch(
+        (b) => b.insertAll(
+          budgets,
+          budgetsData.map((e) => Budget.fromJson(e)).toList(),
+        ),
+      );
+      await batch(
+        (b) => b.insertAll(
+          transactions,
+          transactionsData.map((e) => Transaction.fromJson(e)).toList(),
+        ),
+      );
+      await batch(
+        (b) => b.insertAll(
+          checklistItems,
+          checklistItemsData.map((e) => ChecklistItem.fromJson(e)).toList(),
+        ),
+      );
+    });
+    Log.i('All data inserted successfully.');
+  }
+
   Future<void> resetCategories() async {
     Log.i('Deleting and recreating category table...');
     final migrator = createMigrator();
@@ -154,11 +236,12 @@ class AppDatabase extends _$AppDatabase {
 /// https://github.com/simolus3/drift/issues/188
 LazyDatabase _openConnection() {
   return LazyDatabase(() async {
-    final dbFolder = await getApplicationDocumentsDirectory();
+    final dbFolder =
+        await getApplicationSupportDirectory(); // Use support directory for database
     final file = File(join(dbFolder.path, 'pockaw.sqlite'));
-    // if (kDebugMode) {
-    //   await file.delete();
-    // }
+    if (kDebugMode) {
+      // await file.delete(); // Uncomment for fresh DB on every run in debug
+    }
     return NativeDatabase(file);
   });
 }

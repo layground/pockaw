@@ -14,6 +14,20 @@ class ChecklistItems extends Table {
   BoolColumn get completed => boolean().nullable()();
 }
 
+extension ChecklistItemExtension on ChecklistItem {
+  /// Creates a [ChecklistItem] instance from a map, typically from JSON deserialization.
+  ChecklistItem fromJson(Map<String, dynamic> json) {
+    return ChecklistItem(
+      id: json['id'] as int,
+      goalId: json['goalId'] as int,
+      title: json['title'] as String,
+      amount: json['amount'] as double?,
+      link: json['link'] as String?,
+      completed: json['completed'] as bool?,
+    );
+  }
+}
+
 extension ChecklistItemTableExtensions on ChecklistItem {
   /// Converts this Drift [ChecklistItem] data class to a [ChecklistItemModel].
   ChecklistItemModel toModel() {

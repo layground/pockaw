@@ -15,6 +15,22 @@ class Wallets extends Table {
   DateTimeColumn get updatedAt => dateTime().withDefault(currentDateAndTime)();
 }
 
+extension WalletExtension on Wallet {
+  /// Creates a [Wallet] instance from a map, typically from JSON deserialization.
+  Wallet fromJson(Map<String, dynamic> json) {
+    return Wallet(
+      id: json['id'] as int,
+      name: json['name'] as String,
+      balance: json['balance'] as double,
+      currency: json['currency'] as String,
+      iconName: json['iconName'] as String?,
+      colorHex: json['colorHex'] as String?,
+      createdAt: DateTime.parse(json['createdAt'] as String),
+      updatedAt: DateTime.parse(json['updatedAt'] as String),
+    );
+  }
+}
+
 extension WalletTableExtensions on Wallet {
   WalletModel toModel() {
     return WalletModel(

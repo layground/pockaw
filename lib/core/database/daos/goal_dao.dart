@@ -28,6 +28,11 @@ class GoalDao extends DatabaseAccessor<AppDatabase> with _$GoalDaoMixin {
     });
   }
 
+  /// Fetches all goals.
+  Future<List<Goal>> getAllGoals() {
+    return select(goals).get();
+  }
+
   /// Streams single goal;
   Stream<Goal> watchGoalByID(int id) {
     Log.d('🔍  Subscribing to watchGoalByID($id)');

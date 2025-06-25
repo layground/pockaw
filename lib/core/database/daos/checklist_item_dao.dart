@@ -18,6 +18,11 @@ class ChecklistItemDao extends DatabaseAccessor<AppDatabase>
     return id;
   }
 
+  /// Fetches all checklist items.
+  Future<List<ChecklistItem>> getAllChecklistItems() {
+    return select(checklistItems).get();
+  }
+
   /// Streams all items for a specific goal
   Stream<List<ChecklistItem>> watchChecklistItemsForGoal(int goalId) {
     Log.d('🔍  watchChecklistItemsForGoal(goalId=$goalId)');
