@@ -81,7 +81,7 @@ class DataBackupService {
 
     // Request storage permission (primarily for Android < 13)
     if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-      var status = await Permission.storage.request();
+      var status = await Permission.manageExternalStorage.request();
       if (!status.isGranted) {
         Log.e('Storage permission not granted.', label: 'Backup');
         return null;
@@ -173,7 +173,7 @@ class DataBackupService {
 
     // Request storage permission
     if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-      var status = await Permission.storage.request();
+      var status = await Permission.manageExternalStorage.request();
       if (!status.isGranted) {
         Log.e('Storage permission not granted.', label: 'Restore');
         return false;
