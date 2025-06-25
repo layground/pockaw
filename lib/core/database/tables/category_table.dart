@@ -17,6 +17,19 @@ class Categories extends Table {
   TextColumn get description => text().nullable()();
 }
 
+extension CategoryExtension on Category {
+  /// Creates a [Category] instance from a map, typically from JSON deserialization.
+  Category fromJson(Map<String, dynamic> json) {
+    return Category(
+      id: json['id'] as int,
+      title: json['title'] as String,
+      icon: json['icon'] as String?,
+      parentId: json['parentId'] as int?,
+      description: json['description'] as String?,
+    );
+  }
+}
+
 extension CategoryTableExtensions on Category {
   /// Converts this Drift [Category] data class to a [CategoryModel].
   ///

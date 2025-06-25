@@ -23,9 +23,10 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
   ) async {
     return TransactionModel(
       id: transactionData.id,
+      // Use the actual enum value from the database integer
+      // This is safer than relying on index directly if enum order changes
       transactionType: TransactionType.values.firstWhere(
-        (e) => e.toDbValue() == transactionData.transactionType,
-        orElse: () => TransactionType.expense,
+        (e) => e.index == transactionData.transactionType,
       ),
       amount: transactionData.amount,
       date: transactionData.date,

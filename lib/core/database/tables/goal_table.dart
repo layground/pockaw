@@ -16,6 +16,28 @@ class Goals extends Table {
   IntColumn get associatedAccountId => integer().nullable()();
 }
 
+extension GoalExtension on Goal {
+  /// Creates a [Goal] instance from a map, typically from JSON deserialization.
+  Goal fromJson(Map<String, dynamic> json) {
+    return Goal(
+      id: json['id'] as int,
+      title: json['title'] as String,
+      description: json['description'] as String?,
+      targetAmount: json['targetAmount'] as double,
+      currentAmount: json['currentAmount'] as double,
+      startDate: json['startDate'] != null
+          ? DateTime.parse(json['startDate'] as String)
+          : null,
+      endDate: DateTime.parse(json['endDate'] as String),
+      createdAt: json['createdAt'] != null
+          ? DateTime.parse(json['createdAt'] as String)
+          : null,
+      iconName: json['iconName'] as String?,
+      associatedAccountId: json['associatedAccountId'] as int?,
+    );
+  }
+}
+
 extension GoalTableExtensions on Goal {
   /// Converts this Drift [Goal] data class to a [GoalModel].
   ///

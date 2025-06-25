@@ -33,6 +33,11 @@ class WalletDao extends DatabaseAccessor<AppDatabase> with _$WalletDaoMixin {
         });
   }
 
+  /// Fetches all wallets.
+  Future<List<Wallet>> getAllWallets() {
+    return select(wallets).get();
+  }
+
   Future<Wallet?> getWalletById(int id) {
     return (select(wallets)..where((w) => w.id.equals(id))).getSingleOrNull();
   }

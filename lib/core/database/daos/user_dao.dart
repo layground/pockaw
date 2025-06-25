@@ -11,6 +11,8 @@ class UserDao extends DatabaseAccessor<AppDatabase> with _$UserDaoMixin {
 
   Future<User?> getFirstUser() => select(users).getSingleOrNull();
 
+  Future<List<User>> getAllUsers() => select(users).get();
+
   Future<int> insertUser(UsersCompanion user) => into(users).insert(user);
 
   Future<bool> updateUser(UsersCompanion user) => update(users).replace(user);
