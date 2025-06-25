@@ -138,20 +138,20 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 - [x] **Custom Categories** - Enable users to create and manage custom categories for better personalization.
 - [x] **Publish on GitHub** - The first fully offline experience of Pockaw.
 
-### Q2 - Goals & Budgeting with Progression ![50%](https://progress-bar.xyz/50/?width=40)
+### Q2 - Goals & Budgeting with Progression ![72%](https://progress-bar.xyz/72/?width=40)
 - [x] **Goals Tracking** - Create goals and its checklist items to breakdown your target.
 - [x] **Budget Tracking** - Set monthly/weekly spending budgets and get the visualization.
 - [x] **Basic Summary & Progression** - View basic progress for monthly income/expense trends, goals, and budgets.
 - [ ] **Basic Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
-- [ ] **User Reminders & Notifications** - Implement notifications for due dates and spending goals.
-- [ ] **Data Sync & Backup** - Implement cloud sync and backup options to store data securely across devices.
+- [x] **Data Sync & Backup** - Implement cloud sync and backup options to store data securely across devices.
+- [ ] **Dark Mode** - Easily switch between light and dark themes.
 
 ### Q3 (Closed Testing #2) - Enhanced User Experience ![0%](https://progress-bar.xyz/0/?width=40)
 - [ ] **Publish on PlayStore** - Pockaw will be available on Google Play Store.
-- [ ] **Dark Mode** - Easily switch between light and dark themes.
-- [ ] **Advanced Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
 - [ ] **Advanced Summary & Analytics** - Add charts for monthly income/expense trends, custom filters, and analytics.
+- [ ] **Advanced Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
 - [ ] **Transaction Reminder** - Forgetting things? Chill! Pockaw will remind you to record transactions.
+- [ ] **User Reminders & Notifications** - Implement notifications for due dates and spending goals.
 
 ### Q4 (Open Beta) - Shields On! ![0%](https://progress-bar.xyz/0/?width=40)
 - [ ] **Release on Web** - Get a wider view and perspective of Pockaw (of course need a bit of connection).
