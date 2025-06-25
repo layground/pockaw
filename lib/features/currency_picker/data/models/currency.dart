@@ -21,6 +21,10 @@ class Currency with _$Currency {
       _$CurrencyFromJson(json);
 }
 
+extension CurrencyExtensions on Currency {
+  String get symbolWithCountry => '$symbol - $country';
+}
+
 extension CurrencyUtils on List<Currency> {
   Currency? fromIsoCode(String code) {
     return firstWhereOrNull((currency) => currency.isoCode == code);

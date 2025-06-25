@@ -17,6 +17,7 @@ import 'package:pockaw/core/extensions/string_extension.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/goal/data/model/checklist_item_model.dart';
 import 'package:pockaw/features/goal/presentation/services/goal_form_service.dart';
+import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
 class GoalChecklistFormDialog extends HookConsumerWidget {
@@ -31,7 +32,7 @@ class GoalChecklistFormDialog extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final wallet = ref.watch(activeWalletProvider);
-    final defaultCurrency = wallet.value?.currency ?? 'IDR';
+    final defaultCurrency = wallet.value?.currencyByIsoCode(ref).symbol;
     final titleController = useTextEditingController();
     final amountController = useTextEditingController();
     final linkController = useTextEditingController();
@@ -70,8 +71,9 @@ class GoalChecklistFormDialog extends HookConsumerWidget {
             CustomNumericField(
               controller: amountController,
               label: 'Price amount',
-              hint: '$defaultCurrency 1,000.00',
+              hint: '1,000.00',
               icon: HugeIcons.strokeRoundedCoins01,
+              appendCurrencySymbolToHint: true,
               isRequired: true,
             ),
             CustomTextField(

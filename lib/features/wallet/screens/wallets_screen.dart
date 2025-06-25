@@ -6,6 +6,7 @@ import 'package:pockaw/core/components/buttons/menu_tile_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
@@ -51,7 +52,7 @@ class WalletsScreen extends ConsumerWidget {
               return MenuTileButton(
                 label: wallet.name,
                 subtitle: Text(
-                  wallet.formattedBalance,
+                  '${wallet.currencyByIsoCode(ref).symbol} ${wallet.balance.toPriceFormat()}',
                   style: AppTextStyles.body3,
                 ),
                 icon: HugeIcons.strokeRoundedWallet02,

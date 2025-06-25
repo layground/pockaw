@@ -10,6 +10,8 @@ import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tile.dart';
+import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
+import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
 class TransactionGroupedCard extends ConsumerWidget {
   final List<TransactionModel> transactions;
@@ -17,6 +19,12 @@ class TransactionGroupedCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final currency = ref
+        .read(activeWalletProvider)
+        .value
+        ?.currencyByIsoCode(ref)
+        .symbol;
+
     if (transactions.isEmpty) {
       return Padding(
         padding: const EdgeInsets.symmetric(
@@ -85,7 +93,7 @@ class TransactionGroupedCard extends ConsumerWidget {
                   Text(displayDate, style: AppTextStyles.body2.bold),
                   Expanded(
                     child: Text(
-                      dayTotal.toPriceFormat(),
+                      '$currency ${dayTotal.toPriceFormat()}',
                       textAlign: TextAlign.end,
                       style: AppTextStyles.numericMedium.copyWith(
                         color: dayTotal > 0

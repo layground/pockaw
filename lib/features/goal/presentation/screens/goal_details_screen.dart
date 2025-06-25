@@ -24,6 +24,7 @@ import 'package:pockaw/features/goal/presentation/riverpod/date_picker_provider.
 import 'package:pockaw/features/goal/presentation/riverpod/goal_details_provider.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_checklist_form_dialog.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_form_dialog.dart';
+import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
 class GoalDetailsScreen extends ConsumerWidget {
@@ -143,7 +144,7 @@ class GoalDetailsScreen extends ConsumerWidget {
                   goalAsync.when(
                     data: (GoalModel goal) {
                       return Text(
-                        '${wallet.value?.currency} ${goal.targetAmount.toPriceFormat()}',
+                        '${wallet.value?.currencyByIsoCode(ref).symbol} ${goal.targetAmount.toPriceFormat()}',
                         style: AppTextStyles.numericLarge,
                       );
                     },

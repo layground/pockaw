@@ -3,6 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
+import 'package:pockaw/features/currency_picker/data/models/currency.dart';
+import 'package:pockaw/features/currency_picker/data/sources/currency_local_source.dart';
+import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
+import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
 class CustomNumericField extends ConsumerWidget {
@@ -14,6 +18,8 @@ class CustomNumericField extends ConsumerWidget {
   final Color? background;
   final IconData? icon;
   final IconData? suffixIcon;
+  final bool useSelectedCurrency;
+  final bool appendCurrencySymbolToHint;
   final bool isRequired;
   final bool autofocus;
 
@@ -27,16 +33,28 @@ class CustomNumericField extends ConsumerWidget {
     this.background,
     this.icon,
     this.suffixIcon,
+    this.useSelectedCurrency = false,
+    this.appendCurrencySymbolToHint = false,
     this.isRequired = false,
     this.autofocus = false,
   });
 
   @override
   Widget build(BuildContext context, ref) {
+    Currency currency = ref.watch(currencyProvider);
     String defaultCurrency =
         defaultCurreny ??
-        ref.read(activeWalletProvider).value?.currency ??
-        'IDR';
+        ref.read(activeWalletProvider).value?.currencyByIsoCode(ref).symbol ??
+        CurrencyLocalDataSource.dummy.symbol;
+
+    if (useSelectedCurrency) {
+      defaultCurrency = currency.symbol;
+    }
+
+    String hint =
+        '${appendCurrencySymbolToHint ? defaultCurrency : ''} ${this.hint ?? ''}'
+            .trim();
+
     var lastFormattedValue = '';
 
     void onChanged(String value) {

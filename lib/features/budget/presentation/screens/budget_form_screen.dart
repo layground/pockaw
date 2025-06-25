@@ -34,8 +34,8 @@ class BudgetFormScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final wallet = ref.watch(activeWalletProvider);
-    final defaultCurrency = wallet.value?.currency ?? 'IDR';
+    final wallet = ref.read(activeWalletProvider);
+    final defaultCurrency = wallet.value?.currencyByIsoCode(ref).symbol;
     final isEditing = budgetId != null;
     final budgetDetails = isEditing
         ? ref.watch(budgetDetailsProvider(budgetId!))
@@ -55,7 +55,7 @@ class BudgetFormScreen extends HookConsumerWidget {
 
     useEffect(() {
       walletController.text =
-          activeWalletsAsync.valueOrNull?.formattedBalance ?? '';
+          '${activeWalletsAsync.valueOrNull?.currencyByIsoCode(ref).symbol} ${activeWalletsAsync.valueOrNull?.balance.toPriceFormat()}';
 
       if (isEditing && budgetDetails is AsyncData<BudgetModel?>) {
         final budget = budgetDetails.value;
@@ -269,8 +269,9 @@ class BudgetFormScreen extends HookConsumerWidget {
                     CustomNumericField(
                       controller: amountController,
                       label: amountLabel,
-                      hint: '$defaultCurrency 1,000.00',
+                      hint: '1,000.00',
                       icon: HugeIcons.strokeRoundedCoins01,
+                      appendCurrencySymbolToHint: true,
                       isRequired: true,
                     ),
                     const BudgetDateRangePicker(), // Manages its own state via provider

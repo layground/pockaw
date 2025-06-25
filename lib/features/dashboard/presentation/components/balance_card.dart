@@ -62,9 +62,12 @@ class BalanceCard extends ConsumerWidget {
                       return Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisSize: MainAxisSize.min,
+                        spacing: AppSpacing.spacing2,
                         children: [
                           Text(
-                            !isVisible ? '' : wallet.currency,
+                            !isVisible
+                                ? ''
+                                : wallet.currencyByIsoCode(ref).symbol,
                             style: AppTextStyles.body3.copyWith(
                               color: AppColors.neutral900,
                             ),

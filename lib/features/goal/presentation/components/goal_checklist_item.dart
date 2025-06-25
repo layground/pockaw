@@ -15,6 +15,7 @@ import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/goal/data/model/checklist_item_model.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_checklist_form_dialog.dart';
 import 'package:pockaw/features/goal/presentation/services/goal_form_service.dart';
+import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
 class GoalChecklistItem extends ConsumerWidget {
@@ -23,8 +24,11 @@ class GoalChecklistItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final defaultCurrency =
-        ref.watch(activeWalletProvider).value?.currency ?? 'IDR';
+    final defaultCurrency = ref
+        .read(activeWalletProvider)
+        .value
+        ?.currencyByIsoCode(ref)
+        .symbol;
 
     return InkWell(
       onTap: () {

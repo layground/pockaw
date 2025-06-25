@@ -23,6 +23,7 @@ import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_p
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tile.dart';
 import 'package:pockaw/features/transaction/presentation/riverpod/transaction_providers.dart';
+import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:pockaw/features/wallet/screens/wallet_form_bottom_sheet.dart';
 import 'package:pockaw/features/wallet_switcher/presentation/screens/wallet_switcher_dropdown.dart';
