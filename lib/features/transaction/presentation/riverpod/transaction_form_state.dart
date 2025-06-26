@@ -120,7 +120,12 @@ class TransactionFormState {
         savedTransactionId = await db.transactionDao.addTransaction(
           transactionToSave,
         );
+
+        if (savedTransactionId > 0) {
+          await _adjustWalletBalance(ref, null, transactionToSave);
+        }
       } else {
+        // This is the update case
         // For updates, the ID is already in transactionToSave.id
         if (transactionToSave.id == null) {
           Log.e('Error: Attempting to update transaction without an ID.');
@@ -131,11 +136,7 @@ class TransactionFormState {
         }
         await db.transactionDao.updateTransaction(transactionToSave);
         savedTransactionId = transactionToSave.id;
-      }
-
-      // Update wallet balance
-      if (savedTransactionId != null) {
-        await updateWallet(ref, transactionToSave);
+        await _adjustWalletBalance(ref, initialTransaction, transactionToSave);
       }
 
       if (context.mounted) {
@@ -146,47 +147,6 @@ class TransactionFormState {
       if (context.mounted) {
         toastification.show(
           description: Text('Failed to save transaction: $e'),
-        );
-      }
-    }
-  }
-
-  Future<void> updateWallet(
-    WidgetRef ref,
-    TransactionModel initialTransaction, {
-    bool isDeleting = false,
-  }) async {
-    final db = ref.read(databaseProvider);
-    final activeWallet = ref.read(activeWalletProvider).valueOrNull;
-
-    if (activeWallet != null) {
-      double newBalance = activeWallet.balance;
-      if (initialTransaction.transactionType == TransactionType.income) {
-        if (isDeleting) {
-          newBalance -= initialTransaction.amount;
-        } else {
-          newBalance += initialTransaction.amount;
-        }
-      } else if (initialTransaction.transactionType ==
-          TransactionType.expense) {
-        if (isDeleting) {
-          newBalance += initialTransaction.amount;
-        } else {
-          newBalance -= initialTransaction.amount;
-        }
-      }
-      // For TransactionType.transfer, balance is typically handled by moving amounts
-      // between two wallets, which is a more complex operation not covered here.
-      // This example only adjusts the balance of the single active wallet.
-
-      if (initialTransaction.transactionType != TransactionType.transfer) {
-        final updatedWallet = activeWallet.copyWith(balance: newBalance);
-        await db.walletDao.updateWallet(updatedWallet);
-        // Refresh the active wallet provider to reflect the new balance
-        // This will notify all listeners of activeWalletProvider
-        ref.read(activeWalletProvider.notifier).setActiveWallet(updatedWallet);
-        Log.d(
-          'Wallet balance updated for ${activeWallet.name}. New balance: $newBalance',
         );
       }
     }
@@ -212,7 +172,11 @@ class TransactionFormState {
             context.pop(); // close form
           }
 
-          await updateWallet(ref, initialTransaction!, isDeleting: true);
+          await _adjustWalletBalance(
+            ref,
+            initialTransaction!,
+            null,
+          ); // Pass null for newTransaction to indicate deletion
 
           final db = ref.read(databaseProvider);
           final id = await db.transactionDao.deleteTransaction(
@@ -222,6 +186,58 @@ class TransactionFormState {
           Log.d(id, label: 'deleted transaction id');
         },
       ),
+    );
+  }
+
+  // This function will handle all balance adjustments: add, update, delete
+  Future<void> _adjustWalletBalance(
+    WidgetRef ref,
+    TransactionModel?
+    oldTransaction, // The original transaction (null for new additions)
+    TransactionModel?
+    newTransaction, // The new transaction (null for deletions)
+  ) async {
+    final db = ref.read(databaseProvider);
+    final activeWallet = ref.read(activeWalletProvider).valueOrNull;
+
+    if (activeWallet == null || activeWallet.id == null) {
+      Log.i(
+        'No active wallet or wallet ID found to adjust balance.',
+        label: 'wallet adjustment',
+      );
+      return;
+    }
+
+    double balanceChange = 0.0;
+
+    // 1. Reverse the effect of the old transaction (if it exists)
+    if (oldTransaction != null) {
+      if (oldTransaction.transactionType == TransactionType.income) {
+        balanceChange -= oldTransaction.amount;
+      } else if (oldTransaction.transactionType == TransactionType.expense) {
+        balanceChange += oldTransaction.amount;
+      }
+      // Transfers are ignored for single wallet balance adjustment
+    }
+
+    // 2. Apply the effect of the new transaction (if it exists)
+    if (newTransaction != null) {
+      if (newTransaction.transactionType == TransactionType.income) {
+        balanceChange += newTransaction.amount;
+      } else if (newTransaction.transactionType == TransactionType.expense) {
+        balanceChange -= newTransaction.amount;
+      }
+      // Transfers are ignored
+    }
+
+    double newWalletBalance = activeWallet.balance + balanceChange;
+
+    final updatedWallet = activeWallet.copyWith(balance: newWalletBalance);
+    await db.walletDao.updateWallet(updatedWallet);
+    ref.read(activeWalletProvider.notifier).setActiveWallet(updatedWallet);
+    Log.d(
+      'Wallet balance updated for ${activeWallet.name}. Old balance: ${activeWallet.balance}, Change: $balanceChange, New balance: $newWalletBalance',
+      label: 'wallet adjustment',
     );
   }
 
