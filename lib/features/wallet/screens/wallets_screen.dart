@@ -58,6 +58,7 @@ class WalletsScreen extends ConsumerWidget {
                 icon: HugeIcons.strokeRoundedWallet02,
                 suffixIcon: HugeIcons.strokeRoundedEdit02,
                 onTap: () {
+                  final bool isNotLastWallet = wallets.length > 1;
                   final defaultCurrencies = ref.read(currenciesStaticProvider);
 
                   final selectedCurrency = defaultCurrencies.firstWhere(
@@ -72,7 +73,10 @@ class WalletsScreen extends ConsumerWidget {
                     showDragHandle: true,
                     isScrollControlled: true,
                     backgroundColor: Colors.white,
-                    builder: (_) => WalletFormBottomSheet(wallet: wallet),
+                    builder: (_) => WalletFormBottomSheet(
+                      wallet: wallet,
+                      showDeleteButton: isNotLastWallet,
+                    ),
                   );
                 },
               );
