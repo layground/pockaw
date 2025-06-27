@@ -6,18 +6,24 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
+import 'package:pockaw/core/components/dialogs/toast.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
+import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_constants.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/database/daos/user_dao.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/core/services/data_backup_service/data_backup_service_provider.dart';
 import 'package:pockaw/core/services/image_service/domain/image_state.dart';
 import 'package:pockaw/core/services/image_service/image_service.dart';
 import 'package:pockaw/core/services/image_service/riverpod/image_notifier.dart';
 import 'package:pockaw/core/services/keyboard_service/virtual_keyboard_service.dart';
+import 'package:pockaw/core/services/theme_mode/theme_mode_provider.dart';
 import 'package:pockaw/core/services/url_launcher/url_launcher.dart';
 import 'package:pockaw/features/authentication/data/models/user_model.dart';
 import 'package:pockaw/features/authentication/presentation/components/create_first_wallet_field.dart';
@@ -36,9 +42,45 @@ class LoginScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final nameField = useTextEditingController();
+    final dataBackupService = ref.read(dataBackupServiceProvider);
 
-    return Scaffold(
-      backgroundColor: AppColors.light,
+    return CustomScaffold(
+      context: context,
+      showBackButton: false,
+      showBalance: false,
+      actions: [
+        CustomIconButton(
+          onPressed: () async {
+            Toast.show('Starting restore...', type: ToastificationType.info);
+            final success = await dataBackupService.restoreData();
+            if (success) {
+              Toast.show(
+                'Data restored successfully!',
+                type: ToastificationType.success,
+              );
+              // Optionally, restart app or refresh all data providers
+              // For now, just show toast. User might need to restart for full effect.
+
+              final user = await ref.read(userDaoProvider).getFirstUser();
+              if (user == null) {
+                Toast.show('Restore failed.', type: ToastificationType.error);
+                return;
+              }
+
+              final userModel = user.toModel();
+              ref.read(authStateProvider.notifier).setUser(userModel);
+
+              if (context.mounted) context.push(Routes.main);
+            } else {
+              Toast.show(
+                'Restore failed or cancelled.',
+                type: ToastificationType.error,
+              );
+            }
+          },
+          icon: HugeIcons.strokeRoundedDatabaseImport,
+        ),
+      ],
       body: Stack(
         fit: StackFit.expand,
         children: [
