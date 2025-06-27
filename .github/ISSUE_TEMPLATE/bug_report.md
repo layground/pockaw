@@ -7,18 +7,22 @@ assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+️⚠️ **Describe the bug**
+A clear and concise description of what the bug is. Please use clear language and avoid slang or abbreviations if not necessary to help us identify the bug quick and accurately. 
 
-**To Reproduce**
-Steps to reproduce the behavior:
+> Fill everything that labeled with `*`. Leave empty or fill it with `-` if nothing to provide for other sections. Otherwise the issue will be directly **closed**.
+
+**Steps To Reproduce \***
+Steps by steps to reproduce the issue:
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+**Expected behavior \***
+A clear and concise description of what you expected to happen, e.g.:
+
+`This should be display...`
 
 **Screenshots**
 If applicable, add screenshots to help explain your problem.
@@ -28,7 +32,7 @@ If applicable, add screenshots to help explain your problem.
  - Browser [e.g. chrome, safari]
  - Version [e.g. 22]
 
-**Smartphone (please complete the following information):**
+**Mobile (please complete the following information):**
  - Device: [e.g. iPhone6]
  - OS: [e.g. iOS8.1]
  - Browser [e.g. stock browser, safari]
