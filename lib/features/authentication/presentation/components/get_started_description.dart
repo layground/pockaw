@@ -7,6 +7,7 @@ class GetStartedDescription extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Text.rich(
       style: AppTextStyles.body3,
+      textAlign: TextAlign.center,
       TextSpan(
         text: 'Please enter your ',
         children: [
@@ -14,23 +15,17 @@ class GetStartedDescription extends StatelessWidget {
             text: 'name or brand name',
             style: TextStyle(fontVariations: [FontVariation.weight(700)]),
           ),
-          TextSpan(
-            text: ', pick your best ',
-          ),
+          TextSpan(text: ', pick your best '),
           TextSpan(
             text: 'picture',
             style: TextStyle(fontVariations: [FontVariation.weight(700)]),
           ),
-          TextSpan(
-            text: ' and choose your ',
-          ),
+          TextSpan(text: ' and choose your '),
           TextSpan(
             text: 'currency',
             style: TextStyle(fontVariations: [FontVariation.weight(700)]),
           ),
-          TextSpan(
-            text: ' to personalize your account.',
-          ),
+          TextSpan(text: ' to personalize your account.'),
         ],
       ),
     );

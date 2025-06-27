@@ -1,5 +1,4 @@
 import 'package:drift/drift.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/database/pockaw_database.dart';
 import 'package:pockaw/core/database/tables/wallet_table.dart';
 import 'package:pockaw/core/utils/logger.dart';
@@ -63,11 +62,8 @@ class WalletDao extends DatabaseAccessor<AppDatabase> with _$WalletDaoMixin {
     return await update(wallets).replace(companion);
   }
 
-  Future<int> deleteWallet(WidgetRef ref, int id) {
-    // final db = ref.read(databaseProvider);
-
-    /// Delete everything linked to this wallet
-
+  /// Deletes a wallet by its ID.
+  Future<int> deleteWallet(int id) {
     Log.d('Deleting Wallet with ID: $id');
     return (delete(wallets)..where((w) => w.id.equals(id))).go();
   }

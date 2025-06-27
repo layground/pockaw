@@ -18,20 +18,16 @@ class CustomIconButton extends IconButton {
   }) : super(
          style: IconButton.styleFrom(
            padding: EdgeInsets.zero,
-           backgroundColor: backgroundColor ?? AppColors.purple50,
+           backgroundColor: backgroundColor,
            visualDensity: visualDensity,
            shape: RoundedRectangleBorder(
              borderRadius: BorderRadius.circular(AppRadius.radius8),
-             side: BorderSide(color: borderColor ?? AppColors.purpleAlpha10),
+             side: BorderSide(color: borderColor ?? AppColors.purpleAlpha25),
            ),
          ),
          icon: Stack(
            children: [
-             Icon(
-               icon,
-               color: color ?? AppColors.purple,
-               size: _getIconSize(iconSize),
-             ),
+             Icon(icon, color: color, size: _getIconSize(iconSize)),
              !showBadge
                  ? const SizedBox()
                  : Positioned(top: 2, right: 2, child: _badge()),

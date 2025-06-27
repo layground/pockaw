@@ -28,19 +28,14 @@ class CustomTextField extends TextField {
          style: AppTextStyles.body3,
          decoration: InputDecoration(
            hintText: hint,
-           hintStyle: AppTextStyles.body3.copyWith(color: AppColors.neutral300),
+           hintStyle: AppTextStyles.body3,
            label: label == null
                ? const SizedBox()
                : Padding(
                    padding: const EdgeInsets.only(top: 6),
                    child: Row(
                      children: [
-                       Text(
-                         label,
-                         style: AppTextStyles.body3.copyWith(
-                           color: AppColors.neutral600,
-                         ),
-                       ),
+                       Text(label, style: AppTextStyles.body3),
                        if (isRequired) const Gap(AppSpacing.spacing4),
                        if (isRequired)
                          Text(
@@ -53,7 +48,6 @@ class CustomTextField extends TextField {
                    ),
                  ),
            filled: true,
-           fillColor: onTap != null ? AppColors.purple50 : AppColors.neutral50,
            floatingLabelAlignment: FloatingLabelAlignment.start,
            floatingLabelBehavior: FloatingLabelBehavior.always,
            border: customBorder(asButton: onTap != null),

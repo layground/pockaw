@@ -61,6 +61,7 @@ class ImageService {
           children: [
             Expanded(
               child: SecondaryButton(
+                context: context,
                 onPressed: () async {
                   final file = await takePhoto();
                   if (context.mounted) context.pop(file);
@@ -72,6 +73,7 @@ class ImageService {
             const Gap(AppSpacing.spacing8),
             Expanded(
               child: SecondaryButton(
+                context: context,
                 onPressed: () async {
                   final file = await pickImageFromGallery();
                   if (context.mounted) context.pop(file);

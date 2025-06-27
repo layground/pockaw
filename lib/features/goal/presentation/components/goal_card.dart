@@ -12,6 +12,7 @@ import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/goal/data/model/goal_model.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/checklist_items_provider.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
 class GoalCard extends ConsumerWidget {
   final GoalModel goal;
@@ -19,6 +20,8 @@ class GoalCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeProvider);
+
     return InkWell(
       borderRadius: BorderRadius.circular(
         12,
@@ -33,9 +36,8 @@ class GoalCard extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.spacing12),
         decoration: BoxDecoration(
-          color: AppColors.purple50,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: AppColors.purpleAlpha10),
+          border: Border.all(color: context.secondaryBorder(themeMode)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -108,9 +110,7 @@ class GoalCard extends ConsumerWidget {
                           child: checklistItems.isEmpty
                               ? Text(
                                   'No checklist items yet.',
-                                  style: AppTextStyles.body4.copyWith(
-                                    color: AppColors.neutralAlpha50,
-                                  ),
+                                  style: AppTextStyles.body4,
                                 )
                               : Column(
                                   mainAxisSize: MainAxisSize.min,
@@ -118,8 +118,8 @@ class GoalCard extends ConsumerWidget {
                                   children: checklistItems.take(2).map((item) {
                                     final bool isCompleted = item.completed;
                                     final Color itemColor = isCompleted
-                                        ? AppColors.neutralAlpha50
-                                        : AppColors.purple900;
+                                        ? context.disabledText(themeMode)
+                                        : context.secondaryText(themeMode);
                                     final IconData itemIconData = isCompleted
                                         ? HugeIcons
                                               .strokeRoundedCheckmarkCircle01

@@ -15,100 +15,181 @@ class AppButtonStyles {
   );
 
   // Primary Button Styles
-  static final primaryActive = FilledButton.styleFrom(
-    backgroundColor: AppColors.primary600,
-    foregroundColor: AppColors.light,
-    shape: defaultButtonShape,
-    padding: defaultButtonPadding,
-  );
+  static ButtonStyle primaryActive(ThemeMode themeMode) =>
+      FilledButton.styleFrom(
+        backgroundColor: themeMode == ThemeMode.light
+            ? AppColors.primary600
+            : AppColors.primary600,
+        foregroundColor: themeMode == ThemeMode.light
+            ? AppColors.light
+            : AppColors.light,
+        shape: defaultButtonShape,
+        padding: defaultButtonPadding,
+      );
 
-  static final primaryInactive = FilledButton.styleFrom(
-    backgroundColor: AppColors.primary500,
-    foregroundColor: AppColors.primary100,
-    shape: defaultButtonShape,
-    padding: defaultButtonPadding,
-  );
+  static ButtonStyle primaryInactive(ThemeMode themeMode) =>
+      FilledButton.styleFrom(
+        backgroundColor: themeMode == ThemeMode.light
+            ? AppColors.primary500
+            : AppColors.dark,
+        foregroundColor: themeMode == ThemeMode.light
+            ? AppColors.primary100
+            : AppColors.primary500,
+        shape: defaultButtonShape,
+        padding: defaultButtonPadding,
+      );
 
-  static final primaryOutlinedActive = FilledButton.styleFrom(
-    backgroundColor: AppColors.light,
-    foregroundColor: AppColors.primary,
-    shape: defaultButtonShape.copyWith(
-      side: const BorderSide(
-        color: AppColors.primary,
-        width: AppBorders.border2,
-      ),
-    ),
-    padding: defaultButtonPadding,
-  );
+  static ButtonStyle primaryOutlinedActive(ThemeMode themeMode) =>
+      FilledButton.styleFrom(
+        backgroundColor: themeMode == ThemeMode.light
+            ? AppColors.light
+            : Colors.transparent,
+        foregroundColor: themeMode == ThemeMode.light
+            ? AppColors.primary
+            : AppColors.primary,
+        shape: defaultButtonShape.copyWith(
+          side: BorderSide(
+            color: themeMode == ThemeMode.light
+                ? AppColors.primary
+                : AppColors.primary,
+            width: AppBorders.border2,
+          ),
+        ),
+        padding: defaultButtonPadding,
+      );
 
-  static final primaryOutlinedInactive = FilledButton.styleFrom(
-    backgroundColor: Colors.transparent,
-    foregroundColor: Colors.blue.shade100,
-    shape: defaultButtonShape.copyWith(
-      side: const BorderSide(color: Colors.blue, width: AppBorders.border2),
-    ),
-    padding: defaultButtonPadding,
-  );
+  static ButtonStyle primaryOutlinedInactive(ThemeMode themeMode) =>
+      FilledButton.styleFrom(
+        backgroundColor: Colors.transparent,
+        foregroundColor: themeMode == ThemeMode.light
+            ? AppColors.primary100
+            : Colors.transparent,
+        shape: defaultButtonShape.copyWith(
+          side: BorderSide(
+            color: themeMode == ThemeMode.light
+                ? AppColors.neutral700
+                : AppColors.neutral800,
+            width: AppBorders.border2,
+          ),
+        ),
+        padding: defaultButtonPadding,
+      );
 
   // Secondary Button Styles
-  static final secondaryActive = FilledButton.styleFrom(
-    backgroundColor: Colors.grey,
-    foregroundColor: Colors.black,
-    shape: defaultButtonShape,
-    padding: defaultButtonPadding,
-  );
+  static ButtonStyle secondaryActive(ThemeMode themeMode) =>
+      FilledButton.styleFrom(
+        backgroundColor: themeMode == ThemeMode.light
+            ? AppColors.secondary600
+            : AppColors.dark,
+        foregroundColor: themeMode == ThemeMode.light
+            ? AppColors.light
+            : AppColors.secondary600,
+        shape: defaultButtonShape,
+        padding: defaultButtonPadding,
+      );
 
-  static final secondaryInactive = FilledButton.styleFrom(
-    backgroundColor: Colors.grey.shade300,
-    foregroundColor: Colors.black54,
-    shape: defaultButtonShape,
-    padding: defaultButtonPadding,
-  );
+  static ButtonStyle secondaryInactive(ThemeMode themeMode) =>
+      FilledButton.styleFrom(
+        backgroundColor: themeMode == ThemeMode.light
+            ? AppColors.secondary200
+            : AppColors.dark,
+        foregroundColor: themeMode == ThemeMode.light
+            ? AppColors.secondary500
+            : AppColors.secondary200,
+        shape: defaultButtonShape,
+        padding: defaultButtonPadding,
+      );
 
-  static final secondaryOutlinedActive = FilledButton.styleFrom(
-    backgroundColor: Colors.transparent,
-    foregroundColor: Colors.grey,
-    shape: defaultButtonShape.copyWith(
-      side: const BorderSide(color: Colors.blue, width: AppBorders.border2),
-    ),
-  );
+  static ButtonStyle secondaryOutlinedActive(ThemeMode themeMode) =>
+      FilledButton.styleFrom(
+        backgroundColor: Colors.transparent,
+        foregroundColor: themeMode == ThemeMode.light
+            ? AppColors.neutral100
+            : Colors.transparent,
+        shape: defaultButtonShape.copyWith(
+          side: BorderSide(
+            color: themeMode == ThemeMode.light
+                ? AppColors.secondary600
+                : AppColors.secondary600,
+            width: AppBorders.border2,
+          ),
+        ),
+        padding: defaultButtonPadding,
+      );
 
-  static final secondaryOutlinedInactive = FilledButton.styleFrom(
-    backgroundColor: Colors.transparent,
-    foregroundColor: Colors.grey.shade300,
-    shape: defaultButtonShape.copyWith(
-      side: const BorderSide(color: Colors.blue, width: AppBorders.border2),
-    ),
-  );
+  static ButtonStyle secondaryOutlinedInactive(ThemeMode themeMode) =>
+      FilledButton.styleFrom(
+        backgroundColor: Colors.transparent,
+        foregroundColor: themeMode == ThemeMode.light
+            ? AppColors.secondary200
+            : Colors.transparent,
+        shape: defaultButtonShape.copyWith(
+          side: BorderSide(
+            color: themeMode == ThemeMode.light
+                ? AppColors.neutral700
+                : AppColors.neutral800,
+            width: AppBorders.border2,
+          ),
+        ),
+        padding: defaultButtonPadding,
+      );
 
   // Tertiary Button Styles
-  static final tertiaryActive = FilledButton.styleFrom(
-    backgroundColor: Colors.orange,
-    foregroundColor: Colors.white,
-    shape: defaultButtonShape,
-    padding: defaultButtonPadding,
-  );
+  static ButtonStyle tertiaryActive(ThemeMode themeMode) =>
+      FilledButton.styleFrom(
+        backgroundColor: themeMode == ThemeMode.light
+            ? AppColors.tertiary600
+            : AppColors.dark,
+        foregroundColor: themeMode == ThemeMode.light
+            ? AppColors.light
+            : AppColors.tertiary600,
+        shape: defaultButtonShape,
+        padding: defaultButtonPadding,
+      );
 
-  static final tertiaryInactive = FilledButton.styleFrom(
-    backgroundColor: Colors.orange.shade100,
-    foregroundColor: Colors.white70,
-    shape: defaultButtonShape,
-    padding: defaultButtonPadding,
-  );
+  static ButtonStyle tertiaryInactive(ThemeMode themeMode) =>
+      FilledButton.styleFrom(
+        backgroundColor: themeMode == ThemeMode.light
+            ? AppColors.tertiary200
+            : AppColors.dark,
+        foregroundColor: themeMode == ThemeMode.light
+            ? AppColors.tertiary500
+            : AppColors.tertiary200,
+        shape: defaultButtonShape,
+        padding: defaultButtonPadding,
+      );
 
-  static final tertiaryOutlinedActive = FilledButton.styleFrom(
-    backgroundColor: Colors.transparent,
-    foregroundColor: Colors.orange,
-    shape: defaultButtonShape.copyWith(
-      side: const BorderSide(color: Colors.blue, width: AppBorders.border2),
-    ),
-  );
+  static ButtonStyle tertiaryOutlinedActive(ThemeMode themeMode) =>
+      FilledButton.styleFrom(
+        backgroundColor: Colors.transparent,
+        foregroundColor: themeMode == ThemeMode.light
+            ? AppColors.light
+            : Colors.transparent,
+        shape: defaultButtonShape.copyWith(
+          side: BorderSide(
+            color: themeMode == ThemeMode.light
+                ? AppColors.tertiary600
+                : AppColors.tertiary600,
+            width: AppBorders.border2,
+          ),
+        ),
+        padding: defaultButtonPadding,
+      );
 
-  static final tertiaryOutlinedInactive = FilledButton.styleFrom(
-    backgroundColor: Colors.transparent,
-    foregroundColor: Colors.orange.shade100,
-    shape: defaultButtonShape.copyWith(
-      side: const BorderSide(color: Colors.blue, width: AppBorders.border2),
-    ),
-  );
+  static ButtonStyle tertiaryOutlinedInactive(ThemeMode themeMode) =>
+      FilledButton.styleFrom(
+        backgroundColor: Colors.transparent,
+        foregroundColor: themeMode == ThemeMode.light
+            ? AppColors.light
+            : Colors.transparent,
+        shape: defaultButtonShape.copyWith(
+          side: BorderSide(
+            color: themeMode == ThemeMode.light
+                ? AppColors.neutral700
+                : AppColors.neutral800,
+            width: AppBorders.border2,
+          ),
+        ),
+        padding: defaultButtonPadding,
+      );
 }

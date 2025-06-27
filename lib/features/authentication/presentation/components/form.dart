@@ -11,9 +11,13 @@ class Form extends HookConsumerWidget {
         children: [
           const Column(
             mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('Get Started', style: AppTextStyles.heading5),
+              Text(
+                'Get Started',
+                style: AppTextStyles.heading5,
+                textAlign: TextAlign.center,
+              ),
               Gap(AppSpacing.spacing4),
               GetStartedDescription(),
             ],

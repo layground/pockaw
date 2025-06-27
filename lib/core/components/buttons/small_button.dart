@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
-class SmallButton extends StatelessWidget {
+class SmallButton extends ConsumerWidget {
   final String label;
   final TextStyle labelTextStyle;
   final IconData? prefixIcon;
@@ -27,7 +29,9 @@ class SmallButton extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final themeMode = ref.watch(themeModeProvider);
+
     return InkWell(
       onTap: onTap,
       child: Container(
@@ -36,8 +40,8 @@ class SmallButton extends StatelessWidget {
           vertical: AppSpacing.spacing4,
         ),
         decoration: BoxDecoration(
-          color: backgroundColor ?? AppColors.secondaryAlpha10,
-          border: Border.all(color: borderColor ?? AppColors.secondaryAlpha25),
+          color: backgroundColor ?? context.secondaryBackground(themeMode),
+          border: Border.all(color: borderColor ?? AppColors.secondary400),
           borderRadius: BorderRadius.circular(AppRadius.radius8),
         ),
         child: Row(
@@ -50,14 +54,12 @@ class SmallButton extends StatelessWidget {
                   Icon(
                     prefixIcon,
                     size: 16,
-                    color: foregroundColor ?? AppColors.secondary,
+                    color: foregroundColor ?? AppColors.secondary400,
                   ),
                 const Gap(2),
                 Text(
                   label,
-                  style: labelTextStyle.copyWith(
-                    color: foregroundColor ?? AppColors.secondary,
-                  ),
+                  style: labelTextStyle.copyWith(color: foregroundColor),
                 ),
               ],
             ),
@@ -66,8 +68,8 @@ class SmallButton extends StatelessWidget {
               Icon(
                 suffixIcon,
                 size: 14,
-                color: foregroundColor ?? AppColors.secondary,
-              )
+                color: foregroundColor ?? AppColors.secondary400,
+              ),
           ],
         ),
       ),

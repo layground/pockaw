@@ -6,14 +6,17 @@ class ProfileCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final auth = ref.watch(authStateProvider);
+    final colorScheme = Theme.of(context).colorScheme;
     final wallet = ref.watch(activeWalletProvider).value ?? wallets.first;
     return Row(
       children: [
         CircleAvatar(
-          backgroundColor: AppColors.darkAlpha30,
+          backgroundColor: colorScheme
+              .surfaceContainerHighest, // Use a surface color that adapts
           radius: 50,
           child: CircleAvatar(
-            backgroundColor: AppColors.neutral100,
+            backgroundColor:
+                colorScheme.surface, // Use a surface color that adapts
             backgroundImage: auth.profilePicture == null
                 ? null
                 : FileImage(File(auth.profilePicture!)),
@@ -26,8 +29,9 @@ class ProfileCard extends ConsumerWidget {
           children: [
             Text(auth.name, style: AppTextStyles.body1),
             Text(
-              'The Clever Squirrel',
-              style: AppTextStyles.body2.copyWith(color: AppColors.darkAlpha50),
+              'The Clever Squirrel', // This text color will adapt via DefaultTextStyle or explicit style
+              style: AppTextStyles
+                  .body2, // Use onSurfaceVariant for secondary text
             ),
             const Gap(AppSpacing.spacing8),
             CustomCurrencyChip(
@@ -35,7 +39,6 @@ class ProfileCard extends ConsumerWidget {
               label:
                   '${wallet.currencyByIsoCode(ref).symbol} - ${wallet.currencyByIsoCode(ref).country}',
               background: AppColors.primaryAlpha10,
-              foreground: AppColors.dark,
               borderColor: AppColors.primaryAlpha25,
             ),
           ],

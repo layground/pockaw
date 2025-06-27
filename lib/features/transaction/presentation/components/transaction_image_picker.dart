@@ -21,6 +21,7 @@ class TransactionImagePicker extends ConsumerWidget {
         if (Platform.isAndroid || Platform.isIOS)
           Expanded(
             child: SecondaryButton(
+              context: context,
               onPressed: () async {
                 imageNotifier.takePhoto().then((value) {
                   imageNotifier.saveImage();
@@ -34,6 +35,7 @@ class TransactionImagePicker extends ConsumerWidget {
           const Gap(AppSpacing.spacing8),
         Expanded(
           child: SecondaryButton(
+            context: context,
             onPressed: () {
               imageNotifier.pickImage().then((value) {
                 imageNotifier.saveImage();

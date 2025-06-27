@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
@@ -8,8 +9,9 @@ import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
-class CategoryTile extends StatelessWidget {
+class CategoryTile extends ConsumerWidget {
   final CategoryModel category;
   final double? height;
   final double? iconSize;
@@ -27,16 +29,18 @@ class CategoryTile extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final themeMode = ref.watch(themeModeProvider);
+
     return InkWell(
       onTap: () => onSelectCategory?.call(category),
       child: Container(
         height: height,
         padding: const EdgeInsets.all(AppSpacing.spacing4),
         decoration: BoxDecoration(
-          color: AppColors.secondary50,
+          color: context.secondaryBackground(themeMode),
           borderRadius: BorderRadius.circular(AppRadius.radius8),
-          border: Border.all(color: AppColors.secondaryAlpha10),
+          border: Border.all(color: context.secondaryBorder(themeMode)),
         ),
         child: Row(
           children: [

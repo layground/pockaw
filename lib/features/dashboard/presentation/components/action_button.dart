@@ -10,6 +10,7 @@ class ActionButton extends StatelessWidget {
           ? AppSpacing.spacing16
           : AppSpacing.spacing0,
       children: [
+        ThemeModeSwitcher(),
         CustomIconButton(
           onPressed: () {},
           icon: HugeIcons.strokeRoundedNotification02,

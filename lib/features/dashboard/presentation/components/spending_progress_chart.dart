@@ -163,7 +163,6 @@ class SpendingProgressChart extends ConsumerWidget {
             'View report',
             style: AppTextStyles.body5.copyWith(
               decoration: TextDecoration.underline,
-              color: AppColors.neutral800,
             ),
           ),
         ),

@@ -8,6 +8,7 @@ import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tile.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
@@ -80,8 +81,9 @@ class TransactionGroupedCard extends ConsumerWidget {
         return Container(
           padding: const EdgeInsets.all(AppSpacing.spacing16),
           decoration: BoxDecoration(
-            color: AppColors.light,
-            border: Border.all(color: AppColors.neutralAlpha10),
+            border: Border.all(
+              color: context.secondaryBorder(ref.read(themeModeProvider)),
+            ),
             borderRadius: BorderRadius.circular(AppRadius.radius8),
           ),
           child: Column(

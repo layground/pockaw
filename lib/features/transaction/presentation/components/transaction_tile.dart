@@ -8,6 +8,7 @@ import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_ui_extension.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
@@ -24,6 +25,7 @@ class TransactionTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final themeMode = ref.watch(themeModeProvider);
     final currency = ref
         .read(activeWalletProvider)
         .value
@@ -41,7 +43,7 @@ class TransactionTile extends ConsumerWidget {
           AppSpacing.spacing8,
         ),
         decoration: BoxDecoration(
-          color: AppColors.light,
+          color: transaction.backgroundColor(context, themeMode),
           borderRadius: BorderRadius.circular(AppRadius.radius12),
           border: Border.all(color: AppColors.neutralAlpha10),
         ),
@@ -53,7 +55,7 @@ class TransactionTile extends ConsumerWidget {
               height: 54,
               padding: const EdgeInsets.all(AppSpacing.spacing8),
               decoration: BoxDecoration(
-                color: transaction.backgroundColor,
+                color: transaction.backgroundColor(context, themeMode),
                 borderRadius: BorderRadius.circular(AppRadius.radius12),
                 border: Border.all(color: transaction.borderColor),
               ),
@@ -75,9 +77,7 @@ class TransactionTile extends ConsumerWidget {
                       const Gap(AppSpacing.spacing2),
                       Text(
                         transaction.category.title,
-                        style: AppTextStyles.body4.copyWith(
-                          color: AppColors.neutral500,
-                        ),
+                        style: AppTextStyles.body4,
                       ),
                     ],
                   ),
@@ -89,9 +89,7 @@ class TransactionTile extends ConsumerWidget {
                       if (showDate)
                         Text(
                           transaction.formattedDate,
-                          style: AppTextStyles.body5.copyWith(
-                            color: AppColors.neutral500,
-                          ),
+                          style: AppTextStyles.body5,
                         ),
                       if (showDate) const Gap(AppSpacing.spacing4),
                       Text(

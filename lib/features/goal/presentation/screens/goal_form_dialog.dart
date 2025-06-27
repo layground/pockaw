@@ -16,6 +16,7 @@ import 'package:pockaw/features/goal/data/model/goal_model.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/date_picker_provider.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_date_range_picker.dart';
 import 'package:pockaw/features/goal/presentation/services/goal_form_service.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart'; // for Value
 
@@ -83,6 +84,7 @@ class GoalFormDialog extends HookConsumerWidget {
             PrimaryButton(
               label: 'Save',
               state: ButtonState.active,
+              themeMode: ref.read(themeModeProvider),
               onPressed: () {
                 final selectedDate = ref.watch(datePickerProvider);
                 Log.d(titleController.text, label: 'title');

@@ -11,6 +11,7 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
@@ -27,14 +28,15 @@ class CustomScaffold extends Scaffold {
     bool showBalance = true,
     List<Widget>? actions,
     super.floatingActionButton,
-    super.backgroundColor,
   }) : super(
          resizeToAvoidBottomInset: true,
+         backgroundColor: Theme.of(context).colorScheme.surface,
          appBar: AppBar(
            leadingWidth: 80,
            titleSpacing: showBackButton ? 0 : AppSpacing.spacing20,
            toolbarHeight: 60,
            automaticallyImplyLeading: false,
+           scrolledUnderElevation: 0,
            leading: !showBackButton
                ? null
                : CustomIconButton(

@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:pockaw/core/database/pockaw_database.dart';
 import 'package:pockaw/core/database/tables/category_table.dart';
+import 'package:pockaw/core/database/tables/wallet_table.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/wallet/data/repositories/wallet_repo.dart';
@@ -31,7 +32,7 @@ class Transactions extends Table {
   /// Foreign key referencing the `Wallets` table.
   /// Note: You'll need to create a `Wallets` table definition similar to `Categories`.
   /// For now, we define it, assuming `Wallets` table will have an `id` column.
-  IntColumn get walletId => integer()(); // .references(Wallets, #id)();
+  IntColumn get walletId => integer().references(Wallets, #id)();
 
   /// Optional notes for the transaction.
   TextColumn get notes => text().nullable()();

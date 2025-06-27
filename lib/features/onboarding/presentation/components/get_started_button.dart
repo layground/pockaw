@@ -10,11 +10,7 @@ class GetStartedButton extends ConsumerWidget {
       left: 0,
       right: 0,
       child: Container(
-        color: AppColors.light,
-        padding: const EdgeInsets.symmetric(
-          vertical: 20,
-          horizontal: 20,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         child: PrimaryButton(
           label: 'Get Started',
           onPressed: () {

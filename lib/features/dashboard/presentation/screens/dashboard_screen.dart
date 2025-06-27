@@ -20,6 +20,8 @@ import 'package:pockaw/core/extensions/screen_utils_extensions.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
+import 'package:pockaw/features/theme_switcher/presentation/components/theme_mode_switcher.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tile.dart';
 import 'package:pockaw/features/transaction/presentation/riverpod/transaction_providers.dart';
@@ -45,6 +47,7 @@ class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.colors.surface,
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(85),
         child: Header(),
