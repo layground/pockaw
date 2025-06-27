@@ -24,16 +24,10 @@ class GreetingCard extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Good morning,',
-              style: AppTextStyles.body4.copyWith(color: AppColors.neutral600),
-            ),
-            Text(
-              auth.name,
-              style: AppTextStyles.body2.copyWith(color: AppColors.dark),
-            ),
+            Text('Good morning,', style: AppTextStyles.body4),
+            Text(auth.name, style: AppTextStyles.body2),
           ],
-        )
+        ),
       ],
     );
   }

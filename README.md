@@ -7,7 +7,7 @@
 ![Platform](https://img.shields.io/badge/platform-Android%20%7C%20Web%20%7C%20(soon)%20iOS,%20Windows,%20MacOS-purple)
 ![8%](https://progress-bar.xyz/8/?title=MVP+Launch+&progress_color=00b4ab)
 
-![License](https://img.shields.io/badge/license-GPLv3-blue)
+![License](https://img.shields.io/badge/license-LGPLv3-blue)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
 ![Contributions](https://img.shields.io/badge/contributions-welcome-brightgreen)
 ![Forks](https://img.shields.io/github/forks/layground/pockaw)

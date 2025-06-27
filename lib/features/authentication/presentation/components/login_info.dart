@@ -6,6 +6,7 @@ class LoginInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text.rich(
+      textAlign: TextAlign.center,
       TextSpan(
         text:
             'Use your name to login into different account.\nWe only store your data into local database '

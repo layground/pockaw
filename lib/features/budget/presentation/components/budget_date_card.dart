@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
@@ -9,18 +10,21 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/features/budget/data/model/budget_model.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
-class BudgetDateCard extends StatelessWidget {
+class BudgetDateCard extends ConsumerWidget {
   final BudgetModel budget;
   const BudgetDateCard({super.key, required this.budget});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final themeMode = ref.read(themeModeProvider);
+
     return Container(
       padding: const EdgeInsets.all(AppSpacing.spacing4),
       decoration: BoxDecoration(
-        color: AppColors.light,
-        border: Border.all(color: AppColors.secondaryAlpha10),
+        color: context.secondaryBackground(themeMode),
+        border: Border.all(color: context.secondaryBorder(themeMode)),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
       child: Row(
@@ -36,11 +40,15 @@ class BudgetDateCard extends StatelessWidget {
             children: [
               Text(
                 'Budget Period',
-                style: AppTextStyles.body3.copyWith(color: AppColors.secondary),
+                style: AppTextStyles.body3.copyWith(
+                  color: context.secondaryText(themeMode),
+                ),
               ),
               Text(
                 '${budget.startDate.toDayShortMonth()} - ${budget.endDate.toDayShortMonthYear()}',
-                style: AppTextStyles.body5.copyWith(color: AppColors.secondary),
+                style: AppTextStyles.body5.copyWith(
+                  color: context.secondaryText(themeMode),
+                ),
               ),
             ],
           ),

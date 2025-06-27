@@ -47,7 +47,6 @@ class CategoryDropdown extends HookConsumerWidget {
               context: context,
               showDragHandle: true,
               isScrollControlled: true,
-              backgroundColor: Colors.white,
               builder: (context) => CategoryFormScreen(
                 categoryId: selectedCategory.id,
                 isEditingParent: true,

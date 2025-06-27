@@ -15,6 +15,7 @@ import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/goal/data/model/checklist_item_model.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_checklist_form_dialog.dart';
 import 'package:pockaw/features/goal/presentation/services/goal_form_service.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
@@ -24,6 +25,7 @@ class GoalChecklistItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final themeMode = ref.read(themeModeProvider);
     final defaultCurrency = ref
         .read(activeWalletProvider)
         .value
@@ -38,7 +40,6 @@ class GoalChecklistItem extends ConsumerWidget {
           context: context,
           showDragHandle: true,
           isScrollControlled: true,
-          backgroundColor: Colors.white,
           builder: (context) =>
               GoalChecklistFormDialog(goalId: goalId, checklistItemModel: item),
         );
@@ -46,8 +47,8 @@ class GoalChecklistItem extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.spacing12),
         decoration: BoxDecoration(
-          color: AppColors.primaryAlpha10,
-          border: Border.all(color: AppColors.primaryAlpha10),
+          color: context.secondaryBackground(themeMode),
+          border: Border.all(color: context.secondaryBorder(themeMode)),
           borderRadius: BorderRadius.circular(AppRadius.radius8),
         ),
         child: Column(
@@ -83,16 +84,16 @@ class GoalChecklistItem extends ConsumerWidget {
               children: [
                 CustomChip(
                   label: '$defaultCurrency ${item.amount.toPriceFormat()}',
-                  background: AppColors.tertiary100,
-                  foreground: AppColors.dark,
-                  borderColor: AppColors.tertiaryAlpha25,
+                  background: context.secondaryBackground(themeMode),
+                  foreground: context.secondaryText(themeMode),
+                  borderColor: context.secondaryBorder(themeMode),
                 ),
                 if (item.link.isNotEmpty)
                   CustomChip(
                     label: item.link,
-                    background: AppColors.tertiary100,
-                    foreground: AppColors.dark,
-                    borderColor: AppColors.tertiaryAlpha25,
+                    background: context.secondaryBackground(themeMode),
+                    foreground: context.secondaryText(themeMode),
+                    borderColor: context.secondaryBorder(themeMode),
                   ),
               ],
             ),

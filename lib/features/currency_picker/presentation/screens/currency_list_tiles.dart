@@ -10,12 +10,14 @@ import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
 class CurrencyListTiles extends ConsumerWidget {
   const CurrencyListTiles({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.read(themeModeProvider);
     final currenciesAsyncValue = ref.watch(currenciesProvider);
 
     return CustomScaffold(
@@ -45,7 +47,6 @@ class CurrencyListTiles extends ConsumerWidget {
                     horizontal: AppSpacing.spacing20,
                   ),
                   decoration: BoxDecoration(
-                    color: AppColors.neutral50,
                     borderRadius: BorderRadius.circular(AppRadius.radius8),
                     border: Border.all(color: AppColors.neutralAlpha50),
                   ),
@@ -58,7 +59,7 @@ class CurrencyListTiles extends ConsumerWidget {
                               width: 40,
                               padding: EdgeInsets.all(AppSpacing.spacing4),
                               decoration: BoxDecoration(
-                                color: AppColors.neutral100,
+                                color: context.secondaryBackground(themeMode),
                                 borderRadius: BorderRadius.circular(
                                   AppRadius.radius4,
                                 ),

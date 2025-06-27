@@ -5,6 +5,7 @@ class CashFlowCards extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeProvider);
     final transactionsAsyncValue = ref.watch(transactionListProvider);
 
     return transactionsAsyncValue.when(
@@ -56,13 +57,13 @@ class CashFlowCards extends ConsumerWidget {
                 amount: currentMonthIncome,
                 amountLastMonth: lastMonthIncome,
                 percentDifference: incomePercentDifference,
-                backgroundColor: AppColors.primary50,
-                titleColor: AppColors.neutral900,
-                borderColor: AppColors.primaryAlpha25,
-                amountColor: AppColors.primary900,
-                statsBackgroundColor: AppColors.primaryAlpha10,
-                statsForegroundColor: AppColors.neutral800,
-                statsIconColor: AppColors.primary600,
+                backgroundColor: context.incomeBackground(themeMode),
+                titleColor: context.incomeForeground(themeMode),
+                borderColor: context.incomeLine(themeMode),
+                amountColor: context.incomeText(themeMode),
+                statsBackgroundColor: context.incomeBackground(themeMode),
+                statsForegroundColor: context.incomeForeground(themeMode),
+                statsIconColor: context.incomeText(themeMode),
               ),
             ),
             const Gap(AppSpacing.spacing12),
@@ -72,13 +73,13 @@ class CashFlowCards extends ConsumerWidget {
                 amount: currentMonthExpense,
                 amountLastMonth: lastMonthExpense,
                 percentDifference: expensePercentDifference,
-                backgroundColor: AppColors.red50,
-                borderColor: AppColors.redAlpha10,
-                titleColor: AppColors.neutral900,
-                amountColor: AppColors.red900,
-                statsBackgroundColor: AppColors.redAlpha10,
-                statsForegroundColor: AppColors.red800,
-                statsIconColor: AppColors.red800,
+                backgroundColor: context.expenseBackground(themeMode),
+                titleColor: context.expenseForeground(themeMode),
+                borderColor: context.expenseLine(themeMode),
+                amountColor: context.expenseText(themeMode),
+                statsBackgroundColor: context.expenseBackground(themeMode),
+                statsForegroundColor: context.expenseForeground(themeMode),
+                statsIconColor: context.expenseText(themeMode),
               ),
             ),
           ],

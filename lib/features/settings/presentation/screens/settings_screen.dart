@@ -7,6 +7,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
+import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/buttons/menu_tile_button.dart';
 import 'package:pockaw/core/components/chips/custom_currency_chip.dart';
 import 'package:pockaw/core/components/dialogs/toast.dart';
@@ -18,6 +19,7 @@ import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/services/data_backup_service/data_backup_service_provider.dart';
 import 'package:pockaw/core/services/package_info/package_info_provider.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/core/services/url_launcher/url_launcher.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/settings/presentation/components/settings_group_holder.dart';
@@ -34,15 +36,29 @@ part '../components/settings_data_group.dart';
 part '../components/settings_preferences_group.dart';
 part '../components/settings_profile_group.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeProvider);
+    final themeModeNotifier = ref.read(themeModeProvider.notifier);
+
     return CustomScaffold(
       context: context,
       title: 'Settings',
       showBackButton: true,
+      actions: [
+        CustomIconButton(
+          onPressed: () {
+            // Toggle theme mode
+            themeModeNotifier.toggleThemeMode();
+          },
+          icon: themeMode == ThemeMode.light
+              ? HugeIcons.strokeRoundedMoon01
+              : HugeIcons.strokeRoundedSun01,
+        ),
+      ],
       body: const SingleChildScrollView(
         padding: EdgeInsets.all(AppSpacing.spacing20),
         child: Column(

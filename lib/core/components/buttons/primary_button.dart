@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/button_type.dart';
 import 'package:pockaw/core/components/loading_indicators/loading_indicator.dart';
@@ -19,6 +20,7 @@ class PrimaryButton extends FilledButton {
     EdgeInsets? padding,
     ButtonType type = ButtonType.primary,
     ButtonState state = ButtonState.active,
+    ThemeMode themeMode = ThemeMode.system,
     VoidCallback? onPressed,
     super.key,
   }) : super(
@@ -27,6 +29,7 @@ class PrimaryButton extends FilledButton {
              _styleFromTypeAndState(
                type: type,
                state: state,
+               themeMode: themeMode,
                isLoading: isLoading,
              ).copyWith(
                textStyle: WidgetStatePropertyAll<TextStyle>(
@@ -57,6 +60,7 @@ class PrimaryButton extends FilledButton {
   static ButtonStyle _styleFromTypeAndState({
     ButtonType type = ButtonType.primary,
     ButtonState state = ButtonState.active,
+    ThemeMode themeMode = ThemeMode.system,
     bool isLoading = false,
   }) {
     switch (type) {
@@ -64,52 +68,52 @@ class PrimaryButton extends FilledButton {
         switch (state) {
           case ButtonState.active:
             if (isLoading) {
-              return AppButtonStyles.primaryInactive;
+              return AppButtonStyles.primaryInactive(themeMode);
             }
-            return AppButtonStyles.primaryActive;
+            return AppButtonStyles.primaryActive(themeMode);
           case ButtonState.inactive:
-            return AppButtonStyles.primaryInactive;
+            return AppButtonStyles.primaryInactive(themeMode);
           case ButtonState.outlinedActive:
             if (isLoading) {
-              return AppButtonStyles.primaryOutlinedInactive;
+              return AppButtonStyles.primaryOutlinedInactive(themeMode);
             }
-            return AppButtonStyles.primaryOutlinedActive;
+            return AppButtonStyles.primaryOutlinedActive(themeMode);
           case ButtonState.outlinedInactive:
-            return AppButtonStyles.primaryOutlinedInactive;
+            return AppButtonStyles.primaryOutlinedInactive(themeMode);
         }
       case ButtonType.secondary:
         switch (state) {
           case ButtonState.active:
             if (isLoading) {
-              return AppButtonStyles.secondaryInactive;
+              return AppButtonStyles.secondaryInactive(themeMode);
             }
-            return AppButtonStyles.secondaryActive;
+            return AppButtonStyles.secondaryActive(themeMode);
           case ButtonState.inactive:
-            return AppButtonStyles.secondaryInactive;
+            return AppButtonStyles.secondaryInactive(themeMode);
           case ButtonState.outlinedActive:
             if (isLoading) {
-              return AppButtonStyles.secondaryOutlinedInactive;
+              return AppButtonStyles.secondaryOutlinedInactive(themeMode);
             }
-            return AppButtonStyles.secondaryOutlinedActive;
+            return AppButtonStyles.secondaryOutlinedActive(themeMode);
           case ButtonState.outlinedInactive:
-            return AppButtonStyles.secondaryOutlinedInactive;
+            return AppButtonStyles.secondaryOutlinedInactive(themeMode);
         }
       case ButtonType.tertiary:
         switch (state) {
           case ButtonState.active:
             if (isLoading) {
-              return AppButtonStyles.tertiaryInactive;
+              return AppButtonStyles.tertiaryInactive(themeMode);
             }
-            return AppButtonStyles.tertiaryActive;
+            return AppButtonStyles.tertiaryActive(themeMode);
           case ButtonState.inactive:
-            return AppButtonStyles.tertiaryInactive;
+            return AppButtonStyles.tertiaryInactive(themeMode);
           case ButtonState.outlinedActive:
             if (isLoading) {
-              return AppButtonStyles.tertiaryOutlinedActive;
+              return AppButtonStyles.tertiaryOutlinedActive(themeMode);
             }
-            return AppButtonStyles.tertiaryOutlinedActive;
+            return AppButtonStyles.tertiaryOutlinedActive(themeMode);
           case ButtonState.outlinedInactive:
-            return AppButtonStyles.tertiaryOutlinedInactive;
+            return AppButtonStyles.tertiaryOutlinedInactive(themeMode);
         }
     }
   }
@@ -120,10 +124,14 @@ extension ButtonExtension on ButtonStyleButton {
     bottom: 0,
     left: 0,
     right: 0,
-    child: Container(
-      color: AppColors.light,
-      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-      child: this,
+    child: Consumer(
+      builder: (BuildContext context, WidgetRef ref, Widget? child) {
+        return Container(
+          color: context.colors.surface,
+          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+          child: this,
+        );
+      },
     ),
   );
 
@@ -132,10 +140,14 @@ extension ButtonExtension on ButtonStyleButton {
       bottom: 0,
       left: 0,
       right: 0,
-      child: Container(
-        color: AppColors.light,
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-        child: Column(children: [content, this]),
+      child: Consumer(
+        builder: (context, ref, child) {
+          return Container(
+            color: context.colors.surface,
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            child: Column(children: [content, this]),
+          );
+        },
       ),
     );
   }

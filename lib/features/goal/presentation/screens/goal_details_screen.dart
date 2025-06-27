@@ -24,6 +24,7 @@ import 'package:pockaw/features/goal/presentation/riverpod/date_picker_provider.
 import 'package:pockaw/features/goal/presentation/riverpod/goal_details_provider.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_checklist_form_dialog.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_form_dialog.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
@@ -52,7 +53,6 @@ class GoalDetailsScreen extends ConsumerWidget {
                 context: context,
                 showDragHandle: true,
                 isScrollControlled: true,
-                backgroundColor: Colors.white,
                 builder: (context) => GoalFormDialog(goal: goalAsync.value!),
               );
             }
@@ -121,13 +121,13 @@ class GoalDetailsScreen extends ConsumerWidget {
           PrimaryButton(
             label: 'Add Checklist Item',
             state: ButtonState.outlinedActive,
+            themeMode: ref.read(themeModeProvider),
             onPressed: () {
               print('➕  Opening checklist dialog for goalId=$goalId');
               showModalBottomSheet(
                 context: context,
                 showDragHandle: true,
                 isScrollControlled: true,
-                backgroundColor: Colors.white,
                 builder: (context) => GoalChecklistFormDialog(goalId: goalId),
               );
             },

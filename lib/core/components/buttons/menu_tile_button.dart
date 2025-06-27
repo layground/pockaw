@@ -23,19 +23,44 @@ class MenuTileButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return ListTile(
       onTap: onTap,
-      tileColor: AppColors.secondary50,
+      // Use colorScheme.surface or a custom color that adapts
+      tileColor: isDarkMode
+          ? colorScheme.surfaceContainerHighest
+          : AppColors.secondary50,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppRadius.radius8),
-        side: const BorderSide(color: AppColors.secondaryAlpha10),
+        // Use colorScheme.outline or a custom color that adapts
+        side: BorderSide(
+          color: isDarkMode ? colorScheme.outline : AppColors.secondaryAlpha10,
+        ),
       ),
-      title: Text(label, style: AppTextStyles.body3),
-      subtitle: subtitle,
-      leading: Icon(icon),
+      title: Text(
+        label,
+        style: AppTextStyles.body3.copyWith(color: colorScheme.onSurface),
+      ), // Ensure text color adapts
+      subtitle: subtitle != null
+          ? DefaultTextStyle.merge(
+              style: AppTextStyles.body3.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ), // Subtitle color
+              child: subtitle!,
+            )
+          : null,
+      leading: Icon(
+        icon,
+        color: colorScheme.primary,
+      ), // Leading icon uses primary color
       trailing: Icon(
         suffixIcon ?? HugeIcons.strokeRoundedArrowRight01,
-        color: AppColors.secondaryAlpha50,
+        color: isDarkMode
+            ? colorScheme.onSurfaceVariant.withAlpha(50)
+            : AppColors
+                  .secondaryAlpha50, // Example: secondaryAlpha50 for light, onSurfaceVariant for dark
         size: 20,
       ),
       contentPadding: const EdgeInsets.fromLTRB(

@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/features/goal/data/model/goal_model.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
-class GoalTitleCard extends StatelessWidget {
+class GoalTitleCard extends ConsumerWidget {
   final GoalModel goal;
   const GoalTitleCard({super.key, required this.goal});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
+    final themeMode = ref.watch(themeModeProvider);
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.spacing20),
       decoration: BoxDecoration(
-        color: AppColors.secondary50,
-        border: Border.all(color: AppColors.secondaryAlpha10),
+        border: Border.all(color: context.secondaryBorder(themeMode)),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
       child: Column(

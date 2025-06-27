@@ -16,6 +16,7 @@ class LoginImagePicker extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final themeMode = ref.watch(themeModeProvider);
     final image = ref.watch(loginImageProvider);
 
     return InkWell(
@@ -32,8 +33,8 @@ class LoginImagePicker extends ConsumerWidget {
         padding: const EdgeInsets.all(AppSpacing.spacing20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(AppRadius.radius8),
-          color: AppColors.light,
-          border: Border.all(color: AppColors.neutralAlpha50),
+          color: context.colors.surface,
+          border: Border.all(color: context.purpleBorder(themeMode)),
           image: image.imageFile == null
               ? null
               : DecorationImage(

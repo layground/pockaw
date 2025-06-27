@@ -10,6 +10,8 @@ class UserDao extends DatabaseAccessor<AppDatabase> with _$UserDaoMixin {
   UserDao(super.db);
 
   Future<User?> getFirstUser() => select(users).getSingleOrNull();
+  Future<User?> getUserById(int id) =>
+      (select(users)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
 
   Future<List<User>> getAllUsers() => select(users).get();
 

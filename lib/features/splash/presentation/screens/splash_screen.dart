@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/router/app_router.dart';
 import 'package:pockaw/core/router/routes.dart';
@@ -58,9 +57,6 @@ class SplashScreen extends HookConsumerWidget {
       return null; // useEffect requires a dispose function or null
     }, const []); // Empty dependency array means this runs once
 
-    return const Scaffold(
-      backgroundColor: AppColors.primary50,
-      body: Center(child: Text('Splash')),
-    );
+    return const Scaffold(body: Center(child: Text('Splash')));
   }
 }

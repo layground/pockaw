@@ -5,6 +5,7 @@ class BalanceStatusBarContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activeWalletAsync = ref.watch(activeWalletProvider);
+    final themeMode = ref.watch(themeModeProvider);
 
     return activeWalletAsync.when(
       data: (wallet) {
@@ -20,24 +21,21 @@ class BalanceStatusBarContent extends ConsumerWidget {
             ),
             decoration: BoxDecoration(
               color: AppColors.purple50,
-              border: Border.all(color: AppColors.purpleAlpha10),
+              border: Border.all(color: context.purpleBorder(themeMode)),
               borderRadius: BorderRadius.circular(AppRadius.radius8),
             ),
             child: Center(
-              child: Text(
-                'No Wallet Selected',
-                style: AppTextStyles.body4.copyWith(color: AppColors.purple),
-              ),
+              child: Text('No Wallet Selected', style: AppTextStyles.body4),
             ),
           );
         }
+
         return Container(
           height: 35,
           margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing8),
           decoration: BoxDecoration(
-            color: AppColors.purple50,
-            border: Border.all(color: AppColors.purpleAlpha10),
+            border: Border.all(color: context.purpleBorder(themeMode)),
             borderRadius: BorderRadius.circular(AppRadius.radius8),
           ),
           child: Row(
@@ -47,19 +45,17 @@ class BalanceStatusBarContent extends ConsumerWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(
+                    Icon(
                       HugeIcons.strokeRoundedWallet01,
                       size: 16,
-                      color: AppColors.purple,
+                      color: context.purpleIcon(themeMode),
                     ),
                     const Gap(AppSpacing.spacing2),
                     Flexible(
                       // Allow text to wrap or truncate if too long
                       child: Text(
                         wallet.name,
-                        style: AppTextStyles.body4.copyWith(
-                          color: AppColors.purple,
-                        ),
+                        style: AppTextStyles.body4,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),

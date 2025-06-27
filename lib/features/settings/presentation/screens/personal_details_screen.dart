@@ -62,9 +62,12 @@ class PersonalDetailsScreen extends HookConsumerWidget {
                       children: [
                         CircleAvatar(
                           backgroundColor: AppColors.darkAlpha30,
+                          // Use colorScheme.surfaceVariant for a subtle background
                           radius: 70,
                           child: CircleAvatar(
-                            backgroundColor: AppColors.neutral100,
+                            backgroundColor: Theme.of(
+                              context,
+                            ).colorScheme.surface, // Use colorScheme.surface
                             backgroundImage: profilePicture.value != null
                                 ? FileImage(profilePicture.value!)
                                 : null,

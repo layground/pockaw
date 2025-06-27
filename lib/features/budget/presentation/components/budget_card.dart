@@ -15,6 +15,7 @@ import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/budget/data/model/budget_model.dart';
 import 'package:pockaw/features/budget/presentation/riverpod/budget_providers.dart';
 import 'package:pockaw/features/category_picker/presentation/components/category_tile.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
@@ -24,6 +25,7 @@ class BudgetCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.read(themeModeProvider);
     final wallet = ref.read(activeWalletProvider);
     final currency = wallet.value?.currencyByIsoCode(ref).symbol;
 
@@ -49,9 +51,9 @@ class BudgetCard extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.spacing12),
         decoration: BoxDecoration(
-          color: AppColors.light,
+          color: context.colors.surface,
           borderRadius: BorderRadius.circular(AppRadius.radius8),
-          border: Border.all(color: AppColors.darkAlpha10),
+          border: Border.all(color: context.secondaryBorder(themeMode)),
         ),
         child: Column(
           children: [
@@ -68,7 +70,9 @@ class BudgetCard extends ConsumerWidget {
                 Text(
                   '$currency ${remainingAmount.toPriceFormat()} left',
                   style: AppTextStyles.body4.copyWith(
-                    color: remainingAmount < 0 ? AppColors.red : AppColors.dark,
+                    color: remainingAmount < 0
+                        ? AppColors.red
+                        : context.secondaryText(themeMode),
                   ),
                 ),
                 Text(

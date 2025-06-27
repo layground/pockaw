@@ -29,12 +29,23 @@ extension TransactionUIExtensions on TransactionModel {
     }
   }
 
-  Color get backgroundColor {
+  Color backgroundColor(BuildContext context, ThemeMode themeMode) {
     switch (transactionType) {
       case TransactionType.income:
-        return AppColors.greenAlpha10;
+        return context.incomeBackground(themeMode);
       case TransactionType.expense:
-        return AppColors.red50;
+        return context.expenseBackground(themeMode);
+      case TransactionType.transfer:
+        return AppColors.tertiaryAlpha10;
+    }
+  }
+
+  Color foregroundColor(BuildContext context, ThemeMode themeMode) {
+    switch (transactionType) {
+      case TransactionType.income:
+        return context.incomeForeground(themeMode);
+      case TransactionType.expense:
+        return context.expenseForeground(themeMode);
       case TransactionType.transfer:
         return AppColors.tertiaryAlpha10;
     }

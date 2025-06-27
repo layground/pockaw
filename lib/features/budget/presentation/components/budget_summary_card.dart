@@ -11,12 +11,14 @@ import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/budget/presentation/components/budget_spent_card.dart';
 import 'package:pockaw/features/budget/presentation/components/budget_total_card.dart';
 import 'package:pockaw/features/budget/presentation/riverpod/budget_providers.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
 class BudgetSummaryCard extends ConsumerWidget {
   const BudgetSummaryCard({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.read(themeModeProvider);
     final budgetsAsync = ref.watch(budgetListProvider);
 
     return budgetsAsync.when(
@@ -57,8 +59,8 @@ class BudgetSummaryCard extends ConsumerWidget {
           margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
           padding: const EdgeInsets.all(AppSpacing.spacing16),
           decoration: BoxDecoration(
-            color: AppColors.tertiary50,
-            border: Border.all(color: AppColors.tertiaryAlpha25),
+            color: context.secondaryBackground(themeMode),
+            border: Border.all(color: context.secondaryBorder(themeMode)),
             borderRadius: BorderRadius.circular(AppRadius.radius8),
           ),
           child: Column(

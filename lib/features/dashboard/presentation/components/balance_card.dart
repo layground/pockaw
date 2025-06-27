@@ -5,6 +5,7 @@ class BalanceCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final themeMode = ref.watch(themeModeProvider);
     final activeWalletAsync = ref.watch(activeWalletProvider);
 
     return activeWalletAsync.when(
@@ -15,7 +16,7 @@ class BalanceCard extends ConsumerWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(AppSpacing.spacing16),
             decoration: BoxDecoration(
-              color: AppColors.secondary50,
+              color: context.secondaryBackground(themeMode),
               borderRadius: BorderRadius.circular(AppRadius.radius16),
               border: Border.all(color: AppColors.secondaryAlpha10),
             ),
@@ -36,7 +37,7 @@ class BalanceCard extends ConsumerWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(AppSpacing.spacing16),
           decoration: BoxDecoration(
-            color: AppColors.secondary50,
+            color: context.secondaryBackground(themeMode),
             borderRadius: BorderRadius.circular(AppRadius.radius16),
             border: Border.all(color: AppColors.secondaryAlpha10),
           ),
@@ -46,12 +47,7 @@ class BalanceCard extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: AppSpacing.spacing8,
                 children: [
-                  Text(
-                    'My Balance',
-                    style: AppTextStyles.body3.copyWith(
-                      color: AppColors.neutral800,
-                    ),
-                  ),
+                  Text('My Balance', style: AppTextStyles.body3),
                   const WalletSwitcherDropdown(),
                   Consumer(
                     builder: (context, ref, child) {
@@ -68,16 +64,13 @@ class BalanceCard extends ConsumerWidget {
                             !isVisible
                                 ? ''
                                 : wallet.currencyByIsoCode(ref).symbol,
-                            style: AppTextStyles.body3.copyWith(
-                              color: AppColors.neutral900,
-                            ),
+                            style: AppTextStyles.body3,
                           ),
                           Text(
                             !isVisible
                                 ? '•••••••••••'
                                 : wallet.balance.toPriceFormat(),
                             style: AppTextStyles.numericHeading.copyWith(
-                              color: AppColors.secondary950,
                               height: 1,
                             ),
                           ),

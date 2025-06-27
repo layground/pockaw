@@ -112,10 +112,13 @@ class AppColors {
   static const Color light = neutral50;
   static const Color dark = Color(0xFF18011D);
 
-  // Neutral Dark Alpha Variant
-  static const Color darkAlpha10 = Color(0x1A21272B);
-  static const Color darkAlpha30 = Color(0x4D21272B);
-  static const Color darkAlpha50 = Color(0x8021272B);
+  // Specific Dark Grey for Alpha Variants
+  static const Color darkGrey = Color(
+    0xFF21272B,
+  ); // Base for dark alpha variants
+  static Color get darkAlpha10 => darkGrey.withAlpha(10);
+  static Color get darkAlpha30 => darkGrey.withAlpha(30);
+  static Color get darkAlpha50 => darkGrey.withAlpha(60);
 
   // Green Color Shades
   static const Color green100 = Color(0xFF52DF83);
@@ -125,4 +128,65 @@ class AppColors {
   static const Color greenAlpha10 = Color(0x1A52DF83);
   static const Color greenAlpha30 = Color(0x4D52DF83);
   static const Color greenAlpha50 = Color(0x8052DF83);
+}
+
+extension ColorExtensions on BuildContext {
+  ColorScheme get colors => Theme.of(this).colorScheme;
+
+  Color secondaryBackground(ThemeMode themeMode) => themeMode == ThemeMode.dark
+      ? AppColors.secondaryAlpha10
+      : AppColors.secondary50;
+
+  Color secondaryText(ThemeMode themeMode) => themeMode == ThemeMode.dark
+      ? AppColors.secondary200
+      : AppColors.secondary950;
+
+  Color secondaryBorder(ThemeMode themeMode) => themeMode == ThemeMode.dark
+      ? AppColors.secondaryAlpha25
+      : AppColors.secondary200;
+
+  Color incomeBackground(ThemeMode themeMode) => themeMode == ThemeMode.dark
+      ? AppColors.primaryAlpha10
+      : AppColors.primary50;
+
+  Color incomeForeground(ThemeMode themeMode) =>
+      themeMode == ThemeMode.dark ? AppColors.neutral50 : AppColors.neutral900;
+
+  Color incomeText(ThemeMode themeMode) =>
+      themeMode == ThemeMode.dark ? AppColors.primary200 : AppColors.primary900;
+
+  Color incomeLine(ThemeMode themeMode) => themeMode == ThemeMode.dark
+      ? AppColors.primaryAlpha10
+      : AppColors.primaryAlpha10;
+
+  Color expenseBackground(ThemeMode themeMode) =>
+      themeMode == ThemeMode.dark ? AppColors.redAlpha10 : AppColors.red50;
+
+  Color expenseForeground(ThemeMode themeMode) =>
+      themeMode == ThemeMode.dark ? AppColors.neutral50 : AppColors.red800;
+
+  Color expenseText(ThemeMode themeMode) =>
+      themeMode == ThemeMode.dark ? AppColors.red200 : AppColors.red800;
+
+  Color expenseLine(ThemeMode themeMode) =>
+      themeMode == ThemeMode.dark ? AppColors.redAlpha10 : AppColors.redAlpha10;
+
+  Color purpleBackground(ThemeMode themeMode) => themeMode == ThemeMode.dark
+      ? AppColors.purpleAlpha10
+      : AppColors.purple50;
+
+  Color purpleBorder(ThemeMode themeMode) =>
+      themeMode == ThemeMode.dark ? AppColors.purple400 : AppColors.purple;
+
+  Color purpleText(ThemeMode themeMode) =>
+      themeMode == ThemeMode.dark ? AppColors.purple200 : AppColors.purple;
+
+  Color purpleIcon(ThemeMode themeMode) =>
+      themeMode == ThemeMode.dark ? AppColors.purple300 : AppColors.purple;
+
+  Color floatingContainer(ThemeMode themeMode) =>
+      themeMode == ThemeMode.dark ? AppColors.dark : AppColors.light;
+
+  Color disabledText(ThemeMode themeMode) =>
+      themeMode == ThemeMode.dark ? AppColors.neutral700 : AppColors.neutral950;
 }

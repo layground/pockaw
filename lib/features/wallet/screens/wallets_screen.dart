@@ -31,7 +31,6 @@ class WalletsScreen extends ConsumerWidget {
               context: context,
               showDragHandle: true,
               isScrollControlled: true,
-              backgroundColor: Colors.white,
               builder: (_) => WalletFormBottomSheet(),
             );
           },
@@ -72,7 +71,6 @@ class WalletsScreen extends ConsumerWidget {
                     context: context,
                     showDragHandle: true,
                     isScrollControlled: true,
-                    backgroundColor: Colors.white,
                     builder: (_) => WalletFormBottomSheet(
                       wallet: wallet,
                       showDeleteButton: isNotLastWallet,
