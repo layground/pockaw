@@ -14,7 +14,7 @@ class ActionButton extends ConsumerWidget {
       children: [
         ThemeModeSwitcher(themeMode: themeMode),
         CustomIconButton(
-          onPressed: () {},
+          onPressed: () => context.push(Routes.comingSoon),
           icon: HugeIcons.strokeRoundedNotification02,
           showBadge: true,
           context: context,
