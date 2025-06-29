@@ -103,6 +103,7 @@ flutter:
     - assets/
     - assets/icon/
     - assets/categories/
+    - assets/lottie/
     - assets/data/currencies.json
 
   # An image asset can refer to one or more resolution-specific "variants", see

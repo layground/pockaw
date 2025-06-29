@@ -1,6 +1,7 @@
 class Routes {
   static const String index = '/';
   static const String splash = '/splash';
+  static const String comingSoon = '/coming-soon';
   static const String onboarding = '/onboarding';
   static const String getStarted = '/get-started';
   static const String currencyListTile = '/currency';

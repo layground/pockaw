@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pockaw/core/components/placeholders/placeholder_screen.dart';
 
 import 'package:pockaw/core/router/authentication_router.dart';
 import 'package:pockaw/core/router/budget_router.dart';
@@ -25,6 +26,10 @@ final router = GoRouter(
     GoRoute(
       path: Routes.splash,
       builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: Routes.comingSoon,
+      builder: (context, state) => const PlaceholderScreen(),
     ),
 
     // feature‐specific sub‐routers:

@@ -5,12 +5,13 @@ class SettingsPreferencesGroup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SettingsGroupHolder(
+    return SettingsGroupHolder(
       title: 'Preferences',
       settingTiles: [
         MenuTileButton(
           label: 'Notifications',
           icon: HugeIcons.strokeRoundedNotification01,
+          onTap: () => context.push(Routes.comingSoon),
         ),
       ],
     );

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_grouped_card.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_summary_card.dart';
@@ -26,16 +28,19 @@ class TransactionScreen extends ConsumerWidget {
       showBalance: false,
       actions: [
         CustomIconButton(
-          onPressed: () {},
+          onPressed: () {
+            context.push(Routes.comingSoon);
+          },
           icon: HugeIcons.strokeRoundedSearch02,
           context: context,
           themeMode: themeMode,
         ),
         Gap(AppSpacing.spacing8),
         CustomIconButton(
-          onPressed: () {},
+          onPressed: () {
+            context.push(Routes.comingSoon);
+          },
           icon: HugeIcons.strokeRoundedFilter,
-          iconSize: IconSize.medium,
           context: context,
           themeMode: themeMode,
         ),

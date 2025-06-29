@@ -8,7 +8,9 @@ class WalletAmountVisibilityButton extends ConsumerWidget {
     final isVisible = ref.watch(walletAmountVisibilityProvider);
 
     return CustomIconButton(
-      onPressed: () {},
+      onPressed: () {
+        ref.read(walletAmountVisibilityProvider.notifier).state = !isVisible;
+      },
       icon: isVisible
           ? HugeIcons.strokeRoundedView
           : HugeIcons.strokeRoundedViewOffSlash,
