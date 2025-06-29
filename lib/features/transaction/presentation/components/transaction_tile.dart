@@ -43,9 +43,10 @@ class TransactionTile extends ConsumerWidget {
           AppSpacing.spacing8,
         ),
         decoration: BoxDecoration(
-          color: transaction.backgroundColor(context, themeMode),
           borderRadius: BorderRadius.circular(AppRadius.radius12),
-          border: Border.all(color: AppColors.neutralAlpha10),
+          border: Border.all(
+            color: transaction.borderColorLighter(context.isDarkMode),
+          ),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -57,7 +58,9 @@ class TransactionTile extends ConsumerWidget {
               decoration: BoxDecoration(
                 color: transaction.backgroundColor(context, themeMode),
                 borderRadius: BorderRadius.circular(AppRadius.radius12),
-                border: Border.all(color: transaction.borderColor),
+                border: Border.all(
+                  color: transaction.borderColorLighter(context.isDarkMode),
+                ),
               ),
               child: transaction.category.icon.isEmpty
                   ? Icon(HugeIcons.strokeRoundedPizza01, size: 25)

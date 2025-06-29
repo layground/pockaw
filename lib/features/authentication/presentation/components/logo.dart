@@ -1,7 +1,8 @@
 part of '../screens/login_screen.dart';
 
 class Logo extends StatelessWidget {
-  const Logo({super.key});
+  final double size;
+  const Logo({super.key, this.size = 150});
 
   @override
   Widget build(BuildContext context) {
@@ -11,15 +12,9 @@ class Logo extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset(
-            'assets/icon/icon-transparent-full.png',
-            width: 150,
-          ),
+          Image.asset('assets/icon/icon-transparent-full.png', width: size),
           const Gap(AppSpacing.spacing12),
-          const Text(
-            AppConstants.appName,
-            style: AppTextStyles.heading2,
-          ),
+          const Text(AppConstants.appName, style: AppTextStyles.heading2),
         ],
       ),
     );

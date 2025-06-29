@@ -32,16 +32,23 @@ class CustomScaffold extends Scaffold {
          resizeToAvoidBottomInset: true,
          backgroundColor: Theme.of(context).colorScheme.surface,
          appBar: AppBar(
-           leadingWidth: 80,
+           backgroundColor: context.colors.surface,
            titleSpacing: showBackButton ? 0 : AppSpacing.spacing20,
            toolbarHeight: 60,
+           leadingWidth: 65,
+           elevation: 0,
            automaticallyImplyLeading: false,
            scrolledUnderElevation: 0,
            leading: !showBackButton
                ? null
-               : CustomIconButton(
-                   onPressed: () => context.pop(),
-                   icon: HugeIcons.strokeRoundedArrowLeft01,
+               : Padding(
+                   padding: const EdgeInsets.only(left: 5),
+                   child: CustomIconButton(
+                     onPressed: () => context.pop(),
+                     icon: HugeIcons.strokeRoundedArrowLeft01,
+                     context: context,
+                     themeMode: context.themeMode,
+                   ),
                  ),
            title: title.isEmpty
                ? null

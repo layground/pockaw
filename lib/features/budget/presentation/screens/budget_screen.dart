@@ -12,12 +12,14 @@ import 'package:pockaw/features/budget/presentation/components/budget_card_holde
 import 'package:pockaw/features/budget/presentation/components/budget_summary_card.dart';
 import 'package:pockaw/features/budget/presentation/components/budget_tab_bar.dart';
 import 'package:pockaw/features/budget/presentation/riverpod/budget_providers.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
 class BudgetScreen extends HookConsumerWidget {
   const BudgetScreen({super.key});
 
   @override
   Widget build(BuildContext context, ref) {
+    final themeMode = ref.watch(themeModeProvider);
     final allBudgetsAsyncValue = ref.watch(budgetListProvider);
 
     return CustomScaffold(
@@ -30,6 +32,8 @@ class BudgetScreen extends HookConsumerWidget {
             context.push(Routes.budgetForm);
           },
           icon: HugeIcons.strokeRoundedPlusSign,
+          context: context,
+          themeMode: themeMode,
         ),
       ],
       body: allBudgetsAsyncValue.when(

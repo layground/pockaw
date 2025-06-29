@@ -18,7 +18,7 @@ class BalanceCard extends ConsumerWidget {
             decoration: BoxDecoration(
               color: context.secondaryBackground(themeMode),
               borderRadius: BorderRadius.circular(AppRadius.radius16),
-              border: Border.all(color: AppColors.secondaryAlpha10),
+              border: Border.all(color: context.secondaryBorder(themeMode)),
             ),
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,17 +33,17 @@ class BalanceCard extends ConsumerWidget {
           );
         }
 
-        return Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(AppSpacing.spacing16),
-          decoration: BoxDecoration(
-            color: context.secondaryBackground(themeMode),
-            borderRadius: BorderRadius.circular(AppRadius.radius16),
-            border: Border.all(color: AppColors.secondaryAlpha10),
-          ),
-          child: Stack(
-            children: [
-              Column(
+        return Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(AppSpacing.spacing16),
+              decoration: BoxDecoration(
+                color: context.secondaryBackground(themeMode),
+                borderRadius: BorderRadius.circular(AppRadius.radius16),
+                border: Border.all(color: context.secondaryBorder(themeMode)),
+              ),
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: AppSpacing.spacing8,
                 children: [
@@ -80,19 +80,19 @@ class BalanceCard extends ConsumerWidget {
                   ),
                 ],
               ),
-              Positioned(
-                right: 0,
-                top: 0,
-                child: Row(
-                  spacing: AppSpacing.spacing8,
-                  children: [
-                    WalletAmountEditButton(),
-                    WalletAmountVisibilityButton(),
-                  ],
-                ),
+            ),
+            Positioned(
+              right: AppSpacing.spacing12,
+              top: AppSpacing.spacing12,
+              child: Row(
+                spacing: AppSpacing.spacing8,
+                children: [
+                  WalletAmountEditButton(),
+                  WalletAmountVisibilityButton(),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         );
       },
       loading: () => Container(

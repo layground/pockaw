@@ -9,6 +9,8 @@ class Form extends HookConsumerWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
+          const LoginImagePicker(),
+          const Gap(AppSpacing.spacing20),
           const Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -26,21 +28,11 @@ class Form extends HookConsumerWidget {
           Column(
             spacing: AppSpacing.spacing16,
             children: [
-              IntrinsicHeight(
-                child: Row(
-                  spacing: AppSpacing.spacing8,
-                  children: [
-                    Expanded(
-                      child: CustomTextField(
-                        controller: nameField,
-                        label: 'Name',
-                        hint: 'John Doe',
-                        prefixIcon: HugeIcons.strokeRoundedTextSmallcaps,
-                      ),
-                    ),
-                    const LoginImagePicker(),
-                  ],
-                ),
+              CustomTextField(
+                controller: nameField,
+                label: 'Name',
+                hint: 'John Doe',
+                prefixIcon: HugeIcons.strokeRoundedTextSmallcaps,
               ),
               const CreateFirstWalletField(),
             ],

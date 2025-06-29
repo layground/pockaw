@@ -52,11 +52,10 @@ class MainScreen extends ConsumerWidget {
                 children: [
                   pageViewWidget,
                   Positioned(
-                    bottom: 20,
-                    left: AppSpacing.spacing16,
-                    right: AppSpacing.spacing16,
-                    child:
-                        navigationControls, // This will render as a bottom app bar
+                    bottom: AppSpacing.spacing8,
+                    left: AppSpacing.spacing8,
+                    right: AppSpacing.spacing8,
+                    child: navigationControls,
                   ),
                 ],
               ),

@@ -116,8 +116,9 @@ class CategoryFormScreen extends HookConsumerWidget {
                       width: 66,
                       padding: const EdgeInsets.all(AppSpacing.spacing8),
                       decoration: BoxDecoration(
+                        color: context.secondaryBackground(context.themeMode),
                         borderRadius: BorderRadius.circular(AppRadius.radius8),
-                        border: Border.all(color: AppColors.neutralAlpha50),
+                        border: Border.all(color: AppColors.secondaryAlpha50),
                       ),
                       child: Center(
                         child: iconPath.value.isEmpty

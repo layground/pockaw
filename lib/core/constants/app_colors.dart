@@ -132,9 +132,16 @@ class AppColors {
 
 extension ColorExtensions on BuildContext {
   ColorScheme get colors => Theme.of(this).colorScheme;
+  bool get isDarkMode => Theme.of(this).brightness == Brightness.dark;
+  ThemeMode get themeMode => isDarkMode ? ThemeMode.dark : ThemeMode.light;
 
   Color secondaryBackground(ThemeMode themeMode) => themeMode == ThemeMode.dark
       ? AppColors.secondaryAlpha10
+      : AppColors.secondary50;
+
+  Color secondaryBackgroundSolid(ThemeMode themeMode) =>
+      themeMode == ThemeMode.dark
+      ? AppColors.secondary950
       : AppColors.secondary50;
 
   Color secondaryText(ThemeMode themeMode) => themeMode == ThemeMode.dark
@@ -142,12 +149,10 @@ extension ColorExtensions on BuildContext {
       : AppColors.secondary950;
 
   Color secondaryBorder(ThemeMode themeMode) => themeMode == ThemeMode.dark
-      ? AppColors.secondaryAlpha25
+      ? AppColors.secondaryAlpha50
       : AppColors.secondary200;
 
-  Color incomeBackground(ThemeMode themeMode) => themeMode == ThemeMode.dark
-      ? AppColors.primaryAlpha10
-      : AppColors.primary50;
+  Color incomeBackground(ThemeMode themeMode) => AppColors.primaryAlpha10;
 
   Color incomeForeground(ThemeMode themeMode) =>
       themeMode == ThemeMode.dark ? AppColors.neutral50 : AppColors.neutral900;
@@ -157,10 +162,12 @@ extension ColorExtensions on BuildContext {
 
   Color incomeLine(ThemeMode themeMode) => themeMode == ThemeMode.dark
       ? AppColors.primaryAlpha10
-      : AppColors.primaryAlpha10;
+      : AppColors.primaryAlpha25;
 
   Color expenseBackground(ThemeMode themeMode) =>
       themeMode == ThemeMode.dark ? AppColors.redAlpha10 : AppColors.red50;
+
+  Color expenseStatsBackground(ThemeMode themeMode) => AppColors.redAlpha10;
 
   Color expenseForeground(ThemeMode themeMode) =>
       themeMode == ThemeMode.dark ? AppColors.neutral50 : AppColors.red800;
@@ -178,6 +185,9 @@ extension ColorExtensions on BuildContext {
   Color purpleBorder(ThemeMode themeMode) =>
       themeMode == ThemeMode.dark ? AppColors.purple400 : AppColors.purple;
 
+  Color purpleBorderLighter(ThemeMode themeMode) =>
+      themeMode == ThemeMode.dark ? AppColors.purpleAlpha50 : AppColors.purple;
+
   Color purpleText(ThemeMode themeMode) =>
       themeMode == ThemeMode.dark ? AppColors.purple200 : AppColors.purple;
 
@@ -188,5 +198,12 @@ extension ColorExtensions on BuildContext {
       themeMode == ThemeMode.dark ? AppColors.dark : AppColors.light;
 
   Color disabledText(ThemeMode themeMode) =>
-      themeMode == ThemeMode.dark ? AppColors.neutral700 : AppColors.neutral950;
+      themeMode == ThemeMode.dark ? AppColors.neutral700 : AppColors.neutral400;
+
+  Color progressBackground(ThemeMode themeMode) => themeMode == ThemeMode.dark
+      ? AppColors.neutral900
+      : AppColors.purpleAlpha25;
+
+  Color placeholderBackground(ThemeMode themeMode) =>
+      themeMode == ThemeMode.dark ? AppColors.neutral500 : AppColors.neutral100;
 }

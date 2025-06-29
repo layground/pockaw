@@ -7,6 +7,7 @@ import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/theme_switcher/presentation/components/theme_mode_switcher.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
 part '../components/get_started_button.dart';
 
@@ -15,11 +16,13 @@ class OnboardingScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final themeMode = ref.watch(themeModeProvider);
+
     return CustomScaffold(
       context: context,
       showBackButton: false,
       showBalance: false,
-      actions: [ThemeModeSwitcher()],
+      actions: [ThemeModeSwitcher(themeMode: themeMode)],
       body: Stack(
         fit: StackFit.expand,
         children: [

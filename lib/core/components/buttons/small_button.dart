@@ -41,7 +41,9 @@ class SmallButton extends ConsumerWidget {
         ),
         decoration: BoxDecoration(
           color: backgroundColor ?? context.secondaryBackground(themeMode),
-          border: Border.all(color: borderColor ?? AppColors.secondary400),
+          border: Border.all(
+            color: borderColor ?? context.secondaryBorder(themeMode),
+          ),
           borderRadius: BorderRadius.circular(AppRadius.radius8),
         ),
         child: Row(

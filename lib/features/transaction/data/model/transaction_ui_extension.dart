@@ -51,14 +51,29 @@ extension TransactionUIExtensions on TransactionModel {
     }
   }
 
-  Color get borderColor {
+  Color borderColor(bool isDarkMode) {
     switch (transactionType) {
       case TransactionType.income:
-        return AppColors.greenAlpha10;
+        return isDarkMode ? AppColors.greenAlpha50 : AppColors.greenAlpha10;
       case TransactionType.expense:
-        return AppColors.redAlpha10;
+        return isDarkMode ? AppColors.redAlpha50 : AppColors.redAlpha10;
       case TransactionType.transfer:
-        return AppColors.tertiaryAlpha10;
+        return isDarkMode
+            ? AppColors.tertiaryAlpha50
+            : AppColors.tertiaryAlpha10;
+    }
+  }
+
+  Color borderColorLighter(bool isDarkMode) {
+    switch (transactionType) {
+      case TransactionType.income:
+        return isDarkMode ? AppColors.greenAlpha30 : AppColors.greenAlpha10;
+      case TransactionType.expense:
+        return isDarkMode ? AppColors.redAlpha25 : AppColors.redAlpha10;
+      case TransactionType.transfer:
+        return isDarkMode
+            ? AppColors.tertiaryAlpha25
+            : AppColors.tertiaryAlpha10;
     }
   }
 
