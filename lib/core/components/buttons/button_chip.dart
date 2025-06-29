@@ -26,6 +26,7 @@ class ButtonChip extends ConsumerWidget {
 
     return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(AppRadius.radiusFull),
       child: Container(
         decoration: BoxDecoration(
           color: active ? context.purpleBackground(themeMode) : null,

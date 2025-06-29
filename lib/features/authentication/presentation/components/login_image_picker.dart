@@ -16,35 +16,49 @@ class LoginImagePicker extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final themeMode = ref.watch(themeModeProvider);
     final image = ref.watch(loginImageProvider);
 
-    return InkWell(
-      onTap: () {
+    return GestureDetector(
+      onTap: () async {
         KeyboardService.closeKeyboard();
         ref.read(loginImageProvider.notifier).pickImage().then((value) {
           ref.read(loginImageProvider.notifier).saveImage();
           ref.read(authStateProvider.notifier).getUser();
         });
       },
-      child: Container(
-        height: double.infinity,
-        width: 72,
-        padding: const EdgeInsets.all(AppSpacing.spacing20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppRadius.radius8),
-          color: context.colors.surface,
-          border: Border.all(color: context.purpleBorder(themeMode)),
-          image: image.imageFile == null
-              ? null
-              : DecorationImage(
-                  image: Image.file(image.imageFile!).image,
-                  fit: BoxFit.cover,
-                ),
-        ),
-        child: image.imageFile == null
-            ? const Icon(HugeIcons.strokeRoundedUpload01)
-            : null,
+      child: Stack(
+        children: [
+          CircleAvatar(
+            backgroundColor: context.secondaryBackground(context.themeMode),
+            radius: 70,
+            child: CircleAvatar(
+              backgroundColor: context.placeholderBackground(context.themeMode),
+              backgroundImage: image.imageFile != null
+                  ? Image.file(image.imageFile!).image
+                  : null,
+              radius: 69,
+              child: image.imageFile == null
+                  ? Icon(
+                      HugeIcons.strokeRoundedUpload04,
+                      color: context.purpleIcon(context.themeMode),
+                      size: 40,
+                    )
+                  : null,
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Container(
+              padding: EdgeInsets.all(AppSpacing.spacing8),
+              decoration: BoxDecoration(
+                color: context.secondaryBackgroundSolid(context.themeMode),
+                shape: BoxShape.circle,
+              ),
+              child: Icon(HugeIcons.strokeRoundedCamera02, size: 20),
+            ),
+          ),
+        ],
       ),
     );
   }

@@ -8,6 +8,7 @@ import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/main/presentation/riverpod/main_page_view_riverpod.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
 class MobileBottomAppBar extends ConsumerWidget {
   final PageController pageController;
@@ -15,13 +16,17 @@ class MobileBottomAppBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeProvider);
+
     return Container(
       padding: const EdgeInsets.symmetric(
         vertical: AppSpacing.spacing12,
         horizontal: AppSpacing.spacing16,
       ),
       decoration: BoxDecoration(
-        color: AppColors.dark,
+        color: themeMode == ThemeMode.light
+            ? AppColors.dark
+            : AppColors.darkGrey,
         borderRadius: BorderRadius.circular(AppRadius.radiusFull),
       ),
       child: Row(
@@ -31,8 +36,9 @@ class MobileBottomAppBar extends ConsumerWidget {
             radius: 25,
             icon: HugeIcons.strokeRoundedHome01,
             backgroundColor: Colors.transparent,
-            foregroundColor:
-                ref.read(pageControllerProvider.notifier).getIconColor(0),
+            foregroundColor: ref
+                .read(pageControllerProvider.notifier)
+                .getIconColor(0),
             onTap: () {
               pageController.jumpToPage(0);
             },
@@ -41,8 +47,9 @@ class MobileBottomAppBar extends ConsumerWidget {
             radius: 25,
             icon: HugeIcons.strokeRoundedReceiptDollar,
             backgroundColor: Colors.transparent,
-            foregroundColor:
-                ref.read(pageControllerProvider.notifier).getIconColor(1),
+            foregroundColor: ref
+                .read(pageControllerProvider.notifier)
+                .getIconColor(1),
             onTap: () {
               pageController.jumpToPage(1);
             },
@@ -60,8 +67,9 @@ class MobileBottomAppBar extends ConsumerWidget {
             radius: 25,
             icon: HugeIcons.strokeRoundedTarget01,
             backgroundColor: Colors.transparent,
-            foregroundColor:
-                ref.read(pageControllerProvider.notifier).getIconColor(2),
+            foregroundColor: ref
+                .read(pageControllerProvider.notifier)
+                .getIconColor(2),
             onTap: () {
               pageController.jumpToPage(2);
             },
@@ -70,8 +78,9 @@ class MobileBottomAppBar extends ConsumerWidget {
             radius: 25,
             icon: HugeIcons.strokeRoundedDatabase,
             backgroundColor: Colors.transparent,
-            foregroundColor:
-                ref.read(pageControllerProvider.notifier).getIconColor(3),
+            foregroundColor: ref
+                .read(pageControllerProvider.notifier)
+                .getIconColor(3),
             onTap: () {
               pageController.jumpToPage(3);
             },

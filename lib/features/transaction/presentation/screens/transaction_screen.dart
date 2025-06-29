@@ -5,7 +5,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
-import 'package:pockaw/core/extensions/screen_utils_extensions.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_grouped_card.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_summary_card.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tab_bar.dart';
@@ -16,6 +16,7 @@ class TransactionScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeProvider);
     final allTransactionsAsyncValue = ref.watch(transactionListProvider);
 
     return CustomScaffold(
@@ -27,12 +28,16 @@ class TransactionScreen extends ConsumerWidget {
         CustomIconButton(
           onPressed: () {},
           icon: HugeIcons.strokeRoundedSearch02,
+          context: context,
+          themeMode: themeMode,
         ),
-        if (context.isDesktopLayout) Gap(AppSpacing.spacing16),
+        Gap(AppSpacing.spacing8),
         CustomIconButton(
           onPressed: () {},
           icon: HugeIcons.strokeRoundedFilter,
           iconSize: IconSize.medium,
+          context: context,
+          themeMode: themeMode,
         ),
       ],
       body: allTransactionsAsyncValue.when(

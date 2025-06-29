@@ -9,12 +9,14 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_card.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/goals_list_provider.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_form_dialog.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
 class GoalScreen extends ConsumerWidget {
   const GoalScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.watch(themeModeProvider);
     final asyncGoals = ref.watch(goalsListProvider);
 
     return CustomScaffold(
@@ -32,7 +34,8 @@ class GoalScreen extends ConsumerWidget {
             );
           },
           icon: HugeIcons.strokeRoundedPlusSign,
-          iconSize: IconSize.medium,
+          context: context,
+          themeMode: themeMode,
         ),
       ],
       body: asyncGoals.when(

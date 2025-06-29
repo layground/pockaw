@@ -37,6 +37,7 @@ class ActiveWalletNotifier extends StateNotifier<AsyncValue<WalletModel?>> {
       } else {
         // This case should ideally not happen if default wallets are populated.
         // If it does, it means no wallets exist.
+        // change to defaultWallets.first to avoid null value
         state = const AsyncValue.data(null); // No active wallet
       }
     } catch (e, s) {

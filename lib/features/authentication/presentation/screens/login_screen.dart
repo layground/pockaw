@@ -13,7 +13,6 @@ import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_constants.dart';
-import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/daos/user_dao.dart';
@@ -42,6 +41,7 @@ class LoginScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final themeMode = ref.watch(themeModeProvider);
     final nameField = useTextEditingController();
     final dataBackupService = ref.read(dataBackupServiceProvider);
 
@@ -80,8 +80,11 @@ class LoginScreen extends HookConsumerWidget {
             }
           },
           icon: HugeIcons.strokeRoundedDatabaseImport,
+          context: context,
+          themeMode: themeMode,
         ),
-        ThemeModeSwitcher(),
+        Gap(AppSpacing.spacing8),
+        ThemeModeSwitcher(themeMode: themeMode),
       ],
       body: Stack(
         fit: StackFit.expand,
@@ -92,11 +95,7 @@ class LoginScreen extends HookConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Logo(),
-                const Gap(AppSpacing.spacing48),
-                Form(nameField: nameField),
-              ],
+              children: [Form(nameField: nameField)],
             ),
           ),
           Positioned(

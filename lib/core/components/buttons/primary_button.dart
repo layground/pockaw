@@ -120,20 +120,18 @@ class PrimaryButton extends FilledButton {
 }
 
 extension ButtonExtension on ButtonStyleButton {
-  Widget get floatingBottom => Positioned(
-    bottom: 0,
-    left: 0,
-    right: 0,
-    child: Consumer(
-      builder: (BuildContext context, WidgetRef ref, Widget? child) {
-        return Container(
-          color: context.colors.surface,
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-          child: this,
-        );
-      },
-    ),
+  Widget get contained => Consumer(
+    builder: (BuildContext context, WidgetRef ref, Widget? child) {
+      return Container(
+        color: context.colors.surface,
+        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+        child: this,
+      );
+    },
   );
+
+  Widget get floatingBottom =>
+      Positioned(bottom: 0, left: 0, right: 0, child: contained);
 
   Widget floatingBottomWithContent({required Widget content}) {
     return Positioned(

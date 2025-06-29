@@ -77,7 +77,7 @@ class CashFlowCards extends ConsumerWidget {
                 titleColor: context.expenseForeground(themeMode),
                 borderColor: context.expenseLine(themeMode),
                 amountColor: context.expenseText(themeMode),
-                statsBackgroundColor: context.expenseBackground(themeMode),
+                statsBackgroundColor: context.expenseStatsBackground(themeMode),
                 statsForegroundColor: context.expenseForeground(themeMode),
                 statsIconColor: context.expenseText(themeMode),
               ),

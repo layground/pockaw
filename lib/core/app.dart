@@ -1,8 +1,9 @@
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_constants.dart';
+import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/router/app_router.dart';
 import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -11,61 +12,109 @@ import 'package:toastification/toastification.dart';
 class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
+  static GlobalKey<NavigatorState> rootKey = GlobalKey<NavigatorState>();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
 
-    // Define the light theme using FlexColorScheme and AppColors
-    final lightTheme = FlexThemeData.light(
-      colors: const FlexSchemeColor(
+    final buttonShape = RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8.0),
+    );
+    const buttonMinimumSize = Size.fromHeight(48);
+
+    // Define the light theme using the standard ThemeData
+    final lightTheme = ThemeData(
+      useMaterial3: true,
+      fontFamily: AppConstants.fontFamilyPrimary,
+      scaffoldBackgroundColor: AppColors.light,
+      colorScheme: const ColorScheme.light(
         primary: AppColors.primary,
         primaryContainer: AppColors.primary100,
         secondary: AppColors.secondary,
-        secondaryContainer: AppColors.secondary100,
+        secondaryContainer: AppColors.secondaryAlpha10,
         tertiary: AppColors.tertiary,
         tertiaryContainer: AppColors.tertiary100,
-        appBarColor: Colors.white, // Explicitly white for light mode AppBar
         error: AppColors.red,
       ),
-      scaffoldBackground: AppColors.light, // Main background color
-      useMaterial3: true,
-      fontFamily: AppConstants.fontFamilyPrimary,
-      subThemesData: FlexSubThemesData(
-        blendOnLevel: 10, // Blend colors on surfaces
-        blendOnColors: false, // Don't blend on primary/secondary
-        defaultRadius: 8.0, // Consistent border radius
-        inputDecoratorRadius: 8.0,
-        buttonMinSize: Size.fromHeight(48), // Standard button height
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.white,
+        foregroundColor: Colors.black,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
+        hintStyle: AppTextStyles.body3.copyWith(color: AppColors.neutral300),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          minimumSize: buttonMinimumSize,
+          shape: buttonShape,
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          padding: const EdgeInsets.all(AppSpacing.spacing20),
+          backgroundColor: context.colors.secondaryContainer,
+          side: const BorderSide(color: AppColors.purpleAlpha10),
+          minimumSize: buttonMinimumSize,
+          shape: buttonShape,
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          minimumSize: buttonMinimumSize,
+          shape: buttonShape,
+        ),
       ),
     );
 
-    // Define the dark theme using FlexColorScheme and AppColors
-    final darkTheme = FlexThemeData.dark(
-      colors: const FlexSchemeColor(
-        primary: AppColors.primary400, // Slightly lighter primary for dark mode
-        primaryContainer: AppColors.primary900,
-        secondary: AppColors.secondary400, // Slightly lighter secondary
-        secondaryContainer: AppColors.secondaryAlpha25,
-        tertiary: AppColors.tertiary400, // Slightly lighter tertiary
-        tertiaryContainer: AppColors.tertiary900,
-        appBarColor: AppColors.dark, // Explicitly dark for dark mode AppBar
-        error: AppColors.red400, // Lighter red for dark mode
-      ),
-      scaffoldBackground: AppColors.dark, // Main background color
+    // Define the dark theme using the standard ThemeData
+    final darkTheme = ThemeData(
       useMaterial3: true,
+      brightness: Brightness.dark,
       fontFamily: AppConstants.fontFamilyPrimary,
-      subThemesData: const FlexSubThemesData(
-        blendOnLevel: 20, // More blending on dark surfaces
-        blendOnColors: false,
-        defaultRadius: 8.0,
-        inputDecoratorRadius: 8.0,
-        buttonMinSize: Size.fromHeight(48),
-        outlinedButtonSchemeColor: SchemeColor.secondary,
+      scaffoldBackgroundColor: AppColors.dark,
+      colorScheme: const ColorScheme.dark(
+        primary: AppColors.primary400,
+        primaryContainer: AppColors.primary900,
+        secondary: AppColors.secondary400,
+        secondaryContainer: AppColors.secondaryAlpha25,
+        tertiary: AppColors.tertiary400,
+        tertiaryContainer: AppColors.tertiary900,
+        error: AppColors.red400,
+      ),
+      appBarTheme: const AppBarTheme(backgroundColor: AppColors.dark),
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
+        hintStyle: AppTextStyles.body3.copyWith(color: AppColors.neutral600),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          minimumSize: buttonMinimumSize,
+          shape: buttonShape,
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          padding: const EdgeInsets.all(AppSpacing.spacing20),
+          backgroundColor: AppColors.secondaryAlpha10,
+          side: const BorderSide(color: AppColors.purpleAlpha10),
+          minimumSize: buttonMinimumSize,
+          shape: buttonShape,
+          foregroundColor: AppColors.light,
+        ),
+      ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          minimumSize: buttonMinimumSize,
+          shape: buttonShape,
+        ),
       ),
     );
 
     return ToastificationWrapper(
       child: MaterialApp.router(
+        key: rootKey,
         title: AppConstants.appName,
         debugShowCheckedModeBanner: false,
         theme: lightTheme,

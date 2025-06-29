@@ -21,7 +21,7 @@ class BudgetDateCard extends ConsumerWidget {
     final themeMode = ref.read(themeModeProvider);
 
     return Container(
-      padding: const EdgeInsets.all(AppSpacing.spacing4),
+      padding: const EdgeInsets.all(AppSpacing.spacing8),
       decoration: BoxDecoration(
         color: context.secondaryBackground(themeMode),
         border: Border.all(color: context.secondaryBorder(themeMode)),

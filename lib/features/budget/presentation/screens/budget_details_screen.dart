@@ -13,6 +13,7 @@ import 'package:pockaw/features/budget/presentation/components/budget_fund_sourc
 import 'package:pockaw/features/budget/presentation/components/budget_top_transactions_holder.dart';
 import 'package:pockaw/features/budget/presentation/riverpod/budget_providers.dart';
 import 'package:pockaw/features/budget/presentation/riverpod/date_picker_provider.dart';
+import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
 class BudgetDetailsScreen extends ConsumerWidget {
   final int budgetId;
@@ -20,6 +21,7 @@ class BudgetDetailsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final themeMode = ref.read(themeModeProvider);
     final budgetAsync = ref.watch(budgetDetailsProvider(budgetId));
 
     return budgetAsync.when(
@@ -50,6 +52,8 @@ class BudgetDetailsScreen extends ConsumerWidget {
                 context.push('${Routes.budgetForm}/edit/$budgetId');
               },
               icon: HugeIcons.strokeRoundedEdit02,
+              context: context,
+              themeMode: themeMode,
             ),
           ],
           body: SingleChildScrollView(

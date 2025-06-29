@@ -1,4 +1,3 @@
-// File: f:\applications\flutter\pockaw\lib\features\transaction\presentation\hooks\use_transaction_form_state.dart
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -6,6 +5,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
+import 'package:pockaw/core/components/dialogs/toast.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
@@ -15,7 +15,7 @@ import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/category/data/repositories/category_repo.dart'
-    as category_repository; // Import the categories list
+    as category_repository;
 import 'package:pockaw/features/transaction/presentation/riverpod/date_picker_provider.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:toastification/toastification.dart';
@@ -71,8 +71,9 @@ class TransactionFormState {
     if (titleController.text.isEmpty ||
         amountController.text.isEmpty ||
         selectedCategory.value == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please fill all required fields.')),
+      Toast.show(
+        'Please fill all required fields.',
+        type: ToastificationType.error,
       );
       return;
     }
@@ -83,8 +84,9 @@ class TransactionFormState {
     final activeWallet = ref.read(activeWalletProvider).valueOrNull;
 
     if (activeWallet == null || activeWallet.id == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('No active wallet selected.')),
+      Toast.show(
+        'No active wallet selected.',
+        type: ToastificationType.warning,
       );
       return;
     }
@@ -145,8 +147,9 @@ class TransactionFormState {
     } catch (e) {
       Log.e('Error saving transaction: $e');
       if (context.mounted) {
-        toastification.show(
-          description: Text('Failed to save transaction: $e'),
+        Toast.show(
+          'Failed to save transaction: $e',
+          type: ToastificationType.error,
         );
       }
     }

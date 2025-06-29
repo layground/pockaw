@@ -26,11 +26,16 @@ class CategoryPickerScreen extends ConsumerWidget {
       context: context,
       title: isManageCategories ? 'Manage Categories' : 'Add Category',
       showBalance: false,
-      body: Stack(
+      body: Column(
         children: [
           if (!isManageCategories)
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
+            Container(
+              padding: EdgeInsets.fromLTRB(
+                AppSpacing.spacing20,
+                AppSpacing.spacing0,
+                AppSpacing.spacing20,
+                AppSpacing.spacing12,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -40,39 +45,42 @@ class CategoryPickerScreen extends ConsumerWidget {
                 ],
               ),
             ),
-          ref
-              .watch(hierarchicalCategoriesProvider)
-              .when(
-                data: (categories) {
-                  if (categories.isEmpty) {
-                    return const Center(
-                      child: Padding(
-                        padding: EdgeInsets.all(AppSpacing.spacing20),
-                        child: Text('No categories found. Add one!'),
+          Expanded(
+            child: ref
+                .watch(hierarchicalCategoriesProvider)
+                .when(
+                  data: (categories) {
+                    if (categories.isEmpty) {
+                      return const Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(AppSpacing.spacing20),
+                          child: Text('No categories found. Add one!'),
+                        ),
+                      );
+                    }
+                    return ListView.separated(
+                      padding: EdgeInsets.fromLTRB(
+                        AppSpacing.spacing20,
+                        0,
+                        AppSpacing.spacing20,
+                        150,
                       ),
+                      shrinkWrap: true,
+                      itemCount: categories.length,
+                      itemBuilder: (context, index) => CategoryDropdown(
+                        category: categories[index],
+                        isManageCategory: isManageCategories,
+                      ),
+                      separatorBuilder: (context, index) =>
+                          const Gap(AppSpacing.spacing12),
                     );
-                  }
-                  return ListView.separated(
-                    padding: EdgeInsets.fromLTRB(
-                      AppSpacing.spacing20,
-                      0,
-                      AppSpacing.spacing20,
-                      150,
-                    ),
-                    shrinkWrap: true,
-                    itemCount: categories.length,
-                    itemBuilder: (context, index) => CategoryDropdown(
-                      category: categories[index],
-                      isManageCategory: isManageCategories,
-                    ),
-                    separatorBuilder: (context, index) =>
-                        const Gap(AppSpacing.spacing12),
-                  );
-                },
-                loading: () => const Center(child: CircularProgressIndicator()),
-                error: (error, stackTrace) =>
-                    Center(child: Text('Error loading categories: $error')),
-              ),
+                  },
+                  loading: () =>
+                      const Center(child: CircularProgressIndicator()),
+                  error: (error, stackTrace) =>
+                      Center(child: Text('Error loading categories: $error')),
+                ),
+          ),
           if (!isPickingParent)
             PrimaryButton(
               label: 'Add New Category',
@@ -86,7 +94,7 @@ class CategoryPickerScreen extends ConsumerWidget {
                   builder: (context) => CategoryFormScreen(),
                 );
               },
-            ).floatingBottom,
+            ).contained,
         ],
       ),
     );

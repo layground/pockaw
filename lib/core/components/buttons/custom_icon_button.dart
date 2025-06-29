@@ -9,29 +9,44 @@ class CustomIconButton extends IconButton {
     super.key,
     required GestureTapCallback super.onPressed,
     required IconData icon,
+    BuildContext? context,
+    ThemeMode themeMode = ThemeMode.system,
     Color? backgroundColor,
     Color? borderColor,
     Color? color,
     bool showBadge = false,
-    IconSize iconSize = IconSize.medium,
-    VisualDensity visualDensity = VisualDensity.standard,
+    double padding = 6,
+    IconSize iconSize = IconSize.small,
+    VisualDensity visualDensity = VisualDensity.compact,
   }) : super(
+         visualDensity: visualDensity,
+         constraints: const BoxConstraints(),
+         padding: EdgeInsets.zero,
          style: IconButton.styleFrom(
+           minimumSize: Size.zero,
            padding: EdgeInsets.zero,
-           backgroundColor: backgroundColor,
-           visualDensity: visualDensity,
-           shape: RoundedRectangleBorder(
-             borderRadius: BorderRadius.circular(AppRadius.radius8),
-             side: BorderSide(color: borderColor ?? AppColors.purpleAlpha25),
-           ),
+           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+           visualDensity: VisualDensity.compact,
          ),
-         icon: Stack(
-           children: [
-             Icon(icon, color: color, size: _getIconSize(iconSize)),
-             !showBadge
-                 ? const SizedBox()
-                 : Positioned(top: 2, right: 2, child: _badge()),
-           ],
+         icon: Container(
+           padding: EdgeInsets.all(padding),
+           decoration: BoxDecoration(
+             color: backgroundColor ?? context?.purpleBackground(themeMode),
+             borderRadius: BorderRadius.circular(AppRadius.radius8),
+             border: Border.all(color: AppColors.purpleAlpha25),
+           ),
+           child: Stack(
+             children: [
+               Icon(
+                 icon,
+                 color: color ?? context?.purpleIcon(themeMode),
+                 size: _getIconSize(iconSize),
+               ),
+               !showBadge
+                   ? const SizedBox()
+                   : Positioned(top: 2, right: 2, child: _badge()),
+             ],
+           ),
          ),
        );
 
@@ -39,7 +54,7 @@ class CustomIconButton extends IconButton {
     IconSize.large => 26,
     IconSize.medium => 22,
     IconSize.small => 18,
-    IconSize.tiny => 14,
+    IconSize.tiny => 12,
   };
 
   static Widget _badge() => Container(

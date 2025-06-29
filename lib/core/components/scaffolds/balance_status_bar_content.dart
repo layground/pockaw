@@ -13,9 +13,6 @@ class BalanceStatusBarContent extends ConsumerWidget {
           // Handle case where no wallet is active
           return Container(
             height: 35,
-            margin: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.spacing20,
-            ),
             padding: const EdgeInsets.symmetric(
               horizontal: AppSpacing.spacing8,
             ),

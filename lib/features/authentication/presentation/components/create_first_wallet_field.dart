@@ -53,7 +53,6 @@ class CreateFirstWalletField extends HookConsumerWidget {
             context: context,
             showDragHandle: true,
             isScrollControlled: true,
-            backgroundColor: Colors.white,
             builder: (_) =>
                 WalletFormBottomSheet(wallet: wallet, showDeleteButton: false),
           );

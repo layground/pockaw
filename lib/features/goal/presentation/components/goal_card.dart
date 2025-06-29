@@ -23,9 +23,7 @@ class GoalCard extends ConsumerWidget {
     final themeMode = ref.watch(themeModeProvider);
 
     return InkWell(
-      borderRadius: BorderRadius.circular(
-        12,
-      ), // Match container's border radius for ripple effect
+      borderRadius: BorderRadius.circular(AppRadius.radius12),
       onTap: () {
         Log.d('🔍  Navigating to GoalDetails for goalId=${goal.id}');
         context.push(
@@ -36,6 +34,7 @@ class GoalCard extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.spacing12),
         decoration: BoxDecoration(
+          color: context.secondaryBackground(themeMode),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: context.secondaryBorder(themeMode)),
         ),
@@ -54,11 +53,7 @@ class GoalCard extends ConsumerWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                Icon(
-                  HugeIcons.strokeRoundedArrowRight01,
-                  color: AppColors.purple,
-                  size: 20,
-                ),
+                Icon(HugeIcons.strokeRoundedArrowRight01, size: 20),
               ],
             ),
             const Gap(AppSpacing.spacing16),
@@ -93,7 +88,9 @@ class GoalCard extends ConsumerWidget {
                           ),
                           child: LinearProgressIndicator(
                             value: progress,
-                            backgroundColor: Colors.transparent,
+                            backgroundColor: context.progressBackground(
+                              themeMode,
+                            ),
                             valueColor: const AlwaysStoppedAnimation(
                               AppColors.purple,
                             ),

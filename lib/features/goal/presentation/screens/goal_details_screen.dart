@@ -16,7 +16,6 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
-import 'package:pockaw/core/extensions/screen_utils_extensions.dart';
 import 'package:pockaw/features/goal/data/model/goal_model.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_checklist_holder.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_title_card.dart';
@@ -34,7 +33,7 @@ class GoalDetailsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    print('📄  GoalDetailsScreen.build: goalId=$goalId');
+    final themeMode = ref.watch(themeModeProvider);
     final wallet = ref.watch(activeWalletProvider);
     final goalAsync = ref.watch(goalDetailsProvider(goalId));
 
@@ -58,9 +57,10 @@ class GoalDetailsScreen extends ConsumerWidget {
             }
           },
           icon: HugeIcons.strokeRoundedEdit02,
-          iconSize: IconSize.medium,
+          context: context,
+          themeMode: themeMode,
         ),
-        if (context.isDesktopLayout) Gap(AppSpacing.spacing16),
+        Gap(AppSpacing.spacing8),
         if (goalAsync.value != null)
           CustomIconButton(
             onPressed: () {
@@ -87,7 +87,8 @@ class GoalDetailsScreen extends ConsumerWidget {
               );
             },
             icon: HugeIcons.strokeRoundedDelete02,
-            iconSize: IconSize.medium,
+            context: context,
+            themeMode: themeMode,
           ),
       ],
       body: Stack(

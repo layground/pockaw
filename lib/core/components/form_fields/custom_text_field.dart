@@ -18,7 +18,7 @@ class CustomTextField extends TextField {
     super.minLines,
     super.maxLines,
     super.onChanged,
-    super.onTap, // treat as a button if this not null
+    super.onTap,
     bool isRequired = false,
     String? hint,
     String? label,
@@ -28,7 +28,6 @@ class CustomTextField extends TextField {
          style: AppTextStyles.body3,
          decoration: InputDecoration(
            hintText: hint,
-           hintStyle: AppTextStyles.body3,
            label: label == null
                ? const SizedBox()
                : Padding(
@@ -48,6 +47,7 @@ class CustomTextField extends TextField {
                    ),
                  ),
            filled: true,
+           fillColor: onTap != null ? AppColors.secondaryAlpha10 : null,
            floatingLabelAlignment: FloatingLabelAlignment.start,
            floatingLabelBehavior: FloatingLabelBehavior.always,
            border: customBorder(asButton: onTap != null),
@@ -97,7 +97,9 @@ class CustomTextField extends TextField {
   static CustomInputBorder customBorder({bool asButton = false}) =>
       CustomInputBorder(
         borderSide: BorderSide(
-          color: !asButton ? AppColors.neutralAlpha50 : AppColors.purpleAlpha10,
+          color: !asButton
+              ? AppColors.neutralAlpha50
+              : AppColors.secondaryAlpha50,
         ),
         borderRadius: BorderRadius.circular(AppSpacing.spacing8),
       );

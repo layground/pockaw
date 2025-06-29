@@ -57,6 +57,8 @@ class SettingsScreen extends ConsumerWidget {
           icon: themeMode == ThemeMode.light
               ? HugeIcons.strokeRoundedMoon01
               : HugeIcons.strokeRoundedSun01,
+          themeMode: themeMode,
+          context: context,
         ),
       ],
       body: const SingleChildScrollView(

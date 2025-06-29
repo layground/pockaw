@@ -4,8 +4,10 @@ class WalletAmountEditButton extends ConsumerWidget {
   const WalletAmountEditButton({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return InkWell(
-      onTap: () {
+    final themeMode = ref.watch(themeModeProvider);
+
+    return CustomIconButton(
+      onPressed: () {
         final activeWallet = ref.read(activeWalletProvider).valueOrNull;
         final defaultCurrencies = ref.read(currenciesStaticProvider);
 
@@ -26,19 +28,10 @@ class WalletAmountEditButton extends ConsumerWidget {
           );
         }
       },
-      child: Container(
-        padding: const EdgeInsets.all(AppSpacing.spacing4),
-        decoration: BoxDecoration(
-          color: AppColors.purpleAlpha10,
-          border: Border.all(color: AppColors.purpleAlpha10),
-          borderRadius: BorderRadius.circular(AppRadius.radius8),
-        ),
-        child: Icon(
-          HugeIcons.strokeRoundedEdit02,
-          size: 14,
-          color: AppColors.purple,
-        ),
-      ),
+      icon: HugeIcons.strokeRoundedEdit02,
+      context: context,
+      themeMode: themeMode,
+      iconSize: IconSize.tiny,
     );
   }
 }
