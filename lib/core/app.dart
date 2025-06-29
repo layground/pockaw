@@ -58,6 +58,7 @@ class MyApp extends ConsumerWidget {
           side: const BorderSide(color: AppColors.purpleAlpha10),
           minimumSize: buttonMinimumSize,
           shape: buttonShape,
+          foregroundColor: AppColors.purple,
         ),
       ),
       textButtonTheme: TextButtonThemeData(

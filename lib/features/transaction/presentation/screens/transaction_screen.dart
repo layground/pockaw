@@ -35,7 +35,6 @@ class TransactionScreen extends ConsumerWidget {
         CustomIconButton(
           onPressed: () {},
           icon: HugeIcons.strokeRoundedFilter,
-          iconSize: IconSize.medium,
           context: context,
           themeMode: themeMode,
         ),
