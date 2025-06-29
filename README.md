@@ -138,13 +138,13 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 - [x] **Custom Categories** - Enable users to create and manage custom categories for better personalization.
 - [x] **Publish on GitHub** - The first fully offline experience of Pockaw.
 
-### Q2 - Goals & Budgeting with Progression ![72%](https://progress-bar.xyz/72/?width=40)
+### Q2 - Goals & Budgeting with Progression ![86%](https://progress-bar.xyz/86/?width=40)
 - [x] **Goals Tracking** - Create goals and its checklist items to breakdown your target.
 - [x] **Budget Tracking** - Set monthly/weekly spending budgets and get the visualization.
 - [x] **Basic Summary & Progression** - View basic progress for monthly income/expense trends, goals, and budgets.
+- [x] **Data Sync & Backup** - Implement backup options to store data securely within device local storage.
+- [x] **Dark Mode** - Easily switch between light and dark themes.
 - [ ] **Basic Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
-- [x] **Data Sync & Backup** - Implement cloud sync and backup options to store data securely across devices.
-- [ ] **Dark Mode** - Easily switch between light and dark themes.
 
 ### Q3 (Closed Testing #2) - Enhanced User Experience ![0%](https://progress-bar.xyz/0/?width=40)
 - [ ] **Publish on PlayStore** - Pockaw will be available on Google Play Store.
@@ -161,8 +161,8 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 - [ ] **Biometrics and PIN** - Add layers of security so you are in charge of your own wealth condition.
 
 ### Pre Release
-- [ ] Collect feedbacks
-- [ ] Assets finishing
+- [x] Collect feedbacks
+- [x] Assets finishing
 - [ ] Performance improvement
 - [ ] Create documentation page
 
