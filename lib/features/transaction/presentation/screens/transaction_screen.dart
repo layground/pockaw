@@ -20,6 +20,7 @@ class TransactionScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
     final allTransactionsAsyncValue = ref.watch(transactionListProvider);
+    final isFilterActive = ref.watch(transactionFilterProvider);
     final formState = useTransactionFilterFormState(ref: ref);
 
     return CustomScaffold(
@@ -39,7 +40,7 @@ class TransactionScreen extends HookConsumerWidget {
             );
           },
           icon: HugeIcons.strokeRoundedFilter,
-          showBadge: true,
+          showBadge: isFilterActive != null,
           context: context,
           themeMode: themeMode,
         ),
