@@ -131,6 +131,9 @@ extension ButtonExtension on ButtonStyleButton {
   );
 
   Widget get floatingBottom =>
+      Positioned(bottom: 0, left: 0, right: 0, child: this);
+
+  Widget get floatingBottomContained =>
       Positioned(bottom: 0, left: 0, right: 0, child: contained);
 
   Widget floatingBottomWithContent({required Widget content}) {

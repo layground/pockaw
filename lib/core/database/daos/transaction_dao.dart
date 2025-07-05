@@ -4,6 +4,7 @@ import 'package:pockaw/core/database/tables/category_table.dart';
 import 'package:pockaw/core/database/tables/transaction_table.dart';
 import 'package:pockaw/core/database/tables/wallet_table.dart'; // Import WalletTable
 import 'package:pockaw/core/utils/logger.dart';
+import 'package:pockaw/features/transaction/data/model/transaction_filter_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 
 part 'transaction_dao.g.dart';
@@ -229,5 +230,63 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
       updatedAt: Value(DateTime.now()),
     );
     return into(transactions).insertOnConflictUpdate(companion);
+  }
+
+  /// Watches filtered transactions for a specific wallet with their associated category and wallet details.
+  Stream<List<TransactionModel>> watchFilteredTransactionsWithDetails({
+    required int walletId,
+    TransactionFilter? filter,
+  }) {
+    final query = select(transactions).join([
+      innerJoin(categories, categories.id.equalsExp(transactions.categoryId)),
+      innerJoin(db.wallets, db.wallets.id.equalsExp(transactions.walletId)),
+    ])..where(transactions.walletId.equals(walletId));
+
+    if (filter != null) {
+      if (filter.transactionType != null) {
+        query.where(
+          transactions.transactionType.equals(filter.transactionType!.index),
+        );
+      }
+      if (filter.category != null) {
+        query.where(transactions.categoryId.equals(filter.category!.id!));
+      }
+      if (filter.minAmount != null) {
+        query.where(
+          transactions.amount.isBiggerOrEqualValue(filter.minAmount!),
+        );
+      }
+      if (filter.maxAmount != null) {
+        query.where(
+          transactions.amount.isSmallerOrEqualValue(filter.maxAmount!),
+        );
+      }
+      if (filter.keyword != null && filter.keyword!.isNotEmpty) {
+        query.where(transactions.title.like('%${filter.keyword!}%'));
+        query.where(transactions.notes.like('%${filter.keyword!}%'));
+      }
+      if (filter.dateStart != null && filter.dateEnd != null) {
+        query.where(
+          transactions.date.isBetweenValues(filter.dateStart!, filter.dateEnd!),
+        );
+      }
+    }
+
+    return query.watch().asyncMap((rows) async {
+      final result = <TransactionModel>[];
+      for (final row in rows) {
+        final transactionData = row.readTable(transactions);
+        final categoryData = row.readTable(categories);
+        final walletData = row.readTable(db.wallets);
+        result.add(
+          await _mapToTransactionModel(
+            transactionData,
+            categoryData,
+            walletData,
+          ),
+        );
+      }
+      return result;
+    });
   }
 }

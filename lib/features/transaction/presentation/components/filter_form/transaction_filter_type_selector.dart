@@ -4,11 +4,11 @@ import 'package:pockaw/core/components/buttons/button_chip.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 
-class TransactionTypeSelector extends HookConsumerWidget {
+class TransactionFilterTypeSelector extends HookConsumerWidget {
   final TransactionType selectedType;
   final ValueChanged<TransactionType> onTypeSelected;
 
-  const TransactionTypeSelector({
+  const TransactionFilterTypeSelector({
     super.key,
     required this.selectedType,
     required this.onTypeSelected,

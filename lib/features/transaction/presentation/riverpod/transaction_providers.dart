@@ -1,5 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/database/database_provider.dart';
+import 'package:pockaw/features/transaction/data/model/transaction_filter_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart'; // Import activeWalletProvider
 
@@ -8,21 +9,21 @@ final transactionListProvider =
     StreamProvider.autoDispose<List<TransactionModel>>((ref) {
       final db = ref.watch(databaseProvider);
       final activeWalletAsync = ref.watch(activeWalletProvider);
+      final filter = ref.watch(transactionFilterProvider);
 
       return activeWalletAsync.when(
         data: (activeWallet) {
           if (activeWallet == null || activeWallet.id == null) {
-            // No active wallet or wallet has no ID, return empty list stream
             return Stream.value([]);
           }
-          // Fetch transactions for the active wallet
-          return db.transactionDao.watchTransactionsByWalletIdWithDetails(
-            activeWallet.id!,
+          // Use the new filtered DAO method
+          return db.transactionDao.watchFilteredTransactionsWithDetails(
+            walletId: activeWallet.id!,
+            filter: filter,
           );
         },
-        loading: () =>
-            Stream.value([]), // While active wallet is loading, return empty
-        error: (e, s) => Stream.error(e, s), // Propagate error
+        loading: () => Stream.value([]),
+        error: (e, s) => Stream.error(e, s),
       );
     });
 
@@ -57,3 +58,7 @@ final transactionDetailsProvider = StreamProvider.autoDispose.family<Transaction
     (transactions) => transactions.firstWhere((tx) => tx.id == id),
   );
 });
+
+final transactionFilterProvider = StateProvider<TransactionFilter?>(
+  (ref) => null,
+);

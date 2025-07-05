@@ -288,7 +288,7 @@ class BudgetFormScreen extends HookConsumerWidget {
           PrimaryButton(
             label: 'Save Budget',
             onPressed: saveBudget,
-          ).floatingBottom,
+          ).floatingBottomContained,
         ],
       ),
     );

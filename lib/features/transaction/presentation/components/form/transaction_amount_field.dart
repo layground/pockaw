@@ -19,7 +19,7 @@ class TransactionAmountField extends HookConsumerWidget {
       controller: controller,
       label: 'Amount',
       hint: '1,000.00',
-      icon: HugeIcons.strokeRoundedCoins01,
+      icon: HugeIcons.strokeRoundedMoney03,
       autofocus: autofocus,
       isRequired: true,
       appendCurrencySymbolToHint: true,

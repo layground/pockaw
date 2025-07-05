@@ -140,7 +140,7 @@ class PersonalDetailsScreen extends HookConsumerWidget {
 
               if (context.mounted) context.pop();
             },
-          ).floatingBottom,
+          ).floatingBottomContained,
         ],
       ),
     );
