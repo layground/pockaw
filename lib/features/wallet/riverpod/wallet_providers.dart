@@ -22,11 +22,11 @@ class ActiveWalletNotifier extends StateNotifier<AsyncValue<WalletModel?>> {
   final Ref _ref;
 
   ActiveWalletNotifier(this._ref) : super(const AsyncValue.loading()) {
-    _initializeActiveWallet();
+    initializeActiveWallet();
   }
 
   // Renamed to fetchAndSetInitialWallet for clarity
-  Future<void> _initializeActiveWallet() async {
+  Future<void> initializeActiveWallet() async {
     try {
       final db = _ref.read(databaseProvider);
       // Attempt to get the first wallet from the database
@@ -94,6 +94,10 @@ class ActiveWalletNotifier extends StateNotifier<AsyncValue<WalletModel?>> {
         state = AsyncValue.error(e, s);
       }
     }
+  }
+
+  void reset() {
+    state = const AsyncValue.data(null);
   }
 }
 

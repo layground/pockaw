@@ -16,6 +16,7 @@ import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/services/keyboard_service/virtual_keyboard_service.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
+import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:toastification/toastification.dart';
 
 final accountDeletionLoadingProvider = StateProvider.autoDispose<bool>(
@@ -33,7 +34,6 @@ class AccountDeletionScreen extends HookConsumerWidget {
     showModalBottomSheet(
       context: context,
       showDragHandle: true,
-      backgroundColor: AppColors.light,
       builder: (_) => AlertBottomSheet(
         context: context,
         title: 'Confirm Account Deletion',
@@ -65,6 +65,9 @@ class AccountDeletionScreen extends HookConsumerWidget {
 
       await db.clearAllDataAndReset();
       Log.i('Database has been reset successfully.');
+
+      // reset all providers
+      ref.read(activeWalletProvider.notifier).reset();
 
       // Dismiss loading dialog
       if (context.mounted) Navigator.of(context, rootNavigator: true).pop();

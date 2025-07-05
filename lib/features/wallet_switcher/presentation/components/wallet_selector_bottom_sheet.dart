@@ -51,9 +51,7 @@ class WalletSelectorBottomSheet extends ConsumerWidget {
                   isSelected
                       ? HugeIcons.strokeRoundedCheckmarkCircle01
                       : HugeIcons.strokeRoundedCircle,
-                  color: isSelected
-                      ? Theme.of(context).primaryColor
-                      : Colors.grey,
+                  color: isSelected ? Colors.green : Colors.grey,
                 ),
                 onTap: () {
                   if (isSelected) return;
