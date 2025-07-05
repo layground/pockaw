@@ -32,6 +32,7 @@ class GoalFormService {
           createdAt: Value(DateTime.now()),
           iconName: Value(goal.iconName),
           associatedAccountId: Value(goal.associatedAccountId),
+          pinned: Value(goal.pinned),
         ),
       );
     } else {
@@ -47,6 +48,7 @@ class GoalFormService {
           createdAt: DateTime.now(),
           iconName: goal.iconName,
           associatedAccountId: goal.associatedAccountId,
+          pinned: goal.pinned,
         ),
       );
     }

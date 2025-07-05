@@ -10,6 +10,7 @@ import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
 import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
+import 'package:pockaw/core/components/dialogs/toast.dart';
 import 'package:pockaw/core/components/loading_indicators/loading_indicator.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
@@ -27,6 +28,7 @@ import 'package:pockaw/features/goal/presentation/screens/goal_form_dialog.dart'
 import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
+import 'package:toastification/toastification.dart';
 
 class GoalDetailsScreen extends ConsumerWidget {
   final int goalId;
@@ -44,6 +46,28 @@ class GoalDetailsScreen extends ConsumerWidget {
       title: 'My Goals',
       showBalance: false,
       actions: [
+        if (goalAsync.value != null)
+          CustomIconButton(
+            onPressed: () async {
+              final db = ref.read(databaseProvider);
+              final goal = goalAsync.value!;
+              if (goal.pinned) {
+                await db.goalDao.unpinGoal(goalId);
+              } else {
+                await db.goalDao.pinGoal(goalId);
+              }
+              Toast.show(
+                'Goal ${goal.pinned ? 'unpinned' : 'pinned'}',
+                type: ToastificationType.success,
+              );
+            },
+            icon: goalAsync.value!.pinned
+                ? HugeIcons.strokeRoundedPin
+                : HugeIcons.strokeRoundedPinOff,
+            context: context,
+            themeMode: themeMode,
+          ),
+        Gap(AppSpacing.spacing8),
         CustomIconButton(
           onPressed: () {
             if (goalAsync.value != null) {
