@@ -19,6 +19,7 @@ import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/features/goal/data/model/goal_model.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_checklist_holder.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_title_card.dart';
+import 'package:pockaw/features/goal/presentation/riverpod/checklist_items_provider.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/date_picker_provider.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/goal_details_provider.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_checklist_form_dialog.dart';
@@ -36,6 +37,7 @@ class GoalDetailsScreen extends ConsumerWidget {
     final themeMode = ref.watch(themeModeProvider);
     final wallet = ref.watch(activeWalletProvider);
     final goalAsync = ref.watch(goalDetailsProvider(goalId));
+    final checklistItemsAsync = ref.watch(checklistItemsProvider(goalId));
 
     return CustomScaffold(
       context: context,
@@ -141,17 +143,19 @@ class GoalDetailsScreen extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Total Goal Target', style: AppTextStyles.body2),
-                  goalAsync.when(
-                    data: (GoalModel goal) {
+                  Text('Total', style: AppTextStyles.body2),
+                  checklistItemsAsync.when(
+                    data: (items) {
+                      final total = items.fold<double>(
+                        0.0,
+                        (sum, item) => sum + item.amount,
+                      );
                       return Text(
-                        '${wallet.value?.currencyByIsoCode(ref).symbol} ${goal.targetAmount.toPriceFormat()}',
+                        '${wallet.value?.currencyByIsoCode(ref).symbol} ${total.toPriceFormat()}',
                         style: AppTextStyles.numericLarge,
                       );
                     },
-                    error: (Object error, StackTrace stackTrace) {
-                      return Container();
-                    },
+                    error: (e, _) => Container(),
                     loading: () => Container(),
                   ),
                 ],

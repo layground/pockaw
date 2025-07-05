@@ -6,7 +6,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
 import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
-import 'package:pockaw/core/components/form_fields/custom_numeric_field.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
@@ -57,7 +56,7 @@ class GoalFormDialog extends HookConsumerWidget {
             CustomTextField(
               controller: titleController,
               label: 'Title',
-              hint: 'Lunch with my friends',
+              hint: 'Buy something',
               isRequired: true,
               prefixIcon: HugeIcons.strokeRoundedArrangeByLettersAZ,
               textInputAction: TextInputAction.next,
@@ -69,18 +68,17 @@ class GoalFormDialog extends HookConsumerWidget {
               label: 'Write a note',
               hint: 'Write here...',
               prefixIcon: HugeIcons.strokeRoundedNote,
-              suffixIcon: HugeIcons.strokeRoundedAlignLeft,
               minLines: 1,
               maxLines: 3,
             ),
-            CustomNumericField(
+            /* CustomNumericField(
               controller: targetAmountController,
               label: 'Target amount',
               hint: '1,500',
               icon: HugeIcons.strokeRoundedCoins01,
               isRequired: true,
               appendCurrencySymbolToHint: true,
-            ),
+            ), */
             PrimaryButton(
               label: 'Save',
               state: ButtonState.active,
