@@ -84,7 +84,7 @@ extension TransactionUIExtensions on TransactionModel {
       case TransactionType.expense:
         return AppColors.red700;
       case TransactionType.transfer:
-        return AppColors.neutral700; // Or another appropriate color
+        return AppColors.tertiary600; // Or another appropriate color
     }
   }
 
