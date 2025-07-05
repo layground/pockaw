@@ -14,6 +14,7 @@ class Goals extends Table {
   DateTimeColumn get createdAt => dateTime().nullable()();
   TextColumn get iconName => text().nullable()();
   IntColumn get associatedAccountId => integer().nullable()();
+  BoolColumn get pinned => boolean().nullable()();
 }
 
 extension GoalExtension on Goal {
@@ -34,6 +35,7 @@ extension GoalExtension on Goal {
           : null,
       iconName: json['iconName'] as String?,
       associatedAccountId: json['associatedAccountId'] as int?,
+      pinned: json['pinned'] as bool? ?? false,
     );
   }
 }
@@ -56,6 +58,7 @@ extension GoalTableExtensions on Goal {
       endDate: endDate,
       createdAt: createdAt,
       associatedAccountId: associatedAccountId,
+      pinned: pinned ?? false,
     );
   }
 }

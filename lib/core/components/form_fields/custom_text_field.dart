@@ -24,6 +24,7 @@ class CustomTextField extends TextField {
     String? label,
     IconData? prefixIcon,
     IconData? suffixIcon,
+    GestureTapCallback? onTapSuffixIcon,
   }) : super(
          style: AppTextStyles.body3,
          decoration: InputDecoration(
@@ -80,15 +81,18 @@ class CustomTextField extends TextField {
                  ),
            suffixIcon: suffixIcon == null
                ? null
-               : Container(
-                   margin: const EdgeInsets.only(right: AppSpacing.spacing8),
-                   padding: const EdgeInsets.symmetric(
-                     horizontal: AppSpacing.spacing12,
-                   ),
-                   child: Icon(
-                     suffixIcon,
-                     color: AppColors.neutral200,
-                     size: 24,
+               : InkWell(
+                   onTap: onTapSuffixIcon,
+                   child: Container(
+                     margin: const EdgeInsets.only(right: AppSpacing.spacing8),
+                     padding: const EdgeInsets.symmetric(
+                       horizontal: AppSpacing.spacing12,
+                     ),
+                     child: Icon(
+                       suffixIcon,
+                       color: AppColors.neutral200,
+                       size: 24,
+                     ),
                    ),
                  ),
          ),

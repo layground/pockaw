@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
@@ -14,7 +15,8 @@ class GoalTitleCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final themeMode = ref.watch(themeModeProvider);
+    final themeMode = ref.read(themeModeProvider);
+    final goalDescription = goal.description ?? '';
 
     return Container(
       width: double.infinity,
@@ -31,11 +33,14 @@ class GoalTitleCard extends ConsumerWidget {
             '${goal.startDate?.toDayShortMonthYear()} - ${goal.endDate.toDayShortMonthYear()}',
             style: AppTextStyles.body5,
           ),
+          Gap(AppSpacing.spacing8),
           Text(goal.title, style: AppTextStyles.body2),
           Text(
-            goal.description ?? 'No description available.',
+            goalDescription.isEmpty
+                ? 'No description available.'
+                : goal.description!,
             style: AppTextStyles.body4.copyWith(
-              fontStyle: goal.description == null ? FontStyle.italic : null,
+              fontStyle: goalDescription.isEmpty ? FontStyle.italic : null,
             ),
           ),
         ],

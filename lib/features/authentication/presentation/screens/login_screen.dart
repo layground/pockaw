@@ -28,6 +28,7 @@ import 'package:pockaw/core/services/url_launcher/url_launcher.dart';
 import 'package:pockaw/features/authentication/data/models/user_model.dart';
 import 'package:pockaw/features/authentication/presentation/components/create_first_wallet_field.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
+import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:toastification/toastification.dart';
 
 part '../components/form.dart';
@@ -70,6 +71,9 @@ class LoginScreen extends HookConsumerWidget {
 
               final userModel = user.toModel();
               ref.read(authStateProvider.notifier).setUser(userModel);
+              await ref
+                  .read(activeWalletProvider.notifier)
+                  .initializeActiveWallet();
 
               if (context.mounted) context.push(Routes.main);
             } else {

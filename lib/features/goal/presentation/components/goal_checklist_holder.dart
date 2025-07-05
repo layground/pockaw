@@ -29,10 +29,13 @@ class GoalChecklistHolder extends ConsumerWidget {
               const GoalChecklistTitle(),
               const Gap(AppSpacing.spacing12),
               // render each item
-              ...items.map(
-                (item) => Padding(
+              ...items.asMap().entries.map(
+                (entry) => Padding(
                   padding: const EdgeInsets.only(bottom: AppSpacing.spacing8),
-                  child: GoalChecklistItem(item: item),
+                  child: GoalChecklistItem(
+                    item: entry.value,
+                    isOdd: entry.key.isOdd,
+                  ),
                 ),
               ),
             ],

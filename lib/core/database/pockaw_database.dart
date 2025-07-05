@@ -49,7 +49,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 4; // Increment schema version
+  int get schemaVersion => 5; // Increment schema version
 
   @override
   MigrationStrategy get migration {

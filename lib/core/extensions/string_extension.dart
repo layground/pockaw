@@ -44,4 +44,11 @@ extension StringExtension on String {
     // If no numeric part matching the pattern is found, return 0.0.
     return 0.0;
   }
+
+  bool get isLink {
+    String link = trim();
+    return link.isNotEmpty &&
+        (link.startsWith(RegExp(r'http?://')) ||
+            link.startsWith(RegExp(r'https?://')));
+  }
 }

@@ -60,4 +60,26 @@ class GoalDao extends DatabaseAccessor<AppDatabase> with _$GoalDaoMixin {
     Log.d('✔️  deleteGoal deleted $count row(s)');
     return count;
   }
+
+  /// Streams only pinned goals
+  Stream<List<Goal>> watchPinnedGoals() {
+    Log.d('🔍  Subscribing to watchPinnedGoals()');
+    return (select(goals)..where((g) => g.pinned.equals(true))).watch();
+  }
+
+  /// Pin a goal by its ID
+  Future<void> pinGoal(int id) async {
+    Log.d('📌  pinGoal → id=$id');
+    await (update(goals)..where((g) => g.id.equals(id))).write(
+      const GoalsCompanion(pinned: Value(true)),
+    );
+  }
+
+  /// Unpin a goal by its ID
+  Future<void> unpinGoal(int id) async {
+    Log.d('📌  unpinGoal → id=$id');
+    await (update(goals)..where((g) => g.id.equals(id))).write(
+      const GoalsCompanion(pinned: Value(false)),
+    );
+  }
 }

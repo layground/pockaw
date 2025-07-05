@@ -7,6 +7,7 @@ import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/features/currency_picker/data/sources/currency_local_source.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
+import 'package:pockaw/features/wallet/data/repositories/wallet_repo.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:pockaw/features/wallet/screens/wallet_form_bottom_sheet.dart';
 
@@ -39,7 +40,17 @@ class CreateFirstWalletField extends HookConsumerWidget {
       suffixIcon: HugeIcons.strokeRoundedAdd01,
       readOnly: true,
       onTap: () {
-        if (wallet != null) {
+        if (wallet == null) {
+          showModalBottomSheet(
+            context: context,
+            showDragHandle: true,
+            isScrollControlled: true,
+            builder: (_) => WalletFormBottomSheet(
+              wallet: defaultWallets.first,
+              showDeleteButton: false,
+            ),
+          );
+        } else {
           final defaultCurrencies = ref.read(currenciesStaticProvider);
 
           final selectedCurrency = defaultCurrencies.firstWhere(

@@ -32,6 +32,7 @@ class GoalFormService {
           createdAt: Value(DateTime.now()),
           iconName: Value(goal.iconName),
           associatedAccountId: Value(goal.associatedAccountId),
+          pinned: Value(goal.pinned),
         ),
       );
     } else {
@@ -47,6 +48,7 @@ class GoalFormService {
           createdAt: DateTime.now(),
           iconName: goal.iconName,
           associatedAccountId: goal.associatedAccountId,
+          pinned: goal.pinned,
         ),
       );
     }
@@ -64,13 +66,31 @@ class GoalFormService {
     bool isEditing = checklistItem.id != null;
     Log.d(isEditing, label: 'isEditing');
 
+    // --- URL validation for link ---
+    /* String link = checklistItem.link.trim();
+    if (link.isNotEmpty && !link.startsWith(RegExp(r'https?://'))) {
+      link = 'https://$link';
+    }
+    // Optionally, check if it's a valid URL format
+    final uri = Uri.tryParse(link);
+    if (link.isNotEmpty && (uri == null || !uri.hasAbsolutePath)) {
+      // Show error and return
+      if (context.mounted) {
+        Toast.show(
+          'Please enter a valid URL for the link.',
+          type: ToastificationType.error,
+        );
+      }
+      return;
+    } */
+
     if (!isEditing) {
       await actions.add(
         ChecklistItemsCompanion(
           goalId: Value(checklistItem.goalId),
           title: Value(checklistItem.title),
           amount: Value(checklistItem.amount),
-          link: Value(checklistItem.link),
+          link: Value(checklistItem.link.trim()),
           completed: Value(false),
         ),
       );
@@ -81,7 +101,7 @@ class GoalFormService {
           goalId: checklistItem.goalId,
           title: checklistItem.title,
           amount: checklistItem.amount,
-          link: checklistItem.link,
+          link: checklistItem.link.trim(),
           completed: checklistItem.completed,
         ),
       );

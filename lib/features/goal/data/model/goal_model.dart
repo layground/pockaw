@@ -34,6 +34,9 @@ class GoalModel with _$GoalModel {
 
     /// Optional ID of an associated account or fund source for this goal.
     int? associatedAccountId,
+
+    /// Indicates if the goal is pinned for priority viewing.
+    @Default(false) bool pinned,
   }) = _GoalModel;
 
   /// Creates a `GoalModel` instance from a JSON map.

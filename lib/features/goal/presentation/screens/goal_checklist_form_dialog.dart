@@ -14,6 +14,7 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/string_extension.dart';
+import 'package:pockaw/core/services/keyboard_service/virtual_keyboard_service.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/goal/data/model/checklist_item_model.dart';
 import 'package:pockaw/features/goal/presentation/services/goal_form_service.dart';
@@ -62,7 +63,7 @@ class GoalChecklistFormDialog extends HookConsumerWidget {
             CustomTextField(
               controller: titleController,
               label: 'Title',
-              hint: 'Lunch with my friends',
+              hint: 'Buy something',
               isRequired: true,
               prefixIcon: HugeIcons.strokeRoundedArrangeByLettersAZ,
               textInputAction: TextInputAction.next,
@@ -82,6 +83,8 @@ class GoalChecklistFormDialog extends HookConsumerWidget {
               hint: 'Insert or paste link here...',
               prefixIcon: HugeIcons.strokeRoundedLink01,
               suffixIcon: HugeIcons.strokeRoundedClipboard,
+              onTapSuffixIcon: () =>
+                  KeyboardService.pasteFromClipboard(linkController),
             ),
             PrimaryButton(
               label: 'Save',

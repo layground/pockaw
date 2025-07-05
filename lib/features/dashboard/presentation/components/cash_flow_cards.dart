@@ -53,7 +53,7 @@ class CashFlowCards extends ConsumerWidget {
           children: [
             Expanded(
               child: TransactionCard(
-                title: 'Income',
+                title: 'Income • ${DateTime.now().toMonthName()}',
                 amount: currentMonthIncome,
                 amountLastMonth: lastMonthIncome,
                 percentDifference: incomePercentDifference,
@@ -69,7 +69,7 @@ class CashFlowCards extends ConsumerWidget {
             const Gap(AppSpacing.spacing12),
             Expanded(
               child: TransactionCard(
-                title: 'Expense',
+                title: 'Expense • ${DateTime.now().toMonthName()}',
                 amount: currentMonthExpense,
                 amountLastMonth: lastMonthExpense,
                 percentDifference: expensePercentDifference,

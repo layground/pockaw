@@ -1,6 +1,11 @@
 import 'package:intl/intl.dart';
 
 extension DateTimeExtension on DateTime {
+  /// Format: March
+  String toMonthName() {
+    return DateFormat("MMMM").format(this);
+  }
+
   /// Format: 13 March 2025
   String toDayMonthYear() {
     return DateFormat("d MMMM yyyy").format(this);
