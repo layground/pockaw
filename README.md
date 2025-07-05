@@ -2,10 +2,10 @@
 
 <img src="https://pockaw.com/assets/images/pockaw-cover-github_readme.webp" alt="Pockaw Cover">
 
-![Flutter](https://img.shields.io/badge/Flutter-3.24.1-blue?logo=flutter)
-![Dart](https://img.shields.io/badge/Dart-3.5.1-blue?logo=dart)
+![Flutter](https://img.shields.io/badge/Flutter-3.32.5-blue?logo=flutter)
+![Dart](https://img.shields.io/badge/Dart-3.8.1-blue?logo=dart)
 ![Platform](https://img.shields.io/badge/platform-Android%20%7C%20Web%20%7C%20(soon)%20iOS,%20Windows,%20MacOS-purple)
-![8%](https://progress-bar.xyz/8/?title=MVP+Launch+&progress_color=00b4ab)
+![100%](https://progress-bar.xyz/100/?title=MVP+Launch+(Android)+&progress_color=00b4ab)
 
 ![License](https://img.shields.io/badge/license-LGPLv3-blue)
 ![Build](https://img.shields.io/badge/build-passing-brightgreen)
@@ -154,7 +154,7 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 - [ ] **User Reminders & Notifications** - Implement notifications for due dates and spending goals.
 
 ### Q4 (Open Beta) - Shields On! ![0%](https://progress-bar.xyz/0/?width=40)
-- [ ] **Release on Web** - Get a wider view and perspective of Pockaw (of course need a bit of connection).
+- [ ] **Release on Web** - Get a wider view and perspective of Pockaw (of course need a network connection).
 - [ ] **Release on Desktop** - Windows users will get the official desktop look and feel of Pockaw. **
 - [ ] **Advanced Customization** - Let users set date format, first day of the week/month, and other preferences in settings.
 - [ ] **Improved Accessibility** - Add accessibility features, including screen reader support and keyboard navigation.
