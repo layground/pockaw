@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
-import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_grouped_card.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_summary_card.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tab_bar.dart';
+import 'package:pockaw/features/transaction/presentation/riverpod/transaction_filter_form_state.dart';
 import 'package:pockaw/features/transaction/presentation/riverpod/transaction_providers.dart';
+import 'package:pockaw/features/transaction/presentation/screens/transaction_filter_form_dialog.dart';
 
-class TransactionScreen extends ConsumerWidget {
+class TransactionScreen extends HookConsumerWidget {
   const TransactionScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
     final allTransactionsAsyncValue = ref.watch(transactionListProvider);
+    final formState = useTransactionFilterFormState(ref: ref);
 
     return CustomScaffold(
       context: context,
@@ -29,18 +30,16 @@ class TransactionScreen extends ConsumerWidget {
       actions: [
         CustomIconButton(
           onPressed: () {
-            context.push(Routes.comingSoon);
-          },
-          icon: HugeIcons.strokeRoundedSearch02,
-          context: context,
-          themeMode: themeMode,
-        ),
-        Gap(AppSpacing.spacing8),
-        CustomIconButton(
-          onPressed: () {
-            context.push(Routes.comingSoon);
+            showModalBottomSheet(
+              context: context,
+              showDragHandle: true,
+              isScrollControlled: true,
+              builder: (context) =>
+                  TransactionFilterFormDialog(formState: formState),
+            );
           },
           icon: HugeIcons.strokeRoundedFilter,
+          showBadge: true,
           context: context,
           themeMode: themeMode,
         ),

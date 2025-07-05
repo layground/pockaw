@@ -33,7 +33,10 @@ class TransactionTile extends ConsumerWidget {
         .symbol;
 
     return InkWell(
-      onTap: () => context.push('/transaction/${transaction.id}'),
+      onTap: () {
+        // Log.d(transaction.toJson(), label: 'transaction');
+        context.push('/transaction/${transaction.id}');
+      },
       child: Container(
         height: 72,
         padding: const EdgeInsets.fromLTRB(

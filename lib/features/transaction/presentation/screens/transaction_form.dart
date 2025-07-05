@@ -99,7 +99,7 @@ class TransactionForm extends HookConsumerWidget {
             state: ButtonState.active,
             // Now formState is available in this scope
             onPressed: () => formState.saveTransaction(ref, context),
-          ).floatingBottom,
+          ).floatingBottomContained,
         ],
       ),
     );
