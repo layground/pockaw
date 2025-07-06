@@ -45,14 +45,13 @@ class MenuTileButton extends StatelessWidget {
           : null,
       leading: Icon(
         icon,
-        color: context.colors.primary,
+        color: context.purpleIcon(context.themeMode),
       ), // Leading icon uses primary color
       trailing: Icon(
         suffixIcon ?? HugeIcons.strokeRoundedArrowRight01,
         color: context.isDarkMode
-            ? context.colors.onSurfaceVariant.withAlpha(50)
-            : AppColors
-                  .secondaryAlpha50, // Example: secondaryAlpha50 for light, onSurfaceVariant for dark
+            ? context.colors.onSurfaceVariant
+            : AppColors.purpleAlpha50,
         size: 20,
       ),
       contentPadding: const EdgeInsets.fromLTRB(

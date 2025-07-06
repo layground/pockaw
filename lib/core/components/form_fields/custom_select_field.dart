@@ -10,8 +10,6 @@ class CustomSelectField extends CustomTextField {
     super.prefixIcon,
     super.isRequired,
     super.onTap,
-  }) : super(
-          suffixIcon: HugeIcons.strokeRoundedArrowRight01,
-          readOnly: true,
-        );
+    super.context,
+  }) : super(suffixIcon: HugeIcons.strokeRoundedArrowRight01, readOnly: true);
 }

@@ -18,14 +18,20 @@ class BudgetTotalCard extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.spacing8),
       decoration: BoxDecoration(
-        color: context.secondaryBackground(themeMode),
-        border: Border.all(color: context.secondaryBorder(themeMode)),
+        color: context.incomeBackground(themeMode),
+        border: Border.all(color: context.incomeLine(themeMode)),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Total Budget', style: AppTextStyles.body5),
+          Text(
+            'Total Budget',
+            style: AppTextStyles.body5.copyWith(
+              color: context.incomeText(themeMode),
+              fontWeight: FontWeight.w600,
+            ),
+          ),
           Text(totalAmount.toPriceFormat(), style: AppTextStyles.numericMedium),
         ],
       ),

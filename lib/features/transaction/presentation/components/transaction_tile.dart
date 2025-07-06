@@ -8,6 +8,7 @@ import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_ui_extension.dart';
@@ -37,6 +38,7 @@ class TransactionTile extends ConsumerWidget {
         // Log.d(transaction.toJson(), label: 'transaction');
         context.push('/transaction/${transaction.id}');
       },
+      borderRadius: BorderRadius.circular(AppRadius.radius12),
       child: Container(
         height: 72,
         padding: const EdgeInsets.fromLTRB(
@@ -46,9 +48,10 @@ class TransactionTile extends ConsumerWidget {
           AppSpacing.spacing8,
         ),
         decoration: BoxDecoration(
+          color: transaction.backgroundColor(context, themeMode),
           borderRadius: BorderRadius.circular(AppRadius.radius12),
           border: Border.all(
-            color: transaction.borderColorLighter(context.isDarkMode),
+            color: transaction.borderColor(context.isDarkMode),
           ),
         ),
         child: Row(
@@ -59,10 +62,10 @@ class TransactionTile extends ConsumerWidget {
               height: 54,
               padding: const EdgeInsets.all(AppSpacing.spacing8),
               decoration: BoxDecoration(
-                color: transaction.backgroundColor(context, themeMode),
+                color: transaction.iconBackgroundColor(context, themeMode),
                 borderRadius: BorderRadius.circular(AppRadius.radius12),
                 border: Border.all(
-                  color: transaction.borderColorLighter(context.isDarkMode),
+                  color: transaction.iconBorderColor(context.isDarkMode),
                 ),
               ),
               child: transaction.category.icon.isEmpty
@@ -79,7 +82,7 @@ class TransactionTile extends ConsumerWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(transaction.title, style: AppTextStyles.body3),
+                      Text(transaction.title, style: AppTextStyles.body3.bold),
                       const Gap(AppSpacing.spacing2),
                       Text(
                         transaction.category.title,
@@ -99,7 +102,7 @@ class TransactionTile extends ConsumerWidget {
                         ),
                       if (showDate) const Gap(AppSpacing.spacing4),
                       Text(
-                        '$currency ${transaction.amountPrefix}${transaction.amount.toPriceFormat()}',
+                        '${transaction.amountPrefix} $currency ${transaction.amount.toPriceFormat()}',
                         style: AppTextStyles.numericMedium.copyWith(
                           color: transaction.amountColor,
                           height: 1.12,

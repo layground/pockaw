@@ -114,7 +114,7 @@ class ShimmerTransactionCardPlaceholder extends StatelessWidget {
       height: 150, // Adjust to match TransactionCard's approximate height
       padding: const EdgeInsets.all(AppSpacing.spacing16),
       decoration: BoxDecoration(
-        color: Colors.grey[300],
+        color: context.purpleBackground(context.themeMode),
         borderRadius: BorderRadius.circular(AppRadius.radius16),
       ),
       child: const Center(child: CircularProgressIndicator.adaptive()),

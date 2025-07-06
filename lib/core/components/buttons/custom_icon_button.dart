@@ -33,7 +33,12 @@ class CustomIconButton extends IconButton {
            decoration: BoxDecoration(
              color: backgroundColor ?? context?.purpleBackground(themeMode),
              borderRadius: BorderRadius.circular(AppRadius.radius8),
-             border: Border.all(color: AppColors.purpleAlpha25),
+             border: Border.all(
+               color:
+                   borderColor ??
+                   context?.purpleBorderLighter(themeMode) ??
+                   AppColors.neutralAlpha25,
+             ),
            ),
            child: Stack(
              children: [

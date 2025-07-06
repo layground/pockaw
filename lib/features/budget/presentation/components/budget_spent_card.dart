@@ -18,8 +18,8 @@ class BudgetSpentCard extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.spacing8),
       decoration: BoxDecoration(
-        color: context.secondaryBackground(themeMode),
-        border: Border.all(color: context.secondaryBorder(themeMode)),
+        color: context.expenseBackground(themeMode),
+        border: Border.all(color: context.expenseLine(themeMode)),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
       child: Column(
@@ -27,14 +27,12 @@ class BudgetSpentCard extends ConsumerWidget {
         children: [
           Text(
             'Total Spent',
-            style: AppTextStyles.body5.copyWith(color: AppColors.red),
-          ),
-          Text(
-            spentAmount.toPriceFormat(),
-            style: AppTextStyles.numericMedium.copyWith(
-              color: AppColors.red900,
+            style: AppTextStyles.body5.copyWith(
+              color: context.expenseText(themeMode),
+              fontWeight: FontWeight.w600,
             ),
           ),
+          Text(spentAmount.toPriceFormat(), style: AppTextStyles.numericMedium),
         ],
       ),
     );

@@ -30,7 +30,7 @@ class CustomCurrencyChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: AppSpacing.spacing8,
-        vertical: AppSpacing.spacing4,
+        vertical: AppSpacing.spacing8,
       ),
       decoration: BoxDecoration(
         color: background ?? AppColors.primary50,
@@ -40,7 +40,12 @@ class CustomCurrencyChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          CountryFlag.fromCurrencyCode(currencyCode, width: 20, height: 12),
+          CountryFlag.fromCurrencyCode(
+            currencyCode,
+            width: 20,
+            height: 14,
+            shape: RoundedRectangle(AppRadius.radius4),
+          ),
           const Gap(AppSpacing.spacing4),
           Text(label, style: AppTextStyles.body4.copyWith(color: foreground)),
         ],

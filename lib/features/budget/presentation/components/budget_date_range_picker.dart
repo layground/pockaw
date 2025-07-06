@@ -21,6 +21,7 @@ class BudgetDateRangePicker extends HookConsumerWidget {
         '${selectedDate.first!.toDayShortMonthYear()} - ${selectedDate.last!.toDayShortMonthYear()}';
 
     return CustomSelectField(
+      context: context,
       controller: dateFieldController,
       label: 'Set a budget period',
       hint: '12 Nov 2024 - 12 Nov 2026',

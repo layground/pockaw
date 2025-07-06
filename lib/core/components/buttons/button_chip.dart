@@ -31,7 +31,9 @@ class ButtonChip extends ConsumerWidget {
         decoration: BoxDecoration(
           color: active ? context.purpleBackground(themeMode) : null,
           border: Border.all(
-            color: active ? AppColors.purpleAlpha10 : AppColors.neutralAlpha25,
+            color: active
+                ? context.purpleBorderLighter(themeMode)
+                : context.purpleButtonBorder(themeMode),
           ),
           borderRadius: BorderRadius.circular(AppRadius.radiusFull),
         ),
@@ -48,13 +50,13 @@ class ButtonChip extends ConsumerWidget {
               active
                   ? HugeIcons.strokeRoundedCheckmarkCircle01
                   : HugeIcons.strokeRoundedCircle,
-              color: active ? AppColors.purple : AppColors.neutral400,
+              color: active ? context.purpleIcon(themeMode) : null,
             ),
             const Gap(AppSpacing.spacing8),
             Text(
               label,
               style: AppTextStyles.body3.copyWith(
-                color: active ? AppColors.purple : AppColors.neutral700,
+                color: active ? context.purpleText(themeMode) : null,
               ),
             ),
           ],

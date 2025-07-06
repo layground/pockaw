@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/router/app_router.dart';
 import 'package:pockaw/core/router/routes.dart';
@@ -57,6 +59,25 @@ class SplashScreen extends HookConsumerWidget {
       return null; // useEffect requires a dispose function or null
     }, const []); // Empty dependency array means this runs once
 
-    return const Scaffold(body: Center(child: Text('Splash')));
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          spacing: AppSpacing.spacing8,
+          children: [
+            Image.asset(
+              'assets/icon/icon.png',
+              width: 180,
+              height: 180,
+              cacheWidth: 180,
+              cacheHeight: 180,
+              filterQuality: FilterQuality.low,
+            ),
+            Text('Pockaw', style: AppTextStyles.heading3),
+          ],
+        ),
+      ),
+    );
   }
 }

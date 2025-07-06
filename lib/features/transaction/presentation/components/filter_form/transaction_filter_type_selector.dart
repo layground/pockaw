@@ -4,7 +4,7 @@ import 'package:pockaw/core/components/buttons/button_chip.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 
-class TransactionFilterTypeSelector extends HookConsumerWidget {
+class TransactionFilterTypeSelector extends ConsumerWidget {
   final TransactionType selectedType;
   final ValueChanged<TransactionType> onTypeSelected;
 

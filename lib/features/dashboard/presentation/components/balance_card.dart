@@ -18,7 +18,9 @@ class BalanceCard extends ConsumerWidget {
             decoration: BoxDecoration(
               color: context.secondaryBackground(themeMode),
               borderRadius: BorderRadius.circular(AppRadius.radius16),
-              border: Border.all(color: context.secondaryBorder(themeMode)),
+              border: Border.all(
+                color: context.secondaryBorderLighter(themeMode),
+              ),
             ),
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +43,9 @@ class BalanceCard extends ConsumerWidget {
               decoration: BoxDecoration(
                 color: context.secondaryBackground(themeMode),
                 borderRadius: BorderRadius.circular(AppRadius.radius16),
-                border: Border.all(color: context.secondaryBorder(themeMode)),
+                border: Border.all(
+                  color: context.secondaryBorderLighter(themeMode),
+                ),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,9 +104,9 @@ class BalanceCard extends ConsumerWidget {
         width: double.infinity,
         padding: const EdgeInsets.all(AppSpacing.spacing16),
         decoration: BoxDecoration(
-          color: AppColors.secondary50,
+          color: context.secondaryBackground(themeMode),
           borderRadius: BorderRadius.circular(AppRadius.radius16),
-          border: Border.all(color: AppColors.secondaryAlpha10),
+          border: Border.all(color: context.secondaryBorderLighter(themeMode)),
         ),
         child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -120,9 +124,9 @@ class BalanceCard extends ConsumerWidget {
         width: double.infinity,
         padding: const EdgeInsets.all(AppSpacing.spacing16),
         decoration: BoxDecoration(
-          color: AppColors.secondary50,
+          color: context.secondaryBackground(themeMode),
           borderRadius: BorderRadius.circular(AppRadius.radius16),
-          border: Border.all(color: AppColors.secondaryAlpha10),
+          border: Border.all(color: context.secondaryBorderLighter(themeMode)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

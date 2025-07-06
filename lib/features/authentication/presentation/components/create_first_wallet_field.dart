@@ -33,6 +33,7 @@ class CreateFirstWalletField extends HookConsumerWidget {
     }, [wallet]);
 
     return CustomTextField(
+      context: context,
       controller: textController,
       label: wallet?.name ?? 'Wallet', // Fallback label
       hint: wallet != null ? '' : 'Tap to setup your first wallet',

@@ -36,8 +36,8 @@ class GoalChecklistItem extends ConsumerWidget {
 
     // Odd-even background
     final bgColor = isOdd
-        ? context.secondaryBackground(themeMode).withAlpha(15)
-        : context.secondaryBackground(themeMode).withAlpha(40);
+        ? context.purpleBackground(themeMode).withAlpha(50)
+        : context.purpleBackground(themeMode).withAlpha(50);
 
     void toggle() {
       final updatedItem = item.toggleCompleted();
@@ -68,7 +68,7 @@ class GoalChecklistItem extends ConsumerWidget {
         ),
         decoration: BoxDecoration(
           color: bgColor,
-          border: Border.all(color: context.secondaryBorder(themeMode)),
+          border: Border.all(color: context.purpleBorderLighter(themeMode)),
           borderRadius: BorderRadius.circular(AppRadius.radius16),
         ),
         child: Column(

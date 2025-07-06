@@ -19,6 +19,7 @@ class CustomTextField extends TextField {
     super.maxLines,
     super.onChanged,
     super.onTap,
+    BuildContext? context,
     bool isRequired = false,
     String? hint,
     String? label,
@@ -48,16 +49,22 @@ class CustomTextField extends TextField {
                    ),
                  ),
            filled: true,
-           fillColor: onTap != null ? AppColors.secondaryAlpha10 : null,
+           fillColor: onTap != null
+               ? context?.purpleButtonBackground(context.themeMode)
+               : null,
            floatingLabelAlignment: FloatingLabelAlignment.start,
            floatingLabelBehavior: FloatingLabelBehavior.always,
-           border: customBorder(asButton: onTap != null),
-           enabledBorder: customBorder(asButton: onTap != null),
-           focusedBorder: customBorder(asButton: onTap != null).copyWith(
-             borderSide: onTap != null
-                 ? null
-                 : const BorderSide(color: AppColors.purple),
+           border: customBorder(asButton: onTap != null, context: context),
+           enabledBorder: customBorder(
+             asButton: onTap != null,
+             context: context,
            ),
+           focusedBorder:
+               customBorder(asButton: onTap != null, context: context).copyWith(
+                 borderSide: onTap != null
+                     ? null
+                     : const BorderSide(color: AppColors.purple),
+               ),
            alignLabelWithHint: label != null,
            isDense: true,
            contentPadding: EdgeInsets.fromLTRB(
@@ -73,11 +80,7 @@ class CustomTextField extends TextField {
                    padding: const EdgeInsets.symmetric(
                      horizontal: AppSpacing.spacing12,
                    ),
-                   child: Icon(
-                     prefixIcon,
-                     color: AppColors.neutral700,
-                     size: 24,
-                   ),
+                   child: Icon(prefixIcon, size: 24),
                  ),
            suffixIcon: suffixIcon == null
                ? null
@@ -98,13 +101,15 @@ class CustomTextField extends TextField {
          ),
        );
 
-  static CustomInputBorder customBorder({bool asButton = false}) =>
-      CustomInputBorder(
-        borderSide: BorderSide(
-          color: !asButton
-              ? AppColors.neutralAlpha50
-              : AppColors.secondaryAlpha50,
-        ),
-        borderRadius: BorderRadius.circular(AppSpacing.spacing8),
-      );
+  static CustomInputBorder customBorder({
+    BuildContext? context,
+    bool asButton = false,
+  }) => CustomInputBorder(
+    borderSide: BorderSide(
+      color: !asButton
+          ? AppColors.neutral600
+          : context?.purpleButtonBorder(context.themeMode) ?? AppColors.purple,
+    ),
+    borderRadius: BorderRadius.circular(AppSpacing.spacing8),
+  );
 }

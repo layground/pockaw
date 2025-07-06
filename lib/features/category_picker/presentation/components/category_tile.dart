@@ -36,22 +36,24 @@ class CategoryTile extends ConsumerWidget {
       onTap: () => onSelectCategory?.call(category),
       child: Container(
         height: height,
-        padding: const EdgeInsets.all(AppSpacing.spacing4),
+        padding: const EdgeInsets.all(AppSpacing.spacing8),
         decoration: BoxDecoration(
-          color: context.secondaryBackground(themeMode),
+          color: context.purpleBackground(themeMode),
           borderRadius: BorderRadius.circular(AppRadius.radius8),
-          border: Border.all(color: context.secondaryBorder(themeMode)),
+          border: Border.all(color: context.purpleBorderLighter(themeMode)),
         ),
         child: Row(
           children: [
             Container(
-              height: 54,
-              width: 54,
+              height: 50,
+              width: 50,
               padding: const EdgeInsets.all(AppSpacing.spacing8),
               decoration: BoxDecoration(
-                color: AppColors.secondaryAlpha10,
+                color: context.purpleBackground(themeMode),
                 borderRadius: BorderRadius.circular(AppRadius.radius8),
-                border: Border.all(color: AppColors.secondaryAlpha10),
+                border: Border.all(
+                  color: context.purpleBorderLighter(themeMode),
+                ),
               ),
               child: category.icon.isEmpty
                   ? Icon(HugeIcons.strokeRoundedPizza01, size: iconSize)
@@ -65,7 +67,13 @@ class CategoryTile extends ConsumerWidget {
                 icon: suffixIcon!,
                 iconSize: IconSize.small,
                 visualDensity: VisualDensity.compact,
+                backgroundColor: context.purpleBackground(themeMode),
+                borderColor: onSuffixIconPressed == null
+                    ? Colors.transparent
+                    : context.purpleBorderLighter(themeMode),
+                color: context.purpleText(themeMode),
               ),
+            const Gap(AppSpacing.spacing8),
           ],
         ),
       ),

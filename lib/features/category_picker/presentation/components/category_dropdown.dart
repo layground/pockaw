@@ -65,7 +65,7 @@ class CategoryDropdown extends HookConsumerWidget {
         shrinkWrap: true,
         padding: const EdgeInsets.only(
           top: AppSpacing.spacing8,
-          left: AppSpacing.spacing12,
+          left: AppSpacing.spacing24,
         ),
         physics: const NeverScrollableScrollPhysics(),
         separatorBuilder: (context, index) => const Gap(AppSpacing.spacing8),

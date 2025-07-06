@@ -25,6 +25,7 @@ class TransactionFilterDatePicker extends HookConsumerWidget {
     }, []);
 
     return CustomSelectField(
+      context: context,
       controller: controller,
       label: 'Set a date range',
       hint: '1 June 2025 - 31 July 2024',

@@ -32,6 +32,7 @@ class CurrencyPickerField extends HookConsumerWidget {
     return Stack(
       children: [
         CustomTextField(
+          context: context,
           controller: currencyController,
           label: 'Currency',
           hint: 'USD',

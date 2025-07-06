@@ -30,14 +30,11 @@ extension TransactionUIExtensions on TransactionModel {
   }
 
   Color backgroundColor(BuildContext context, ThemeMode themeMode) {
-    switch (transactionType) {
-      case TransactionType.income:
-        return context.incomeBackground(themeMode);
-      case TransactionType.expense:
-        return context.expenseBackground(themeMode);
-      case TransactionType.transfer:
-        return AppColors.tertiaryAlpha10;
+    if (themeMode == ThemeMode.dark) {
+      return AppColors.neutralAlpha25;
     }
+
+    return AppColors.neutral50;
   }
 
   Color foregroundColor(BuildContext context, ThemeMode themeMode) {
@@ -51,20 +48,26 @@ extension TransactionUIExtensions on TransactionModel {
     }
   }
 
-  Color borderColor(bool isDarkMode) {
+  Color iconBackgroundColor(BuildContext context, ThemeMode themeMode) {
     switch (transactionType) {
       case TransactionType.income:
-        return isDarkMode ? AppColors.greenAlpha50 : AppColors.greenAlpha10;
+        return context.incomeBackground(themeMode);
       case TransactionType.expense:
-        return isDarkMode ? AppColors.redAlpha50 : AppColors.redAlpha10;
+        return context.expenseBackground(themeMode);
       case TransactionType.transfer:
-        return isDarkMode
-            ? AppColors.tertiaryAlpha50
-            : AppColors.tertiaryAlpha10;
+        return AppColors.tertiaryAlpha10;
     }
   }
 
-  Color borderColorLighter(bool isDarkMode) {
+  Color borderColor(bool isDarkMode) {
+    if (isDarkMode) {
+      return AppColors.neutralAlpha25;
+    }
+
+    return AppColors.neutralAlpha10;
+  }
+
+  Color iconBorderColor(bool isDarkMode) {
     switch (transactionType) {
       case TransactionType.income:
         return isDarkMode ? AppColors.greenAlpha30 : AppColors.greenAlpha10;
@@ -74,6 +77,19 @@ extension TransactionUIExtensions on TransactionModel {
         return isDarkMode
             ? AppColors.tertiaryAlpha25
             : AppColors.tertiaryAlpha10;
+    }
+  }
+
+  Color borderColorLighter(bool isDarkMode) {
+    switch (transactionType) {
+      case TransactionType.income:
+        return isDarkMode ? AppColors.greenAlpha30 : AppColors.greenAlpha30;
+      case TransactionType.expense:
+        return isDarkMode ? AppColors.redAlpha25 : AppColors.redAlpha10;
+      case TransactionType.transfer:
+        return isDarkMode
+            ? AppColors.tertiaryAlpha25
+            : AppColors.tertiaryAlpha25;
     }
   }
 

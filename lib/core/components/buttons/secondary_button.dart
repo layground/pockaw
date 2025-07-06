@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
@@ -12,6 +13,15 @@ class SecondaryButton extends OutlinedButton {
     String? label,
     IconData? icon,
   }) : super(
+         style: OutlinedButton.styleFrom(
+           backgroundColor: context.purpleBackground(context.themeMode),
+           side: BorderSide(
+             color: context.purpleBorderLighter(context.themeMode),
+           ),
+           shape: RoundedRectangleBorder(
+             borderRadius: BorderRadius.circular(AppSpacing.spacing8),
+           ),
+         ),
          child: Row(
            mainAxisAlignment: MainAxisAlignment.center,
            children: [
