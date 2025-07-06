@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 extension StringExtension on String {
   double takeNumericAsDouble() {
     // Regex to find a sequence of digits, possibly containing commas and/or a period,
@@ -50,5 +52,13 @@ extension StringExtension on String {
     return link.isNotEmpty &&
         (link.startsWith(RegExp(r'http?://')) ||
             link.startsWith(RegExp(r'https?://')));
+  }
+}
+
+extension CustomDateParsing on String {
+  /// Parses "26 June 2025 11.33 AM" to DateTime
+  DateTime toDateTimeFromDayMonthYearTime12Hour() {
+    final format = DateFormat("d MMMM yyyy hh.mm a");
+    return format.parse(this);
   }
 }

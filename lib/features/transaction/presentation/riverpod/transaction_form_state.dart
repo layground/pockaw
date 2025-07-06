@@ -8,6 +8,7 @@ import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
 import 'package:pockaw/core/components/dialogs/toast.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
+import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/string_extension.dart';
 import 'package:pockaw/core/services/image_service/riverpod/image_notifier.dart';
@@ -16,7 +17,6 @@ import 'package:pockaw/features/category/data/model/category_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/category/data/repositories/category_repo.dart'
     as category_repository;
-import 'package:pockaw/features/transaction/presentation/riverpod/date_picker_provider.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:toastification/toastification.dart';
 
@@ -25,12 +25,12 @@ class TransactionFormState {
   final TextEditingController amountController;
   final TextEditingController notesController;
   final TextEditingController categoryController;
+  final TextEditingController dateFieldController;
   final ValueNotifier<TransactionType> selectedTransactionType;
   final ValueNotifier<CategoryModel?> selectedCategory;
   final String defaultCurrency;
   final bool isEditing;
-  final TransactionModel?
-  initialTransaction; // The resolved transaction data for editing
+  final TransactionModel? initialTransaction;
 
   TransactionFormState({
     required this.titleController,
@@ -39,6 +39,7 @@ class TransactionFormState {
     required this.categoryController,
     required this.selectedTransactionType,
     required this.selectedCategory,
+    required this.dateFieldController,
     required this.defaultCurrency,
     required this.isEditing,
     this.initialTransaction,
@@ -79,7 +80,6 @@ class TransactionFormState {
     }
 
     final db = ref.read(databaseProvider);
-    final dateFromPicker = ref.read(datePickerProvider);
     final imagePickerState = ref.read(imageProvider);
     final activeWallet = ref.read(activeWalletProvider).valueOrNull;
 
@@ -96,19 +96,24 @@ class TransactionFormState {
       imagePath = imagePickerState.savedPath ?? '';
     }
 
+    // --- FIX: Use the correct date ---
+    DateTime dateToSave = DateTime.now();
+    if (dateFieldController.text.isNotEmpty) {
+      dateToSave = dateFieldController.text
+          .toDateTimeFromDayMonthYearTime12Hour();
+    }
+
     final transactionToSave = TransactionModel(
       id: isEditing ? initialTransaction?.id : null,
       transactionType: selectedTransactionType.value,
       amount: amountController.text.takeNumericAsDouble(),
-      date: dateFromPicker,
+      date: dateToSave,
       title: titleController.text,
       category: selectedCategory.value!,
-      wallet: activeWallet, // Use the currently active wallet
+      wallet: activeWallet,
       notes: notesController.text.isNotEmpty ? notesController.text : null,
-      // Use savedPath as it reflects the persistently saved image or null if cleared/not set
       imagePath: imagePath,
-      isRecurring:
-          false, // Placeholder: Get from form if a recurring field is added
+      isRecurring: false,
     );
 
     Log.d(
@@ -258,8 +263,7 @@ TransactionFormState useTransactionFormState({
   required WidgetRef ref,
   required String defaultCurrency,
   required bool isEditing,
-  TransactionModel?
-  transaction, // Pass the resolved transaction data for editing
+  TransactionModel? transaction,
 }) {
   final titleController = useTextEditingController(
     text: isEditing ? transaction?.title : '',
@@ -273,6 +277,7 @@ TransactionFormState useTransactionFormState({
     text: isEditing ? transaction?.notes ?? '' : '',
   );
   final categoryController = useTextEditingController();
+  final dateFieldController = useTextEditingController();
 
   final selectedTransactionType = useState<TransactionType>(
     isEditing && transaction != null
@@ -291,6 +296,7 @@ TransactionFormState useTransactionFormState({
       categoryController: categoryController,
       selectedTransactionType: selectedTransactionType,
       selectedCategory: selectedCategory,
+      dateFieldController: dateFieldController,
       defaultCurrency: defaultCurrency,
       isEditing: isEditing,
       initialTransaction: transaction,
@@ -323,6 +329,9 @@ TransactionFormState useTransactionFormState({
             selectedCategory.value = transaction.category;
           }
           // categoryController.text is handled by another useEffect based on selectedCategory
+
+          dateFieldController.text = transaction.date
+              .toDayMonthYearTime12Hour();
 
           final imagePath = transaction.imagePath;
           if (imagePath != null && imagePath.isNotEmpty) {
