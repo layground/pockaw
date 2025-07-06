@@ -41,6 +41,14 @@ extension DateTimeExtension on DateTime {
     return DateFormat("MMM yyyy").format(this);
   }
 
+  DateTime get toMidnightStart {
+    return DateTime(year, month, day);
+  }
+
+  DateTime get toMidnightEnd {
+    return DateTime(year, month, day, 23, 59, 59);
+  }
+
   /// Returns "Today", "Yesterday" if applicable, otherwise "13 March 2025".
   /// Compares `this` date to the current date.
   String toRelativeDayFormatted() {
