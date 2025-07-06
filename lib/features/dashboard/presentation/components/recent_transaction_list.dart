@@ -64,7 +64,7 @@ class RecentTransactionList extends ConsumerWidget {
                   return TransactionTile(transaction: transaction);
                 },
                 separatorBuilder: (context, index) =>
-                    const Gap(AppSpacing.spacing16),
+                    const Gap(AppSpacing.spacing12),
               ),
             ],
           ),

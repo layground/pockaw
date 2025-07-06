@@ -17,6 +17,7 @@ import 'package:pockaw/features/category/data/model/category_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/category/data/repositories/category_repo.dart'
     as category_repository;
+import 'package:pockaw/features/transaction/presentation/riverpod/date_picker_provider.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:toastification/toastification.dart';
 
@@ -330,6 +331,11 @@ TransactionFormState useTransactionFormState({
           }
           // categoryController.text is handled by another useEffect based on selectedCategory
 
+          Future.microtask(
+            () =>
+                ref.read(datePickerProvider.notifier).state = transaction.date,
+          );
+
           dateFieldController.text = transaction.date
               .toDayMonthYearTime12Hour();
 
@@ -352,6 +358,9 @@ TransactionFormState useTransactionFormState({
           selectedCategory.value = null;
           // Clear image for new transaction form
           Future.microtask(() => ref.read(imageProvider.notifier).clearImage());
+          Future.microtask(
+            () => ref.read(datePickerProvider.notifier).state = DateTime.now(),
+          );
         }
         // categoryController text is updated by the separate effect below
       }

@@ -121,13 +121,13 @@ class TransactionGroupedCard extends ConsumerWidget {
                   );
                 },
                 separatorBuilder: (context, itemIndex) =>
-                    const Gap(AppSpacing.spacing16),
+                    const Gap(AppSpacing.spacing12),
               ),
             ],
           ),
         );
       },
-      separatorBuilder: (context, index) => const Gap(AppSpacing.spacing16),
+      separatorBuilder: (context, index) => const Gap(AppSpacing.spacing12),
     );
   }
 }
