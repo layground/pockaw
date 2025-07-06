@@ -9,11 +9,10 @@ import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_
 import 'package:pockaw/features/transaction/presentation/components/transaction_grouped_card.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_summary_card.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tab_bar.dart';
-import 'package:pockaw/features/transaction/presentation/riverpod/transaction_filter_form_state.dart';
 import 'package:pockaw/features/transaction/presentation/riverpod/transaction_providers.dart';
 import 'package:pockaw/features/transaction/presentation/screens/transaction_filter_form_dialog.dart';
 
-class TransactionScreen extends HookConsumerWidget {
+class TransactionScreen extends ConsumerWidget {
   const TransactionScreen({super.key});
 
   @override
@@ -21,7 +20,6 @@ class TransactionScreen extends HookConsumerWidget {
     final themeMode = ref.watch(themeModeProvider);
     final allTransactionsAsyncValue = ref.watch(transactionListProvider);
     final isFilterActive = ref.watch(transactionFilterProvider);
-    final formState = useTransactionFilterFormState(ref: ref);
 
     return CustomScaffold(
       context: context,
@@ -31,12 +29,13 @@ class TransactionScreen extends HookConsumerWidget {
       actions: [
         CustomIconButton(
           onPressed: () {
+            final currentFilter = ref.read(transactionFilterProvider);
             showModalBottomSheet(
               context: context,
               showDragHandle: true,
               isScrollControlled: true,
               builder: (context) =>
-                  TransactionFilterFormDialog(formState: formState),
+                  TransactionFilterFormDialog(initialFilter: currentFilter),
             );
           },
           icon: HugeIcons.strokeRoundedFilter,

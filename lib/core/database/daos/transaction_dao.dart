@@ -249,7 +249,12 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
         );
       }
       if (filter.category != null) {
-        query.where(transactions.categoryId.equals(filter.category!.id!));
+        // Collect parent and all subcategory IDs for filtering
+        final parentId = filter.category!.id!;
+        final subIds =
+            filter.category!.subCategories?.map((e) => e.id!).toList() ?? [];
+        final allCategoryIds = [parentId, ...subIds];
+        query.where(transactions.categoryId.isIn(allCategoryIds));
       }
       if (filter.minAmount != null) {
         query.where(

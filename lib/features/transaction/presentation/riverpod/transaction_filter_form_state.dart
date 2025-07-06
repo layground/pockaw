@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pockaw/core/extensions/date_time_extension.dart';
+import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/core/extensions/string_extension.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
-import 'package:pockaw/features/category/data/repositories/category_repo.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_filter_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/presentation/riverpod/date_picker_provider.dart';
 import 'package:pockaw/features/transaction/presentation/riverpod/transaction_providers.dart';
 import 'package:pockaw/features/category/data/repositories/category_repo.dart'
     as category_repository;
+import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
+import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
 class TransactionFilterFormState {
   final TextEditingController keywordController;
@@ -60,8 +64,6 @@ class TransactionFilterFormState {
     selectedTransactionType.value = type;
   }
 
-  void onCategorySelected(CategoryModel? category) {}
-
   void applyFilter(WidgetRef ref, BuildContext context) {
     // Use filterDatePickerProvider for date range
     final dateRange = ref.read(filterDatePickerProvider);
@@ -73,16 +75,16 @@ class TransactionFilterFormState {
           ? keywordController.text
           : null,
       minAmount: minAmountController.text.isNotEmpty
-          ? double.tryParse(minAmountController.text)
+          ? minAmountController.text.takeNumericAsDouble()
           : null,
       maxAmount: maxAmountController.text.isNotEmpty
-          ? double.tryParse(maxAmountController.text)
+          ? maxAmountController.text.takeNumericAsDouble()
           : null,
       notes: notesController.text.isNotEmpty ? notesController.text : null,
       category: selectedCategory.value,
       transactionType: selectedTransactionType.value,
-      dateStart: dateStart,
-      dateEnd: dateEnd,
+      dateStart: dateStart?.toMidnightStart,
+      dateEnd: dateEnd?.toMidnightEnd,
     );
 
     ref.read(transactionFilterProvider.notifier).state = filter;
@@ -118,38 +120,54 @@ class TransactionFilterFormState {
 
 TransactionFilterFormState useTransactionFilterFormState({
   required WidgetRef ref,
+  TransactionFilter? initialFilter,
 }) {
-  final keywordController = useTextEditingController();
-  final minAmountController = useTextEditingController();
-  final maxAmountController = useTextEditingController();
-  final notesController = useTextEditingController();
-  final categoryController = useTextEditingController();
+  final activeWallet = ref.read(activeWalletProvider);
+  final keywordController = useTextEditingController(
+    text: initialFilter?.keyword ?? '',
+  );
+  final minAmountController = useTextEditingController(
+    text: initialFilter?.minAmount == null
+        ? ''
+        : '${activeWallet.valueOrNull?.currencyByIsoCode(ref).symbol} ${initialFilter?.minAmount?.toPriceFormat()}',
+  );
+  final maxAmountController = useTextEditingController(
+    text: initialFilter?.maxAmount == null
+        ? ''
+        : '${activeWallet.valueOrNull?.currencyByIsoCode(ref).symbol} ${initialFilter?.maxAmount?.toPriceFormat()}',
+  );
+  final notesController = useTextEditingController(
+    text: initialFilter?.notes ?? '',
+  );
+  final categoryController = useTextEditingController(
+    text: initialFilter?.category?.title ?? '',
+  );
   final dateFieldController = useTextEditingController();
 
   final selectedTransactionType = useState<TransactionType>(
-    TransactionType.expense,
+    initialFilter?.transactionType ?? TransactionType.expense,
   );
-  final selectedCategory = useState<CategoryModel?>(categories.first);
+  final selectedCategory = useState<CategoryModel?>(initialFilter?.category);
 
-  final formState = useMemoized(
-    () => TransactionFilterFormState(
-      keywordController: keywordController,
-      minAmountController: minAmountController,
-      maxAmountController: maxAmountController,
-      notesController: notesController,
-      categoryController: categoryController,
-      dateFieldController: dateFieldController,
-      selectedTransactionType: selectedTransactionType,
-      selectedCategory: selectedCategory,
-    ),
-    [],
+  // Set date picker provider if filter has dates
+  useState(() {
+    if (initialFilter?.dateStart != null && initialFilter?.dateEnd != null) {
+      ref.read(filterDatePickerProvider.notifier).state = [
+        initialFilter!.dateStart,
+        initialFilter.dateEnd,
+      ];
+    }
+    return null;
+  });
+
+  return TransactionFilterFormState(
+    keywordController: keywordController,
+    minAmountController: minAmountController,
+    maxAmountController: maxAmountController,
+    notesController: notesController,
+    categoryController: categoryController,
+    dateFieldController: dateFieldController,
+    selectedTransactionType: selectedTransactionType,
+    selectedCategory: selectedCategory,
   );
-
-  // The main dispose for controllers created by useTextEditingController
-  // and ValueNotifiers from useState is handled automatically by flutter_hooks.
-  // The custom `formState.dispose()` might be redundant if it only disposes these.
-  // If it has other specific cleanup, it should be called.
-  // For now, assuming standard hook cleanup is sufficient.
-
-  return formState;
 }
