@@ -129,6 +129,7 @@ class AppColors {
 
   // Green Alpha Variant
   static const Color greenAlpha10 = Color(0x1A52DF83);
+  static const Color greenAlpha20 = Color(0x3252DF83);
   static const Color greenAlpha30 = Color(0x4D52DF83);
   static const Color greenAlpha50 = Color(0x8052DF83);
 }
