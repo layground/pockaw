@@ -23,33 +23,40 @@ class CustomConfirmCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(AppSpacing.spacing8),
-      decoration: BoxDecoration(
-        border: Border.all(color: AppColors.darkAlpha10),
-        borderRadius: BorderRadius.circular(AppRadius.radius8),
-      ),
-      child: Row(
-        children: [
-          CustomIconButton(
-            onPressed: onChanged,
-            icon: checked
-                ? HugeIcons.strokeRoundedCheckmarkSquare01
-                : HugeIcons.strokeRoundedSquare,
+    return InkWell(
+      onTap: onChanged,
+      borderRadius: BorderRadius.circular(AppRadius.radius8),
+      child: Container(
+        padding: const EdgeInsets.all(AppSpacing.spacing16),
+        decoration: BoxDecoration(
+          color: context.purpleBackground(context.themeMode),
+          border: Border.all(
+            color: context.purpleBorderLighter(context.themeMode),
           ),
-          const Gap(AppSpacing.spacing8),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(title, style: AppTextStyles.body3),
-                if (subtitle != null)
-                  Text(subtitle!, style: AppTextStyles.body5),
-              ],
+          borderRadius: BorderRadius.circular(AppRadius.radius8),
+        ),
+        child: Row(
+          children: [
+            CustomIconButton(
+              onPressed: onChanged,
+              icon: checked
+                  ? HugeIcons.strokeRoundedCheckmarkSquare01
+                  : HugeIcons.strokeRoundedSquare,
             ),
-          ),
-        ],
+            const Gap(AppSpacing.spacing8),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(title, style: AppTextStyles.body3),
+                  if (subtitle != null)
+                    Text(subtitle!, style: AppTextStyles.body5),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

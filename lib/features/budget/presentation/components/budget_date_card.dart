@@ -32,6 +32,9 @@ class BudgetDateCard extends ConsumerWidget {
           CustomIconButton(
             onPressed: () {},
             icon: HugeIcons.strokeRoundedCalendar01,
+            backgroundColor: context.purpleBackground(themeMode),
+            borderColor: context.purpleBorder(themeMode),
+            color: context.purpleIcon(themeMode),
           ),
           const Gap(AppSpacing.spacing4),
           Column(
@@ -41,14 +44,12 @@ class BudgetDateCard extends ConsumerWidget {
               Text(
                 'Budget Period',
                 style: AppTextStyles.body3.copyWith(
-                  color: context.secondaryText(themeMode),
+                  color: context.purpleText(themeMode),
                 ),
               ),
               Text(
                 '${budget.startDate.toDayShortMonth()} - ${budget.endDate.toDayShortMonthYear()}',
-                style: AppTextStyles.body5.copyWith(
-                  color: context.secondaryText(themeMode),
-                ),
+                style: AppTextStyles.body5,
               ),
             ],
           ),

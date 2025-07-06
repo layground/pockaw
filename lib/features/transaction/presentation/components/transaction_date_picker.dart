@@ -27,6 +27,7 @@ class TransactionDatePicker extends HookConsumerWidget {
     }, []);
 
     return CustomSelectField(
+      context: context,
       controller: dateFieldController,
       label: 'Set a date',
       hint: '12 November 2024 08.00 AM',

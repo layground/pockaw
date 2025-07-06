@@ -34,6 +34,7 @@ class SmallButton extends ConsumerWidget {
 
     return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(AppRadius.radius8),
       child: Container(
         padding: const EdgeInsetsDirectional.symmetric(
           horizontal: AppSpacing.spacing4,

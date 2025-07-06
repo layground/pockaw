@@ -30,8 +30,8 @@ class TransactionSummaryCard extends ConsumerWidget {
       margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
       padding: const EdgeInsets.all(AppSpacing.spacing16),
       decoration: BoxDecoration(
-        color: context.secondaryBackground(themeMode),
-        border: Border.all(color: context.secondaryBorder(themeMode)),
+        color: context.purpleBackground(themeMode),
+        border: Border.all(color: context.purpleBorderLighter(themeMode)),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
       child: Column(
@@ -40,18 +40,13 @@ class TransactionSummaryCard extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Earning',
-                style: AppTextStyles.body3.copyWith(
-                  color: context.secondaryText(themeMode),
-                ),
-              ),
+              Text('Earning', style: AppTextStyles.body3),
               Expanded(
                 child: Text(
                   '$currency ${transactions.totalIncome.toPriceFormat()}',
                   textAlign: TextAlign.end,
                   style: AppTextStyles.numericMedium.copyWith(
-                    color: AppColors.primary600,
+                    color: context.incomeText(themeMode),
                   ),
                 ),
               ),
@@ -61,25 +56,20 @@ class TransactionSummaryCard extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Spending',
-                style: AppTextStyles.body3.copyWith(
-                  color: context.secondaryText(themeMode),
-                ),
-              ),
+              Text('Spending', style: AppTextStyles.body3),
               Expanded(
                 child: Text(
                   '- $currency ${transactions.totalExpenses.toPriceFormat()}',
                   textAlign: TextAlign.end,
                   style: AppTextStyles.numericMedium.copyWith(
-                    color: AppColors.red700,
+                    color: context.expenseText(themeMode),
                   ),
                 ),
               ),
             ],
           ),
-          const Divider(
-            color: AppColors.purpleAlpha10,
+          Divider(
+            color: context.breakLineColor(themeMode),
             thickness: 1,
             height: 9,
           ),
@@ -89,7 +79,6 @@ class TransactionSummaryCard extends ConsumerWidget {
               Text(
                 'Total',
                 style: AppTextStyles.body3.copyWith(
-                  color: context.secondaryText(themeMode),
                   fontWeight: FontWeight.w800,
                 ),
               ),
@@ -97,9 +86,7 @@ class TransactionSummaryCard extends ConsumerWidget {
                 child: Text(
                   '$currency ${transactions.total.toPriceFormat()}',
                   textAlign: TextAlign.end,
-                  style: AppTextStyles.numericMedium.copyWith(
-                    color: context.secondaryText(themeMode),
-                  ),
+                  style: AppTextStyles.numericMedium,
                 ),
               ),
             ],
@@ -107,8 +94,8 @@ class TransactionSummaryCard extends ConsumerWidget {
           const Gap(AppSpacing.spacing4),
           SmallButton(
             label: 'View full report',
-            backgroundColor: AppColors.purpleAlpha10,
-            borderColor: AppColors.purpleAlpha10,
+            backgroundColor: context.purpleButtonBackground(themeMode),
+            borderColor: context.purpleButtonBorder(themeMode),
             foregroundColor: context.secondaryText(themeMode),
             labelTextStyle: AppTextStyles.body5,
           ),

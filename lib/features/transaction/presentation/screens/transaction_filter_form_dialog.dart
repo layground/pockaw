@@ -30,8 +30,7 @@ class TransactionFilterFormDialog extends ConsumerWidget {
           children: [
             TransactionFilterTypeSelector(
               selectedType: formState.selectedTransactionType.value,
-              onTypeSelected: (type) =>
-                  formState.selectedTransactionType.value = type,
+              onTypeSelected: formState.onTypeSelected,
             ),
             CustomTextField(
               controller: formState.keywordController,

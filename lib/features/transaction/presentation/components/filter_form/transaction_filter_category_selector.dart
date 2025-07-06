@@ -24,6 +24,7 @@ class TransactionFilterCategorySelector extends HookConsumerWidget {
         children: [
           Expanded(
             child: CustomSelectField(
+              context: context,
               controller: controller,
               label: 'Category',
               hint: 'Select Category',

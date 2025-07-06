@@ -56,6 +56,12 @@ class TransactionFilterFormState {
     }
   }
 
+  void onTypeSelected(TransactionType type) {
+    selectedTransactionType.value = type;
+  }
+
+  void onCategorySelected(CategoryModel? category) {}
+
   void applyFilter(WidgetRef ref, BuildContext context) {
     // Use filterDatePickerProvider for date range
     final dateRange = ref.read(filterDatePickerProvider);

@@ -43,12 +43,15 @@ class CurrencyListTiles extends ConsumerWidget {
                 },
                 child: Container(
                   padding: const EdgeInsets.symmetric(
-                    vertical: AppSpacing.spacing12,
-                    horizontal: AppSpacing.spacing20,
+                    vertical: AppSpacing.spacing8,
+                    horizontal: AppSpacing.spacing8,
                   ),
                   decoration: BoxDecoration(
+                    color: context.purpleBackground(themeMode),
                     borderRadius: BorderRadius.circular(AppRadius.radius8),
-                    border: Border.all(color: AppColors.neutralAlpha50),
+                    border: Border.all(
+                      color: context.purpleBorderLighter(themeMode),
+                    ),
                   ),
                   child: Row(
                     children: [
@@ -56,10 +59,10 @@ class CurrencyListTiles extends ConsumerWidget {
                         child: Row(
                           children: [
                             Container(
-                              width: 40,
-                              padding: EdgeInsets.all(AppSpacing.spacing4),
+                              width: 50,
+                              padding: EdgeInsets.all(AppSpacing.spacing8),
                               decoration: BoxDecoration(
-                                color: context.secondaryBackground(themeMode),
+                                color: context.purpleBackground(themeMode),
                                 borderRadius: BorderRadius.circular(
                                   AppRadius.radius4,
                                 ),
@@ -67,7 +70,10 @@ class CurrencyListTiles extends ConsumerWidget {
                               child: Text(
                                 currency.symbol,
                                 textAlign: TextAlign.center,
-                                style: AppTextStyles.body3,
+                                style: AppTextStyles.body3.copyWith(
+                                  color: context.purpleText(themeMode),
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ),
                             const Gap(AppSpacing.spacing8),
@@ -86,13 +92,15 @@ class CurrencyListTiles extends ConsumerWidget {
                                       AppRadius.radius4,
                                     ),
                                     border: Border.all(
-                                      color: AppColors.neutralAlpha75,
+                                      color: context.purpleBorderLighter(
+                                        themeMode,
+                                      ),
                                     ),
                                   ),
                                   child: CountryFlag.fromCountryCode(
                                     currency.countryCode,
                                     width: 40,
-                                    height: 32,
+                                    height: 28,
                                     shape: const RoundedRectangle(
                                       AppRadius.radius4,
                                     ),
@@ -106,7 +114,7 @@ class CurrencyListTiles extends ConsumerWidget {
               );
             },
             separatorBuilder: (context, index) =>
-                const Gap(AppSpacing.spacing12),
+                const Gap(AppSpacing.spacing8),
           );
         },
         loading: () => const Center(child: LoadingIndicator()),

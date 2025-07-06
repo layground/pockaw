@@ -8,7 +8,6 @@ import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tile.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
@@ -30,8 +29,7 @@ class TransactionGroupedCard extends ConsumerWidget {
       return Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.spacing20,
-          vertical:
-              AppSpacing.spacing40, // More vertical space for empty message
+          vertical: AppSpacing.spacing40,
         ),
         child: Center(
           child: Text(
@@ -82,7 +80,7 @@ class TransactionGroupedCard extends ConsumerWidget {
           padding: const EdgeInsets.all(AppSpacing.spacing16),
           decoration: BoxDecoration(
             border: Border.all(
-              color: context.secondaryBorder(ref.read(themeModeProvider)),
+              color: context.purpleBorderLighter(context.themeMode),
             ),
             borderRadius: BorderRadius.circular(AppRadius.radius8),
           ),

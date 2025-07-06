@@ -43,6 +43,7 @@ class TransactionCategorySelector extends HookConsumerWidget {
           const Gap(AppSpacing.spacing8), */
           Expanded(
             child: CustomSelectField(
+              context: context,
               controller: controller,
               label: 'Category',
               hint: 'Select Category',

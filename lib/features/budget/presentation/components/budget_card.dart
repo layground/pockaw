@@ -48,12 +48,13 @@ class BudgetCard extends ConsumerWidget {
           context.push('${Routes.budgetDetails}/${budget.id}');
         }
       },
+      borderRadius: BorderRadius.circular(AppRadius.radius8),
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.spacing12),
         decoration: BoxDecoration(
-          color: context.colors.surface,
+          color: context.purpleBackground(themeMode),
           borderRadius: BorderRadius.circular(AppRadius.radius8),
-          border: Border.all(color: context.secondaryBorder(themeMode)),
+          border: Border.all(color: context.purpleBorderLighter(themeMode)),
         ),
         child: Column(
           children: [
@@ -89,10 +90,7 @@ class BudgetCard extends ConsumerWidget {
                 child: LinearProgressIndicator(),
               ) // Small loader for progress
             else
-              ProgressBar(
-                value: progress,
-                foreground: AppColors.primary, // Use category color
-              ),
+              ProgressBar(value: progress),
           ],
         ),
       ),

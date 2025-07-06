@@ -22,8 +22,8 @@ class BudgetFundSourceCard extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.spacing8),
       decoration: BoxDecoration(
-        color: context.secondaryBackground(themeMode),
-        border: Border.all(color: context.secondaryBorder(themeMode)),
+        color: context.incomeBackground(themeMode),
+        border: Border.all(color: context.incomeLine(themeMode)),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
       child: Row(
@@ -48,9 +48,7 @@ class BudgetFundSourceCard extends ConsumerWidget {
               ),
               Text(
                 budget.wallet.name, // Display wallet name
-                style: AppTextStyles.body5.copyWith(
-                  color: context.incomeText(themeMode),
-                ),
+                style: AppTextStyles.body5,
               ),
             ],
           ),

@@ -76,7 +76,7 @@ class MobileBottomAppBar extends ConsumerWidget {
           ),
           CircleIconButton(
             radius: 25,
-            icon: HugeIcons.strokeRoundedDatabase,
+            icon: HugeIcons.strokeRoundedMoneyBag02,
             backgroundColor: Colors.transparent,
             foregroundColor: ref
                 .read(pageControllerProvider.notifier)

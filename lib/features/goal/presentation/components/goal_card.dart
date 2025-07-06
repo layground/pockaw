@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:pockaw/core/components/progress_indicators/progress_bar.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
@@ -34,9 +35,9 @@ class GoalCard extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.spacing12),
         decoration: BoxDecoration(
-          color: context.secondaryBackground(themeMode),
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: context.secondaryBorder(themeMode)),
+          color: context.purpleBackground(themeMode),
+          borderRadius: BorderRadius.circular(AppRadius.radius12),
+          border: Border.all(color: context.purpleBorderLighter(themeMode)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -49,7 +50,9 @@ class GoalCard extends ConsumerWidget {
                 Expanded(
                   child: Text(
                     goal.title,
-                    style: AppTextStyles.body3,
+                    style: AppTextStyles.body3.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -75,30 +78,7 @@ class GoalCard extends ConsumerWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          height: 20,
-                          padding: const EdgeInsets.all(AppSpacing.spacing4),
-                          decoration: ShapeDecoration(
-                            color: AppColors.purpleAlpha10,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                AppRadius.radiusFull,
-                              ),
-                            ),
-                          ),
-                          child: LinearProgressIndicator(
-                            value: progress,
-                            backgroundColor: context.progressBackground(
-                              themeMode,
-                            ),
-                            valueColor: const AlwaysStoppedAnimation(
-                              AppColors.purple,
-                            ),
-                            borderRadius: BorderRadius.circular(
-                              AppRadius.radiusFull,
-                            ),
-                          ),
-                        ),
+                        ProgressBar(value: progress),
                         const Gap(AppSpacing.spacing8),
                         Container(
                           padding: const EdgeInsets.symmetric(
@@ -116,7 +96,7 @@ class GoalCard extends ConsumerWidget {
                                     final bool isCompleted = item.completed;
                                     final Color itemColor = isCompleted
                                         ? context.disabledText(themeMode)
-                                        : context.secondaryText(themeMode);
+                                        : context.purpleText(themeMode);
                                     final IconData itemIconData = isCompleted
                                         ? HugeIcons
                                               .strokeRoundedCheckmarkCircle01

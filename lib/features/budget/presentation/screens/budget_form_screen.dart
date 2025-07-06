@@ -218,8 +218,9 @@ class BudgetFormScreen extends HookConsumerWidget {
                 ),
               );
             },
-            icon: HugeIcons.strokeRoundedDelete01,
-            color: AppColors.red,
+            context: context,
+            icon: HugeIcons.strokeRoundedDelete02,
+            themeMode: context.themeMode,
           ),
       ],
       body: Stack(
@@ -244,12 +245,14 @@ class BudgetFormScreen extends HookConsumerWidget {
                   spacing: AppSpacing.spacing16,
                   children: [
                     CustomSelectField(
+                      context: context,
                       controller: walletController,
                       label: activeWalletsAsync.value?.name,
                       prefixIcon: HugeIcons.strokeRoundedWallet01,
                       onTap: () {},
                     ),
                     CustomSelectField(
+                      context: context,
                       controller: categoryController,
                       label: 'Category',
                       hint: 'Select Category',
