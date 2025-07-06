@@ -100,7 +100,7 @@ class TransactionGroupedCard extends ConsumerWidget {
                             ? AppColors.green200
                             : (dayTotal < 0
                                   ? AppColors.red700
-                                  : AppColors.neutral700), // Neutral for zero
+                                  : null), // Neutral for zero
                       ),
                     ),
                   ),
