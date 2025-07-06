@@ -10,7 +10,7 @@ class SettingsFinanceGroup extends StatelessWidget {
       settingTiles: [
         MenuTileButton(
           label: 'Wallets',
-          icon: HugeIcons.strokeRoundedWallet01,
+          icon: HugeIcons.strokeRoundedWallet03,
           onTap: () => context.push(Routes.manageWallets),
         ),
         MenuTileButton(

@@ -87,7 +87,9 @@ class GoalCard extends ConsumerWidget {
                           child: checklistItems.isEmpty
                               ? Text(
                                   'No checklist items yet.',
-                                  style: AppTextStyles.body4,
+                                  style: AppTextStyles.body4.copyWith(
+                                    fontStyle: FontStyle.italic,
+                                  ),
                                 )
                               : Column(
                                   mainAxisSize: MainAxisSize.min,
@@ -209,7 +211,10 @@ class GoalCard extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing4),
           child: Text(
             'Error loading checklist.', // Simplified error message
-            style: AppTextStyles.body4.copyWith(color: Colors.red),
+            style: AppTextStyles.body4.copyWith(
+              color: Colors.red,
+              fontStyle: FontStyle.italic,
+            ),
           ),
         ),
       ],

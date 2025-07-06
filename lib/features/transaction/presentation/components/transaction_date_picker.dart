@@ -8,8 +8,13 @@ import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/transaction/presentation/riverpod/date_picker_provider.dart';
 
 class TransactionDatePicker extends ConsumerWidget {
+  final DateTime? initialdate;
   final TextEditingController dateFieldController;
-  const TransactionDatePicker({super.key, required this.dateFieldController});
+  const TransactionDatePicker({
+    super.key,
+    required this.dateFieldController,
+    this.initialdate,
+  });
 
   @override
   Widget build(BuildContext context, ref) {
@@ -24,9 +29,11 @@ class TransactionDatePicker extends ConsumerWidget {
       prefixIcon: HugeIcons.strokeRoundedCalendar01,
       isRequired: true,
       onTap: () async {
+        selectedDateNotifier.state = initialdate ?? DateTime.now();
+
         var date = await CustomDatePicker.selectSingleDate(
           context,
-          selectedDate,
+          initialdate ?? selectedDate,
         );
 
         if (date != null) {

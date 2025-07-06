@@ -62,9 +62,14 @@ class CurrencyListTiles extends ConsumerWidget {
                               width: 50,
                               padding: EdgeInsets.all(AppSpacing.spacing8),
                               decoration: BoxDecoration(
-                                color: context.purpleBackground(themeMode),
+                                color: context.purpleButtonBackground(
+                                  themeMode,
+                                ),
                                 borderRadius: BorderRadius.circular(
                                   AppRadius.radius4,
+                                ),
+                                border: Border.all(
+                                  color: context.purpleButtonBorder(themeMode),
                                 ),
                               ),
                               child: Text(
@@ -99,8 +104,8 @@ class CurrencyListTiles extends ConsumerWidget {
                                   ),
                                   child: CountryFlag.fromCountryCode(
                                     currency.countryCode,
-                                    width: 40,
-                                    height: 28,
+                                    width: 44,
+                                    height: 32,
                                     shape: const RoundedRectangle(
                                       AppRadius.radius4,
                                     ),

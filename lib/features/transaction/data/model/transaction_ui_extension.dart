@@ -70,7 +70,7 @@ extension TransactionUIExtensions on TransactionModel {
   Color iconBorderColor(bool isDarkMode) {
     switch (transactionType) {
       case TransactionType.income:
-        return isDarkMode ? AppColors.greenAlpha30 : AppColors.greenAlpha10;
+        return isDarkMode ? AppColors.greenAlpha20 : AppColors.greenAlpha10;
       case TransactionType.expense:
         return isDarkMode ? AppColors.redAlpha25 : AppColors.redAlpha10;
       case TransactionType.transfer:

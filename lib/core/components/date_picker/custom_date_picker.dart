@@ -1,5 +1,5 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/utils/logger.dart';
@@ -30,6 +30,7 @@ class CustomDatePicker {
       dialogSize: const Size(325, 400),
       value: [selectedDate],
       borderRadius: BorderRadius.circular(15),
+      barrierColor: Theme.of(context).bottomSheetTheme.modalBarrierColor,
     );
 
     if (dates != null && dates.first != null) {

@@ -9,6 +9,7 @@ import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
 import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
 import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
+import 'package:pockaw/core/components/form_fields/custom_confirm_checkbox.dart';
 import 'package:pockaw/core/components/form_fields/custom_select_field.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
@@ -39,6 +40,7 @@ class CategoryFormScreen extends HookConsumerWidget {
     final parentCategoryController = useTextEditingController();
     final descriptionController = useTextEditingController();
     final iconPath = useState('');
+    final makeAsParent = useState(false);
     final isEditing = categoryId != null;
 
     // State for the selected parent category
@@ -116,9 +118,11 @@ class CategoryFormScreen extends HookConsumerWidget {
                       width: 66,
                       padding: const EdgeInsets.all(AppSpacing.spacing8),
                       decoration: BoxDecoration(
-                        color: context.secondaryBackground(context.themeMode),
+                        color: context.purpleBackground(context.themeMode),
                         borderRadius: BorderRadius.circular(AppRadius.radius8),
-                        border: Border.all(color: AppColors.secondaryAlpha50),
+                        border: Border.all(
+                          color: context.purpleBorderLighter(context.themeMode),
+                        ),
                       ),
                       child: Center(
                         child: iconPath.value.isEmpty
@@ -130,19 +134,15 @@ class CategoryFormScreen extends HookConsumerWidget {
                   const Gap(AppSpacing.spacing8),
                   Expanded(
                     child: CustomSelectField(
+                      context: context,
                       controller: parentCategoryController,
                       label: 'Parent Category',
-                      isRequired: !isEditingParent,
                       hint: isEditingParent
                           ? '-'
                           : selectedParentCategory?.title ??
                                 'Select Parent Category',
                       prefixIcon: HugeIcons.strokeRoundedStructure01,
                       onTap: () async {
-                        if (isEditingParent) {
-                          return;
-                        }
-
                         // Navigate to the picker screen and wait for a result
                         final result = await context.push(
                           Routes.categoryListPickingParent,
@@ -170,6 +170,14 @@ class CategoryFormScreen extends HookConsumerWidget {
               maxLines: 3,
             ),
 
+            if (selectedParentCategory?.id != null)
+              CustomConfirmCheckbox(
+                title: 'Make as parent',
+                subtitle: 'Parent category selection will be ignored on save.',
+                checked: makeAsParent.value,
+                onChanged: () => makeAsParent.value = !makeAsParent.value,
+              ),
+
             PrimaryButton(
               label: 'Save',
               state: ButtonState.active,
@@ -178,7 +186,9 @@ class CategoryFormScreen extends HookConsumerWidget {
                   id: categoryId,
                   title: titleController.text.trim(),
                   description: descriptionController.text.trim(),
-                  parentId: selectedParentCategory?.id,
+                  parentId: makeAsParent.value
+                      ? null
+                      : selectedParentCategory?.id,
                   icon: iconPath.value,
                 );
 

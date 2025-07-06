@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/text_style_extensions.dart';
 
 class CustomTabBar extends StatelessWidget {
   final TabController? tabController;
@@ -15,7 +16,7 @@ class CustomTabBar extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(100),
-        border: Border.all(color: AppColors.secondaryAlpha25),
+        border: Border.all(color: context.purpleBorder(context.themeMode)),
       ),
       child: SizedBox(
         height: 30,
@@ -33,11 +34,11 @@ class CustomTabBar extends StatelessWidget {
             splashBorderRadius: BorderRadius.circular(100),
             indicatorSize: TabBarIndicatorSize.tab,
             indicator: BoxDecoration(
-              color: AppColors.secondary600,
+              color: AppColors.purple,
               borderRadius: BorderRadius.circular(100),
             ),
             unselectedLabelStyle: AppTextStyles.body4,
-            labelStyle: AppTextStyles.body4,
+            labelStyle: AppTextStyles.body4.extraBold,
             labelColor: AppColors.secondary50,
             tabs: tabs,
           ),

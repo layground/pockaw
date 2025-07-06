@@ -27,14 +27,6 @@ class CategoryFormService {
       return;
     }
 
-    if (!isEditingParent && categoryModel.parentId == null) {
-      Toast.show(
-        'Parent category cannot be empty.',
-        type: ToastificationType.error,
-      );
-      return;
-    }
-
     final db = ref.read(databaseProvider);
 
     Log.d(categoryModel.toJson(), label: 'category model');

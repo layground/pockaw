@@ -111,6 +111,9 @@ class MyApp extends ConsumerWidget {
           shape: buttonShape,
         ),
       ),
+      bottomSheetTheme: BottomSheetThemeData(
+        modalBarrierColor: AppColors.neutral700.withAlpha(150),
+      ),
     );
 
     return ToastificationWrapper(

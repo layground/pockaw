@@ -60,6 +60,7 @@ class SplashScreen extends HookConsumerWidget {
     }, const []); // Empty dependency array means this runs once
 
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

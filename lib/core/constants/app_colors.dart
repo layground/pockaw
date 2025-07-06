@@ -116,6 +116,9 @@ class AppColors {
   static const Color darkGrey = Color(
     0xFF21272B,
   ); // Base for dark alpha variants
+  static const Color darkGreyBorder = Color(
+    0xFF2A3034,
+  ); // Base for dark alpha variants
   static Color get darkAlpha10 => darkGrey.withAlpha(10);
   static Color get darkAlpha30 => darkGrey.withAlpha(30);
   static Color get darkAlpha50 => darkGrey.withAlpha(60);
@@ -126,6 +129,7 @@ class AppColors {
 
   // Green Alpha Variant
   static const Color greenAlpha10 = Color(0x1A52DF83);
+  static const Color greenAlpha20 = Color(0x3252DF83);
   static const Color greenAlpha30 = Color(0x4D52DF83);
   static const Color greenAlpha50 = Color(0x8052DF83);
 }
@@ -141,6 +145,11 @@ extension ColorExtensions on BuildContext {
   Color secondaryBackground(ThemeMode themeMode) => themeMode == ThemeMode.dark
       ? AppColors.secondaryAlpha10
       : AppColors.secondary50;
+
+  Color secondaryButtonBackground(ThemeMode themeMode) =>
+      themeMode == ThemeMode.dark
+      ? AppColors.secondaryAlpha10
+      : AppColors.secondary100;
 
   Color secondaryBackgroundSolid(ThemeMode themeMode) =>
       themeMode == ThemeMode.dark
@@ -193,7 +202,7 @@ extension ColorExtensions on BuildContext {
   Color purpleButtonBackground(ThemeMode themeMode) =>
       themeMode == ThemeMode.dark
       ? AppColors.purpleAlpha10
-      : AppColors.purple50;
+      : AppColors.purple100;
 
   Color purpleButtonBorder(ThemeMode themeMode) => themeMode == ThemeMode.dark
       ? AppColors.purpleAlpha50
