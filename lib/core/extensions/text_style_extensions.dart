@@ -6,6 +6,8 @@ extension TextStyleExtensions on TextStyle {
   TextStyle get semibold => copyWith(fontVariations: [AppFontWeights.semiBold]);
 
   TextStyle get bold => copyWith(fontVariations: [AppFontWeights.bold]);
+  TextStyle get extraBold => copyWith(fontWeight: FontWeight.w800);
+  TextStyle get black => copyWith(fontWeight: FontWeight.w900);
 
   /// Returns a [TextStyle] with a color suitable for light mode backgrounds.
   ///

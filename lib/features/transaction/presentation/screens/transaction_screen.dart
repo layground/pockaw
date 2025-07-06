@@ -24,8 +24,8 @@ class TransactionScreen extends ConsumerWidget {
     return CustomScaffold(
       context: context,
       showBackButton: false,
+      showBalance: true,
       title: 'My Transactions',
-      showBalance: false,
       actions: [
         CustomIconButton(
           onPressed: () {
@@ -81,6 +81,7 @@ class TransactionScreen extends ConsumerWidget {
             initialIndex: initialTabIndex,
             child: Column(
               children: [
+                const Gap(AppSpacing.spacing20),
                 TransactionTabBar(
                   // TabController is now implicitly handled by DefaultTabController
                   monthsForTabs: uniqueMonthYears,

@@ -75,6 +75,7 @@ class AppTextStyles {
   static const body4 = TextStyle(
     fontSize: 12.0,
     fontVariations: [AppFontWeights.medium],
+    height: 1.4,
   );
 
   static const body5 = TextStyle(
