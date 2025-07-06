@@ -145,6 +145,11 @@ extension ColorExtensions on BuildContext {
       ? AppColors.secondaryAlpha10
       : AppColors.secondary50;
 
+  Color secondaryButtonBackground(ThemeMode themeMode) =>
+      themeMode == ThemeMode.dark
+      ? AppColors.secondaryAlpha10
+      : AppColors.secondary100;
+
   Color secondaryBackgroundSolid(ThemeMode themeMode) =>
       themeMode == ThemeMode.dark
       ? AppColors.secondary950

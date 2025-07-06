@@ -41,7 +41,8 @@ class SmallButton extends ConsumerWidget {
           vertical: AppSpacing.spacing4,
         ),
         decoration: BoxDecoration(
-          color: backgroundColor ?? context.secondaryBackground(themeMode),
+          color:
+              backgroundColor ?? context.secondaryButtonBackground(themeMode),
           border: Border.all(
             color: borderColor ?? context.secondaryBorder(themeMode),
           ),
@@ -52,6 +53,7 @@ class SmallButton extends ConsumerWidget {
           children: [
             Row(
               mainAxisSize: MainAxisSize.min,
+              spacing: AppSpacing.spacing4,
               children: [
                 if (prefixIcon != null)
                   Icon(
@@ -59,7 +61,6 @@ class SmallButton extends ConsumerWidget {
                     size: 16,
                     color: foregroundColor ?? AppColors.secondary400,
                   ),
-                const Gap(2),
                 Text(
                   label,
                   style: labelTextStyle.copyWith(color: foregroundColor),

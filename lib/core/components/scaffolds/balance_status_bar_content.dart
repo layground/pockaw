@@ -17,7 +17,7 @@ class BalanceStatusBarContent extends ConsumerWidget {
               horizontal: AppSpacing.spacing8,
             ),
             decoration: BoxDecoration(
-              color: AppColors.purple50,
+              color: context.secondaryButtonBackground(themeMode),
               border: Border.all(color: context.purpleBorder(themeMode)),
               borderRadius: BorderRadius.circular(AppRadius.radius8),
             ),
@@ -32,7 +32,7 @@ class BalanceStatusBarContent extends ConsumerWidget {
           margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing8),
           decoration: BoxDecoration(
-            color: context.secondaryBackground(themeMode),
+            color: context.secondaryButtonBackground(themeMode),
             border: Border.all(color: context.secondaryBorder(themeMode)),
             borderRadius: BorderRadius.circular(AppRadius.radius8),
           ),
@@ -47,7 +47,7 @@ class BalanceStatusBarContent extends ConsumerWidget {
                     Icon(
                       HugeIcons.strokeRoundedWallet03,
                       size: 16,
-                      color: context.purpleIcon(themeMode),
+                      color: AppColors.secondary400,
                     ),
                     Flexible(
                       child: Text(
