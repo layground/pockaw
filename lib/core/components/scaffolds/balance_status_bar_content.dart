@@ -32,7 +32,8 @@ class BalanceStatusBarContent extends ConsumerWidget {
           margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing8),
           decoration: BoxDecoration(
-            border: Border.all(color: context.purpleBorder(themeMode)),
+            color: context.secondaryBackground(themeMode),
+            border: Border.all(color: context.secondaryBorder(themeMode)),
             borderRadius: BorderRadius.circular(AppRadius.radius8),
           ),
           child: Row(
@@ -41,15 +42,14 @@ class BalanceStatusBarContent extends ConsumerWidget {
                 flex: 2, // Give more space to wallet name if needed
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
+                  spacing: AppSpacing.spacing4,
                   children: [
                     Icon(
-                      HugeIcons.strokeRoundedWallet01,
+                      HugeIcons.strokeRoundedWallet03,
                       size: 16,
                       color: context.purpleIcon(themeMode),
                     ),
-                    const Gap(AppSpacing.spacing2),
                     Flexible(
-                      // Allow text to wrap or truncate if too long
                       child: Text(
                         wallet.name,
                         style: AppTextStyles.body4,
