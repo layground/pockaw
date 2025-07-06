@@ -201,7 +201,7 @@ extension ColorExtensions on BuildContext {
   Color purpleButtonBackground(ThemeMode themeMode) =>
       themeMode == ThemeMode.dark
       ? AppColors.purpleAlpha10
-      : AppColors.purple50;
+      : AppColors.purple100;
 
   Color purpleButtonBorder(ThemeMode themeMode) => themeMode == ThemeMode.dark
       ? AppColors.purpleAlpha50
