@@ -134,6 +134,7 @@ class CategoryFormScreen extends HookConsumerWidget {
                   const Gap(AppSpacing.spacing8),
                   Expanded(
                     child: CustomSelectField(
+                      context: context,
                       controller: parentCategoryController,
                       label: 'Parent Category',
                       hint: isEditingParent

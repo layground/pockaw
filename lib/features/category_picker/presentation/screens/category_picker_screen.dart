@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pockaw/core/components/buttons/button_chip.dart'
-    show ButtonChip;
 import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
@@ -28,7 +26,7 @@ class CategoryPickerScreen extends ConsumerWidget {
       showBalance: false,
       body: Column(
         children: [
-          if (!isManageCategories)
+          /* if (!isManageCategories)
             Container(
               padding: EdgeInsets.fromLTRB(
                 AppSpacing.spacing20,
@@ -44,7 +42,7 @@ class CategoryPickerScreen extends ConsumerWidget {
                   Expanded(child: ButtonChip(label: 'Income')),
                 ],
               ),
-            ),
+            ), */
           Expanded(
             child: ref
                 .watch(hierarchicalCategoriesProvider)
