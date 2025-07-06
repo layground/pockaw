@@ -28,6 +28,7 @@ class MobileBottomAppBar extends ConsumerWidget {
             ? AppColors.dark
             : AppColors.darkGrey,
         borderRadius: BorderRadius.circular(AppRadius.radiusFull),
+        border: Border.all(color: AppColors.darkGreyBorder),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

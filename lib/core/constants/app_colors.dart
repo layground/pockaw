@@ -116,6 +116,9 @@ class AppColors {
   static const Color darkGrey = Color(
     0xFF21272B,
   ); // Base for dark alpha variants
+  static const Color darkGreyBorder = Color(
+    0xFF2A3034,
+  ); // Base for dark alpha variants
   static Color get darkAlpha10 => darkGrey.withAlpha(10);
   static Color get darkAlpha30 => darkGrey.withAlpha(30);
   static Color get darkAlpha50 => darkGrey.withAlpha(60);
