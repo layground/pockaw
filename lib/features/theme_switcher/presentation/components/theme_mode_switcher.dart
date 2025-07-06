@@ -15,7 +15,7 @@ class ThemeModeSwitcher extends ConsumerWidget {
         ref.read(themeModeProvider.notifier).toggleThemeMode();
       },
       icon: themeMode == ThemeMode.light
-          ? HugeIcons.strokeRoundedMoon01
+          ? HugeIcons.strokeRoundedMoon02
           : HugeIcons.strokeRoundedSun01,
       context: context,
       themeMode: themeMode,
