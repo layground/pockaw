@@ -2,9 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as p;
-import 'package:permission_handler/permission_handler.dart';
 import 'package:pockaw/core/database/pockaw_database.dart';
 import 'package:pockaw/core/services/data_backup_service/backup_data_model.dart';
 import 'package:pockaw/core/services/image_service/image_service.dart';
@@ -78,15 +76,6 @@ class DataBackupService {
   /// Returns the path where the backup was saved, or null if cancelled/failed.
   Future<String?> backupData() async {
     Log.i('Starting backup process...');
-
-    // Request storage permission (primarily for Android < 13)
-    if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-      var status = await Permission.manageExternalStorage.request();
-      if (!status.isGranted) {
-        Log.e('Storage permission not granted.', label: 'Backup');
-        return null;
-      }
-    }
 
     // Let user pick a directory
     String? selectedDirectory = await FilePicker.platform.getDirectoryPath(
@@ -170,15 +159,6 @@ class DataBackupService {
   /// Returns true if restore was successful, false otherwise.
   Future<bool> restoreData() async {
     Log.i('Starting restore process...');
-
-    // Request storage permission
-    if (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) {
-      var status = await Permission.manageExternalStorage.request();
-      if (!status.isGranted) {
-        Log.e('Storage permission not granted.', label: 'Restore');
-        return false;
-      }
-    }
 
     String? selectedDirectory = await FilePicker.platform.getDirectoryPath(
       dialogTitle: 'Select your Pockaw backup folder (containing data.json)',
