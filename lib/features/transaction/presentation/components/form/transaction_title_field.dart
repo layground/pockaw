@@ -5,8 +5,13 @@ import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
 
 class TransactionTitleField extends HookConsumerWidget {
   final TextEditingController controller;
+  final bool isEditing;
 
-  const TransactionTitleField({super.key, required this.controller});
+  const TransactionTitleField({
+    super.key,
+    required this.controller,
+    this.isEditing = false,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,6 +23,7 @@ class TransactionTitleField extends HookConsumerWidget {
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.name,
       isRequired: true,
+      autofocus: !isEditing,
     );
   }
 }
