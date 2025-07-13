@@ -38,11 +38,9 @@ class GoalChecklistFormDialog extends HookConsumerWidget {
     final amountController = useTextEditingController();
     final linkController = useTextEditingController();
     bool completed = false;
-    bool isEditing = false;
+    bool isEditing = checklistItemModel != null;
 
     useEffect(() {
-      isEditing = checklistItemModel != null;
-
       if (isEditing) {
         titleController.text = checklistItemModel!.title;
         amountController.text =

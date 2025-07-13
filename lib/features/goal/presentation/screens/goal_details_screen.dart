@@ -62,8 +62,9 @@ class GoalDetailsScreen extends ConsumerWidget {
               );
             },
             icon: goalAsync.value!.pinned
-                ? HugeIcons.strokeRoundedPin
-                : HugeIcons.strokeRoundedPinOff,
+                ? HugeIcons.strokeRoundedPinOff
+                : HugeIcons.strokeRoundedPin,
+            active: goalAsync.value!.pinned,
             context: context,
             themeMode: themeMode,
           ),
@@ -154,7 +155,6 @@ class GoalDetailsScreen extends ConsumerWidget {
               showModalBottomSheet(
                 context: context,
                 showDragHandle: true,
-                isScrollControlled: true,
                 builder: (context) => GoalChecklistFormDialog(goalId: goalId),
               );
             },

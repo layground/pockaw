@@ -16,11 +16,16 @@ class GoalPinnedHolder extends ConsumerWidget {
     ); // <-- Use pinnedGoalsProvider
 
     return Container(
-      padding: const EdgeInsets.all(AppSpacing.spacing20),
+      padding: const EdgeInsets.symmetric(vertical: AppSpacing.spacing20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Pinned Goals', style: AppTextStyles.heading6),
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.spacing20,
+            ),
+            child: const Text('Pinned Goals', style: AppTextStyles.heading6),
+          ),
           const Gap(AppSpacing.spacing16),
           asyncGoals.when(
             data: (data) {
@@ -33,6 +38,9 @@ class GoalPinnedHolder extends ConsumerWidget {
               return SizedBox(
                 height: 150,
                 child: ListView.separated(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.spacing20,
+                  ),
                   itemCount: data.take(5).length,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {

@@ -14,6 +14,7 @@ class CustomIconButton extends IconButton {
     Color? backgroundColor,
     Color? borderColor,
     Color? color,
+    bool active = false,
     bool showBadge = false,
     double padding = 6,
     IconSize iconSize = IconSize.small,
@@ -31,7 +32,11 @@ class CustomIconButton extends IconButton {
          icon: Container(
            padding: EdgeInsets.all(padding),
            decoration: BoxDecoration(
-             color: backgroundColor ?? context?.purpleBackground(themeMode),
+             color:
+                 backgroundColor ??
+                 (active
+                     ? context?.purpleBackgroundActive(themeMode)
+                     : context?.purpleBackground(themeMode)),
              borderRadius: BorderRadius.circular(AppRadius.radius8),
              border: Border.all(
                color:
@@ -44,7 +49,11 @@ class CustomIconButton extends IconButton {
              children: [
                Icon(
                  icon,
-                 color: color ?? context?.purpleIcon(themeMode),
+                 color:
+                     color ??
+                     (active
+                         ? context?.purpleIconActive(themeMode)
+                         : context?.purpleIcon(themeMode)),
                  size: _getIconSize(iconSize),
                ),
                !showBadge
