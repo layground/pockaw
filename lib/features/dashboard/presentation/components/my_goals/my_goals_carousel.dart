@@ -2,7 +2,7 @@
 // import 'package:gap/gap.dart';
 // import 'package:pockaw/core/constants/app_spacing.dart';
 // import 'package:pockaw/core/constants/app_text_styles.dart';
-// import 'package:pockaw/features/dashboard/presentation/screens/dashboard_screen.dart';
+// import 'package:pockaw/features/dashboard/presentation/components/dashboard_screen.dart';
 //
 // class MyGoalsCarousel extends StatelessWidget {
 //   const MyGoalsCarousel({super.key});
