@@ -8,8 +8,11 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/database/database_provider.dart';
+import 'package:pockaw/core/database/tables/category_table.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
+import 'package:pockaw/features/category/presentation/riverpod/category_providers.dart';
 import 'package:pockaw/features/category/presentation/screens/category_form_screen.dart';
 
 import 'category_tile.dart';
@@ -37,12 +40,15 @@ class CategoryDropdown extends HookConsumerWidget {
         suffixIcon: expanded.value
             ? HugeIcons.strokeRoundedArrowDown01
             : HugeIcons.strokeRoundedArrowRight01,
-        onSelectCategory: (selectedCategory) {
+        onSelectCategory: (selectedCategory) async {
           Log.d(selectedCategory.toJson(), label: 'category');
           // if picking category, then return to previous screen with selected category
           if (!isManageCategory) {
             context.pop(selectedCategory);
           } else {
+            // reset parent selection
+            ref.read(selectedParentCategoryProvider.notifier).state = null;
+
             showModalBottomSheet(
               context: context,
               showDragHandle: true,
@@ -73,11 +79,30 @@ class CategoryDropdown extends HookConsumerWidget {
           final subCategory = subCategories[index];
           return CategoryTile(
             category: subCategory,
-            onSelectCategory: (selectedCategory) {
+            onSelectCategory: (selectedCategory) async {
+              Log.d(selectedCategory.toJson(), label: 'category');
               // if picking category, then return to previous screen with selected category
               if (!isManageCategory) {
                 context.pop(selectedCategory);
               } else {
+                // reset parent selection
+                ref.read(selectedParentCategoryProvider.notifier).state = null;
+
+                // select parent if possible
+                if (selectedCategory.parentId != null) {
+                  final parentCategory = await ref
+                      .read(databaseProvider)
+                      .categoryDao
+                      .getCategoryById(selectedCategory.parentId!);
+                  Log.d(parentCategory?.toJson(), label: 'parent category');
+                  if (parentCategory != null) {
+                    ref.read(selectedParentCategoryProvider.notifier).state =
+                        parentCategory.toModel();
+                  }
+                }
+
+                if (!context.mounted) return;
+
                 showModalBottomSheet(
                   context: context,
                   showDragHandle: true,

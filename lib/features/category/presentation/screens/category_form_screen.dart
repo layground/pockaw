@@ -65,21 +65,6 @@ class CategoryFormScreen extends HookConsumerWidget {
         titleController.text = category.title;
         descriptionController.text = category.description ?? '';
         iconPath.value = category.icon ?? '';
-        if (category.parentId != null) {
-          // Fetch the parent Category object from DB then convert to CategoryModel
-          ref
-              .read(databaseProvider)
-              .categoryDao
-              .getCategoryById(category.parentId!)
-              .then((parentDriftCategory) {
-                if (parentDriftCategory != null) {
-                  ref.read(selectedParentCategoryProvider.notifier).state =
-                      parentDriftCategory.toModel();
-                }
-              });
-        } else {
-          ref.read(selectedParentCategoryProvider.notifier).state = null;
-        }
       }
       return null;
     }, [categoryFuture.connectionState, categoryFuture.data]);
