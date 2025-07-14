@@ -1,4 +1,4 @@
-// part of '../../screens/dashboard_screen.dart';
+// part of '../../components/dashboard_screen.dart';
 //
 // class GoalsCarousel extends StatelessWidget {
 //   const GoalsCarousel({super.key});

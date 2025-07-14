@@ -21,10 +21,29 @@ class LoginImagePicker extends ConsumerWidget {
     return GestureDetector(
       onTap: () async {
         KeyboardService.closeKeyboard();
-        ref.read(loginImageProvider.notifier).pickImage().then((value) {
-          ref.read(loginImageProvider.notifier).saveImage();
-          ref.read(authStateProvider.notifier).getUser();
-        });
+        showModalBottomSheet(
+          context: context,
+          showDragHandle: true,
+          builder: (context) => CustomBottomSheet(
+            title: 'Pick Image',
+            child: ImagePickerDialog(
+              onTakePhoto: (filePath) {
+                ref.read(loginImageProvider.notifier).takePhoto().then((value) {
+                  ref.read(loginImageProvider.notifier).saveImage();
+                  ref.read(authStateProvider.notifier).getUser();
+                  if (context.mounted) context.pop();
+                });
+              },
+              onPickImage: () {
+                ref.read(loginImageProvider.notifier).pickImage().then((value) {
+                  ref.read(loginImageProvider.notifier).saveImage();
+                  ref.read(authStateProvider.notifier).getUser();
+                  if (context.mounted) context.pop();
+                });
+              },
+            ),
+          ),
+        );
       },
       child: Stack(
         children: [

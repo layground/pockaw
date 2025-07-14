@@ -120,15 +120,15 @@ class TransactionForm extends HookConsumerWidget {
               formState.selectedTransactionType.value = type,
         ),
         const Gap(AppSpacing.spacing12),
-        TransactionTitleField(controller: formState.titleController),
-        const Gap(AppSpacing.spacing16),
-        TransactionAmountField(
-          controller: formState.amountController,
-          autofocus: !formState.isEditing,
+        TransactionTitleField(
+          controller: formState.titleController,
+          isEditing: formState.isEditing,
         ),
         const Gap(AppSpacing.spacing16),
+        TransactionAmountField(controller: formState.amountController),
+        const Gap(AppSpacing.spacing16),
         TransactionCategorySelector(
-          controller: formState.categoryController, // For displaying the text
+          controller: formState.categoryController,
           onCategorySelected: (category) {
             formState.selectedCategory.value = category;
             formState.categoryController.text = formState.getCategoryText();

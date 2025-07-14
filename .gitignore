@@ -4,6 +4,7 @@
 *.pyc
 *.swp
 .DS_Store
+.kotlin/
 .atom/
 .build/
 .buildlog/

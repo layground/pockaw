@@ -199,6 +199,9 @@ extension ColorExtensions on BuildContext {
       ? AppColors.neutralAlpha25
       : AppColors.purple50;
 
+  Color purpleBackgroundActive(ThemeMode themeMode) =>
+      themeMode == ThemeMode.dark ? AppColors.purple : AppColors.purple400;
+
   Color purpleButtonBackground(ThemeMode themeMode) =>
       themeMode == ThemeMode.dark
       ? AppColors.purpleAlpha10
@@ -227,7 +230,10 @@ extension ColorExtensions on BuildContext {
       themeMode == ThemeMode.dark ? AppColors.purple300 : AppColors.purple;
 
   Color purpleIcon(ThemeMode themeMode) =>
-      themeMode == ThemeMode.dark ? AppColors.purple300 : AppColors.purple;
+      themeMode == ThemeMode.dark ? AppColors.purple200 : AppColors.purple;
+
+  Color purpleIconActive(ThemeMode themeMode) =>
+      themeMode == ThemeMode.dark ? AppColors.purple50 : AppColors.purple100;
 
   Color floatingContainer(ThemeMode themeMode) =>
       themeMode == ThemeMode.dark ? AppColors.dark : AppColors.light;

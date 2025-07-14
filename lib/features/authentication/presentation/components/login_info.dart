@@ -9,8 +9,8 @@ class LoginInfo extends StatelessWidget {
       textAlign: TextAlign.center,
       TextSpan(
         text:
-            'Use your name to login into different account.\nWe only store your data into local database '
-            'on this device. So you are in charge! ',
+            'You can add more wallets later.\nWe only store your data into local database '
+            'on this device.\nSo you are in charge! ',
         style: AppTextStyles.body4,
         children: [
           TextSpan(

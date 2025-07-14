@@ -35,7 +35,7 @@ class CategoryModel with _$CategoryModel {
 
 extension CategoryModelUtils on CategoryModel {
   /// Checks if this category is a top-level category (i.e., it has no parent).
-  bool get isTopLevelCategory => parentId == null;
+  bool get isParent => parentId == null;
 
   /// Checks if this category has any sub-categories.
   bool get hasSubCategories =>

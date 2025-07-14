@@ -67,6 +67,7 @@ class MyApp extends ConsumerWidget {
           shape: buttonShape,
         ),
       ),
+      textTheme: TextTheme(bodyMedium: AppTextStyles.body2),
     );
 
     // Define the dark theme using the standard ThemeData
@@ -114,6 +115,7 @@ class MyApp extends ConsumerWidget {
       bottomSheetTheme: BottomSheetThemeData(
         modalBarrierColor: AppColors.neutral700.withAlpha(150),
       ),
+      textTheme: TextTheme(bodyMedium: AppTextStyles.body2),
     );
 
     return ToastificationWrapper(
