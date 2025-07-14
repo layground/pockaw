@@ -29,9 +29,18 @@ class SettingsDataGroup extends ConsumerWidget {
             showModalBottomSheet(
               context: context,
               showDragHandle: true,
-              builder: (context) => CustomBottomSheet(
+              builder: (dialogContext) => CustomBottomSheet(
                 title: 'Restore Data',
-                child: RestoreDialog(onSuccess: () => context.pop()),
+                child: RestoreDialog(
+                  onSuccess: () async {
+                    await Future.delayed(Duration(milliseconds: 1500));
+
+                    if (context.mounted) {
+                      dialogContext.pop();
+                      context.replace(Routes.main);
+                    }
+                  },
+                ),
               ),
             );
           },

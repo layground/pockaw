@@ -26,7 +26,6 @@ import 'package:pockaw/features/authentication/presentation/riverpod/auth_provid
 import 'package:pockaw/features/backup_and_restore/presentation/components/restore_dialog.dart';
 import 'package:pockaw/features/image_picker/presentation/screens/image_picker_dialog.dart';
 import 'package:pockaw/features/theme_switcher/presentation/components/theme_mode_switcher.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:toastification/toastification.dart';
 
 part '../components/form.dart';
@@ -40,15 +39,25 @@ class LoginScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final themeMode = ref.watch(themeModeProvider);
     final nameField = useTextEditingController();
 
     void restoreData() {
       showModalBottomSheet(
         context: context,
         showDragHandle: true,
-        builder: (context) =>
-            CustomBottomSheet(title: 'Restore Data', child: RestoreDialog()),
+        builder: (dialogContext) => CustomBottomSheet(
+          title: 'Restore Data',
+          child: RestoreDialog(
+            onSuccess: () async {
+              await Future.delayed(Duration(milliseconds: 1500));
+
+              if (context.mounted) {
+                dialogContext.pop();
+                context.replace(Routes.main);
+              }
+            },
+          ),
+        ),
       );
     }
 
@@ -61,10 +70,10 @@ class LoginScreen extends HookConsumerWidget {
           onPressed: restoreData,
           icon: HugeIcons.strokeRoundedDatabaseImport,
           context: context,
-          themeMode: themeMode,
+          themeMode: context.themeMode,
         ),
         Gap(AppSpacing.spacing8),
-        ThemeModeSwitcher(themeMode: themeMode),
+        ThemeModeSwitcher(themeMode: context.themeMode),
       ],
       body: Stack(
         fit: StackFit.expand,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pockaw/core/components/loading_indicators/loading_indicator.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 
@@ -16,6 +17,7 @@ class CustomIconButton extends IconButton {
     Color? color,
     bool active = false,
     bool showBadge = false,
+    bool isLoading = false,
     double padding = 6,
     IconSize iconSize = IconSize.small,
     VisualDensity visualDensity = VisualDensity.compact,
@@ -45,22 +47,24 @@ class CustomIconButton extends IconButton {
                    AppColors.neutralAlpha25,
              ),
            ),
-           child: Stack(
-             children: [
-               Icon(
-                 icon,
-                 color:
-                     color ??
-                     (active
-                         ? context?.purpleIconActive(themeMode)
-                         : context?.purpleIcon(themeMode)),
-                 size: _getIconSize(iconSize),
-               ),
-               !showBadge
-                   ? const SizedBox()
-                   : Positioned(top: 2, right: 2, child: _badge()),
-             ],
-           ),
+           child: isLoading
+               ? SizedBox.square(dimension: 18, child: LoadingIndicator())
+               : Stack(
+                   children: [
+                     Icon(
+                       icon,
+                       color:
+                           color ??
+                           (active
+                               ? context?.purpleIconActive(themeMode)
+                               : context?.purpleIcon(themeMode)),
+                       size: _getIconSize(iconSize),
+                     ),
+                     !showBadge
+                         ? const SizedBox()
+                         : Positioned(top: 2, right: 2, child: _badge()),
+                   ],
+                 ),
          ),
        );
 

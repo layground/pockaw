@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/secondary_button.dart';
 import 'package:pockaw/core/components/dialogs/toast.dart';
@@ -9,13 +9,12 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/daos/user_dao.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
-import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/services/data_backup_service/data_backup_service_provider.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:toastification/toastification.dart';
 
-class RestoreDialog extends ConsumerWidget {
+class RestoreDialog extends HookConsumerWidget {
   final Function? onStart;
   final Function? onSuccess;
   final Function? onFailed;
@@ -24,15 +23,17 @@ class RestoreDialog extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final dataBackupService = ref.read(dataBackupServiceProvider);
+    final isLoading = useState(false);
     Future<void> restore() async {
       onStart?.call();
+      isLoading.value = true;
 
       Toast.show('Starting restore...', type: ToastificationType.info);
-      final success = await dataBackupService.restoreData();
+      final success = await dataBackupService.restoreDataDocman();
 
       if (success) {
         Toast.show(
-          'Data restored successfully!',
+          'Data restored successfully! refreshing app...',
           type: ToastificationType.success,
         );
         // Optionally, restart app or refresh all data providers
@@ -47,11 +48,11 @@ class RestoreDialog extends ConsumerWidget {
         final userModel = user.toModel();
         ref.read(authStateProvider.notifier).setUser(userModel);
         await ref.read(activeWalletProvider.notifier).initializeActiveWallet();
-
-        if (context.mounted) context.replace(Routes.main);
+        isLoading.value = false;
 
         onSuccess?.call();
       } else {
+        isLoading.value = false;
         Toast.show(
           'Restore failed or cancelled.',
           type: ToastificationType.error,
@@ -87,6 +88,7 @@ class RestoreDialog extends ConsumerWidget {
           onPressed: restore,
           label: 'Select Backup Folder',
           icon: HugeIcons.strokeRoundedDatabaseImport,
+          isLoading: isLoading.value,
         ),
       ],
     );

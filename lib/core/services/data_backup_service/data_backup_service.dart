@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:docman/docman.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:path/path.dart' as p;
 import 'package:pockaw/core/database/pockaw_database.dart';
@@ -229,6 +230,173 @@ class DataBackupService {
       return true;
     } catch (e, st) {
       Log.e('Restore failed: $e\n$st', label: 'Restore Error');
+      return false;
+    }
+  }
+
+  Future<bool> restoreDataDocman() async {
+    Log.i('Starting restore process...');
+
+    // 1. Let the user pick a directory using Docman
+    // This returns a DocumentDirectory object which represents the picked directory
+    final DocumentFile? selectedDocDirectory = await DocMan.pick.directory();
+
+    if (selectedDocDirectory == null) {
+      Log.i(
+        'Restore cancelled by user or no directory selected.',
+        label: 'Restore',
+      );
+      return false;
+    }
+
+    Log.d(
+      'Selected directory URI: ${selectedDocDirectory.uri}',
+      label: 'Restore',
+    );
+    Log.d(
+      'Selected directory Name: ${selectedDocDirectory.name}',
+      label: 'Restore',
+    );
+
+    try {
+      // 2. Find and read 'data.json' from the selected directory using Docman
+      final List<DocumentFile> filesInDir = await selectedDocDirectory
+          .listDocuments();
+      DocumentFile? jsonDocFile;
+
+      for (var docFile in filesInDir) {
+        if (docFile.name == 'data.json') {
+          jsonDocFile = docFile;
+          break;
+        }
+      }
+
+      if (jsonDocFile == null) {
+        Log.e(
+          'data.json not found in selected folder: ${selectedDocDirectory.name}',
+          label: 'Restore Error',
+        );
+        return false;
+      }
+
+      Log.d(
+        'Found data.json: ${jsonDocFile.name} (URI: ${jsonDocFile.uri})',
+        label: 'Restore',
+      );
+
+      // Read the content of data.json
+      // Docman's DocumentFile doesn't have a direct readAsString, so read as bytes then decode
+      final List<int>? jsonDataBytes = await jsonDocFile.read();
+      if (jsonDataBytes == null) {
+        Log.e('Failed to read data.json content.', label: 'Restore Error');
+        return false;
+      }
+      final String jsonString = utf8.decode(
+        jsonDataBytes,
+      ); // Assuming UTF-8 encoding
+      final Map<String, dynamic> rawData = jsonDecode(jsonString);
+      final BackupData backupData = BackupData.fromJson(rawData);
+
+      // 3. Copy images from the 'images' subdirectory in the backup to app storage
+      final appImagesDirPath = await _imageService.getAppImagesDirectory();
+      final appImagesDir = Directory(appImagesDirPath);
+      if (!await appImagesDir.exists()) {
+        await appImagesDir.create(recursive: true);
+      }
+
+      // Find the 'images' subdirectory within the selected backup directory
+      DocumentFile? backupImagesDocDir;
+      // Re-list or find specifically, as listFiles() on selectedDocDirectory gives files and immediate subdirs
+      // A more robust way might be to look for a DocumentDirectory named 'images'
+      // For simplicity, let's assume we can construct a path or list and find it.
+      // Docman might not directly support navigating to subdirectories by string path easily.
+      // You might need to list files/directories and find the one named 'images'.
+
+      // Attempt 1: Iterate and find the 'images' directory
+      for (var item in filesInDir) {
+        // filesInDir contains DocumentFile and DocumentDirectory
+        if (item.isDirectory && item.name == 'images') {
+          backupImagesDocDir = item;
+          break;
+        }
+      }
+
+      if (backupImagesDocDir != null) {
+        Log.d(
+          'Found images directory: ${backupImagesDocDir.name}',
+          label: 'Restore Images',
+        );
+        final List<DocumentFile> imageDocFiles = await backupImagesDocDir
+            .listDocuments();
+
+        for (var imageDocFile in imageDocFiles) {
+          if (!(imageDocFile.name.endsWith('.png') ||
+              imageDocFile.name.endsWith('.jpg') ||
+              imageDocFile.name.endsWith('.jpeg'))) {
+            Log.e(
+              'Skipping non-image or unnamed file in backup: ${imageDocFile.name}',
+              label: 'Restore Images',
+            );
+            continue;
+          }
+
+          final fileName = imageDocFile.name; // Should have a name
+          final newPath = p.join(appImagesDir.path, fileName);
+
+          // Read image bytes using Docman and write to app storage using dart:io
+          final List<int>? imageBytes = await imageDocFile.read();
+          if (imageBytes != null) {
+            final newFile = File(newPath);
+            await newFile.writeAsBytes(imageBytes);
+            Log.d(
+              'Copied backup image: $fileName to $newPath',
+              label: 'Restore Images',
+            );
+          } else {
+            Log.e(
+              'Could not read bytes for image: $fileName',
+              label: 'Restore Images',
+            );
+          }
+        }
+      } else {
+        Log.i(
+          'No "images" sub-directory found in the backup.',
+          label: 'Restore Images',
+        );
+      }
+
+      // 4. Update image paths in the data before importing to DB
+      // This part remains the same as your original logic, using p.basename and p.join
+      for (var userMap in backupData.users) {
+        if (userMap['profilePicture'] != null &&
+            (userMap['profilePicture'] as String).isNotEmpty) {
+          final oldFileName = p.basename(userMap['profilePicture'] as String);
+          userMap['profilePicture'] = p.join(appImagesDir.path, oldFileName);
+        }
+      }
+      for (var transactionMap in backupData.transactions) {
+        if (transactionMap['imagePath'] != null &&
+            (transactionMap['imagePath'] as String).isNotEmpty) {
+          final oldFileName = p.basename(transactionMap['imagePath'] as String);
+          transactionMap['imagePath'] = p.join(appImagesDir.path, oldFileName);
+        }
+      }
+
+      // 5. Import to database
+      await _importJsonToDatabase(backupData); // Your existing method
+
+      Log.i('Restore process completed successfully.', label: 'Restore');
+      return true;
+    } catch (e, st) {
+      Log.e('Restore failed: $e\n$st', label: 'Restore Error');
+      // If error occurs with Docman, you might want to check for plugin specific exceptions
+      if (e is DocManException) {
+        Log.e(
+          'Docman specific error: ${e.toString()} (Code: ${e.code})',
+          label: 'Docman Error',
+        );
+      }
       return false;
     }
   }
