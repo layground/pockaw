@@ -23,7 +23,6 @@ import 'package:pockaw/features/authentication/presentation/riverpod/auth_provid
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_pinned_holder.dart';
 import 'package:pockaw/features/theme_switcher/presentation/components/theme_mode_switcher.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tile.dart';
 import 'package:pockaw/features/transaction/presentation/riverpod/transaction_providers.dart';

@@ -196,6 +196,7 @@ class BudgetFormScreen extends HookConsumerWidget {
       actions: [
         if (isEditing)
           CustomIconButton(
+            context,
             onPressed: () async {
               // Show confirmation dialog
               showModalBottomSheet(
@@ -218,7 +219,6 @@ class BudgetFormScreen extends HookConsumerWidget {
                 ),
               );
             },
-            context: context,
             icon: HugeIcons.strokeRoundedDelete02,
             themeMode: context.themeMode,
           ),

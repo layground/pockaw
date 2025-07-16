@@ -5,18 +5,17 @@ import 'package:gap/gap.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
+import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_card.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/goals_list_provider.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_form_dialog.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
 class GoalScreen extends ConsumerWidget {
   const GoalScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.watch(themeModeProvider);
     final asyncGoals = ref.watch(goalsListProvider);
 
     return CustomScaffold(
@@ -25,6 +24,7 @@ class GoalScreen extends ConsumerWidget {
       title: 'My Goals',
       actions: [
         CustomIconButton(
+          context,
           onPressed: () {
             showModalBottomSheet(
               context: context,
@@ -34,8 +34,7 @@ class GoalScreen extends ConsumerWidget {
             );
           },
           icon: HugeIcons.strokeRoundedPlusSign,
-          context: context,
-          themeMode: themeMode,
+          themeMode: context.themeMode,
         ),
       ],
       body: asyncGoals.when(

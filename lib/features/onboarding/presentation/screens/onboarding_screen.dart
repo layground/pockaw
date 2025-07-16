@@ -4,7 +4,6 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
-import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/theme_switcher/presentation/components/theme_mode_switcher.dart';
@@ -20,7 +19,7 @@ class OnboardingScreen extends StatelessWidget {
       context: context,
       showBackButton: false,
       showBalance: false,
-      actions: [ThemeModeSwitcher(themeMode: context.themeMode)],
+      actions: [ThemeModeSwitcher()],
       body: Stack(
         fit: StackFit.expand,
         children: [

@@ -13,6 +13,7 @@ import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/dialogs/toast.dart';
 import 'package:pockaw/core/components/loading_indicators/loading_indicator.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
+import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
@@ -25,7 +26,6 @@ import 'package:pockaw/features/goal/presentation/riverpod/date_picker_provider.
 import 'package:pockaw/features/goal/presentation/riverpod/goal_details_provider.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_checklist_form_dialog.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_form_dialog.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:toastification/toastification.dart';
@@ -36,7 +36,6 @@ class GoalDetailsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final themeMode = ref.watch(themeModeProvider);
     final wallet = ref.watch(activeWalletProvider);
     final goalAsync = ref.watch(goalDetailsProvider(goalId));
     final checklistItemsAsync = ref.watch(checklistItemsProvider(goalId));
@@ -48,6 +47,7 @@ class GoalDetailsScreen extends ConsumerWidget {
       actions: [
         if (goalAsync.value != null)
           CustomIconButton(
+            context,
             onPressed: () async {
               final db = ref.read(databaseProvider);
               final goal = goalAsync.value!;
@@ -65,11 +65,11 @@ class GoalDetailsScreen extends ConsumerWidget {
                 ? HugeIcons.strokeRoundedPinOff
                 : HugeIcons.strokeRoundedPin,
             active: goalAsync.value!.pinned,
-            context: context,
-            themeMode: themeMode,
+            themeMode: context.themeMode,
           ),
         Gap(AppSpacing.spacing8),
         CustomIconButton(
+          context,
           onPressed: () {
             if (goalAsync.value != null) {
               ref.read(datePickerProvider.notifier).state =
@@ -84,12 +84,12 @@ class GoalDetailsScreen extends ConsumerWidget {
             }
           },
           icon: HugeIcons.strokeRoundedEdit02,
-          context: context,
-          themeMode: themeMode,
+          themeMode: context.themeMode,
         ),
         Gap(AppSpacing.spacing8),
         if (goalAsync.value != null)
           CustomIconButton(
+            context,
             onPressed: () {
               showModalBottomSheet(
                 context: context,
@@ -114,8 +114,7 @@ class GoalDetailsScreen extends ConsumerWidget {
               );
             },
             icon: HugeIcons.strokeRoundedDelete02,
-            context: context,
-            themeMode: themeMode,
+            themeMode: context.themeMode,
           ),
       ],
       body: Stack(
@@ -149,7 +148,7 @@ class GoalDetailsScreen extends ConsumerWidget {
           PrimaryButton(
             label: 'Add Checklist Item',
             state: ButtonState.outlinedActive,
-            themeMode: ref.read(themeModeProvider),
+            themeMode: context.themeMode,
             onPressed: () {
               print('➕  Opening checklist dialog for goalId=$goalId');
               showModalBottomSheet(

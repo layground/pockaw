@@ -4,11 +4,11 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/buttons/menu_tile_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
+import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:pockaw/features/wallet/screens/wallet_form_bottom_sheet.dart';
@@ -26,6 +26,7 @@ class WalletsScreen extends ConsumerWidget {
       showBalance: false,
       actions: [
         CustomIconButton(
+          context,
           icon: HugeIcons.strokeRoundedAdd01,
           onPressed: () {
             showModalBottomSheet(
@@ -35,8 +36,7 @@ class WalletsScreen extends ConsumerWidget {
               builder: (_) => WalletFormBottomSheet(),
             );
           },
-          context: context,
-          themeMode: ref.read(themeModeProvider),
+          themeMode: context.themeMode,
         ),
       ],
       body: allWalletsAsync.when(

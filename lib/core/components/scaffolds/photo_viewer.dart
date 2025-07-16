@@ -28,6 +28,7 @@ class PhotoViewer extends HookConsumerWidget {
         backgroundColor: Colors.transparent,
         leadingWidth: 80,
         leading: CustomIconButton(
+          context,
           onPressed: () => context.pop(),
           icon: HugeIcons.strokeRoundedArrowLeft01,
         ),

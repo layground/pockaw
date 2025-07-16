@@ -5,28 +5,26 @@ class ActionButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final themeMode = ref.watch(themeModeProvider);
-
     return Row(
       spacing: context.isDesktopLayout
           ? AppSpacing.spacing16
           : AppSpacing.spacing8,
       children: [
-        ThemeModeSwitcher(themeMode: themeMode),
+        ThemeModeSwitcher(),
         CustomIconButton(
+          context,
           onPressed: () => context.push(Routes.comingSoon),
           icon: HugeIcons.strokeRoundedNotification02,
           showBadge: true,
-          context: context,
-          themeMode: themeMode,
+          themeMode: context.themeMode,
         ),
         CustomIconButton(
+          context,
           onPressed: () {
             context.push(Routes.settings);
           },
           icon: HugeIcons.strokeRoundedSettings01,
-          context: context,
-          themeMode: themeMode,
+          themeMode: context.themeMode,
         ),
       ],
     );

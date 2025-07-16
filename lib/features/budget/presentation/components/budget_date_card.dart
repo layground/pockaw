@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
@@ -10,31 +9,29 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/features/budget/data/model/budget_model.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
-class BudgetDateCard extends ConsumerWidget {
+class BudgetDateCard extends StatelessWidget {
   final BudgetModel budget;
   const BudgetDateCard({super.key, required this.budget});
 
   @override
-  Widget build(BuildContext context, ref) {
-    final themeMode = ref.read(themeModeProvider);
-
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.spacing8),
       decoration: BoxDecoration(
-        color: context.secondaryBackground(themeMode),
-        border: Border.all(color: context.secondaryBorder(themeMode)),
+        color: context.secondaryBackground(context.themeMode),
+        border: Border.all(color: context.secondaryBorder(context.themeMode)),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
       child: Row(
         children: [
           CustomIconButton(
+            context,
             onPressed: () {},
             icon: HugeIcons.strokeRoundedCalendar01,
-            backgroundColor: context.purpleBackground(themeMode),
-            borderColor: context.purpleBorder(themeMode),
-            color: context.purpleIcon(themeMode),
+            backgroundColor: context.purpleBackground(context.themeMode),
+            borderColor: context.purpleBorder(context.themeMode),
+            color: context.purpleIcon(context.themeMode),
           ),
           const Gap(AppSpacing.spacing4),
           Column(
@@ -44,7 +41,7 @@ class BudgetDateCard extends ConsumerWidget {
               Text(
                 'Budget Period',
                 style: AppTextStyles.body3.copyWith(
-                  color: context.purpleText(themeMode),
+                  color: context.purpleText(context.themeMode),
                 ),
               ),
               Text(

@@ -22,7 +22,6 @@ import 'package:pockaw/features/backup_and_restore/presentation/components/backu
 import 'package:pockaw/features/backup_and_restore/presentation/components/restore_dialog.dart';
 import 'package:pockaw/features/settings/presentation/components/settings_group_holder.dart';
 import 'package:pockaw/features/theme_switcher/presentation/components/theme_mode_switcher.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/data/repositories/wallet_repo.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
@@ -40,13 +39,11 @@ class SettingsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.watch(themeModeProvider);
-
     return CustomScaffold(
       context: context,
       title: 'Settings',
       showBackButton: true,
-      actions: [ThemeModeSwitcher(themeMode: themeMode)],
+      actions: [ThemeModeSwitcher()],
       body: const SingleChildScrollView(
         padding: EdgeInsets.all(AppSpacing.spacing20),
         child: Column(

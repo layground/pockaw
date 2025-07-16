@@ -4,8 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
+import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_grouped_card.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_summary_card.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tab_bar.dart';
@@ -17,7 +17,6 @@ class TransactionScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.watch(themeModeProvider);
     final allTransactionsAsyncValue = ref.watch(transactionListProvider);
     final isFilterActive = ref.watch(transactionFilterProvider);
 
@@ -28,6 +27,7 @@ class TransactionScreen extends ConsumerWidget {
       title: 'My Transactions',
       actions: [
         CustomIconButton(
+          context,
           onPressed: () {
             final currentFilter = ref.read(transactionFilterProvider);
             showModalBottomSheet(
@@ -40,8 +40,7 @@ class TransactionScreen extends ConsumerWidget {
           },
           icon: HugeIcons.strokeRoundedFilter,
           showBadge: isFilterActive != null,
-          context: context,
-          themeMode: themeMode,
+          themeMode: context.themeMode,
         ),
       ],
       body: allTransactionsAsyncValue.when(

@@ -7,7 +7,6 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/features/goal/data/model/goal_model.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
 class GoalTitleCard extends ConsumerWidget {
   final GoalModel goal;
@@ -15,14 +14,13 @@ class GoalTitleCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final themeMode = ref.read(themeModeProvider);
     final goalDescription = goal.description ?? '';
 
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.spacing20),
       decoration: BoxDecoration(
-        border: Border.all(color: context.purpleBorder(themeMode)),
+        border: Border.all(color: context.purpleBorder(context.themeMode)),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
       child: Column(

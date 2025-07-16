@@ -13,7 +13,6 @@ import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/goal/data/model/goal_model.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/checklist_items_provider.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
 class GoalCard extends ConsumerWidget {
   final GoalModel goal;
@@ -21,8 +20,6 @@ class GoalCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.watch(themeModeProvider);
-
     return InkWell(
       borderRadius: BorderRadius.circular(AppRadius.radius12),
       onTap: () {
@@ -35,9 +32,11 @@ class GoalCard extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.spacing12),
         decoration: BoxDecoration(
-          color: context.purpleBackground(themeMode),
+          color: context.purpleBackground(context.themeMode),
           borderRadius: BorderRadius.circular(AppRadius.radius12),
-          border: Border.all(color: context.purpleBorderLighter(themeMode)),
+          border: Border.all(
+            color: context.purpleBorderLighter(context.themeMode),
+          ),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -97,8 +96,10 @@ class GoalCard extends ConsumerWidget {
                                   children: checklistItems.take(2).map((item) {
                                     final bool isCompleted = item.completed;
                                     final Color itemColor = isCompleted
-                                        ? context.disabledText(themeMode)
-                                        : context.purpleText(themeMode);
+                                        ? context.disabledText(
+                                            context.themeMode,
+                                          )
+                                        : context.purpleText(context.themeMode);
                                     final IconData itemIconData = isCompleted
                                         ? HugeIcons
                                               .strokeRoundedCheckmarkCircle01
