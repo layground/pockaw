@@ -4,37 +4,29 @@
 
 ![Flutter](https://img.shields.io/badge/Flutter-3.32.5-blue?logo=flutter)
 ![Dart](https://img.shields.io/badge/Dart-3.8.1-blue?logo=dart)
-![Platform](https://img.shields.io/badge/platform-Android%20%7C%20Web%20%7C%20(soon)%20iOS,%20Windows,%20MacOS-purple)
+![Platform](https://img.shields.io/badge/platform-Android%20%7C%20(soon)%20Web,%20%20iOS,%20Windows,%20MacOS-purple)
 ![100%](https://progress-bar.xyz/100/?title=MVP+Launch+(Android)+&progress_color=00b4ab)
 
-![License](https://img.shields.io/badge/license-LGPLv3-blue)
-![Build](https://img.shields.io/badge/build-passing-brightgreen)
-![Contributions](https://img.shields.io/badge/contributions-welcome-brightgreen)
+
 ![Forks](https://img.shields.io/github/forks/layground/pockaw)
 ![Stars](https://img.shields.io/github/stars/layground/pockaw)
-[![Join our Discord](https://img.shields.io/badge/Join_our_Discord-7289DA?logo=discord&logoColor=white)](https://discord.gg/xt5wDe4w)
+![Activity](https://img.shields.io/github/commit-activity/w/layground/pockaw?style=social)
+![PR Closed](https://img.shields.io/github/issues-pr-closed/layground/pockaw?style=social&color=9929EA)
+
+[![Join our Discord](https://img.shields.io/badge/Join_Discord_Community-7289DA?logo=discord&logoColor=white)](https://discord.gg/xt5wDe4w)
 
 <a href="https://github.com/Codelessly/ResponsiveFramework">
   <img alt="Built with Responsive Framework"
-       src="https://raw.githubusercontent.com/Codelessly/ResponsiveFramework/master/packages/Built%20with%20Responsive%20Badge.png"/>
+       src="https://raw.githubusercontent.com/Codelessly/ResponsiveFramework/master/packages/Built%20with%20Responsive%20Badge.png" width="180"/>
 </a>
 
-## Download Pockaw (Coming Soon)
+## Download Pockaw
 
-<div>
-   <a href="#" style="pointer-events: none; opacity: 0.5;">
-       <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="App Store" height="60">
-   </a>
-   <a href="#" style="pointer-events: none; opacity: 0.5;">
-       <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="App Store" height="60">
-   </a>
-   <a href="#" style="pointer-events: none; opacity: 0.5;">
-       <img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/Get_it_from_Microsoft_Badge.svg" alt="Microsoft Store" height="60">
-   </a>
-   <a href="#" style="pointer-events: none; opacity: 0.5;">
-       <img src="https://i.postimg.cc/sDDrD1kB/Open-On-Web-Browser.png" alt="Web Browser" height="60">
-   </a>
-</div>
+| PlayStore | AppStore* | Microsoft Store* | Browser* |
+| :--------: | :--------: | :--------------: | :------: |
+| [![Google PlayStore](https://www.svgrepo.com/show/353828/google-play-icon.svg)](https://play.google.com/store/apps/details?id=com.layground.pockaw) | [![Apple AppStore](https://www.svgrepo.com/show/452159/app-store.svg)](https://pockaw.com) | [![Microsoft Store](https://www.svgrepo.com/show/448239/microsoft.svg)](https://pockaw.com) | [![Web Browser](https://www.svgrepo.com/show/288320/browser-seo-and-web.svg)](https://app.pockaw.com) |
+
+> _\* Coming Soon_
 
 ## 📝 Overview
 
@@ -138,27 +130,29 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 - [x] **Custom Categories** - Enable users to create and manage custom categories for better personalization.
 - [x] **Publish on GitHub** - The first fully offline experience of Pockaw.
 
-### Q2 - Goals & Budgeting with Progression ![100%](https://progress-bar.xyz/100/?width=40)
+### Q2 (Open Beta) - Goals & Budgeting with Progression ![100%](https://progress-bar.xyz/100/?width=40)
 - [x] **Goals Tracking** - Create goals and its checklist items to breakdown your target.
 - [x] **Budget Tracking** - Set monthly/weekly spending budgets and get the visualization.
 - [x] **Basic Summary & Progression** - View basic progress for monthly income/expense trends, goals, and budgets.
 - [x] **Data Sync & Backup** - Implement backup options to store data securely within device local storage.
 - [x] **Dark Mode** - Easily switch between light and dark themes.
 - [x] **Basic Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
+- [x] **Open Beta Test** - Pockaw will be available on **Google PlayStore** as Early Access open beta test.
 
-### Q3 (Closed Testing #2) - Enhanced User Experience ![0%](https://progress-bar.xyz/0/?width=40)
-- [ ] **Publish on PlayStore** - Pockaw will be available on Google Play Store.
+### Q3 - Enhanced User Experience ![0%](https://progress-bar.xyz/0/?width=40)
 - [ ] **Advanced Summary & Analytics** - Add charts for monthly income/expense trends, custom filters, and analytics.
 - [ ] **Advanced Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
 - [ ] **Transaction Reminder** - Forgetting things? Chill! Pockaw will remind you to record transactions.
 - [ ] **User Reminders & Notifications** - Implement notifications for due dates and spending goals.
 
-### Q4 (Open Beta) - Shields On! ![0%](https://progress-bar.xyz/0/?width=40)
+### Q4 - Shields On! ![0%](https://progress-bar.xyz/0/?width=40)
 - [ ] **Release on Web** - Get a wider view and perspective of Pockaw (of course need a network connection).
 - [ ] **Release on Desktop** - Windows users will get the official desktop look and feel of Pockaw. **
 - [ ] **Advanced Customization** - Let users set date format, first day of the week/month, and other preferences in settings.
 - [ ] **Improved Accessibility** - Add accessibility features, including screen reader support and keyboard navigation.
+- [ ] **Multi Language Support** - Enable seamless collaborative translation and localization using Crowdin.
 - [ ] **Biometrics and PIN** - Add layers of security so you are in charge of your own wealth condition.
+- [ ] **Publish on PlayStore** - 1st stable version of Pockaw that cover all main features.
 
 ### Pre Release
 - [x] Collect feedbacks
@@ -176,7 +170,7 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 - [ ] **iOS** *
 - [ ] **MacOS** *
 - [ ] **Linux** **
-> * \* Sponsors and/or donations are expected as Apple Developer Program registration cost dollars a year.
+> * \* Sponsors and/or donations are expected to register to Apple Developer Program.
 > * \** Linux will followed after Windows release is stable.
 
 
@@ -186,7 +180,7 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 
 💸**Multi-Currency Support**
 
-* **[Done] 1 Wallet, 1 Currency**: Set a different currency of your each wallet. Yes! each wallet.
+* **✅ 1 Wallet, 1 Currency**: Set a different currency of your each wallet. Yes! each wallet.
 
 ✨**Ask AI**
 
@@ -239,3 +233,7 @@ Interested in making some changes for our landing page? Just head to our dedicat
 ## 📄 License
 
 This project is licensed under the **LGPL v3 License**. For more details, please refer to the **LICENSE** tab.
+
+## 💝 Credits
+
+- Platfrom icons are from [www.svgrepo.com](https://www.svgrepo.com/)
