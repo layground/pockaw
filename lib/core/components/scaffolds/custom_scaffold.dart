@@ -11,7 +11,6 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
@@ -44,9 +43,9 @@ class CustomScaffold extends Scaffold {
                : Padding(
                    padding: const EdgeInsets.only(left: 5),
                    child: CustomIconButton(
+                     context,
                      onPressed: () => context.pop(),
                      icon: HugeIcons.strokeRoundedArrowLeft01,
-                     context: context,
                      themeMode: context.themeMode,
                    ),
                  ),

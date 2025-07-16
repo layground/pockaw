@@ -6,10 +6,10 @@ import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
+import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/currency_picker/data/sources/currency_local_source.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_date_picker.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_image_picker.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_image_preview.dart';
@@ -30,7 +30,6 @@ class TransactionForm extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.read(themeModeProvider);
     Log.d(transactionId, label: 'transactionId');
 
     final wallet = ref.watch(activeWalletProvider);
@@ -59,12 +58,12 @@ class TransactionForm extends HookConsumerWidget {
       actions: [
         if (isEditing)
           CustomIconButton(
+            context,
             onPressed: () {
               formState.deleteTransaction(ref, context);
             },
             icon: HugeIcons.strokeRoundedDelete02,
-            context: context,
-            themeMode: themeMode,
+            themeMode: context.themeMode,
           ),
       ],
       body: Stack(

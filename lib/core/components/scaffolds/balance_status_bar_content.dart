@@ -5,7 +5,6 @@ class BalanceStatusBarContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activeWalletAsync = ref.watch(activeWalletProvider);
-    final themeMode = ref.watch(themeModeProvider);
 
     return activeWalletAsync.when(
       data: (wallet) {
@@ -17,8 +16,10 @@ class BalanceStatusBarContent extends ConsumerWidget {
               horizontal: AppSpacing.spacing8,
             ),
             decoration: BoxDecoration(
-              color: context.secondaryButtonBackground(themeMode),
-              border: Border.all(color: context.purpleBorder(themeMode)),
+              color: context.secondaryButtonBackground(context.themeMode),
+              border: Border.all(
+                color: context.purpleBorder(context.themeMode),
+              ),
               borderRadius: BorderRadius.circular(AppRadius.radius8),
             ),
             child: Center(
@@ -32,8 +33,10 @@ class BalanceStatusBarContent extends ConsumerWidget {
           margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing8),
           decoration: BoxDecoration(
-            color: context.secondaryButtonBackground(themeMode),
-            border: Border.all(color: context.secondaryBorder(themeMode)),
+            color: context.secondaryButtonBackground(context.themeMode),
+            border: Border.all(
+              color: context.secondaryBorder(context.themeMode),
+            ),
             borderRadius: BorderRadius.circular(AppRadius.radius8),
           ),
           child: Row(

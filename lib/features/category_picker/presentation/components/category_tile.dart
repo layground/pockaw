@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
@@ -9,9 +8,8 @@ import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
-class CategoryTile extends ConsumerWidget {
+class CategoryTile extends StatelessWidget {
   final CategoryModel category;
   final double? height;
   final double? iconSize;
@@ -29,18 +27,18 @@ class CategoryTile extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, ref) {
-    final themeMode = ref.watch(themeModeProvider);
-
+  Widget build(BuildContext context) {
     return InkWell(
       onTap: () => onSelectCategory?.call(category),
       child: Container(
         height: height,
         padding: const EdgeInsets.all(AppSpacing.spacing8),
         decoration: BoxDecoration(
-          color: context.purpleBackground(themeMode),
+          color: context.purpleBackground(context.themeMode),
           borderRadius: BorderRadius.circular(AppRadius.radius8),
-          border: Border.all(color: context.purpleBorderLighter(themeMode)),
+          border: Border.all(
+            color: context.purpleBorderLighter(context.themeMode),
+          ),
         ),
         child: Row(
           children: [
@@ -49,10 +47,10 @@ class CategoryTile extends ConsumerWidget {
               width: 50,
               padding: const EdgeInsets.all(AppSpacing.spacing8),
               decoration: BoxDecoration(
-                color: context.purpleBackground(themeMode),
+                color: context.purpleBackground(context.themeMode),
                 borderRadius: BorderRadius.circular(AppRadius.radius8),
                 border: Border.all(
-                  color: context.purpleBorderLighter(themeMode),
+                  color: context.purpleBorderLighter(context.themeMode),
                 ),
               ),
               child: category.icon.isEmpty
@@ -63,15 +61,16 @@ class CategoryTile extends ConsumerWidget {
             Expanded(child: Text(category.title, style: AppTextStyles.body3)),
             if (suffixIcon != null)
               CustomIconButton(
+                context,
                 onPressed: onSuffixIconPressed ?? () {},
                 icon: suffixIcon!,
                 iconSize: IconSize.small,
                 visualDensity: VisualDensity.compact,
-                backgroundColor: context.purpleBackground(themeMode),
+                backgroundColor: context.purpleBackground(context.themeMode),
                 borderColor: onSuffixIconPressed == null
                     ? Colors.transparent
-                    : context.purpleBorderLighter(themeMode),
-                color: context.purpleText(themeMode),
+                    : context.purpleBorderLighter(context.themeMode),
+                color: context.purpleText(context.themeMode),
               ),
             const Gap(AppSpacing.spacing8),
           ],

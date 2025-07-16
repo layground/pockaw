@@ -7,7 +7,6 @@ import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
@@ -18,7 +17,6 @@ class TransactionSummaryCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final themeMode = ref.watch(themeModeProvider);
     final currency = ref
         .read(activeWalletProvider)
         .value
@@ -30,8 +28,10 @@ class TransactionSummaryCard extends ConsumerWidget {
       margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
       padding: const EdgeInsets.all(AppSpacing.spacing16),
       decoration: BoxDecoration(
-        color: context.purpleBackground(themeMode),
-        border: Border.all(color: context.purpleBorderLighter(themeMode)),
+        color: context.purpleBackground(context.themeMode),
+        border: Border.all(
+          color: context.purpleBorderLighter(context.themeMode),
+        ),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
       child: Column(
@@ -46,7 +46,7 @@ class TransactionSummaryCard extends ConsumerWidget {
                   '$currency ${transactions.totalIncome.toPriceFormat()}',
                   textAlign: TextAlign.end,
                   style: AppTextStyles.numericMedium.copyWith(
-                    color: context.incomeText(themeMode),
+                    color: context.incomeText(context.themeMode),
                   ),
                 ),
               ),
@@ -62,14 +62,14 @@ class TransactionSummaryCard extends ConsumerWidget {
                   '- $currency ${transactions.totalExpenses.toPriceFormat()}',
                   textAlign: TextAlign.end,
                   style: AppTextStyles.numericMedium.copyWith(
-                    color: context.expenseText(themeMode),
+                    color: context.expenseText(context.themeMode),
                   ),
                 ),
               ),
             ],
           ),
           Divider(
-            color: context.breakLineColor(themeMode),
+            color: context.breakLineColor(context.themeMode),
             thickness: 1,
             height: 9,
           ),
@@ -94,9 +94,9 @@ class TransactionSummaryCard extends ConsumerWidget {
           const Gap(AppSpacing.spacing4),
           SmallButton(
             label: 'View full report',
-            backgroundColor: context.purpleButtonBackground(themeMode),
-            borderColor: context.purpleButtonBorder(themeMode),
-            foregroundColor: context.secondaryText(themeMode),
+            backgroundColor: context.purpleButtonBackground(context.themeMode),
+            borderColor: context.purpleButtonBorder(context.themeMode),
+            foregroundColor: context.secondaryText(context.themeMode),
             labelTextStyle: AppTextStyles.body5,
           ),
         ],

@@ -10,14 +10,12 @@ import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
 class CurrencyListTiles extends ConsumerWidget {
   const CurrencyListTiles({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.read(themeModeProvider);
     final currenciesAsyncValue = ref.watch(currenciesProvider);
 
     return CustomScaffold(
@@ -47,10 +45,10 @@ class CurrencyListTiles extends ConsumerWidget {
                     horizontal: AppSpacing.spacing8,
                   ),
                   decoration: BoxDecoration(
-                    color: context.purpleBackground(themeMode),
+                    color: context.purpleBackground(context.themeMode),
                     borderRadius: BorderRadius.circular(AppRadius.radius8),
                     border: Border.all(
-                      color: context.purpleBorderLighter(themeMode),
+                      color: context.purpleBorderLighter(context.themeMode),
                     ),
                   ),
                   child: Row(
@@ -63,20 +61,22 @@ class CurrencyListTiles extends ConsumerWidget {
                               padding: EdgeInsets.all(AppSpacing.spacing8),
                               decoration: BoxDecoration(
                                 color: context.purpleButtonBackground(
-                                  themeMode,
+                                  context.themeMode,
                                 ),
                                 borderRadius: BorderRadius.circular(
                                   AppRadius.radius4,
                                 ),
                                 border: Border.all(
-                                  color: context.purpleButtonBorder(themeMode),
+                                  color: context.purpleButtonBorder(
+                                    context.themeMode,
+                                  ),
                                 ),
                               ),
                               child: Text(
                                 currency.symbol,
                                 textAlign: TextAlign.center,
                                 style: AppTextStyles.body3.copyWith(
-                                  color: context.purpleText(themeMode),
+                                  color: context.purpleText(context.themeMode),
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -98,7 +98,7 @@ class CurrencyListTiles extends ConsumerWidget {
                                     ),
                                     border: Border.all(
                                       color: context.purpleBorderLighter(
-                                        themeMode,
+                                        context.themeMode,
                                       ),
                                     ),
                                   ),

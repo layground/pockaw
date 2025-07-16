@@ -16,7 +16,6 @@ import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/goal/data/model/checklist_item_model.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_checklist_form_dialog.dart';
 import 'package:pockaw/features/goal/presentation/services/goal_form_service.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
@@ -27,7 +26,6 @@ class GoalChecklistItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final themeMode = ref.read(themeModeProvider);
     final defaultCurrency = ref
         .read(activeWalletProvider)
         .value
@@ -36,8 +34,8 @@ class GoalChecklistItem extends ConsumerWidget {
 
     // Odd-even background
     final bgColor = isOdd
-        ? context.purpleBackground(themeMode).withAlpha(50)
-        : context.purpleBackground(themeMode).withAlpha(50);
+        ? context.purpleBackground(context.themeMode).withAlpha(50)
+        : context.purpleBackground(context.themeMode).withAlpha(50);
 
     void toggle() {
       final updatedItem = item.toggleCompleted();
@@ -68,7 +66,9 @@ class GoalChecklistItem extends ConsumerWidget {
         ),
         decoration: BoxDecoration(
           color: bgColor,
-          border: Border.all(color: context.purpleBorderLighter(themeMode)),
+          border: Border.all(
+            color: context.purpleBorderLighter(context.themeMode),
+          ),
           borderRadius: BorderRadius.circular(AppRadius.radius16),
         ),
         child: Column(
@@ -85,7 +85,7 @@ class GoalChecklistItem extends ConsumerWidget {
                         : HugeIcons.strokeRoundedSquare,
                     color: item.completed
                         ? AppColors.green200
-                        : context.secondaryText(themeMode),
+                        : context.secondaryText(context.themeMode),
                     size: 22,
                   ),
                   padding: EdgeInsets.zero,
@@ -116,9 +116,9 @@ class GoalChecklistItem extends ConsumerWidget {
                 Gap(AppSpacing.spacing8),
                 CustomChip(
                   label: '$defaultCurrency ${item.amount.toPriceFormat()}',
-                  background: context.purpleBackground(themeMode),
-                  foreground: context.purpleText(themeMode),
-                  borderColor: context.purpleBorderLighter(themeMode),
+                  background: context.purpleBackground(context.themeMode),
+                  foreground: context.purpleText(context.themeMode),
+                  borderColor: context.purpleBorderLighter(context.themeMode),
                 ),
               ],
             ),
@@ -130,9 +130,9 @@ class GoalChecklistItem extends ConsumerWidget {
                 ),
                 child: CustomChip(
                   label: item.link,
-                  background: context.secondaryBackground(themeMode),
-                  foreground: context.secondaryText(themeMode),
-                  borderColor: context.secondaryBorder(themeMode),
+                  background: context.secondaryBackground(context.themeMode),
+                  foreground: context.secondaryText(context.themeMode),
+                  borderColor: context.secondaryBorder(context.themeMode),
                   onTap: () {
                     if (item.link.isLink) {
                       LinkLauncher.launch(item.link);

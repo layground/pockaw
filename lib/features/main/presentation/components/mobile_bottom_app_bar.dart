@@ -8,7 +8,6 @@ import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/main/presentation/riverpod/main_page_view_riverpod.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
 class MobileBottomAppBar extends ConsumerWidget {
   final PageController pageController;
@@ -16,15 +15,13 @@ class MobileBottomAppBar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.watch(themeModeProvider);
-
     return Container(
       padding: const EdgeInsets.symmetric(
         vertical: AppSpacing.spacing12,
         horizontal: AppSpacing.spacing16,
       ),
       decoration: BoxDecoration(
-        color: themeMode == ThemeMode.light
+        color: context.themeMode == ThemeMode.light
             ? AppColors.dark
             : AppColors.darkGrey,
         borderRadius: BorderRadius.circular(AppRadius.radiusFull),

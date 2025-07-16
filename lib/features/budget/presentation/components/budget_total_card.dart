@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
-class BudgetTotalCard extends ConsumerWidget {
+class BudgetTotalCard extends StatelessWidget {
   final double totalAmount;
   const BudgetTotalCard({super.key, required this.totalAmount});
 
   @override
-  Widget build(BuildContext context, ref) {
-    final themeMode = ref.read(themeModeProvider);
-
+  Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.spacing8),
       decoration: BoxDecoration(
-        color: context.incomeBackground(themeMode),
-        border: Border.all(color: context.incomeLine(themeMode)),
+        color: context.incomeBackground(context.themeMode),
+        border: Border.all(color: context.incomeLine(context.themeMode)),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
       child: Column(
@@ -28,7 +24,7 @@ class BudgetTotalCard extends ConsumerWidget {
           Text(
             'Total Budget',
             style: AppTextStyles.body5.copyWith(
-              color: context.incomeText(themeMode),
+              color: context.incomeText(context.themeMode),
               fontWeight: FontWeight.w600,
             ),
           ),

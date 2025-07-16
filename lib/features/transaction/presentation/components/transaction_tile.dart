@@ -9,7 +9,6 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_ui_extension.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
@@ -26,7 +25,6 @@ class TransactionTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final themeMode = ref.watch(themeModeProvider);
     final currency = ref
         .read(activeWalletProvider)
         .value
@@ -48,7 +46,7 @@ class TransactionTile extends ConsumerWidget {
           AppSpacing.spacing8,
         ),
         decoration: BoxDecoration(
-          color: transaction.backgroundColor(context, themeMode),
+          color: transaction.backgroundColor(context, context.themeMode),
           borderRadius: BorderRadius.circular(AppRadius.radius12),
           border: Border.all(
             color: transaction.borderColor(context.isDarkMode),
@@ -62,7 +60,10 @@ class TransactionTile extends ConsumerWidget {
               height: 54,
               padding: const EdgeInsets.all(AppSpacing.spacing8),
               decoration: BoxDecoration(
-                color: transaction.iconBackgroundColor(context, themeMode),
+                color: transaction.iconBackgroundColor(
+                  context,
+                  context.themeMode,
+                ),
                 borderRadius: BorderRadius.circular(AppRadius.radius12),
                 border: Border.all(
                   color: transaction.iconBorderColor(context.isDarkMode),

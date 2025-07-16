@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
-class SmallButton extends ConsumerWidget {
+class SmallButton extends StatelessWidget {
   final String label;
   final TextStyle labelTextStyle;
   final IconData? prefixIcon;
@@ -29,9 +27,7 @@ class SmallButton extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, ref) {
-    final themeMode = ref.watch(themeModeProvider);
-
+  Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(AppRadius.radius8),
@@ -42,9 +38,10 @@ class SmallButton extends ConsumerWidget {
         ),
         decoration: BoxDecoration(
           color:
-              backgroundColor ?? context.secondaryButtonBackground(themeMode),
+              backgroundColor ??
+              context.secondaryButtonBackground(context.themeMode),
           border: Border.all(
-            color: borderColor ?? context.secondaryBorder(themeMode),
+            color: borderColor ?? context.secondaryBorder(context.themeMode),
           ),
           borderRadius: BorderRadius.circular(AppRadius.radius8),
         ),

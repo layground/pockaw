@@ -6,11 +6,11 @@ import 'package:pockaw/core/constants/app_radius.dart';
 enum IconSize { large, medium, small, tiny }
 
 class CustomIconButton extends IconButton {
-  CustomIconButton({
+  CustomIconButton(
+    BuildContext context, {
     super.key,
     required GestureTapCallback super.onPressed,
     required IconData icon,
-    BuildContext? context,
     ThemeMode themeMode = ThemeMode.system,
     Color? backgroundColor,
     Color? borderColor,
@@ -37,14 +37,13 @@ class CustomIconButton extends IconButton {
              color:
                  backgroundColor ??
                  (active
-                     ? context?.purpleBackgroundActive(themeMode)
-                     : context?.purpleBackground(themeMode)),
+                     ? context.purpleBackgroundActive(context.themeMode)
+                     : context.purpleBackground(context.themeMode)),
              borderRadius: BorderRadius.circular(AppRadius.radius8),
              border: Border.all(
                color:
                    borderColor ??
-                   context?.purpleBorderLighter(themeMode) ??
-                   AppColors.neutralAlpha25,
+                   context.purpleBorderLighter(context.themeMode)
              ),
            ),
            child: isLoading
@@ -56,8 +55,8 @@ class CustomIconButton extends IconButton {
                        color:
                            color ??
                            (active
-                               ? context?.purpleIconActive(themeMode)
-                               : context?.purpleIcon(themeMode)),
+                               ? context.purpleIconActive(context.themeMode)
+                               : context.purpleIcon(context.themeMode)),
                        size: _getIconSize(iconSize),
                      ),
                      !showBadge

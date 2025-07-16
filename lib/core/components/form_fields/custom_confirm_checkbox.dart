@@ -38,6 +38,7 @@ class CustomConfirmCheckbox extends StatelessWidget {
         child: Row(
           children: [
             CustomIconButton(
+              context,
               onPressed: onChanged,
               icon: checked
                   ? HugeIcons.strokeRoundedCheckmarkSquare01

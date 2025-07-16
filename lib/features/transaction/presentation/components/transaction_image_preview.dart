@@ -62,6 +62,7 @@ class TransactionImagePreview extends ConsumerWidget {
           right: 2,
           top: 2,
           child: CustomIconButton(
+            context,
             onPressed: () {
               showModalBottomSheet(
                 context: context,

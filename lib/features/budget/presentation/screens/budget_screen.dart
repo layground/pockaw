@@ -6,20 +6,19 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
+import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/budget/presentation/components/budget_card_holder.dart';
 import 'package:pockaw/features/budget/presentation/components/budget_summary_card.dart';
 import 'package:pockaw/features/budget/presentation/components/budget_tab_bar.dart';
 import 'package:pockaw/features/budget/presentation/riverpod/budget_providers.dart';
-import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
 
 class BudgetScreen extends HookConsumerWidget {
   const BudgetScreen({super.key});
 
   @override
   Widget build(BuildContext context, ref) {
-    final themeMode = ref.watch(themeModeProvider);
     final allBudgetsAsyncValue = ref.watch(budgetListProvider);
 
     return CustomScaffold(
@@ -28,12 +27,12 @@ class BudgetScreen extends HookConsumerWidget {
       showBackButton: false,
       actions: [
         CustomIconButton(
+          context,
           onPressed: () {
             context.push(Routes.budgetForm);
           },
           icon: HugeIcons.strokeRoundedPlusSign,
-          context: context,
-          themeMode: themeMode,
+          themeMode: context.themeMode,
         ),
       ],
       body: allBudgetsAsyncValue.when(

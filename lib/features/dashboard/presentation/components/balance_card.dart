@@ -5,7 +5,6 @@ class BalanceCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final themeMode = ref.watch(themeModeProvider);
     final activeWalletAsync = ref.watch(activeWalletProvider);
 
     return activeWalletAsync.when(
@@ -16,10 +15,10 @@ class BalanceCard extends ConsumerWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(AppSpacing.spacing16),
             decoration: BoxDecoration(
-              color: context.secondaryBackground(themeMode),
+              color: context.secondaryBackground(context.themeMode),
               borderRadius: BorderRadius.circular(AppRadius.radius16),
               border: Border.all(
-                color: context.secondaryBorderLighter(themeMode),
+                color: context.secondaryBorderLighter(context.themeMode),
               ),
             ),
             child: const Column(
@@ -41,10 +40,10 @@ class BalanceCard extends ConsumerWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(AppSpacing.spacing16),
               decoration: BoxDecoration(
-                color: context.secondaryBackground(themeMode),
+                color: context.secondaryBackground(context.themeMode),
                 borderRadius: BorderRadius.circular(AppRadius.radius16),
                 border: Border.all(
-                  color: context.secondaryBorderLighter(themeMode),
+                  color: context.secondaryBorderLighter(context.themeMode),
                 ),
               ),
               child: Column(
@@ -104,9 +103,11 @@ class BalanceCard extends ConsumerWidget {
         width: double.infinity,
         padding: const EdgeInsets.all(AppSpacing.spacing16),
         decoration: BoxDecoration(
-          color: context.secondaryBackground(themeMode),
+          color: context.secondaryBackground(context.themeMode),
           borderRadius: BorderRadius.circular(AppRadius.radius16),
-          border: Border.all(color: context.secondaryBorderLighter(themeMode)),
+          border: Border.all(
+            color: context.secondaryBorderLighter(context.themeMode),
+          ),
         ),
         child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -124,9 +125,11 @@ class BalanceCard extends ConsumerWidget {
         width: double.infinity,
         padding: const EdgeInsets.all(AppSpacing.spacing16),
         decoration: BoxDecoration(
-          color: context.secondaryBackground(themeMode),
+          color: context.secondaryBackground(context.themeMode),
           borderRadius: BorderRadius.circular(AppRadius.radius16),
-          border: Border.all(color: context.secondaryBorderLighter(themeMode)),
+          border: Border.all(
+            color: context.secondaryBorderLighter(context.themeMode),
+          ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

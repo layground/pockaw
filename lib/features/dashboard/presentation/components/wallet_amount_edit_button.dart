@@ -4,9 +4,8 @@ class WalletAmountEditButton extends ConsumerWidget {
   const WalletAmountEditButton({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeMode = ref.watch(themeModeProvider);
-
     return CustomIconButton(
+      context,
       onPressed: () {
         final activeWallet = ref.read(activeWalletProvider).valueOrNull;
         final defaultCurrencies = ref.read(currenciesStaticProvider);
@@ -29,8 +28,7 @@ class WalletAmountEditButton extends ConsumerWidget {
         }
       },
       icon: HugeIcons.strokeRoundedEdit02,
-      context: context,
-      themeMode: themeMode,
+      themeMode: context.themeMode,
       iconSize: IconSize.tiny,
     );
   }

@@ -67,13 +67,13 @@ class LoginScreen extends HookConsumerWidget {
       showBalance: false,
       actions: [
         CustomIconButton(
+          context,
           onPressed: restoreData,
           icon: HugeIcons.strokeRoundedDatabaseImport,
-          context: context,
           themeMode: context.themeMode,
         ),
         Gap(AppSpacing.spacing8),
-        ThemeModeSwitcher(themeMode: context.themeMode),
+        ThemeModeSwitcher(),
       ],
       body: Stack(
         fit: StackFit.expand,
