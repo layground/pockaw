@@ -11,7 +11,7 @@ class GreetingCard extends ConsumerWidget {
       children: [
         auth.profilePicture == null
             ? const CircleIconButton(
-                icon: HugeIcons.strokeRoundedCamera01,
+                icon: HugeIcons.strokeRoundedUser,
                 radius: 25,
                 backgroundColor: AppColors.secondary100,
                 foregroundColor: AppColors.secondary800,
