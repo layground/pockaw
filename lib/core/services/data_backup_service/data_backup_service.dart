@@ -239,7 +239,11 @@ class DataBackupService {
 
     // 1. Let the user pick a directory using Docman
     // This returns a DocumentDirectory object which represents the picked directory
-    final DocumentFile? selectedDocDirectory = await DocMan.pick.directory();
+    DocumentFile? selectedDocDirectory;
+
+    if (Platform.isAndroid || Platform.isIOS) {
+      selectedDocDirectory = await DocMan.pick.directory();
+    }
 
     if (selectedDocDirectory == null) {
       Log.i(
