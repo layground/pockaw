@@ -4,6 +4,7 @@ import 'package:pockaw/core/constants/app_radius.dart';
 
 class CircleIconButton extends StatelessWidget {
   final double? radius;
+  final double iconSize;
   final Color? backgroundColor;
   final Color? foregroundColor;
   final Color? splashColor;
@@ -16,6 +17,7 @@ class CircleIconButton extends StatelessWidget {
     required this.icon,
     this.child,
     this.radius = 38,
+    this.iconSize = 24,
     this.backgroundColor,
     this.foregroundColor,
     this.splashColor,
@@ -36,10 +38,12 @@ class CircleIconButton extends StatelessWidget {
         child: SizedBox(
           width: radius! * 2,
           height: radius! * 2,
-          child: child ??
+          child:
+              child ??
               HugeIcon(
                 icon: icon,
                 color: foregroundColor ?? Colors.black,
+                size: iconSize,
               ),
         ),
       ),

@@ -14,14 +14,22 @@ class ProfileCard extends ConsumerWidget {
           backgroundColor: colorScheme
               .surfaceContainerHighest, // Use a surface color that adapts
           radius: 50,
-          child: CircleAvatar(
-            backgroundColor:
-                colorScheme.surface, // Use a surface color that adapts
-            backgroundImage: auth.profilePicture == null
-                ? null
-                : FileImage(File(auth.profilePicture!)),
-            radius: 49,
-          ),
+          child: auth.profilePicture == null
+              ? const CircleIconButton(
+                  icon: HugeIcons.strokeRoundedUser,
+                  radius: 49,
+                  iconSize: 40,
+                  backgroundColor: AppColors.secondary100,
+                  foregroundColor: AppColors.secondary800,
+                )
+              : CircleAvatar(
+                  backgroundColor:
+                      colorScheme.surface, // Use a surface color that adapts
+                  backgroundImage: auth.profilePicture == null
+                      ? null
+                      : FileImage(File(auth.profilePicture!)),
+                  radius: 49,
+                ),
         ),
         const Gap(AppSpacing.spacing12),
         Column(
