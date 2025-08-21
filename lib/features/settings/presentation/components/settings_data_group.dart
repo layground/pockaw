@@ -9,40 +9,10 @@ class SettingsDataGroup extends ConsumerWidget {
       title: 'Data Management',
       settingTiles: [
         MenuTileButton(
-          label: 'Backup Data',
-          icon: HugeIcons.strokeRoundedDatabaseExport,
+          label: 'Backup & Restore',
+          icon: HugeIcons.strokeRoundedDatabaseSync01,
           onTap: () {
-            showModalBottomSheet(
-              context: context,
-              showDragHandle: true,
-              builder: (context) => CustomBottomSheet(
-                title: 'Backup Data',
-                child: BackupDialog(onSuccess: () => context.pop()),
-              ),
-            );
-          },
-        ),
-        MenuTileButton(
-          label: 'Restore Data',
-          icon: HugeIcons.strokeRoundedDatabaseImport,
-          onTap: () {
-            showModalBottomSheet(
-              context: context,
-              showDragHandle: true,
-              builder: (dialogContext) => CustomBottomSheet(
-                title: 'Restore Data',
-                child: RestoreDialog(
-                  onSuccess: () async {
-                    await Future.delayed(Duration(milliseconds: 1500));
-
-                    if (context.mounted) {
-                      dialogContext.pop();
-                      context.replace(Routes.main);
-                    }
-                  },
-                ),
-              ),
-            );
+            context.push(Routes.backupAndRestore);
           },
         ),
         MenuTileButton(
