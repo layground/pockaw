@@ -14,7 +14,7 @@ class CustomBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Padding(
       padding: MediaQuery.of(context).viewInsets,
       child: Container(
         padding: const EdgeInsets.fromLTRB(
@@ -27,7 +27,14 @@ class CustomBottomSheet extends StatelessWidget {
           children: [
             Text(title, style: AppTextStyles.body1),
             const Gap(AppSpacing.spacing32),
-            ...[child],
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [child],
+                ),
+              ),
+            ),
           ],
         ),
       ),
