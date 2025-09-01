@@ -44,7 +44,13 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+/android/app/google-services.json
 keystore.properties
 
 *.freezed.dart
 *.g.dart
+
+firebase.json
+lib/firebase_options.dart
+
+.github/instructions/pockaw-instruction.instructions.md
