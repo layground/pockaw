@@ -50,28 +50,28 @@
 * **Offline-first**: Your data is always accessible, even offline. Connect only when you want to sync across devices.
 * **Security focused**: For offline use, you are in charge of your own data.
 
-**🎉 Signature Feature**
+#### 🎉 Signature Feature
 
 * **Advanced Goal Planning:** Set up multiple checklist goals for any occasion, from a wedding gifts, new house furniture, to wishlist shopping.
 
 > \* Coming soon
 
----
+***
 
 ### 🎯 User Target
 
-**Designed For**
+#### Designed For
 
 * **Individuals (Ages 20-35)**
-   * 🎓**Students** who want to easily track their daily spending's and build financial awareness.
-   * 💼**Employees** interested in managing their monthly income, expenses, and budgeting for future goals.
-   * 👨‍👩‍👧**Families** needing a simple, effective way to monitor and optimize their household cash flow.
-   * 💰**Goal-Driven Savers** looking to turn financial goals and wishlists into reality, keeping an eye on every penny along the way!
+  * 🎓**Students** who want to easily track their daily spending's and build financial awareness.
+  * 💼**Employees** interested in managing their monthly income, expenses, and budgeting for future goals.
+  * 👨‍👩‍👧**Families** needing a simple, effective way to monitor and optimize their household cash flow.
+  * 💰**Goal-Driven Savers** looking to turn financial goals and wishlists into reality, keeping an eye on every penny along the way!
 * **Micro to Small Businesses**
-   * 👥**Size**: Perfect for teams of 1-5 people, ideal for small operations needing basic cash flow insights.
-   * 💵**Income**: Suited for businesses with a yearly income of approximately **$3,800 - $4,000 USD** (or **€3,500 - €3,700 EUR**), focusing on streamlined, essential budgeting tools.
+  * 👥**Size**: Perfect for teams of 1-5 people, ideal for small operations needing basic cash flow insights.
+  * 💵**Income**: Suited for businesses with a yearly income of approximately **$3,800 - $4,000 USD** (or **€3,500 - €3,700 EUR**), focusing on streamlined, essential budgeting tools.
 
-**Not Designed For**
+#### Not Designed For
 
 * 🔗**Bank Account Integration**: This app is geared toward users who manage finances manually, so it doesn’t support linking to bank accounts.
 * 🏢**Large Enterprises**: If your business requires bank integration, payroll systems, or vendor payment management, this app may not be the best fit.
@@ -105,14 +105,18 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 ## ⚙️ Installation to Contribute
 
 1. **Clone this repository**
-   ```
+
+   ```bash
    git clone https://github.com/layground/pockaw.git
    ```
+
 2. **Install dependencies**
    Navigate to the project folder and run:
-   ```
+
+   ```bash
    flutter pub get
    ```
+
 3. **Run the app**
    Open the project in your preferred IDE (VSCode or Android Studio) and hit **Run** to launch **Pockaw**.
 
@@ -123,74 +127,81 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 ## 📆 Roadmap
 
 ### Q1 (Closed Testing #1) - Core Setup & MVP Launch ![100%](https://progress-bar.xyz/100/?width=40)
-- [x] **Splash & Onboarding** - Design and implement welcoming splash screen and onboarding process.
-- [x] **Authentication?** - Just fill personal data for offline use, no registration.
-- [x] **Multiple Wallets** - Add multiple sources, set balances, and customize for easy management.
-- [x] **Expense & Income Tracking** - Allow users to log income/expenses with details like category, date, title, and notes.
-- [x] **Custom Categories** - Enable users to create and manage custom categories for better personalization.
-- [x] **Publish on GitHub** - The first fully offline experience of Pockaw.
+
+* [x] **Splash & Onboarding** - Design and implement welcoming splash screen and onboarding process.
+* [x] **Authentication?** - Just fill personal data for offline use, no registration.
+* [x] **Multiple Wallets** - Add multiple sources, set balances, and customize for easy management.
+* [x] **Expense & Income Tracking** - Allow users to log income/expenses with details like category, date, title, and notes.
+* [x] **Custom Categories** - Enable users to create and manage custom categories for better personalization.
+* [x] **Publish on GitHub** - The first fully offline experience of Pockaw.
 
 ### Q2 (Open Beta) - Goals & Budgeting with Progression ![100%](https://progress-bar.xyz/100/?width=40)
-- [x] **Goals Tracking** - Create goals and its checklist items to breakdown your target.
-- [x] **Budget Tracking** - Set monthly/weekly spending budgets and get the visualization.
-- [x] **Basic Summary & Progression** - View basic progress for monthly income/expense trends, goals, and budgets.
-- [x] **Data Sync & Backup** - Implement backup options to store data securely within device local storage.
-- [x] **Dark Mode** - Easily switch between light and dark themes.
-- [x] **Basic Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
-- [x] **Open Beta Test** - Pockaw will be available on **Google PlayStore** as Early Access open beta test.
+
+* [x] **Goals Tracking** - Create goals and its checklist items to breakdown your target.
+* [x] **Budget Tracking** - Set monthly/weekly spending budgets and get the visualization.
+* [x] **Basic Summary & Progression** - View basic progress for monthly income/expense trends, goals, and budgets.
+* [x] **Data Sync & Backup** - Implement backup options to store data securely within device local storage.
+* [x] **Dark Mode** - Easily switch between light and dark themes.
+* [x] **Basic Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
+* [x] **Open Beta Test** - Pockaw will be available on **Google PlayStore** as Early Access open beta test.
 
 ### Q3 - Enhanced User Experience ![0%](https://progress-bar.xyz/0/?width=40)
-- [ ] **Advanced Summary & Analytics** - Add charts for monthly income/expense trends, custom filters, and analytics.
-- [ ] **Advanced Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
-- [ ] **Transaction Reminder** - Forgetting things? Chill! Pockaw will remind you to record transactions.
-- [ ] **User Reminders & Notifications** - Implement notifications for due dates and spending goals.
+
+* [ ] **Advanced Summary & Analytics** - Add charts for monthly income/expense trends, custom filters, and analytics.
+* [ ] **Advanced Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
+* [ ] **Transaction Reminder** - Forgetting things? Chill! Pockaw will remind you to record transactions.
+* [ ] **User Reminders & Notifications** - Implement notifications for due dates and spending goals.
 
 ### Q4 - Shields On! ![0%](https://progress-bar.xyz/0/?width=40)
-- [ ] **Release on Web** - Get a wider view and perspective of Pockaw (of course need a network connection).
-- [ ] **Release on Desktop** - Windows users will get the official desktop look and feel of Pockaw. **
-- [ ] **Advanced Customization** - Let users set date format, first day of the week/month, and other preferences in settings.
-- [ ] **Improved Accessibility** - Add accessibility features, including screen reader support and keyboard navigation.
-- [ ] **Multi Language Support** - Enable seamless collaborative translation and localization using Crowdin.
-- [ ] **Biometrics and PIN** - Add layers of security so you are in charge of your own wealth condition.
-- [ ] **Publish on PlayStore** - 1st stable version of Pockaw that cover all main features.
+
+* [ ] **Release on Web** - Get a wider view and perspective of Pockaw (of course need a network connection).
+* [ ] **Release on Desktop** - Windows users will get the official desktop look and feel of Pockaw. **
+* [ ] **Advanced Customization** - Let users set date format, first day of the week/month, and other preferences in settings.
+* [ ] **Improved Accessibility** - Add accessibility features, including screen reader support and keyboard navigation.
+* [ ] **Multi Language Support** - Enable seamless collaborative translation and localization using Crowdin.
+* [ ] **Biometrics and PIN** - Add layers of security so you are in charge of your own wealth condition.
+* [ ] **Publish on PlayStore** - 1st stable version of Pockaw that cover all main features.
 
 ### Pre Release
-- [x] Collect feedbacks
-- [x] Assets finishing
-- [ ] Performance improvement
-- [ ] Create documentation page
+
+* [x] Collect feedbacks
+* [x] Assets finishing
+* [ ] Performance improvement
+* [ ] Create documentation page
 
 ### Full Release v1.0
-- [ ] Breaking change is possible at this stage. 
+
+* [ ] Breaking change is possible at this stage.
 
 ## 🖥️ Platform Release Priority
-- [x] **Android** - Android _.apk_ published on GitHub
-- [ ] **Web**
-- [ ] **Windows**
-- [ ] **iOS** *
-- [ ] **MacOS** *
-- [ ] **Linux** **
+
+* [x] **Android** - Available on PlayStore and GitHub
+* [ ] **Web**
+* [ ] **Windows**
+* [ ] **iOS** *
+* [ ] **MacOS** *
+* [ ] **Linux** **
+>
 > * \* Sponsors and/or donations are expected to register to Apple Developer Program.
 > * \** Linux will followed after Windows release is stable.
 
-
----
+***
 
 ### 🚀 Innovation and Future Releases
 
 💸**Multi-Currency Support**
 
-* **✅ 1 Wallet, 1 Currency**: Set a different currency of your each wallet. Yes! each wallet.
+* [x] **1 Wallet, 1 Currency**: Set a different currency of your each wallet. Yes! each wallet.
 
 ✨**Ask AI**
 
-* **Smart Summaries**: Utilize AI to respond to queries like "Summarize my expenses this month" or "What were my top spending categories last quarter?"—getting insights has never been easier!
+* [ ] **Smart Summaries**: Utilize AI to respond to queries like "Summarize my expenses this month" or "What were my top spending categories last quarter?"—getting insights has never been easier!
 
 🔔**Enhanced Mobile Experience**
 
-* **Notification Suggestions**: Pockaw will read device notifications from other apps when users make payments or receive transfers, offering personalized suggestions for tracking those transactions in your budget.
+* [ ] **Notification Suggestions**: Pockaw will read device notifications from other apps when users make payments or receive transfers, offering personalized suggestions for tracking those transactions in your budget.
 
-* **Home Screen Widget**: No bother opening the app. Pockaw will appear on your mobile home screen, add transaction quickly as well as the simple summary.
+* [ ] **Home Screen Widget**: No bother opening the app. Pockaw will appear on your mobile home screen, add transaction quickly as well as the simple summary.
 
 These planned features aim to make **Pockaw** even smarter and more user-friendly, providing insights and suggestions to simplify your financial management.
 
@@ -199,17 +210,20 @@ These planned features aim to make **Pockaw** even smarter and more user-friendl
 ***
 
 ## 🎨 Design Files
+
 We're excited to share our design files with the community! These files are made available to encourage collaboration, gather feedback, and provide learning opportunities for designers and developers alike.
 
 Feel free to explore, experiment, and contribute your ideas!
 
 ### Access the Design File
+
 You can find the Figma design file [here.](https://www.figma.com/design/Zp7JCVYQ5a8IdUKr65ONCy/Pockaw?node-id=464-312&t=mHuTdI7maK6nfd5p-1)
 
 ### Guidelines for Use
-- The design files are provided under the [Creative Commons License](https://creativecommons.org/licenses/).
-- Use them for feedback, personal projects, or contributions to Pockaw.
-- Please do not use the designs for commercial purposes without prior approval.
+
+* The design files are provided under the [Creative Commons License](https://creativecommons.org/licenses/).
+* Use them for feedback, personal projects, or contributions to Pockaw.
+* Please do not use the designs for commercial purposes without prior approval.
 
 Let us know your thoughts or submit your own suggestions through [GitHub Discussions](https://github.com/layground/pockaw/discussions) or on Discord!
 
@@ -226,6 +240,7 @@ For a detailed list of all resources, including links and specific guidelines, c
 We welcome contributions to Pockaw! Feel free to **fork** this project, **submit issues**, or open **pull requests (PRs)** to help us enhance the app. Your input is invaluable in making Pockaw better for everyone!
 
 ### 🖥️ Landing Page
+
 Interested in making some changes for our landing page? Just head to our dedicated [landing page repo](https://github.com/layground/pockaw-landing-page) then do above steps. 
 
 ***
@@ -236,4 +251,4 @@ This project is licensed under the **LGPL v3 License**. For more details, please
 
 ## 💝 Credits
 
-- Platfrom icons are from [www.svgrepo.com](https://www.svgrepo.com/)
+* Platfrom icons are from [www.svgrepo.com](https://www.svgrepo.com/)
