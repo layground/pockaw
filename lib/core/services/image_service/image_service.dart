@@ -12,6 +12,7 @@ import 'package:path_provider/path_provider.dart'
 import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
 import 'package:pockaw/core/components/buttons/secondary_button.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/extensions/screen_utils_extensions.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:uuid/uuid.dart';
@@ -52,10 +53,8 @@ class ImageService {
       return await pickImageFromGallery();
     }
 
-    return await showModalBottomSheet<File?>(
-      context: context,
-      showDragHandle: true,
-      builder: (context) => CustomBottomSheet(
+    return await context.openBottomSheet<File?>(
+      child: CustomBottomSheet(
         title: 'Pick Image',
         child: Row(
           children: [

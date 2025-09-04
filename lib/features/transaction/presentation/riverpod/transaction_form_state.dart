@@ -15,8 +15,6 @@ import 'package:pockaw/core/services/image_service/riverpod/image_notifier.dart'
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
-import 'package:pockaw/features/category/data/repositories/category_repo.dart'
-    as category_repository;
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:toastification/toastification.dart';
 
@@ -45,26 +43,17 @@ class TransactionFormState {
     this.initialTransaction,
   });
 
-  String getCategoryText() {
-    final cat = selectedCategory.value;
-    if (cat == null) return '';
+  String getCategoryText({CategoryModel? parentCategory}) {
+    final category = selectedCategory.value;
+    if (category == null) return '';
 
-    if (cat.parentId != null) {
+    if (parentCategory != null) {
       // It's a subcategory, find its parent to display "Parent • Sub"
-      final parent = category_repository.categories.firstWhere(
-        (parentCat) => parentCat.id == cat.parentId,
-        // Provide a fallback, though ideally parentId should always match a parent.
-        orElse: () => CategoryModel(
-          id: -1,
-          title: 'Unknown Parent',
-          icon: '',
-          subCategories: [],
-        ),
-      );
-      return '${parent.title} • ${cat.title}';
+      Log.d(category.parentId, label: 'subcategory');
+      return '${parentCategory.title} • ${category.title}';
     } else {
       // It's a parent category
-      return cat.title;
+      return category.title;
     }
   }
 

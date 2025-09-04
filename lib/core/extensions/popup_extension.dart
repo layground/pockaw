@@ -2,25 +2,28 @@ import 'package:pockaw/core/components/custom_keyboard/custom_keyboard.dart';
 import 'package:flutter/material.dart';
 
 extension PopupExtension on BuildContext {
-  void openBottomSheet(Widget child, {double? height}) {
-    showModalBottomSheet(
+  Future<T?> openBottomSheet<T>({
+    required Widget child,
+    bool isScrollControlled = true,
+  }) {
+    return showModalBottomSheet(
       context: this,
-      builder: (context) => SizedBox(
-        height: height ?? MediaQuery.of(context).size.height * 0.4,
-        child: child,
-      ),
+      showDragHandle: true,
+      isScrollControlled: isScrollControlled,
+      builder: (context) => child,
     );
   }
 
-  void openBottomSheetNoBarrier(
+  Future<T?> openBottomSheetNoBarrier<T>(
     Widget child, {
     double? height,
     Color backgroundColor = Colors.white,
   }) {
-    showModalBottomSheet(
+    return showModalBottomSheet(
       context: this,
       barrierColor: Colors.transparent,
       backgroundColor: backgroundColor,
+      showDragHandle: true,
       builder: (context) => SizedBox(
         height: height ?? MediaQuery.of(context).size.height * 0.4,
         child: child,

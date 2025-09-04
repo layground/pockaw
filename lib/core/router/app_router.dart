@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pockaw/core/app.dart';
 import 'package:pockaw/core/components/placeholders/placeholder_screen.dart';
 
 import 'package:pockaw/core/router/authentication_router.dart';
@@ -16,12 +17,10 @@ import 'package:pockaw/features/splash/presentation/screens/splash_screen.dart';
 
 final rootNavKey = GlobalKey<NavigatorState>();
 
-// No duplicate GoalRouter class here!
-// We just pull in all the feature routers.
-
 final router = GoRouter(
   navigatorKey: rootNavKey,
   initialLocation: Routes.splash,
+  observers: <NavigatorObserver>[MyApp.observer],
   routes: [
     GoRoute(
       path: Routes.splash,
@@ -37,7 +36,7 @@ final router = GoRouter(
     ...AuthenticationRouter.routes,
     ...TransactionRouter.routes,
     ...CategoryRouter.routes,
-    ...GoalRouter.routes, // ← your goal‐details route injected here
+    ...GoalRouter.routes,
     ...BudgetRouter.routes,
     ...SettingsRouter.routes,
     ...CurrencyRouter.routes,
