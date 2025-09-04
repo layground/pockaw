@@ -10,6 +10,7 @@ import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/database/tables/category_table.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
 import 'package:pockaw/features/category/presentation/riverpod/category_providers.dart';
@@ -49,11 +50,8 @@ class CategoryDropdown extends HookConsumerWidget {
             // reset parent selection
             ref.read(selectedParentCategoryProvider.notifier).state = null;
 
-            showModalBottomSheet(
-              context: context,
-              showDragHandle: true,
-              isScrollControlled: true,
-              builder: (context) => CategoryFormScreen(
+            context.openBottomSheet(
+              child: CategoryFormScreen(
                 categoryId: selectedCategory.id,
                 isEditingParent: true,
               ),
