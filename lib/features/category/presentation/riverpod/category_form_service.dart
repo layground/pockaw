@@ -69,6 +69,15 @@ class CategoryFormService {
     required CategoryModel categoryModel,
   }) {
     final actions = ref.read(categoriesActionsProvider);
+
+    // Delete all subcategories first to maintain data integrity
+    if (categoryModel.hasSubCategories) {
+      for (final subCategory in categoryModel.subCategories!) {
+        actions.delete(subCategory.id ?? 0);
+      }
+    }
+
+    // Then delete the main category
     actions.delete(categoryModel.id ?? 0);
   }
 }

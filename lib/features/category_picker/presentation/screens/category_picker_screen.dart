@@ -23,7 +23,7 @@ class CategoryPickerScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return CustomScaffold(
       context: context,
-      title: isManageCategories ? 'Manage Categories' : 'Add Category',
+      title: isManageCategories ? 'Manage Categories' : 'Picking Category',
       showBalance: false,
       body: Column(
         children: [

@@ -185,7 +185,7 @@ class CategoryFormScreen extends HookConsumerWidget {
                 );
               },
             ),
-            if (isEditing && !isEditingParent)
+            if (isEditing)
               TextButton(
                 child: Text(
                   'Delete',
@@ -198,14 +198,36 @@ class CategoryFormScreen extends HookConsumerWidget {
                     builder: (context) => AlertBottomSheet(
                       title: 'Delete Category',
                       content: Text(
-                        'Continue to delete this category?',
+                        'Deleting this category will also remove all sub-categories as well as transactions related to it. '
+                        'Continue?\n\nThis action cannot be undone.',
                         style: AppTextStyles.body2,
+                        textAlign: TextAlign.center,
                       ),
                       onConfirm: () {
+                        final categories = ref
+                            .read(hierarchicalCategoriesProvider)
+                            .value;
+
+                        CategoryModel categoryModel = categoryFuture.data!
+                            .toModel();
+
+                        if (categories != null) {
+                          categoryModel = categories.firstWhere(
+                            (e) => e.id == categoryId,
+                          );
+
+                          Log.d(
+                            categoryModel.subCategories
+                                ?.map((e) => '${e.id} => ${e.title}')
+                                .toList(),
+                            label: 'sub categories',
+                          );
+                        }
+
                         CategoryFormService().delete(
                           context,
                           ref,
-                          categoryModel: categoryFuture.data!.toModel(),
+                          categoryModel: categoryModel,
                         );
                         context.pop();
                         context.pop();
