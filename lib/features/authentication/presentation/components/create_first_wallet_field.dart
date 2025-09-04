@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/features/currency_picker/data/sources/currency_local_source.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
@@ -42,11 +43,8 @@ class CreateFirstWalletField extends HookConsumerWidget {
       readOnly: true,
       onTap: () {
         if (wallet == null) {
-          showModalBottomSheet(
-            context: context,
-            showDragHandle: true,
-            isScrollControlled: true,
-            builder: (_) => WalletFormBottomSheet(
+          context.openBottomSheet(
+            child: WalletFormBottomSheet(
               wallet: defaultWallets.first,
               showDeleteButton: false,
             ),
@@ -61,12 +59,11 @@ class CreateFirstWalletField extends HookConsumerWidget {
 
           ref.read(currencyProvider.notifier).state = selectedCurrency;
 
-          showModalBottomSheet(
-            context: context,
-            showDragHandle: true,
-            isScrollControlled: true,
-            builder: (_) =>
-                WalletFormBottomSheet(wallet: wallet, showDeleteButton: false),
+          context.openBottomSheet(
+            child: WalletFormBottomSheet(
+              wallet: wallet,
+              showDeleteButton: false,
+            ),
           );
         }
       },
