@@ -24,17 +24,11 @@ class CustomBottomSheet extends StatelessWidget {
           AppSpacing.spacing20,
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Text(title, style: AppTextStyles.body1),
             const Gap(AppSpacing.spacing32),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [child],
-                ),
-              ),
-            ),
+            child,
           ],
         ),
       ),
