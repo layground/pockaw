@@ -8,8 +8,6 @@ import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
-import 'package:pockaw/core/database/database_provider.dart';
-import 'package:pockaw/core/database/tables/category_table.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/currency_picker/data/sources/currency_local_source.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_date_picker.dart';
@@ -130,15 +128,10 @@ class TransactionForm extends HookConsumerWidget {
         const Gap(AppSpacing.spacing16),
         TransactionCategorySelector(
           controller: formState.categoryController,
-          onCategorySelected: (category) async {
+          onCategorySelected: (parentCategory, category) {
             formState.selectedCategory.value = category;
-            final parentCategory = await ref
-                .read(databaseProvider)
-                .categoryDao
-                .getCategoryById(category?.parentId ?? 0);
-
             formState.categoryController.text = formState.getCategoryText(
-              parentCategory: parentCategory?.toModel(),
+              parentCategory: parentCategory,
             );
           },
         ),

@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/components/form_fields/custom_select_field.dart';
+import 'package:pockaw/core/database/database_provider.dart';
+import 'package:pockaw/core/database/tables/category_table.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
 
 class TransactionCategorySelector extends HookConsumerWidget {
   final TextEditingController controller;
-  final ValueChanged<CategoryModel?> onCategorySelected;
+  final Function(CategoryModel? parentCategory, CategoryModel? category)
+  onCategorySelected;
 
   const TransactionCategorySelector({
     super.key,
@@ -57,7 +60,16 @@ class TransactionCategorySelector extends HookConsumerWidget {
                   label: 'category selected via text field',
                 );
                 if (category != null) {
-                  onCategorySelected(category);
+                  final db = ref.read(databaseProvider);
+                  if (category.hasParent) {
+                    db.categoryDao.getCategoryById(category.parentId!).then((
+                      parentCat,
+                    ) {
+                      onCategorySelected.call(parentCat?.toModel(), category);
+                    });
+                  } else {
+                    onCategorySelected.call(null, category);
+                  }
                 }
               },
             ),

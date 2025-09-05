@@ -49,7 +49,6 @@ class TransactionFormState {
 
     if (parentCategory != null) {
       // It's a subcategory, find its parent to display "Parent • Sub"
-      Log.d(category.parentId, label: 'subcategory');
       return '${parentCategory.title} • ${category.title}';
     } else {
       // It's a parent category
@@ -367,7 +366,13 @@ TransactionFormState useTransactionFormState({
 
   useEffect(
     () {
-      categoryController.text = formState.getCategoryText();
+      Future.microtask(() {
+        selectedCategory.value?.getParentCategory(ref).then((parentCategory) {
+          categoryController.text = formState.getCategoryText(
+            parentCategory: parentCategory,
+          );
+        });
+      });
       return null;
     },
     [selectedCategory.value, formState],
