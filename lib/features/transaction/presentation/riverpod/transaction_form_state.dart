@@ -10,6 +10,7 @@ import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/extensions/string_extension.dart';
 import 'package:pockaw/core/services/image_service/riverpod/image_notifier.dart';
 import 'package:pockaw/core/utils/logger.dart';
@@ -152,10 +153,8 @@ class TransactionFormState {
     // Skip if not editing just in case
     if (!isEditing) return;
 
-    showModalBottomSheet(
-      context: context,
-      showDragHandle: true,
-      builder: (context) => AlertBottomSheet(
+    context.openBottomSheet(
+      child: AlertBottomSheet(
         context: context,
         title: 'Delete Transaction',
         content: Text(

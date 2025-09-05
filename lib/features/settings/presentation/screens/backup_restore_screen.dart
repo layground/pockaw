@@ -7,6 +7,7 @@ import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
 import 'package:pockaw/core/components/buttons/menu_tile_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/backup_and_restore/presentation/components/backup_dialog.dart';
 import 'package:pockaw/features/backup_and_restore/presentation/components/restore_dialog.dart';
@@ -32,13 +33,9 @@ class BackupRestoreScreen extends HookConsumerWidget {
               icon: HugeIcons.strokeRoundedDatabaseExport,
               suffixIcon: null,
               onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  showDragHandle: true,
-                  builder: (context) => CustomBottomSheet(
-                    title: 'Backup Data',
-                    child: BackupDialog(onSuccess: () => context.pop()),
-                  ),
+                context.openBottomSheet(
+                  isScrollControlled: false,
+                  child: BackupDialog(onSuccess: () => context.pop()),
                 );
               },
             ),
@@ -46,9 +43,9 @@ class BackupRestoreScreen extends HookConsumerWidget {
               label: 'Restore Data',
               icon: HugeIcons.strokeRoundedDatabaseImport,
               onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  showDragHandle: true,
+                context.openBottomSheet(
+                  isScrollControlled: false,
+                  child: Container(),
                   builder: (dialogContext) => CustomBottomSheet(
                     title: 'Restore Data',
                     child: RestoreDialog(

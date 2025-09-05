@@ -101,12 +101,8 @@ class CategoryDropdown extends HookConsumerWidget {
 
                 if (!context.mounted) return;
 
-                showModalBottomSheet(
-                  context: context,
-                  showDragHandle: true,
-                  isScrollControlled: true,
-                  builder: (context) =>
-                      CategoryFormScreen(categoryId: selectedCategory.id),
+                context.openBottomSheet(
+                  child: CategoryFormScreen(categoryId: selectedCategory.id),
                 );
               }
             },

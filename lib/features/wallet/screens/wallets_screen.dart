@@ -8,6 +8,7 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
@@ -29,12 +30,7 @@ class WalletsScreen extends ConsumerWidget {
           context,
           icon: HugeIcons.strokeRoundedAdd01,
           onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              showDragHandle: true,
-              isScrollControlled: true,
-              builder: (_) => WalletFormBottomSheet(),
-            );
+            context.openBottomSheet(child: const WalletFormBottomSheet());
           },
           themeMode: context.themeMode,
         ),
@@ -70,11 +66,8 @@ class WalletsScreen extends ConsumerWidget {
 
                   ref.read(currencyProvider.notifier).state = selectedCurrency;
 
-                  showModalBottomSheet(
-                    context: context,
-                    showDragHandle: true,
-                    isScrollControlled: true,
-                    builder: (_) => WalletFormBottomSheet(
+                  context.openBottomSheet(
+                    child: WalletFormBottomSheet(
                       wallet: wallet,
                       showDeleteButton: isNotLastWallet,
                     ),

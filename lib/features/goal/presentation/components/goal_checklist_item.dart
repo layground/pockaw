@@ -9,6 +9,7 @@ import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/extensions/string_extension.dart';
 import 'package:pockaw/core/services/keyboard_service/virtual_keyboard_service.dart';
 import 'package:pockaw/core/services/url_launcher/url_launcher.dart';
@@ -50,12 +51,11 @@ class GoalChecklistItem extends ConsumerWidget {
       onTap: () {
         int goalId = item.goalId;
         Log.d('➕  Opening checklist dialog for goalId=$goalId');
-        showModalBottomSheet(
-          context: context,
-          showDragHandle: true,
-          isScrollControlled: true,
-          builder: (context) =>
-              GoalChecklistFormDialog(goalId: goalId, checklistItemModel: item),
+        context.openBottomSheet(
+          child: GoalChecklistFormDialog(
+            goalId: goalId,
+            checklistItemModel: item,
+          ),
         );
       },
       onDoubleTap: toggle,

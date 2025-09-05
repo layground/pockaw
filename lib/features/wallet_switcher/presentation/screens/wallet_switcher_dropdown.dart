@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/small_button.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:pockaw/features/wallet_switcher/presentation/components/wallet_selector_bottom_sheet.dart';
 
@@ -19,12 +20,7 @@ class WalletSwitcherDropdown extends ConsumerWidget {
           label: wallet?.name ?? 'No Wallet', // Handle null case
           suffixIcon: HugeIcons.strokeRoundedArrowDown01,
           onTap: () {
-            showModalBottomSheet(
-              context: context,
-              showDragHandle: true,
-              isScrollControlled: true,
-              builder: (context) => const WalletSelectorBottomSheet(),
-            );
+            context.openBottomSheet(child: const WalletSelectorBottomSheet());
           },
         );
       },
