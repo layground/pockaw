@@ -36,6 +36,7 @@ dependencies:
   calendar_date_picker2: ^2.0.1
   collection: ^1.19.1
   country_flags: ^3.2.0
+  cupertino_calendar_picker: ^2.2.6
   docman: ^1.2.0
   dotted_border: ^3.1.0
   drift: ^2.26.1
