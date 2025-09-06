@@ -168,12 +168,12 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
       transactionType: Value(transactionModel.transactionType.toDbValue()),
       amount: Value(transactionModel.amount),
       date: Value(transactionModel.date),
-      title: Value(transactionModel.title),
+      title: Value(transactionModel.title.trim()),
       categoryId: Value(transactionModel.category.id!),
       walletId: Value(
         transactionModel.wallet.id!,
       ), // Assuming wallet.id will not be null here
-      notes: Value(transactionModel.notes),
+      notes: Value(transactionModel.notes?.trim()),
       imagePath: Value(transactionModel.imagePath),
       isRecurring: Value(transactionModel.isRecurring),
       createdAt: Value(DateTime.now()),
@@ -193,12 +193,12 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
       transactionType: Value(transactionModel.transactionType.toDbValue()),
       amount: Value(transactionModel.amount),
       date: Value(transactionModel.date),
-      title: Value(transactionModel.title),
+      title: Value(transactionModel.title.trim()),
       categoryId: Value(transactionModel.category.id!),
       walletId: Value(
         transactionModel.wallet.id!,
       ), // Assuming wallet.id will not be null here
-      notes: Value(transactionModel.notes),
+      notes: Value(transactionModel.notes?.trim()),
       imagePath: Value(transactionModel.imagePath),
       isRecurring: Value(transactionModel.isRecurring),
       updatedAt: Value(DateTime.now()),
@@ -218,12 +218,12 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
       transactionType: Value(transactionModel.transactionType.toDbValue()),
       amount: Value(transactionModel.amount),
       date: Value(transactionModel.date),
-      title: Value(transactionModel.title),
+      title: Value(transactionModel.title.trim()),
       categoryId: Value(transactionModel.category.id!),
       walletId: Value(
         transactionModel.wallet.id!,
       ), // Assuming wallet.id will not be null here
-      notes: Value(transactionModel.notes),
+      notes: Value(transactionModel.notes?.trim()),
       imagePath: Value(transactionModel.imagePath),
       isRecurring: Value(transactionModel.isRecurring),
       // Let createdAt be handled by DB default on insert, updatedAt always changes

@@ -54,7 +54,6 @@ class WalletsScreen extends ConsumerWidget {
                   style: AppTextStyles.body3,
                 ),
                 icon: HugeIcons.strokeRoundedWallet02,
-                suffixIcon: HugeIcons.strokeRoundedEdit02,
                 onTap: () {
                   final bool isNotLastWallet = wallets.length > 1;
                   final defaultCurrencies = ref.read(currenciesStaticProvider);

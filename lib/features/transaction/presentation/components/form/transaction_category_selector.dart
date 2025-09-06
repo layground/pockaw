@@ -21,61 +21,28 @@ class TransactionCategorySelector extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return IntrinsicHeight(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          /* SizedBox(
-            height: double.infinity,
-            child: SecondaryButton(
-              onPressed: () async {
-                final category = await context.push<CategoryModel>(
-                  Routes.categoryList,
-                );
-                Log.d(
-                  category?.toJson(),
-                  label: 'category selected via icon button',
-                );
-                if (category != null) {
-                  onCategorySelected(category);
-                }
-              },
-              icon: HugeIcons.strokeRoundedShoppingBag01,
-            ),
-          ),
-          const Gap(AppSpacing.spacing8), */
-          Expanded(
-            child: CustomSelectField(
-              context: context,
-              controller: controller,
-              label: 'Category',
-              hint: 'Select Category',
-              isRequired: true,
-              onTap: () async {
-                final category = await context.push<CategoryModel>(
-                  Routes.categoryList,
-                );
-                Log.d(
-                  category?.toJson(),
-                  label: 'category selected via text field',
-                );
-                if (category != null) {
-                  final db = ref.read(databaseProvider);
-                  if (category.hasParent) {
-                    db.categoryDao.getCategoryById(category.parentId!).then((
-                      parentCat,
-                    ) {
-                      onCategorySelected.call(parentCat?.toModel(), category);
-                    });
-                  } else {
-                    onCategorySelected.call(null, category);
-                  }
-                }
-              },
-            ),
-          ),
-        ],
-      ),
+    return CustomSelectField(
+      context: context,
+      controller: controller,
+      label: 'Category',
+      hint: 'Select Category',
+      isRequired: true,
+      onTap: () async {
+        final category = await context.push<CategoryModel>(Routes.categoryList);
+        Log.d(category?.toJson(), label: 'category selected via text field');
+        if (category != null) {
+          final db = ref.read(databaseProvider);
+          if (category.hasParent) {
+            db.categoryDao.getCategoryById(category.parentId!).then((
+              parentCat,
+            ) {
+              onCategorySelected.call(parentCat?.toModel(), category);
+            });
+          } else {
+            onCategorySelected.call(null, category);
+          }
+        }
+      },
     );
   }
 }

@@ -66,11 +66,13 @@ class WalletFormBottomSheet extends HookConsumerWidget {
           children: [
             CustomTextField(
               controller: nameController,
-              label: 'Wallet Name',
+              label: 'Wallet Name (max. 15)',
               hint: 'e.g., Savings Account',
               isRequired: true,
               prefixIcon: HugeIcons.strokeRoundedWallet02,
               textInputAction: TextInputAction.next,
+              maxLength: 15,
+              customCounterText: '',
             ),
             CurrencyPickerField(defaultCurrency: currency),
             CustomNumericField(

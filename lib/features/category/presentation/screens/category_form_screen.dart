@@ -82,12 +82,14 @@ class CategoryFormScreen extends HookConsumerWidget {
           children: [
             CustomTextField(
               controller: titleController, // Use the controller
-              label: 'Title',
-              hint: 'Lunch with my friends',
+              label: 'Title (max. 25)',
+              hint: 'New Category Title',
               isRequired: true,
               prefixIcon: HugeIcons.strokeRoundedTextSmallcaps,
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.name,
+              maxLength: 25,
+              customCounterText: '',
             ),
             IntrinsicHeight(
               child: Row(
@@ -125,7 +127,7 @@ class CategoryFormScreen extends HookConsumerWidget {
                       hint: isEditingParent
                           ? '-'
                           : selectedParentCategory?.title ??
-                                'Select Parent Category',
+                                'Leave empty for parent',
                       prefixIcon: HugeIcons.strokeRoundedStructure01,
                       onTap: () async {
                         // Navigate to the picker screen and wait for a result
@@ -150,9 +152,9 @@ class CategoryFormScreen extends HookConsumerWidget {
               hint: 'Write simple description...',
               controller: descriptionController, // Use the controller
               prefixIcon: HugeIcons.strokeRoundedNote,
-              suffixIcon: HugeIcons.strokeRoundedAlignLeft,
               minLines: 1,
               maxLines: 3,
+              maxLength: 150,
             ),
 
             if (selectedParentCategory?.id != null)

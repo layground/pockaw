@@ -105,6 +105,8 @@ class PersonalDetailsScreen extends HookConsumerWidget {
                     controller: nameField,
                     label: 'Name',
                     hint: 'John Doe',
+                    maxLength: 100,
+                    customCounterText: '',
                   ),
                 ],
               ),
