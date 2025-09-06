@@ -9,12 +9,13 @@ class Log {
     String label = 'log',
     bool logToFile = true,
   }) {
+    String trimmedLabel = label.toLowerCase().replaceAll(' ', '_');
     if (kDebugMode) {
-      String trimmedLabel = label.toLowerCase().replaceAll(' ', '_');
       log('$message', name: trimmedLabel);
-      if (logToFile) {
-        _writeLogToFile('[$trimmedLabel] $message');
-      }
+    }
+
+    if (logToFile) {
+      _writeLogToFile('[$trimmedLabel] $message');
     }
   }
 
@@ -23,9 +24,7 @@ class Log {
     String label = 'log',
     bool logToFile = true,
   }) {
-    if (kDebugMode) {
-      _console('$message', label: 'debug_$label', logToFile: logToFile);
-    }
+    _console('$message', label: 'debug_$label', logToFile: logToFile);
   }
 
   static void i(
@@ -33,9 +32,7 @@ class Log {
     String label = 'log',
     bool logToFile = true,
   }) {
-    if (kDebugMode) {
-      _console('$message', label: 'info_$label', logToFile: logToFile);
-    }
+    _console('$message', label: 'info_$label', logToFile: logToFile);
   }
 
   static void e(
@@ -43,9 +40,7 @@ class Log {
     String label = 'log',
     bool logToFile = true,
   }) {
-    if (kDebugMode) {
-      _console('$message', label: 'error_$label', logToFile: logToFile);
-    }
+    _console('$message', label: 'error_$label', logToFile: logToFile);
   }
 
   /// Writes a log message to a file in Downloads (Android) or Documents (iOS).

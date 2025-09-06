@@ -29,6 +29,10 @@ class SplashScreen extends HookConsumerWidget {
         final packageInfoService = ref.read(packageInfoServiceProvider);
         await packageInfoService.init();
 
+        // Delete log file
+        final file = await Log.getLogFile();
+        file?.delete();
+
         // Fetch currencies and populate the static provider
         // Using ref.read(currenciesProvider.future) to get the future directly
         try {
