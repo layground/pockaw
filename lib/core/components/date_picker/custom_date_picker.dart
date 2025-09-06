@@ -1,7 +1,9 @@
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/material.dart';
+import 'package:pockaw/core/components/date_picker/date_time_picker_dialog.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/utils/logger.dart';
 
 class CustomDatePicker {
@@ -21,32 +23,20 @@ class CustomDatePicker {
   );
 
   static Future<DateTime?> selectSingleDate(
-    BuildContext context,
+    BuildContext context, {
+    required String title,
     DateTime? selectedDate,
-  ) async {
-    var dates = await showCalendarDatePicker2Dialog(
-      context: context,
-      config: _datePickerConfig,
-      dialogSize: const Size(325, 400),
-      value: [selectedDate],
-      borderRadius: BorderRadius.circular(15),
-      barrierColor: Theme.of(context).bottomSheetTheme.modalBarrierColor,
+    ValueChanged<DateTime>? onDateTimeChanged,
+    ValueChanged<DateTime>? onDateSelected,
+  }) async {
+    return await context.openBottomSheet<DateTime?>(
+      child: DateTimePickerDialog(
+        title: title,
+        initialdate: selectedDate,
+        onDateSelected: onDateSelected,
+        onDateTimeChanged: onDateTimeChanged,
+      ),
     );
-
-    if (dates != null && dates.first != null) {
-      final selectedDateTime = dates.first!.add(
-        Duration(
-          hours: DateTime.now().hour,
-          minutes: DateTime.now().minute,
-          seconds: DateTime.now().second,
-        ),
-      );
-
-      Log.d(selectedDateTime, label: 'selected date');
-      return selectedDateTime;
-    }
-
-    return null;
   }
 
   static Future<List<DateTime?>?> selectDateRange(

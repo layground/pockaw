@@ -56,9 +56,66 @@ extension StringExtension on String {
 }
 
 extension CustomDateParsing on String {
-  /// Parses "26 June 2025 11.33 AM" to DateTime
+  /// Parses dates in following formats to DateTime:
+  /// - "26 June 2025 11.33 AM" (standard format)
+  /// - "Today, 11.33" or "Today"
+  /// - "Yesterday, 11.33" or "Yesterday"
+  /// - "Tomorrow, 11.33" or "Tomorrow"
   DateTime toDateTimeFromDayMonthYearTime12Hour() {
-    final format = DateFormat("d MMMM yyyy hh.mm a");
-    return format.parse(this);
+    final standardFormat = DateFormat("d MMMM yyyy hh.mm a");
+    final timeOnlyFormat = DateFormat("hh.mm a");
+
+    // Split by comma to separate date and time parts
+    final parts = trim().split(',').map((e) => e.trim()).toList();
+    final dateStr = parts[0];
+    final timeStr = parts.length > 1 ? parts[1] : null;
+
+    DateTime baseDate;
+    final now = DateTime.now();
+
+    // Handle relative dates
+    switch (dateStr.toLowerCase()) {
+      case 'today':
+        baseDate = DateTime(now.year, now.month, now.day);
+        break;
+      case 'yesterday':
+        baseDate = DateTime(now.year, now.month, now.day - 1);
+        break;
+      case 'tomorrow':
+        baseDate = DateTime(now.year, now.month, now.day + 1);
+        break;
+      default:
+        try {
+          return standardFormat.parse(this);
+        } catch (e) {
+          // If standard format fails, throw a more helpful error
+          throw FormatException(
+            'Invalid date format. Expected "26 June 2025 hh.mm AM" or "Today, hh.mm"',
+            this,
+          );
+        }
+    }
+
+    // If we have a time part, parse and combine it with the base date
+    if (timeStr != null) {
+      try {
+        final time = timeOnlyFormat.parse(timeStr);
+        return DateTime(
+          baseDate.year,
+          baseDate.month,
+          baseDate.day,
+          time.hour,
+          time.minute,
+        );
+      } catch (e) {
+        throw FormatException(
+          'Invalid time format. Expected "hh.mm AM"',
+          timeStr,
+        );
+      }
+    }
+
+    // If no time provided, use midnight
+    return baseDate;
   }
 }
