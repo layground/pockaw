@@ -10,6 +10,7 @@ import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 
 class DeveloperPortalScreen extends HookConsumerWidget {
   const DeveloperPortalScreen({super.key});
@@ -35,10 +36,9 @@ class DeveloperPortalScreen extends HookConsumerWidget {
                     label: 'Reset Categories',
                     icon: HugeIcons.strokeRoundedStructure01,
                     onTap: () async {
-                      showModalBottomSheet(
-                        context: context,
-                        showDragHandle: true,
-                        builder: (context) => AlertBottomSheet(
+                      context.openBottomSheet(
+                        isScrollControlled: false,
+                        child: AlertBottomSheet(
                           title: 'Reset Categories',
                           content: Text(
                             'Are you sure you want to reset the categories?',
@@ -59,10 +59,9 @@ class DeveloperPortalScreen extends HookConsumerWidget {
                     label: 'Reset Wallets',
                     icon: HugeIcons.strokeRoundedWallet02,
                     onTap: () async {
-                      showModalBottomSheet(
-                        context: context,
-                        showDragHandle: true,
-                        builder: (context) => AlertBottomSheet(
+                      context.openBottomSheet(
+                        isScrollControlled: false,
+                        child: AlertBottomSheet(
                           title: 'Reset Wallets',
                           content: Text(
                             'Are you sure you want to reset the wallets?',
@@ -83,10 +82,9 @@ class DeveloperPortalScreen extends HookConsumerWidget {
                     label: 'Reset Database',
                     icon: HugeIcons.strokeRoundedDeletePutBack,
                     onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        showDragHandle: true,
-                        builder: (context) => AlertBottomSheet(
+                      context.openBottomSheet(
+                        isScrollControlled: false,
+                        child: AlertBottomSheet(
                           title: 'Reset Database',
                           content: Text(
                             'Are you sure you want to reset the database?',

@@ -121,6 +121,7 @@ class CustomNumericField extends ConsumerWidget {
         FilteringTextInputFormatter.allow(RegExp(r'[\d.]')),
         SingleDotInputFormatter(),
         DecimalInputFormatter(),
+        LengthLimitingTextInputFormatter(12),
       ],
       onChanged: onChanged,
       isRequired: isRequired,

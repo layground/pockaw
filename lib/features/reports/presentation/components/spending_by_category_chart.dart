@@ -1,20 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:pockaw/core/constants/app_colors.dart';
-import 'package:pockaw/core/constants/app_text_styles.dart';
-import 'package:pockaw/core/extensions/double_extension.dart';
-import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
-import 'package:pockaw/features/transaction/presentation/riverpod/transaction_providers.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+part of '../screens/basic_monthly_report_screen.dart';
 
 class SpendingByCategoryChart extends ConsumerWidget {
-  const SpendingByCategoryChart({super.key});
+  final DateTime date;
+  const SpendingByCategoryChart({super.key, required this.date});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // For this example, we'll watch all transactions.
-    // In a real app, you'd filter this by the current month.
-    final transactionsAsync = ref.watch(transactionListProvider);
+    // Watch transactions filtered by the given month
+    final transactionsAsync = ref.watch(monthlyTransactionsProvider(date));
 
     return transactionsAsync.when(
       data: (transactions) {
@@ -37,51 +30,75 @@ class SpendingByCategoryChart extends ConsumerWidget {
           (sum, item) => sum + item.amount,
         );
 
-        return SfCircularChart(
-          title: ChartTitle(
-            text: 'Spending by Category',
-            textStyle: AppTextStyles.body2,
+        return Container(
+          height: context.screenSize.height * 0.5,
+          margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
+          padding: const EdgeInsets.all(AppSpacing.spacing16),
+          decoration: BoxDecoration(
+            color: context.purpleBackground(context.themeMode),
+            borderRadius: BorderRadius.circular(AppRadius.radius12),
           ),
-          legend: const Legend(
-            isVisible: true,
-            overflowMode: LegendItemOverflowMode.wrap,
-            position: LegendPosition.bottom,
-            textStyle: AppTextStyles.body4,
-          ),
-          annotations: <CircularChartAnnotation>[
-            CircularChartAnnotation(
-              widget: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Total Spent',
-                    style: AppTextStyles.body3.copyWith(
-                      color: AppColors.neutral400,
+          child: Column(
+            spacing: AppSpacing.spacing12,
+            children: [
+              Expanded(
+                child: SfCircularChart(
+                  title: ChartTitle(
+                    text: 'Spending by Category',
+                    textStyle: AppTextStyles.body2,
+                  ),
+                  legend: const Legend(
+                    isVisible: true,
+                    overflowMode: LegendItemOverflowMode.wrap,
+                    position: LegendPosition.bottom,
+                    textStyle: AppTextStyles.body4,
+                  ),
+                  annotations: <CircularChartAnnotation>[
+                    CircularChartAnnotation(
+                      widget: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Total Spent',
+                            style: AppTextStyles.body3.copyWith(
+                              color: AppColors.neutral400,
+                            ),
+                          ),
+                          Text(
+                            totalExpenses.toShortPriceFormat(),
+                            style: AppTextStyles.body2,
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  Text(
-                    totalExpenses.toPriceFormat(),
-                    style: AppTextStyles.body2,
-                  ),
-                ],
+                  ],
+                  series: <CircularSeries>[
+                    DoughnutSeries<_ChartData, String>(
+                      dataSource: expenseData,
+                      xValueMapper: (_ChartData data, _) => data.category,
+                      yValueMapper: (_ChartData data, _) => data.amount,
+                      dataLabelMapper: (datum, index) =>
+                          datum.amount.toShortPriceFormat(),
+                      animationDuration: 500,
+                      groupMode: CircularChartGroupMode.point,
+                      dataLabelSettings: const DataLabelSettings(
+                        isVisible: true,
+                        // Display percentage on slices
+                        labelPosition: ChartDataLabelPosition.outside,
+                        textStyle: AppTextStyles.body4,
+                      ),
+                      innerRadius: '70%', // This creates the donut shape
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
-          series: <CircularSeries>[
-            DoughnutSeries<_ChartData, String>(
-              dataSource: expenseData,
-              xValueMapper: (_ChartData data, _) => data.category,
-              yValueMapper: (_ChartData data, _) => data.amount,
-              dataLabelMapper: (datum, index) => datum.amount.toPriceFormat(),
-              dataLabelSettings: const DataLabelSettings(
-                isVisible: true,
-                // Display percentage on slices
-                labelPosition: ChartDataLabelPosition.outside,
-                textStyle: AppTextStyles.body4,
+              Text(
+                'Toggle legend items to show/hide categories.',
+                style: AppTextStyles.body4,
+                textAlign: TextAlign.center,
               ),
-              innerRadius: '70%', // This creates the donut shape
-            ),
-          ],
+            ],
+          ),
         );
       },
       loading: () => const SizedBox(

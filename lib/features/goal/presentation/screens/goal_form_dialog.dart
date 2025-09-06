@@ -55,12 +55,14 @@ class GoalFormDialog extends HookConsumerWidget {
           children: [
             CustomTextField(
               controller: titleController,
-              label: 'Title',
+              label: 'Title (max. 25)',
               hint: 'Buy something',
               isRequired: true,
               prefixIcon: HugeIcons.strokeRoundedArrangeByLettersAZ,
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.name,
+              maxLength: 25,
+              customCounterText: '',
             ),
             GoalDateRangePicker(initialDate: dateRange),
             CustomTextField(
@@ -70,6 +72,7 @@ class GoalFormDialog extends HookConsumerWidget {
               prefixIcon: HugeIcons.strokeRoundedNote,
               minLines: 1,
               maxLines: 3,
+              maxLength: 250,
             ),
             /* CustomNumericField(
               controller: targetAmountController,
@@ -92,8 +95,8 @@ class GoalFormDialog extends HookConsumerWidget {
 
                 final newGoal = GoalModel(
                   id: goal?.id,
-                  title: titleController.text,
-                  description: noteController.text,
+                  title: titleController.text.trim(),
+                  description: noteController.text.trim(),
                   targetAmount: targetAmountController.text
                       .takeNumericAsDouble(),
                   createdAt: DateTime.now(),

@@ -1,4 +1,7 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:pockaw/core/database/database_provider.dart';
+import 'package:pockaw/core/database/tables/category_table.dart';
 
 part 'category_model.freezed.dart';
 part 'category_model.g.dart';
@@ -37,9 +40,22 @@ extension CategoryModelUtils on CategoryModel {
   /// Checks if this category is a top-level category (i.e., it has no parent).
   bool get isParent => parentId == null;
 
+  bool get hasParent => parentId != null;
+
   /// Checks if this category has any sub-categories.
   bool get hasSubCategories =>
       subCategories != null && subCategories!.isNotEmpty;
+
+  Future<CategoryModel?> getParentCategory(WidgetRef ref) async {
+    if (!hasParent) return null;
+    // In a real application, you would fetch the parent category from a data source.
+    // Here, we just return null as a placeholder.
+    return (await ref
+            .read(databaseProvider)
+            .categoryDao
+            .getCategoryById(parentId ?? 0))
+        ?.toModel();
+  }
 
   /// A display string that might include parent information if desired,
   /// or simply the title. For now, it just returns the title.

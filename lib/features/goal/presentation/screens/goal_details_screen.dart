@@ -18,6 +18,7 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/features/goal/data/model/goal_model.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_checklist_holder.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_title_card.dart';
@@ -75,11 +76,8 @@ class GoalDetailsScreen extends ConsumerWidget {
               ref.read(datePickerProvider.notifier).state =
                   goalAsync.value!.goalDates;
 
-              showModalBottomSheet(
-                context: context,
-                showDragHandle: true,
-                isScrollControlled: true,
-                builder: (context) => GoalFormDialog(goal: goalAsync.value!),
+              context.openBottomSheet(
+                child: GoalFormDialog(goal: goalAsync.value!),
               );
             }
           },
@@ -91,26 +89,22 @@ class GoalDetailsScreen extends ConsumerWidget {
           CustomIconButton(
             context,
             onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                showDragHandle: true,
-                builder: (context) {
-                  return AlertBottomSheet(
-                    context: context,
-                    title: 'Delete Goal',
-                    content: Text(
-                      'Are you sure want to delete this goal?',
-                      style: AppTextStyles.body2,
-                    ),
-                    confirmText: 'Delete',
-                    onConfirm: () {
-                      final db = ref.read(databaseProvider);
-                      db.goalDao.deleteGoal(goalId);
-                      context.pop();
-                      context.pop();
-                    },
-                  );
-                },
+              context.openBottomSheet(
+                child: AlertBottomSheet(
+                  context: context,
+                  title: 'Delete Goal',
+                  content: Text(
+                    'Are you sure want to delete this goal?',
+                    style: AppTextStyles.body2,
+                  ),
+                  confirmText: 'Delete',
+                  onConfirm: () {
+                    final db = ref.read(databaseProvider);
+                    db.goalDao.deleteGoal(goalId);
+                    context.pop();
+                    context.pop();
+                  },
+                ),
               );
             },
             icon: HugeIcons.strokeRoundedDelete02,
@@ -151,10 +145,8 @@ class GoalDetailsScreen extends ConsumerWidget {
             themeMode: context.themeMode,
             onPressed: () {
               print('➕  Opening checklist dialog for goalId=$goalId');
-              showModalBottomSheet(
-                context: context,
-                showDragHandle: true,
-                builder: (context) => GoalChecklistFormDialog(goalId: goalId),
+              context.openBottomSheet(
+                child: GoalChecklistFormDialog(goalId: goalId),
               );
             },
           ).floatingBottomWithContent(

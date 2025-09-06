@@ -26,6 +26,11 @@ class SettingsAppInfoGroup extends ConsumerWidget {
             LinkLauncher.launch(AppConstants.termsAndConditionsUrl);
           },
         ),
+        MenuTileButton(
+          label: 'Report Log File',
+          icon: HugeIcons.strokeRoundedFileCorrupt,
+          onTap: () => context.openBottomSheet(child: ReportLogFileDialog()),
+        ),
         if (kDebugMode)
           MenuTileButton(
             label: 'Developer Portal',

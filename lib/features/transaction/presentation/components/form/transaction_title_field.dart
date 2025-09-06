@@ -17,13 +17,15 @@ class TransactionTitleField extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return CustomTextField(
       controller: controller,
-      label: 'Title',
+      label: 'Title (max. 50)',
       hint: 'Lunch with my friends',
       prefixIcon: HugeIcons.strokeRoundedArrangeByLettersAZ,
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.name,
       isRequired: true,
       autofocus: !isEditing,
+      maxLength: 50,
+      customCounterText: '',
     );
   }
 }

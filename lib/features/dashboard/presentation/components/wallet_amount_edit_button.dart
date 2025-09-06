@@ -18,12 +18,8 @@ class WalletAmountEditButton extends ConsumerWidget {
 
           ref.read(currencyProvider.notifier).state = selectedCurrency;
 
-          showModalBottomSheet(
-            context: context,
-            showDragHandle: true,
-            isScrollControlled: true,
-            backgroundColor: Colors.white,
-            builder: (_) => WalletFormBottomSheet(wallet: activeWallet),
+          context.openBottomSheet(
+            child: WalletFormBottomSheet(wallet: activeWallet),
           );
         }
       },

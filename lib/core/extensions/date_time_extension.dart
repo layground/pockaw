@@ -49,11 +49,21 @@ extension DateTimeExtension on DateTime {
     return DateTime(year, month, day, 23, 59, 59);
   }
 
-  /// Returns "Today", "Yesterday" if applicable, otherwise "13 March 2025".
-  /// Compares `this` date to the current date.
-  String toRelativeDayFormatted() {
+  /// Returns date in relative format with optional time.
+  /// Examples:
+  /// - "Today, 10.22" (with showTime: true, use24Hours: true)
+  /// - "Today, 10.22 AM" (with showTime: true, use24Hours: false)
+  /// - "Yesterday, 15.23" (with showTime: true, use24Hours: true)
+  /// - "Yesterday, 03.23 PM" (with showTime: true, use24Hours: false)
+  /// - "13 June 2025, 10.22" (with showTime: true, use24Hours: true)
+  /// - "13 June 2025, 10.22 AM" (with showTime: true, use24Hours: false)
+  /// - "Today" (with showTime: false)
+  String toRelativeDayFormatted({
+    bool showTime = false,
+    bool use24Hours = true,
+  }) {
     final now = DateTime.now();
-    // Normalize 'this' (the date instance) and 'now' to midnight for accurate day difference
+    // Normalize dates to midnight for accurate day difference
     final thisDateAtMidnight = DateTime(year, month, day);
     final nowDateAtMidnight = DateTime(now.year, now.month, now.day);
 
@@ -61,14 +71,22 @@ extension DateTimeExtension on DateTime {
         .difference(thisDateAtMidnight)
         .inDays;
 
+    String baseText;
     if (differenceInDays == 0) {
-      return "Today"; // thisDateAtMidnight is today
+      baseText = "Today";
+    } else if (differenceInDays == 1) {
+      baseText = "Yesterday";
+    } else {
+      baseText = toDayMonthYear();
     }
-    if (differenceInDays == 1) {
-      return "Yesterday"; // thisDateAtMidnight was yesterday
+
+    if (showTime) {
+      final time = use24Hours
+          ? DateFormat("HH.mm").format(this)
+          : DateFormat("hh.mm a").format(this);
+      return "$baseText, $time";
     }
-    // For other dates (further in the past or future if transactions could be future-dated)
-    return toDayMonthYear(); // Default format: "13 March 2025"
+    return baseText;
   }
 
   /// Returns "This Month", "Last Month", or "Oct 2024" for tab labels.

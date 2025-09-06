@@ -6,6 +6,7 @@ import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_grouped_card.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_summary_card.dart';
 import 'package:pockaw/features/transaction/presentation/components/transaction_tab_bar.dart';
@@ -30,12 +31,8 @@ class TransactionScreen extends ConsumerWidget {
           context,
           onPressed: () {
             final currentFilter = ref.read(transactionFilterProvider);
-            showModalBottomSheet(
-              context: context,
-              showDragHandle: true,
-              isScrollControlled: true,
-              builder: (context) =>
-                  TransactionFilterFormDialog(initialFilter: currentFilter),
+            context.openBottomSheet(
+              child: TransactionFilterFormDialog(initialFilter: currentFilter),
             );
           },
           icon: HugeIcons.strokeRoundedFilter,

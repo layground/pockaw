@@ -17,6 +17,7 @@ class TransactionNotesField extends HookConsumerWidget {
       prefixIcon: HugeIcons.strokeRoundedNote,
       minLines: 1,
       maxLines: 3,
+      maxLength: 500,
     );
   }
 }

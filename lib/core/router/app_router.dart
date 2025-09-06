@@ -9,6 +9,7 @@ import 'package:pockaw/core/router/category_router.dart';
 import 'package:pockaw/core/router/currency_router.dart';
 import 'package:pockaw/core/router/goal_router.dart'; // ← import your GoalRouter
 import 'package:pockaw/core/router/onboarding_router.dart';
+import 'package:pockaw/core/router/report_router.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/router/settings_router.dart';
 import 'package:pockaw/core/router/transaction_router.dart';
@@ -41,5 +42,6 @@ final router = GoRouter(
     ...SettingsRouter.routes,
     ...CurrencyRouter.routes,
     ...WalletRouter.routes,
+    ...ReportRouter.routes,
   ],
 );

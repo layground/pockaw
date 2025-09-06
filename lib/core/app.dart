@@ -132,7 +132,14 @@ class MyApp extends ConsumerWidget {
         darkTheme: darkTheme,
         themeMode: themeMode, // Set the theme mode from the provider
         builder: (context, child) => ResponsiveBreakpoints.builder(
-          child: child!,
+          child: MediaQuery(
+            data: MediaQuery.of(context).copyWith(
+              textScaler: MediaQuery.of(
+                context,
+              ).textScaler.clamp(minScaleFactor: 0.8, maxScaleFactor: 1.2),
+            ),
+            child: child!,
+          ),
           breakpoints: [
             const Breakpoint(
               start: 0,

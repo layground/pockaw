@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 extension PopupExtension on BuildContext {
   Future<T?> openBottomSheet<T>({
     required Widget child,
+    WidgetBuilder? builder,
     bool isScrollControlled = true,
   }) {
     return showModalBottomSheet(
       context: this,
       showDragHandle: true,
       isScrollControlled: isScrollControlled,
-      builder: (context) => child,
+      builder: builder ?? (context) => child,
     );
   }
 

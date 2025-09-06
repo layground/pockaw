@@ -77,7 +77,7 @@ class WalletDao extends DatabaseAccessor<AppDatabase> with _$WalletDaoMixin {
       id: walletModel.id == null
           ? const Value.absent()
           : Value(walletModel.id!),
-      name: Value(walletModel.name),
+      name: Value(walletModel.name.trim()),
       balance: Value(walletModel.balance),
       currency: Value(walletModel.currency),
       iconName: Value(walletModel.iconName),

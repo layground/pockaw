@@ -60,25 +60,29 @@ class GoalChecklistFormDialog extends HookConsumerWidget {
           children: [
             CustomTextField(
               controller: titleController,
-              label: 'Title',
+              label: 'Title (max. 25)',
               hint: 'Buy something',
               isRequired: true,
-              prefixIcon: HugeIcons.strokeRoundedArrangeByLettersAZ,
+              prefixIcon: HugeIcons.strokeRoundedShirt01,
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.name,
+              maxLength: 25,
+              customCounterText: '',
             ),
             CustomNumericField(
               controller: amountController,
               label: 'Price amount',
               hint: '1,000.00',
-              icon: HugeIcons.strokeRoundedCoins01,
+              icon: HugeIcons.strokeRoundedMoney03,
               appendCurrencySymbolToHint: true,
               isRequired: true,
             ),
             CustomTextField(
               controller: linkController,
-              label: 'Link or place to buy',
+              label: 'Offline store or link to buy',
               hint: 'Insert or paste link here...',
+              maxLength: 1000,
+              customCounterText: '',
               prefixIcon: HugeIcons.strokeRoundedLink01,
               suffixIcon: HugeIcons.strokeRoundedClipboard,
               onTapSuffixIcon: () =>

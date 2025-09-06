@@ -19,6 +19,37 @@ extension DoubleFormattingExtensions on double {
     }
   }
 
+  /// Formats the double as a human-readable short price (e.g., 1K, 2,5M)
+  /// Uses comma as decimal separator and up to 2 decimals for M, K, etc.
+  String toShortPriceFormat() {
+    final absValue = abs();
+    String suffix = '';
+    double divisor = 1;
+    if (absValue >= 1e6) {
+      suffix = 'M';
+      divisor = 1e6;
+    } else if (absValue >= 1e3) {
+      suffix = 'K';
+      divisor = 1e3;
+    }
+    double shortValue = this / divisor;
+    String formatted;
+    if (suffix.isEmpty) {
+      formatted = toStringAsFixed(
+        truncateToDouble() == this ? 0 : 2,
+      ).replaceAll('.', ',');
+    } else {
+      // Show 2 decimals for M, K, but trim trailing zeros
+      formatted = shortValue.toStringAsFixed(2).replaceAll('.', ',');
+      if (formatted.endsWith(',00')) {
+        formatted = formatted.substring(0, formatted.length - 3);
+      } else if (formatted.endsWith('0')) {
+        formatted = formatted.substring(0, formatted.length - 1);
+      }
+    }
+    return '$formatted$suffix';
+  }
+
   /// Calculates the percentage difference between this value (current) and a previous value.
   ///
   /// Returns 0.0 if previousValue is 0 to avoid division by zero.

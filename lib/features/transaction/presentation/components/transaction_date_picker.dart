@@ -18,29 +18,36 @@ class TransactionDatePicker extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final selectedDate = ref.watch(datePickerProvider);
     final selectedDateNotifier = ref.read(datePickerProvider.notifier);
+    dateFieldController.text = (initialdate ?? DateTime.now())
+        .toRelativeDayFormatted(showTime: true, use24Hours: false);
 
     return CustomSelectField(
       context: context,
       controller: dateFieldController,
       label: 'Set a date',
-      hint: DateTime.now().toDayMonthYearTime12Hour(),
+      hint: DateTime.now().toRelativeDayFormatted(
+        showTime: true,
+        use24Hours: false,
+      ),
       prefixIcon: HugeIcons.strokeRoundedCalendar01,
       isRequired: true,
-      onTap: () async {
+      onTap: () {
         selectedDateNotifier.state = initialdate ?? DateTime.now();
 
-        var date = await CustomDatePicker.selectSingleDate(
+        CustomDatePicker.selectSingleDate(
           context,
-          initialdate ?? selectedDate,
+          title: 'Transaction Date & Time',
+          selectedDate: initialdate ?? DateTime.now(),
+          onDateTimeChanged: (date) {
+            selectedDateNotifier.state = date;
+            Log.d(date, label: 'selected date');
+            dateFieldController.text = date.toRelativeDayFormatted(
+              showTime: true,
+              use24Hours: false,
+            );
+          },
         );
-
-        if (date != null) {
-          selectedDateNotifier.state = date;
-          Log.d(date, label: 'selected date');
-          dateFieldController.text = date.toDayMonthYearTime12Hour();
-        }
       },
     );
   }

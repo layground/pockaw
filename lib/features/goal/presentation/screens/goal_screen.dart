@@ -7,6 +7,7 @@ import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_card.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/goals_list_provider.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_form_dialog.dart';
@@ -26,12 +27,7 @@ class GoalScreen extends ConsumerWidget {
         CustomIconButton(
           context,
           onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              showDragHandle: true,
-              isScrollControlled: true,
-              builder: (context) => GoalFormDialog(),
-            );
+            context.openBottomSheet(child: GoalFormDialog());
           },
           icon: HugeIcons.strokeRoundedPlusSign,
           themeMode: context.themeMode,
