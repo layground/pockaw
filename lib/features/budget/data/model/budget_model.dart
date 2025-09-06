@@ -7,7 +7,7 @@ part 'budget_model.g.dart';
 
 /// Represents a budget item with its details.
 @freezed
-class BudgetModel with _$BudgetModel {
+abstract class BudgetModel with _$BudgetModel {
   /// The unique identifier for the budget. Null if the budget is new and not yet saved.
   const factory BudgetModel({
     int? id,

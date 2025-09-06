@@ -6,7 +6,7 @@ part 'transaction_filter_model.freezed.dart';
 part 'transaction_filter_model.g.dart';
 
 @freezed
-class TransactionFilter with _$TransactionFilter {
+abstract class TransactionFilter with _$TransactionFilter {
   const factory TransactionFilter({
     String? keyword,
     double? minAmount,

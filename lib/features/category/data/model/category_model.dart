@@ -8,7 +8,7 @@ part 'category_model.g.dart';
 
 /// Represents a category for organizing transactions or budgets.
 @freezed
-class CategoryModel with _$CategoryModel {
+abstract class CategoryModel with _$CategoryModel {
   const factory CategoryModel({
     /// The unique identifier for the category. Null if the category is new and not yet saved.
     int? id,

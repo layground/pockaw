@@ -8,7 +8,7 @@ part 'transaction_model.g.dart';
 enum TransactionType { income, expense, transfer }
 
 @freezed
-class TransactionModel with _$TransactionModel {
+abstract class TransactionModel with _$TransactionModel {
   const factory TransactionModel({
     int? id,
     required TransactionType transactionType,

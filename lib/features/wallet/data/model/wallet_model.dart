@@ -10,7 +10,7 @@ part 'wallet_model.g.dart';
 
 /// Represents a user's wallet or financial account.
 @freezed
-class WalletModel with _$WalletModel {
+abstract class WalletModel with _$WalletModel {
   const factory WalletModel({
     /// The unique identifier for the wallet.
     int? id,
