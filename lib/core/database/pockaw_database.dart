@@ -49,29 +49,38 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 5; // Increment schema version
+  int get schemaVersion => 8; // Increment schema version for the new fields
 
   @override
   MigrationStrategy get migration {
     return MigrationStrategy(
       onCreate: (Migrator m) async {
+        Log.i(
+          'Creating new database and populating tables...',
+          label: 'database',
+        );
         await m.createAll();
         await populateData();
       },
       onUpgrade: (Migrator m, int from, int to) async {
-        Log.i('Running migration from $from to $to');
+        Log.i('Running migration from $from to $to', label: 'database');
+
+        if (from < 8) {
+          resetCategories();
+          return;
+        }
+
         if (kDebugMode) {
-          // In debug mode, clear and recreate everything.
-          // Use the provided migrator 'm'.
+          // In debug mode, clear and recreate everything for other migrations
           Log.i(
             'Debug mode: Wiping and recreating all tables for upgrade from $from to $to.',
+            label: 'database',
           );
-
-          // Delete all existing tables first.
-          // Iterating in reverse order can help with foreign key constraints, though migrator might handle it.
           await clearAllDataAndReset();
           await populateData();
-          Log.i('All tables recreated after debug upgrade.');
+          Log.i('All tables recreated after debug upgrade.', label: 'database');
+
+          return; // exit
         }
       },
     );
@@ -92,6 +101,7 @@ class AppDatabase extends _$AppDatabase {
   Future<void> clearAllDataAndReset() async {
     Log.i(
       'Starting database reset: clearing all data and re-initializing tables.',
+      label: 'database',
     );
     final migrator = createMigrator();
 
@@ -101,10 +111,12 @@ class AppDatabase extends _$AppDatabase {
         await migrator.deleteTable(table.actualTableName);
         Log.i(
           'Successfully deleted table: ${table.actualTableName} during reset.',
+          label: 'database',
         );
       } catch (e) {
         Log.d(
           'Could not delete table ${table.actualTableName} during reset (it might not exist): $e',
+          label: 'database',
         );
       }
     }
@@ -118,15 +130,15 @@ class AppDatabase extends _$AppDatabase {
     //   migrator,
     // ); // This will call m.createAll() again, then populate.
 
-    Log.i('Database reset and data population complete.');
+    Log.i('Database reset and data population complete.', label: 'database');
   }
 
   Future<void> populateData() async {
     // More direct would be to call populate services directly.
     // Let's call population services directly to avoid redundant createAll.
-    Log.i('Populating default categories during reset...');
+    Log.i('Populating default categories during reset...', label: 'database');
     await CategoryPopulationService.populate(this);
-    Log.i('Populating default wallets during reset...');
+    Log.i('Populating default wallets during reset...', label: 'database');
     await WalletPopulationService.populate(this);
   }
 
@@ -142,7 +154,7 @@ class AppDatabase extends _$AppDatabase {
 
   /// Clears all data from all tables in the correct order to respect foreign key constraints.
   Future<void> clearAllTables() async {
-    Log.i('Clearing all database tables...');
+    Log.i('Clearing all database tables...', label: 'database');
     await transaction(() async {
       // Delete in reverse dependency order
       await _deleteAllChecklistItems();
@@ -153,7 +165,7 @@ class AppDatabase extends _$AppDatabase {
       await _deleteAllWallets();
       await _deleteAllCategories();
     });
-    Log.i('All database tables cleared.');
+    Log.i('All database tables cleared.', label: 'database');
   }
 
   /// Inserts data into tables in the correct order to respect foreign key constraints.
@@ -167,7 +179,7 @@ class AppDatabase extends _$AppDatabase {
     List<Map<String, dynamic>> checklistItemsData,
     List<Map<String, dynamic>> transactionsData,
   ) async {
-    Log.i('Inserting all data into database...');
+    Log.i('Inserting all data into database...', label: 'database');
     await transaction(() async {
       // Insert in dependency order
       await batch(
@@ -209,26 +221,26 @@ class AppDatabase extends _$AppDatabase {
         ),
       );
     });
-    Log.i('All data inserted successfully.');
+    Log.i('All data inserted successfully.', label: 'database');
   }
 
   Future<void> resetCategories() async {
-    Log.i('Deleting and recreating category table...');
+    Log.i('Deleting and recreating category table...', label: 'database');
     final migrator = createMigrator();
-    await migrator.deleteTable(categories.actualTableName);
+    await migrator.drop(categories);
     await migrator.createTable(categories);
 
-    Log.i('Populating default categories...');
+    Log.i('Populating default categories...', label: 'database');
     await CategoryPopulationService.populate(this);
   }
 
   Future<void> resetWallets() async {
-    Log.i('Deleting and recreating wallet table...');
+    Log.i('Deleting and recreating wallet table...', label: 'database');
     final migrator = createMigrator();
-    await migrator.deleteTable(wallets.actualTableName);
+    await migrator.drop(wallets);
     await migrator.createTable(wallets);
 
-    Log.i('Populating default wallets...');
+    Log.i('Populating default wallets...', label: 'database');
     await WalletPopulationService.populate(this);
   }
 }

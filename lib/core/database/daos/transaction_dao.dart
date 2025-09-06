@@ -42,22 +42,25 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
 
   /// Streams all transactions; logs each emission
   Future<List<Transaction>> getAllTransactions() {
-    Log.d('🔍  Subscribing to getAllTransactions()');
+    Log.d('Subscribing to getAllTransactions()', label: 'transaction');
     return select(transactions).get();
   }
 
   /// Streams all transactions; logs each emission
   Stream<List<Transaction>> watchAllTransactions() {
-    Log.d('🔍  Subscribing to watchAllTransactions()');
+    Log.d('Subscribing to watchAllTransactions()', label: 'transaction');
     return select(transactions).watch().map((list) {
-      Log.d('📋  watchAllTransactions emitted ${list.length} rows');
+      Log.d(
+        'watchAllTransactions emitted ${list.length} rows',
+        label: 'transaction',
+      );
       return list;
     });
   }
 
   /// Streams single transaction;
   Stream<Transaction> watchTransactionByID(int id) {
-    Log.d('🔍  Subscribing to watchTransactionByID($id)');
+    Log.d('Subscribing to watchTransactionByID($id)', label: 'transaction');
     return (select(transactions)..where((g) => g.id.equals(id))).watchSingle();
   }
 
@@ -94,7 +97,8 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
     int walletId,
   ) {
     Log.d(
-      '🔍 Subscribing to watchTransactionsByWalletIdWithDetails($walletId)',
+      'ubscribing to watchTransactionsByWalletIdWithDetails($walletId)',
+      label: 'transaction',
     );
     final query = select(transactions).join([
       innerJoin(categories, categories.id.equalsExp(transactions.categoryId)),
@@ -163,7 +167,10 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
 
   /// Inserts a new transaction.
   Future<int> addTransaction(TransactionModel transactionModel) async {
-    Log.d('Saving New Transaction: ${transactionModel.toJson()}');
+    Log.d(
+      'Saving New Transaction: ${transactionModel.toJson()}',
+      label: 'transaction',
+    );
     final companion = TransactionsCompanion(
       transactionType: Value(transactionModel.transactionType.toDbValue()),
       amount: Value(transactionModel.amount),
@@ -184,7 +191,10 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
 
   /// Updates an existing transaction.
   Future<bool> updateTransaction(TransactionModel transactionModel) async {
-    Log.d('Updating Transaction: ${transactionModel.toJson()}');
+    Log.d(
+      'Updating Transaction: ${transactionModel.toJson()}',
+      label: 'transaction',
+    );
     final companion = TransactionsCompanion(
       // For `update(table).replace(companion)`, the companion must include the primary key.
       // transactionModel.id is expected to be non-null for an update operation.

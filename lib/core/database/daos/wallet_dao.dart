@@ -15,15 +15,18 @@ class WalletDao extends DatabaseAccessor<AppDatabase> with _$WalletDaoMixin {
   }
 
   Stream<List<WalletModel>> watchAllWallets() {
-    Log.d('🔍 Subscribing to watchAllWallets()');
+    Log.d('Subscribing to watchAllWallets()', label: 'wallet');
     return select(wallets).watch().asyncMap((walletList) async {
-      Log.d('📋 watchAllWallets emitted ${walletList.length} rows');
+      Log.d(
+        'watchAllWallets emitted ${walletList.length} rows',
+        label: 'wallet',
+      );
       return walletList.map((e) => e.toModel()).toList();
     });
   }
 
   Stream<WalletModel?> watchWalletById(int id) {
-    Log.d('🔍 Subscribing to watchWalletById($id)');
+    Log.d('Subscribing to watchWalletById($id)', label: 'wallet');
     return (select(wallets)..where((w) => w.id.equals(id)))
         .watchSingleOrNull()
         .asyncMap((walletData) async {
@@ -47,13 +50,13 @@ class WalletDao extends DatabaseAccessor<AppDatabase> with _$WalletDaoMixin {
   }
 
   Future<int> addWallet(WalletModel walletModel) async {
-    Log.d('Saving New Wallet: ${walletModel.toJson()}');
+    Log.d('Saving New Wallet: ${walletModel.toJson()}', label: 'wallet');
     final companion = walletModel.toCompanion(isInsert: true);
     return await into(wallets).insert(companion);
   }
 
   Future<bool> updateWallet(WalletModel walletModel) async {
-    Log.d('Updating Wallet: ${walletModel.toJson()}');
+    Log.d('Updating Wallet: ${walletModel.toJson()}', label: 'wallet');
     if (walletModel.id == null) {
       Log.e('Wallet ID is null, cannot update.');
       return false;
@@ -64,12 +67,12 @@ class WalletDao extends DatabaseAccessor<AppDatabase> with _$WalletDaoMixin {
 
   /// Deletes a wallet by its ID.
   Future<int> deleteWallet(int id) {
-    Log.d('Deleting Wallet with ID: $id');
+    Log.d('Deleting Wallet with ID: $id', label: 'wallet');
     return (delete(wallets)..where((w) => w.id.equals(id))).go();
   }
 
   Future<void> upsertWallet(WalletModel walletModel) async {
-    Log.d('Upserting Wallet: ${walletModel.toJson()}');
+    Log.d('Upserting Wallet: ${walletModel.toJson()}', label: 'wallet');
     // For upsert, if ID is null, it's an insert.
     // If ID is present, it's an update on conflict.
     // The toCompanion handles Value.absent() for ID on insert.
