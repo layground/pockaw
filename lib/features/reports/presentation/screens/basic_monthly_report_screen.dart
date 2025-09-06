@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/core/extensions/screen_utils_extensions.dart';
-import 'package:pockaw/features/transaction/presentation/riverpod/transaction_providers.dart';
+import 'package:pockaw/features/reports/presentation/riverpod/filtered_transactions_provider.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
@@ -18,12 +20,14 @@ class BasicMonthlyReportScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final date = GoRouterState.of(context).extra as DateTime;
+
     return CustomScaffold(
       context: context,
-      title: 'Monthly Report',
+      title: '${date.toMonthName()} Report',
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: AppSpacing.spacing20),
-        children: [SpendingByCategoryChart()],
+        children: [SpendingByCategoryChart(date: date)],
       ),
     );
   }

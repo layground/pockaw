@@ -159,7 +159,7 @@ class SpendingProgressChart extends ConsumerWidget {
         ),
         InkWell(
           onTap: () {
-            context.push(Routes.basicMonthlyReports);
+            context.push(Routes.basicMonthlyReports, extra: DateTime.now());
           },
           child: Text(
             'View report',

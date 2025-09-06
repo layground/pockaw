@@ -1,13 +1,13 @@
 part of '../screens/basic_monthly_report_screen.dart';
 
 class SpendingByCategoryChart extends ConsumerWidget {
-  const SpendingByCategoryChart({super.key});
+  final DateTime date;
+  const SpendingByCategoryChart({super.key, required this.date});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    // For this example, we'll watch all transactions.
-    // In a real app, you'd filter this by the current month.
-    final transactionsAsync = ref.watch(transactionListProvider);
+    // Watch transactions filtered by the given month
+    final transactionsAsync = ref.watch(monthlyTransactionsProvider(date));
 
     return transactionsAsync.when(
       data: (transactions) {
