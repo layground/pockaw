@@ -11,7 +11,7 @@ class CurrencyLocalDataSource {
       'assets/data/currencies.json',
     );
     final jsonList = jsonDecode(jsonString);
-    Log.d(jsonList, label: 'currencies');
+    Log.d(jsonList, label: 'currencies', logToFile: false);
     // Log.d('currencies: ${jsonList.runtimeType}');
     return jsonList['currencies'];
   }

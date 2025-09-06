@@ -14,6 +14,8 @@ class ShareService {
 
   static Future<void> shareLogFile() async {
     final file = await Log.getLogFile();
+    Log.d(file?.path, label: 'share', logToFile: false);
+
     if (file != null) {
       final status = await shareFiles([XFile(file.path)]);
       if (status == ShareResultStatus.success) {

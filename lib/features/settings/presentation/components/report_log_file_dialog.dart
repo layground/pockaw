@@ -18,15 +18,16 @@ class ReportLogFileDialog extends StatelessWidget {
         children: [
           Text(
             'Log file is for development and investigation purposes only. '
-            'Please only share this file with the developer.',
+            'Please only share this file with the developer.\n\n'
+            'Log history is one-time session. It will be cleared everytime you open the app.',
             textAlign: TextAlign.center,
           ),
-          Gap(AppSpacing.spacing20),
+          Gap(AppSpacing.spacing32),
           PrimaryButton(
             label: 'Understand and Continue',
-            onPressed: () {
-              ShareService.shareLogFile();
-              context.pop();
+            onPressed: () async {
+              await ShareService.shareLogFile();
+              if (context.mounted) context.pop();
             },
           ),
         ],
