@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
+import 'package:pockaw/core/utils/logger.dart';
+import 'package:pockaw/features/category/data/model/category_model.dart';
+import 'package:pockaw/features/category_picker/presentation/components/category_icon.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_ui_extension.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
@@ -37,6 +39,11 @@ class TransactionTile extends ConsumerWidget {
         // Log.d(transaction.toJson(), label: 'transaction');
         context.push('/transaction/${transaction.id}');
       },
+      onLongPress: () => Log.d(
+        '${transaction.category.iconTypeValue}: icon tapped: ${transaction.category.icon}',
+        label: 'icon',
+        logToFile: false,
+      ),
       borderRadius: BorderRadius.circular(AppRadius.radius12),
       child: Container(
         height: 72,
@@ -70,9 +77,11 @@ class TransactionTile extends ConsumerWidget {
                   color: transaction.iconBorderColor(context.isDarkMode),
                 ),
               ),
-              child: transaction.category.icon.isEmpty
-                  ? Icon(HugeIcons.strokeRoundedPizza01, size: 25)
-                  : Image.asset(transaction.category.icon),
+              child: CategoryIcon(
+                iconType: transaction.category.iconType,
+                icon: transaction.category.icon,
+                iconBackground: transaction.category.iconBackground,
+              ),
             ),
             const Gap(AppSpacing.spacing12),
             Expanded(

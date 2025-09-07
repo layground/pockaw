@@ -43,7 +43,7 @@ class GoalScreen extends ConsumerWidget {
             padding: const EdgeInsets.all(AppSpacing.spacing20),
             itemCount: goals.length,
             itemBuilder: (_, i) => GoalCard(goal: goals[i]),
-            separatorBuilder: (_, __) => const Gap(AppSpacing.spacing12),
+            separatorBuilder: (_, _) => const Gap(AppSpacing.spacing12),
           );
         },
         loading: () => const Center(child: CircularProgressIndicator()),

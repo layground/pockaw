@@ -59,6 +59,7 @@ class BudgetDao extends DatabaseAccessor<AppDatabase> with _$BudgetDaoMixin {
         // Log this issue or handle it more gracefully
         Log.e(
           'Warning: Could not find wallet or category for budget ${budgetData.id}',
+          label: 'budget',
         );
         continue; // Skip this budget if essential data is missing
       }

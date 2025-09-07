@@ -2,13 +2,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/database/tables/category_table.dart';
+import 'package:pockaw/features/category/data/model/icon_type.dart';
 
 part 'category_model.freezed.dart';
 part 'category_model.g.dart';
 
 /// Represents a category for organizing transactions or budgets.
 @freezed
-class CategoryModel with _$CategoryModel {
+abstract class CategoryModel with _$CategoryModel {
   const factory CategoryModel({
     /// The unique identifier for the category. Null if the category is new and not yet saved.
     int? id,
@@ -19,6 +20,12 @@ class CategoryModel with _$CategoryModel {
     /// The identifier or name of the icon associated with this category.
     /// This could be a key to lookup an icon from a predefined set (e.g., "HugeIcons.strokeRoundedShoppingBag01").
     @Default('') String icon,
+
+    /// Icon background in hex e.g. "#cd34ff" or "cd34ff"
+    @Default('') String iconBackground,
+
+    /// The type of icon being used (emoji, initial, or asset)
+    @Default('') String iconTypeValue,
 
     /// The identifier of the parent category, if this is a sub-category.
     /// Null if this is a top-level category.
@@ -45,6 +52,19 @@ extension CategoryModelUtils on CategoryModel {
   /// Checks if this category has any sub-categories.
   bool get hasSubCategories =>
       subCategories != null && subCategories!.isNotEmpty;
+
+  IconType get iconType {
+    switch (iconTypeValue) {
+      case 'emoji':
+        return IconType.emoji;
+      case 'initial':
+        return IconType.initial;
+      case 'asset':
+        return IconType.asset;
+      default:
+        return IconType.asset;
+    }
+  }
 
   Future<CategoryModel?> getParentCategory(WidgetRef ref) async {
     if (!hasParent) return null;

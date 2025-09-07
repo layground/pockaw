@@ -53,6 +53,14 @@ extension StringExtension on String {
         (link.startsWith(RegExp(r'http?://')) ||
             link.startsWith(RegExp(r'https?://')));
   }
+
+  bool get containsImageExtension {
+    return contains('.webp') ||
+        contains('.jpg') ||
+        contains('.jpeg') ||
+        contains('.png') ||
+        contains('.gif');
+  }
 }
 
 extension CustomDateParsing on String {

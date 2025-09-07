@@ -22,8 +22,7 @@ class SplashScreen extends HookConsumerWidget {
     useEffect(() {
       Future<void> initializeApp() async {
         // Initialize database (this also triggers onCreate population services)
-        final db = ref.read(databaseProvider);
-        Log.d(db.schemaVersion, label: 'schema version');
+        ref.read(databaseProvider);
 
         // Initialize PackageInfoService
         final packageInfoService = ref.read(packageInfoServiceProvider);

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:gap/gap.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
+import 'package:pockaw/features/category_picker/presentation/components/category_icon.dart';
 
 class CategoryTile extends StatelessWidget {
   final CategoryModel category;
@@ -53,9 +53,11 @@ class CategoryTile extends StatelessWidget {
                   color: context.purpleBorderLighter(context.themeMode),
                 ),
               ),
-              child: category.icon.isEmpty
-                  ? Icon(HugeIcons.strokeRoundedPizza01, size: iconSize)
-                  : Image.asset(category.icon, width: iconSize),
+              child: CategoryIcon(
+                iconType: category.iconType,
+                icon: category.icon,
+                iconBackground: category.iconBackground,
+              ),
             ),
             const Gap(AppSpacing.spacing8),
             Expanded(child: Text(category.title, style: AppTextStyles.body3)),

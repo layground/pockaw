@@ -8,6 +8,8 @@ class Categories extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get title => text().withLength(min: 1, max: 100)();
   TextColumn get icon => text().nullable()();
+  TextColumn get iconBackground => text().nullable()();
+  TextColumn get iconType => text().nullable()();
   IntColumn get parentId => integer().nullable().references(
     Categories,
     #id,
@@ -24,6 +26,8 @@ extension CategoryExtension on Category {
       id: json['id'] as int,
       title: json['title'] as String,
       icon: json['icon'] as String?,
+      iconBackground: json['iconBackground'] as String?,
+      iconType: json['iconType'] as String?,
       parentId: json['parentId'] as int?,
       description: json['description'] as String?,
     );
@@ -43,6 +47,8 @@ extension CategoryTableExtensions on Category {
       id: id,
       title: title,
       icon: icon ?? '',
+      iconBackground: iconBackground ?? '',
+      iconTypeValue: iconType ?? '',
       parentId: parentId,
       description: description,
       // subCategories are not directly available on the Drift Category object.

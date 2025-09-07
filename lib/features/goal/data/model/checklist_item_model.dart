@@ -5,7 +5,7 @@ part 'checklist_item_model.g.dart';
 
 /// Represents an item within a checklist, typically associated with a goal.
 @freezed
-class ChecklistItemModel with _$ChecklistItemModel {
+abstract class ChecklistItemModel with _$ChecklistItemModel {
   const ChecklistItemModel._();
 
   const factory ChecklistItemModel({

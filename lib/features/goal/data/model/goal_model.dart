@@ -5,7 +5,7 @@ part 'goal_model.g.dart';
 
 /// Represents a financial goal.
 @freezed
-class GoalModel with _$GoalModel {
+abstract class GoalModel with _$GoalModel {
   const factory GoalModel({
     /// The unique identifier for the goal. Null if the goal is new and not yet saved.
     int? id,
