@@ -52,9 +52,7 @@ class CustomTextField extends TextField {
                    ),
                  ),
            filled: true,
-           fillColor: onTap != null
-               ? context?.purpleButtonBackground(context.themeMode)
-               : null,
+           fillColor: onTap != null ? context?.purpleButtonBackground : null,
            floatingLabelAlignment: FloatingLabelAlignment.start,
            floatingLabelBehavior: FloatingLabelBehavior.always,
            counter: customCounter,
@@ -113,7 +111,7 @@ class CustomTextField extends TextField {
     borderSide: BorderSide(
       color: !asButton
           ? AppColors.neutral600
-          : context?.purpleButtonBorder(context.themeMode) ?? AppColors.purple,
+          : context?.purpleButtonBorder ?? AppColors.purple,
     ),
     borderRadius: BorderRadius.circular(AppSpacing.spacing8),
   );

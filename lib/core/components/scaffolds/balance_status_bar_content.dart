@@ -19,10 +19,8 @@ class BalanceStatusBarContent extends ConsumerWidget {
               horizontal: AppSpacing.spacing8,
             ),
             decoration: BoxDecoration(
-              color: context.secondaryButtonBackground(context.themeMode),
-              border: Border.all(
-                color: context.secondaryBorder(context.themeMode),
-              ),
+              color: context.secondaryButtonBackground,
+              border: Border.all(color: context.secondaryBorder),
               borderRadius: BorderRadius.circular(AppRadius.radius8),
             ),
             child: Center(
@@ -36,10 +34,8 @@ class BalanceStatusBarContent extends ConsumerWidget {
           margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
           padding: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing8),
           decoration: BoxDecoration(
-            color: context.secondaryButtonBackground(context.themeMode),
-            border: Border.all(
-              color: context.secondaryBorder(context.themeMode),
-            ),
+            color: context.secondaryButtonBackground,
+            border: Border.all(color: context.secondaryBorder),
             borderRadius: BorderRadius.circular(AppRadius.radius8),
           ),
           child: Row(

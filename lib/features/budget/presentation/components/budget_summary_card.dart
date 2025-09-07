@@ -57,10 +57,8 @@ class BudgetSummaryCard extends ConsumerWidget {
           margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
           padding: const EdgeInsets.all(AppSpacing.spacing16),
           decoration: BoxDecoration(
-            color: context.purpleBackground(context.themeMode),
-            border: Border.all(
-              color: context.purpleBorderLighter(context.themeMode),
-            ),
+            color: context.purpleBackground,
+            border: Border.all(color: context.purpleBorderLighter),
             borderRadius: BorderRadius.circular(AppRadius.radius8),
           ),
           child: Column(
@@ -76,7 +74,7 @@ class BudgetSummaryCard extends ConsumerWidget {
                   Text(
                     totalRemainingAmount.toPriceFormat(),
                     style: AppTextStyles.numericHeading.copyWith(
-                      color: context.primaryText(context.themeMode),
+                      color: context.primaryText,
                     ),
                   ),
                 ],

@@ -37,12 +37,8 @@ class SmallButton extends StatelessWidget {
           vertical: AppSpacing.spacing4,
         ),
         decoration: BoxDecoration(
-          color:
-              backgroundColor ??
-              context.secondaryButtonBackground(context.themeMode),
-          border: Border.all(
-            color: borderColor ?? context.secondaryBorder(context.themeMode),
-          ),
+          color: backgroundColor ?? context.secondaryButtonBackground,
+          border: Border.all(color: borderColor ?? context.secondaryBorder),
           borderRadius: BorderRadius.circular(AppRadius.radius8),
         ),
         child: Row(

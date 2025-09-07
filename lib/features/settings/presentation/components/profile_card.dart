@@ -46,9 +46,9 @@ class ProfileCard extends ConsumerWidget {
               currencyCode: wallet.currency,
               label:
                   '${wallet.currencyByIsoCode(ref).symbol} - ${wallet.currencyByIsoCode(ref).country}',
-              background: context.purpleBackground(context.themeMode),
-              borderColor: context.purpleBorderLighter(context.themeMode),
-              foreground: context.purpleText(context.themeMode),
+              background: context.purpleBackground,
+              borderColor: context.purpleBorderLighter,
+              foreground: context.purpleText,
             ),
           ],
         ),

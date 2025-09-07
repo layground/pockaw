@@ -35,8 +35,8 @@ class GoalChecklistItem extends ConsumerWidget {
 
     // Odd-even background
     final bgColor = isOdd
-        ? context.purpleBackground(context.themeMode).withAlpha(50)
-        : context.purpleBackground(context.themeMode).withAlpha(50);
+        ? context.purpleBackground.withAlpha(50)
+        : context.purpleBackground.withAlpha(50);
 
     void toggle() {
       final updatedItem = item.toggleCompleted();
@@ -66,9 +66,7 @@ class GoalChecklistItem extends ConsumerWidget {
         ),
         decoration: BoxDecoration(
           color: bgColor,
-          border: Border.all(
-            color: context.purpleBorderLighter(context.themeMode),
-          ),
+          border: Border.all(color: context.purpleBorderLighter),
           borderRadius: BorderRadius.circular(AppRadius.radius16),
         ),
         child: Column(
@@ -85,7 +83,7 @@ class GoalChecklistItem extends ConsumerWidget {
                         : HugeIcons.strokeRoundedSquare,
                     color: item.completed
                         ? AppColors.green200
-                        : context.secondaryText(context.themeMode),
+                        : context.secondaryText,
                     size: 22,
                   ),
                   padding: EdgeInsets.zero,
@@ -116,9 +114,9 @@ class GoalChecklistItem extends ConsumerWidget {
                 Gap(AppSpacing.spacing8),
                 CustomChip(
                   label: '$defaultCurrency ${item.amount.toPriceFormat()}',
-                  background: context.purpleBackground(context.themeMode),
-                  foreground: context.purpleText(context.themeMode),
-                  borderColor: context.purpleBorderLighter(context.themeMode),
+                  background: context.purpleBackground,
+                  foreground: context.purpleText,
+                  borderColor: context.purpleBorderLighter,
                 ),
               ],
             ),
@@ -130,9 +128,9 @@ class GoalChecklistItem extends ConsumerWidget {
                 ),
                 child: CustomChip(
                   label: item.link,
-                  background: context.secondaryBackground(context.themeMode),
-                  foreground: context.secondaryText(context.themeMode),
-                  borderColor: context.secondaryBorder(context.themeMode),
+                  background: context.secondaryBackground,
+                  foreground: context.secondaryText,
+                  borderColor: context.secondaryBorder,
                   onTap: () {
                     if (item.link.isLink) {
                       LinkLauncher.launch(item.link);

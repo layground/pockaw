@@ -19,8 +19,8 @@ class BudgetDateCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.spacing8),
       decoration: BoxDecoration(
-        color: context.secondaryBackground(context.themeMode),
-        border: Border.all(color: context.secondaryBorder(context.themeMode)),
+        color: context.secondaryBackground,
+        border: Border.all(color: context.secondaryBorder),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
       child: Row(
@@ -29,9 +29,9 @@ class BudgetDateCard extends StatelessWidget {
             context,
             onPressed: () {},
             icon: HugeIcons.strokeRoundedCalendar01,
-            backgroundColor: context.purpleBackground(context.themeMode),
-            borderColor: context.purpleBorder(context.themeMode),
-            color: context.purpleIcon(context.themeMode),
+            backgroundColor: context.purpleBackground,
+            borderColor: context.purpleBorder,
+            color: context.purpleIcon,
           ),
           const Gap(AppSpacing.spacing4),
           Column(
@@ -40,9 +40,7 @@ class BudgetDateCard extends StatelessWidget {
             children: [
               Text(
                 'Budget Period',
-                style: AppTextStyles.body3.copyWith(
-                  color: context.purpleText(context.themeMode),
-                ),
+                style: AppTextStyles.body3.copyWith(color: context.purpleText),
               ),
               Text(
                 '${budget.startDate.toDayShortMonth()} - ${budget.endDate.toDayShortMonthYear()}',

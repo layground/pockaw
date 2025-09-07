@@ -38,11 +38,9 @@ class CategoryPickerField extends StatelessWidget {
               width: 66,
               padding: const EdgeInsets.all(AppSpacing.spacing8),
               decoration: BoxDecoration(
-                color: context.purpleBackground(context.themeMode),
+                color: context.purpleBackground,
                 borderRadius: BorderRadius.circular(AppRadius.radius8),
-                border: Border.all(
-                  color: context.purpleBorderLighter(context.themeMode),
-                ),
+                border: Border.all(color: context.purpleBorderLighter),
               ),
               child: Center(
                 child: CategoryIcon(

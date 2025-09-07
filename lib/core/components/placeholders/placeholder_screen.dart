@@ -37,8 +37,8 @@ class PlaceholderScreen extends StatelessWidget {
                   text: 'Febri Prastyo',
                   style: AppTextStyles.body4.copyWith(
                     decoration: TextDecoration.underline,
-                    decorationColor: context.secondaryText(context.themeMode),
-                    color: context.secondaryText(context.themeMode),
+                    decorationColor: context.secondaryText,
+                    color: context.secondaryText,
                   ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {

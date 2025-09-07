@@ -18,8 +18,8 @@ class BudgetFundSourceCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.spacing8),
       decoration: BoxDecoration(
-        color: context.incomeBackground(context.themeMode),
-        border: Border.all(color: context.incomeLine(context.themeMode)),
+        color: context.incomeBackground,
+        border: Border.all(color: context.incomeLine),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
       child: Row(
@@ -28,9 +28,9 @@ class BudgetFundSourceCard extends StatelessWidget {
             context,
             onPressed: () {},
             icon: HugeIcons.strokeRoundedWallet01,
-            backgroundColor: context.incomeBackground(context.themeMode),
-            borderColor: context.incomeLine(context.themeMode),
-            color: context.incomeText(context.themeMode),
+            backgroundColor: context.incomeBackground,
+            borderColor: context.incomeLine,
+            color: context.incomeText,
           ),
           const Gap(AppSpacing.spacing4),
           Column(
@@ -39,9 +39,7 @@ class BudgetFundSourceCard extends StatelessWidget {
             children: [
               Text(
                 'Funds Source',
-                style: AppTextStyles.body3.copyWith(
-                  color: context.incomeText(context.themeMode),
-                ),
+                style: AppTextStyles.body3.copyWith(color: context.incomeText),
               ),
               Text(
                 budget.wallet.name, // Display wallet name

@@ -50,11 +50,9 @@ class BudgetCard extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.spacing12),
         decoration: BoxDecoration(
-          color: context.purpleBackground(context.themeMode),
+          color: context.purpleBackground,
           borderRadius: BorderRadius.circular(AppRadius.radius8),
-          border: Border.all(
-            color: context.purpleBorderLighter(context.themeMode),
-          ),
+          border: Border.all(color: context.purpleBorderLighter),
         ),
         child: Column(
           children: [
@@ -73,7 +71,7 @@ class BudgetCard extends ConsumerWidget {
                   style: AppTextStyles.body4.copyWith(
                     color: remainingAmount < 0
                         ? AppColors.red
-                        : context.secondaryText(context.themeMode),
+                        : context.secondaryText,
                   ),
                 ),
                 Text(

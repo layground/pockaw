@@ -20,7 +20,7 @@ class GoalTitleCard extends ConsumerWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.spacing20),
       decoration: BoxDecoration(
-        border: Border.all(color: context.purpleBorder(context.themeMode)),
+        border: Border.all(color: context.purpleBorder),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
       child: Column(

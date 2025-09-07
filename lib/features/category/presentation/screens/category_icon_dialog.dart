@@ -35,7 +35,7 @@ class CategoryIconDialog extends StatelessWidget {
               child: AspectRatio(
                 aspectRatio: 1 / 1,
                 child: Card(
-                  color: context.purpleBackground(context.themeMode),
+                  color: context.purpleBackground,
                   elevation: 0,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,7 +62,7 @@ class CategoryIconDialog extends StatelessWidget {
               child: AspectRatio(
                 aspectRatio: 1 / 1,
                 child: Card(
-                  color: context.purpleBackground(context.themeMode),
+                  color: context.purpleBackground,
                   elevation: 0,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -91,7 +91,7 @@ class CategoryIconDialog extends StatelessWidget {
               child: AspectRatio(
                 aspectRatio: 1 / 1,
                 child: Card(
-                  color: context.purpleBackground(context.themeMode),
+                  color: context.purpleBackground,
                   elevation: 0,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
