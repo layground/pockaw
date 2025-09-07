@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
@@ -38,7 +39,22 @@ class CategoryIcon extends StatelessWidget {
       case IconType.emoji:
         iconWidget = Center(child: Text(icon, style: AppTextStyles.heading4));
       case IconType.initial:
-        iconWidget = Center(child: Text(icon, style: AppTextStyles.heading3));
+        iconWidget = Center(
+          child: AutoSizeText(
+            icon,
+            minFontSize: 16,
+            maxFontSize: 22,
+            maxLines: 1,
+            textAlign: TextAlign.center,
+            style: AppTextStyles.heading4.copyWith(
+              height: 0.9,
+              fontVariations: [FontVariation.weight(700)],
+              color: context.primaryText(context.themeMode),
+            ),
+          ),
+        );
+
+        backgroundColor = null;
       case IconType.asset:
         if (icon.containsImageExtension) {
           iconWidget = Image.asset(icon);

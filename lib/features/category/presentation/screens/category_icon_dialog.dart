@@ -51,30 +51,6 @@ class CategoryIconDialog extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () {
-                iconBackground.value = '';
-                iconType.value = IconType.initial;
-                if (context.mounted) context.pop();
-              },
-              child: AspectRatio(
-                aspectRatio: 1 / 1,
-                child: Card(
-                  color: context.purpleBackground(context.themeMode),
-                  elevation: 0,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    spacing: AppSpacing.spacing4,
-                    children: [
-                      Text('🅰️', style: AppTextStyles.heading3),
-                      Text('Initial'),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            GestureDetector(
               onTap: () async {
                 icon.value =
                     await context.push(Routes.categoryIconAssetPicker) ?? '';
@@ -96,6 +72,35 @@ class CategoryIconDialog extends StatelessWidget {
                     children: [
                       Text('🖼️', style: AppTextStyles.heading3),
                       Text('Asset'),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () async {
+                icon.value =
+                    await context.openBottomSheet<String>(
+                      child: CategoryIconInitialPicker(),
+                    ) ??
+                    '';
+                iconBackground.value = '';
+                iconType.value = IconType.initial;
+                if (context.mounted) context.pop();
+              },
+              child: AspectRatio(
+                aspectRatio: 1 / 1,
+                child: Card(
+                  color: context.purpleBackground(context.themeMode),
+                  elevation: 0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    spacing: AppSpacing.spacing4,
+                    children: [
+                      Text('🅰️', style: AppTextStyles.heading3),
+                      Text('Initial'),
                     ],
                   ),
                 ),
