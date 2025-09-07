@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
+import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/string_extension.dart';
 import 'package:pockaw/features/category/data/model/icon_type.dart';
 
@@ -35,9 +36,9 @@ class CategoryIcon extends StatelessWidget {
 
     switch (iconType) {
       case IconType.emoji:
-        iconWidget = Text(icon);
+        iconWidget = Center(child: Text(icon, style: AppTextStyles.heading4));
       case IconType.initial:
-        iconWidget = Text(icon);
+        iconWidget = Center(child: Text(icon, style: AppTextStyles.heading3));
       case IconType.asset:
         if (icon.containsImageExtension) {
           iconWidget = Image.asset(icon);

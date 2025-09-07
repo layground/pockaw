@@ -22,7 +22,12 @@ class CategoryIconDialog extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             GestureDetector(
-              onTap: () {
+              onTap: () async {
+                icon.value =
+                    await context.openBottomSheet<String>(
+                      child: CategoryIconEmojiPicker(),
+                    ) ??
+                    '';
                 iconBackground.value = '';
                 iconType.value = IconType.emoji;
                 if (context.mounted) context.pop();
@@ -72,7 +77,7 @@ class CategoryIconDialog extends StatelessWidget {
             GestureDetector(
               onTap: () async {
                 icon.value =
-                    await context.push(Routes.categoryIconPicker) ?? '';
+                    await context.push(Routes.categoryIconAssetPicker) ?? '';
                 Log.d(icon.value, label: 'icon path');
                 iconBackground.value = '';
                 iconType.value = IconType.asset;
