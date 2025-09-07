@@ -28,6 +28,7 @@ import 'package:pockaw/features/category/data/model/icon_type.dart';
 import 'package:pockaw/features/category/presentation/riverpod/category_form_service.dart';
 import 'package:pockaw/features/category/presentation/riverpod/category_providers.dart';
 import 'package:pockaw/features/category/presentation/screens/category_icon_emoji_picker.dart';
+import 'package:pockaw/features/category/presentation/screens/category_icon_initial_picker.dart';
 import 'package:pockaw/features/category_picker/presentation/components/category_icon.dart';
 
 part 'category_icon_dialog.dart';
