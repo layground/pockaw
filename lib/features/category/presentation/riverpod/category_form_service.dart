@@ -15,9 +15,8 @@ class CategoryFormService {
   Future<void> save(
     BuildContext context,
     WidgetRef ref,
-    CategoryModel categoryModel, {
-    bool isEditingParent = false,
-  }) async {
+    CategoryModel categoryModel,
+  ) async {
     // Basic validation
     if (categoryModel.title.isEmpty) {
       Toast.show(
@@ -38,7 +37,9 @@ class CategoryFormService {
           : Value(categoryModel.id!),
       title: Value(categoryModel.title),
       icon: Value(categoryModel.icon),
-      parentId: Value(categoryModel.parentId), // Use selected parent ID
+      iconType: Value(categoryModel.iconTypeValue),
+      iconBackground: Value(categoryModel.iconBackground),
+      parentId: Value(categoryModel.parentId),
       description: Value(categoryModel.description ?? ''),
     );
 

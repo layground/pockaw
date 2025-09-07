@@ -6,10 +6,13 @@ import 'package:pockaw/core/constants/app_text_styles.dart';
 class CustomBottomSheet extends StatelessWidget {
   final String title;
   final Widget child;
+  final EdgeInsets? padding;
+
   const CustomBottomSheet({
     super.key,
     required this.title,
     required this.child,
+    this.padding,
   });
 
   @override
@@ -17,12 +20,14 @@ class CustomBottomSheet extends StatelessWidget {
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
       child: Container(
-        padding: const EdgeInsets.fromLTRB(
-          AppSpacing.spacing20,
-          0,
-          AppSpacing.spacing20,
-          AppSpacing.spacing20,
-        ),
+        padding:
+            padding ??
+            const EdgeInsets.fromLTRB(
+              AppSpacing.spacing20,
+              0,
+              AppSpacing.spacing20,
+              AppSpacing.spacing20,
+            ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [

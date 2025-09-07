@@ -24,8 +24,8 @@ final categoryIconsProvider = FutureProvider<List<String>>((ref) async {
   return iconPaths;
 });
 
-class CategoryIconPicker extends ConsumerWidget {
-  const CategoryIconPicker({super.key});
+class CategoryIconAssetPicker extends ConsumerWidget {
+  const CategoryIconAssetPicker({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final iconsAsync = ref.watch(categoryIconsProvider);

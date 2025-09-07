@@ -9,6 +9,8 @@ class CategorySaveButton extends ConsumerWidget {
     required this.makeAsParent,
     required this.selectedParentCategory,
     required this.icon,
+    required this.iconType,
+    required this.iconBackground,
     required this.isEditingParent,
   });
 
@@ -18,6 +20,8 @@ class CategorySaveButton extends ConsumerWidget {
   final ValueNotifier<bool> makeAsParent;
   final CategoryModel? selectedParentCategory;
   final ValueNotifier<String> icon;
+  final ValueNotifier<IconType> iconType;
+  final ValueNotifier<String> iconBackground;
   final bool isEditingParent;
 
   @override
@@ -32,14 +36,11 @@ class CategorySaveButton extends ConsumerWidget {
           description: descriptionController.text.trim(),
           parentId: makeAsParent.value ? null : selectedParentCategory?.id,
           icon: icon.value,
+          iconTypeValue: iconType.value.name,
+          iconBackground: iconBackground.value,
         );
 
-        CategoryFormService().save(
-          context,
-          ref,
-          newCategory,
-          isEditingParent: isEditingParent,
-        );
+        CategoryFormService().save(context, ref, newCategory);
       },
     );
   }
