@@ -27,6 +27,7 @@ import 'package:pockaw/core/database/tables/category_table.dart'
 import 'package:pockaw/features/category/data/model/icon_type.dart';
 import 'package:pockaw/features/category/presentation/riverpod/category_form_service.dart';
 import 'package:pockaw/features/category/presentation/riverpod/category_providers.dart';
+import 'package:pockaw/features/category_picker/presentation/components/category_icon.dart';
 
 part 'category_icon_dialog.dart';
 part '../components/form/category_title_field.dart';
@@ -77,6 +78,8 @@ class CategoryFormScreen extends HookConsumerWidget {
         titleController.text = category.title;
         descriptionController.text = category.description ?? '';
         icon.value = category.icon ?? '';
+        iconType.value = category.toModel().iconType;
+        iconBackground.value = category.iconBackground ?? '';
       }
       return null;
     }, [categoryFuture.connectionState, categoryFuture.data]);

@@ -1,12 +1,12 @@
 part of '../../screens/category_form_screen.dart';
 
-class CategoryTitleField extends StatelessWidget {
+class CategoryTitleField extends ConsumerWidget {
   const CategoryTitleField({super.key, required this.titleController});
 
   final TextEditingController titleController;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return CustomTextField(
       controller: titleController, // Use the controller
       label: 'Title (max. 25)',

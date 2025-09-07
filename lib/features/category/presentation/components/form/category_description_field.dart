@@ -11,13 +11,14 @@ class CategoryDescriptionField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTextField(
-      label: 'Description',
+      label: 'Description (max. 50)',
       hint: 'Write simple description...',
       controller: descriptionController, // Use the controller
       prefixIcon: HugeIcons.strokeRoundedNote,
       minLines: 1,
       maxLines: 3,
-      maxLength: 150,
+      maxLength: 50,
+      customCounterText: '',
     );
   }
 }

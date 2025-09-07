@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
+import 'package:pockaw/core/extensions/string_extension.dart';
 import 'package:pockaw/features/category/data/model/icon_type.dart';
 
 class CategoryIcon extends StatelessWidget {
@@ -26,13 +27,24 @@ class CategoryIcon extends StatelessWidget {
       );
     }
 
+    // Log.d(
+    //   'icon: $icon, iconType: $iconType, backgroundColor: $backgroundColor',
+    //   label: 'icon',
+    //   logToFile: false,
+    // );
+
     switch (iconType) {
       case IconType.emoji:
         iconWidget = Text(icon);
       case IconType.initial:
         iconWidget = Text(icon);
       case IconType.asset:
-        iconWidget = Image.asset('assets/categories/$icon.webp');
+        if (icon.containsImageExtension) {
+          iconWidget = Image.asset(icon);
+        } else {
+          iconWidget = Image.asset('assets/categories/$icon.webp');
+        }
+
         backgroundColor = null;
     }
 

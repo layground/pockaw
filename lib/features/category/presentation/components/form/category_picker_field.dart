@@ -1,6 +1,6 @@
 part of '../../screens/category_form_screen.dart';
 
-class CategoryPickerField extends ConsumerWidget {
+class CategoryPickerField extends StatelessWidget {
   const CategoryPickerField({
     super.key,
     required this.icon,
@@ -19,7 +19,7 @@ class CategoryPickerField extends ConsumerWidget {
   final CategoryModel? selectedParentCategory;
 
   @override
-  Widget build(BuildContext context, ref) {
+  Widget build(BuildContext context) {
     return IntrinsicHeight(
       child: Row(
         children: [
@@ -45,32 +45,40 @@ class CategoryPickerField extends ConsumerWidget {
                 ),
               ),
               child: Center(
-                child: icon.value.isEmpty
-                    ? Icon(HugeIcons.strokeRoundedPizza01, size: 30)
-                    : Image.asset(icon.value),
+                child: CategoryIcon(
+                  iconType: iconType.value,
+                  icon: icon.value,
+                  iconBackground: iconBackground.value,
+                ),
               ),
             ),
           ),
           const Gap(AppSpacing.spacing8),
           Expanded(
-            child: CustomSelectField(
-              context: context,
-              controller: parentCategoryController,
-              label: 'Parent Category',
-              hint: isEditingParent
-                  ? '-'
-                  : selectedParentCategory?.title ?? 'Leave empty for parent',
-              prefixIcon: HugeIcons.strokeRoundedStructure01,
-              onTap: () async {
-                // Navigate to the picker screen and wait for a result
-                final result = await context.push(
-                  Routes.categoryListPickingParent,
+            child: Consumer(
+              builder: (context, ref, child) {
+                return CustomSelectField(
+                  context: context,
+                  controller: parentCategoryController,
+                  label: 'Parent Category',
+                  hint: isEditingParent
+                      ? '-'
+                      : selectedParentCategory?.title ??
+                            'Leave empty for parent',
+                  prefixIcon: HugeIcons.strokeRoundedStructure01,
+                  onTap: () async {
+                    // Navigate to the picker screen and wait for a result
+                    final result = await context.push<CategoryModel>(
+                      Routes.categoryListPickingParent,
+                    );
+                    // If a category was selected and returned, update the provider
+                    if (result != null) {
+                      ref.read(selectedParentCategoryProvider.notifier).state =
+                          result;
+                      parentCategoryController.text = result.title;
+                    }
+                  },
                 );
-                // If a category was selected and returned, update the provider
-                if (result != null && result is CategoryModel) {
-                  ref.read(selectedParentCategoryProvider.notifier).state =
-                      result;
-                }
               },
             ),
           ),
