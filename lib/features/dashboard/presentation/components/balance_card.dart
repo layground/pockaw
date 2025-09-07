@@ -15,11 +15,9 @@ class BalanceCard extends ConsumerWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(AppSpacing.spacing16),
             decoration: BoxDecoration(
-              color: context.secondaryBackground(context.themeMode),
+              color: context.secondaryBackground,
               borderRadius: BorderRadius.circular(AppRadius.radius16),
-              border: Border.all(
-                color: context.secondaryBorderLighter(context.themeMode),
-              ),
+              border: Border.all(color: context.secondaryBorderLighter),
             ),
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,11 +38,9 @@ class BalanceCard extends ConsumerWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(AppSpacing.spacing16),
               decoration: BoxDecoration(
-                color: context.secondaryBackground(context.themeMode),
+                color: context.secondaryBackground,
                 borderRadius: BorderRadius.circular(AppRadius.radius16),
-                border: Border.all(
-                  color: context.secondaryBorderLighter(context.themeMode),
-                ),
+                border: Border.all(color: context.secondaryBorderLighter),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,11 +99,9 @@ class BalanceCard extends ConsumerWidget {
         width: double.infinity,
         padding: const EdgeInsets.all(AppSpacing.spacing16),
         decoration: BoxDecoration(
-          color: context.secondaryBackground(context.themeMode),
+          color: context.secondaryBackground,
           borderRadius: BorderRadius.circular(AppRadius.radius16),
-          border: Border.all(
-            color: context.secondaryBorderLighter(context.themeMode),
-          ),
+          border: Border.all(color: context.secondaryBorderLighter),
         ),
         child: const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,11 +119,9 @@ class BalanceCard extends ConsumerWidget {
         width: double.infinity,
         padding: const EdgeInsets.all(AppSpacing.spacing16),
         decoration: BoxDecoration(
-          color: context.secondaryBackground(context.themeMode),
+          color: context.secondaryBackground,
           borderRadius: BorderRadius.circular(AppRadius.radius16),
-          border: Border.all(
-            color: context.secondaryBorderLighter(context.themeMode),
-          ),
+          border: Border.all(color: context.secondaryBorderLighter),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

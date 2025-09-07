@@ -25,7 +25,7 @@ class CategoryIconEmojiPicker extends StatelessWidget {
           config: Config(
             checkPlatformCompatibility: true,
             emojiViewConfig: EmojiViewConfig(
-              backgroundColor: context.floatingContainer(context.themeMode),
+              backgroundColor: context.floatingContainer,
               emojiSizeMax:
                   28 *
                   (foundation.defaultTargetPlatform == TargetPlatform.iOS
@@ -35,10 +35,8 @@ class CategoryIconEmojiPicker extends StatelessWidget {
               buttonMode: ButtonMode.CUPERTINO,
             ),
             categoryViewConfig: CategoryViewConfig(
-              iconColorSelected: context.purpleBackgroundActive(
-                context.themeMode,
-              ),
-              indicatorColor: context.purpleBackgroundActive(context.themeMode),
+              iconColorSelected: context.purpleBackgroundActive,
+              indicatorColor: context.purpleBackgroundActive,
               categoryIcons: CategoryIcons(
                 recentIcon: HugeIcons.strokeRoundedTimeQuarter02,
                 smileyIcon: HugeIcons.strokeRoundedSmile,
@@ -52,10 +50,10 @@ class CategoryIconEmojiPicker extends StatelessWidget {
               ),
             ),
             searchViewConfig: SearchViewConfig(
-              backgroundColor: context.purpleBackground(context.themeMode),
+              backgroundColor: context.purpleBackground,
             ),
             bottomActionBarConfig: BottomActionBarConfig(
-              backgroundColor: context.purpleBackground(context.themeMode),
+              backgroundColor: context.purpleBackground,
               buttonColor: Colors.transparent,
               buttonIconColor: context.isDarkMode
                   ? Colors.white

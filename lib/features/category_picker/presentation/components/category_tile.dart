@@ -34,11 +34,9 @@ class CategoryTile extends StatelessWidget {
         height: height,
         padding: const EdgeInsets.all(AppSpacing.spacing8),
         decoration: BoxDecoration(
-          color: context.purpleBackground(context.themeMode),
+          color: context.purpleBackground,
           borderRadius: BorderRadius.circular(AppRadius.radius8),
-          border: Border.all(
-            color: context.purpleBorderLighter(context.themeMode),
-          ),
+          border: Border.all(color: context.purpleBorderLighter),
         ),
         child: Row(
           children: [
@@ -47,11 +45,9 @@ class CategoryTile extends StatelessWidget {
               width: 50,
               padding: const EdgeInsets.all(AppSpacing.spacing8),
               decoration: BoxDecoration(
-                color: context.purpleBackground(context.themeMode),
+                color: context.purpleBackground,
                 borderRadius: BorderRadius.circular(AppRadius.radius8),
-                border: Border.all(
-                  color: context.purpleBorderLighter(context.themeMode),
-                ),
+                border: Border.all(color: context.purpleBorderLighter),
               ),
               child: CategoryIcon(
                 iconType: category.iconType,
@@ -68,11 +64,11 @@ class CategoryTile extends StatelessWidget {
                 icon: suffixIcon!,
                 iconSize: IconSize.small,
                 visualDensity: VisualDensity.compact,
-                backgroundColor: context.purpleBackground(context.themeMode),
+                backgroundColor: context.purpleBackground,
                 borderColor: onSuffixIconPressed == null
                     ? Colors.transparent
-                    : context.purpleBorderLighter(context.themeMode),
-                color: context.purpleText(context.themeMode),
+                    : context.purpleBorderLighter,
+                color: context.purpleText,
               ),
             const Gap(AppSpacing.spacing8),
           ],

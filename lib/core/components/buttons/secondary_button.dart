@@ -16,10 +16,8 @@ class SecondaryButton extends OutlinedButton {
     bool isLoading = false,
   }) : super(
          style: OutlinedButton.styleFrom(
-           backgroundColor: context.purpleBackground(context.themeMode),
-           side: BorderSide(
-             color: context.purpleBorderLighter(context.themeMode),
-           ),
+           backgroundColor: context.purpleBackground,
+           side: BorderSide(color: context.purpleBorderLighter),
            shape: RoundedRectangleBorder(
              borderRadius: BorderRadius.circular(AppSpacing.spacing8),
            ),

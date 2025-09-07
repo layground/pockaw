@@ -44,11 +44,9 @@ class TransactionImagePreview extends ConsumerWidget {
             width: 100,
             height: 100,
             decoration: BoxDecoration(
-              color: context.purpleBackground(context.themeMode),
+              color: context.purpleBackground,
               borderRadius: BorderRadius.circular(AppSpacing.spacing8),
-              border: Border.all(
-                color: context.purpleBorderLighter(context.themeMode),
-              ),
+              border: Border.all(color: context.purpleBorderLighter),
             ),
             child: Image.file(
               imageState.imageFile!,

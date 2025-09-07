@@ -33,14 +33,12 @@ class CategoryIconInitialPicker extends HookConsumerWidget {
               ],
               decoration: InputDecoration(
                 border: OutlineInputBorder(
-                  borderSide: BorderSide(
-                    color: context.purpleBorder(context.themeMode),
-                  ),
+                  borderSide: BorderSide(color: context.purpleBorder),
                   borderRadius: BorderRadius.circular(AppRadius.radius12),
                 ),
                 counterText: '',
                 filled: true,
-                fillColor: context.purpleBackground(context.themeMode),
+                fillColor: context.purpleBackground,
               ),
               maxLength: 2,
               maxLengthEnforcement: MaxLengthEnforcement.enforced,

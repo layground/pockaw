@@ -22,8 +22,7 @@ class ProgressBar extends StatelessWidget {
       height: height,
       padding: const EdgeInsets.all(AppSpacing.spacing4),
       decoration: ShapeDecoration(
-        color:
-            background ?? context.purpleProgressBackground(context.themeMode),
+        color: background ?? context.purpleProgressBackground,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppRadius.radiusFull),
         ),
@@ -31,9 +30,7 @@ class ProgressBar extends StatelessWidget {
       child: LinearProgressIndicator(
         value: value,
         backgroundColor: Colors.transparent,
-        valueColor: AlwaysStoppedAnimation(
-          context.purpleProgressColor(context.themeMode),
-        ),
+        valueColor: AlwaysStoppedAnimation(context.purpleProgressColor),
         borderRadius: BorderRadius.circular(AppRadius.radiusFull),
       ),
     );

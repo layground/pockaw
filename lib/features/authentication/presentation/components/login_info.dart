@@ -17,8 +17,8 @@ class LoginInfo extends StatelessWidget {
             text: 'Read more.',
             style: AppTextStyles.body4.copyWith(
               decoration: TextDecoration.underline,
-              decorationColor: context.secondaryText(context.themeMode),
-              color: context.secondaryText(context.themeMode),
+              decorationColor: context.secondaryText,
+              color: context.secondaryText,
             ),
             recognizer: TapGestureRecognizer()
               ..onTap = () {

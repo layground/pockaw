@@ -40,9 +40,9 @@ extension TransactionUIExtensions on TransactionModel {
   Color foregroundColor(BuildContext context, ThemeMode themeMode) {
     switch (transactionType) {
       case TransactionType.income:
-        return context.incomeForeground(themeMode);
+        return context.incomeForeground;
       case TransactionType.expense:
-        return context.expenseForeground(themeMode);
+        return context.expenseForeground;
       case TransactionType.transfer:
         return AppColors.tertiaryAlpha10;
     }
@@ -51,9 +51,9 @@ extension TransactionUIExtensions on TransactionModel {
   Color iconBackgroundColor(BuildContext context, ThemeMode themeMode) {
     switch (transactionType) {
       case TransactionType.income:
-        return context.incomeBackground(themeMode);
+        return context.incomeBackground;
       case TransactionType.expense:
-        return context.expenseBackground(themeMode);
+        return context.expenseBackground;
       case TransactionType.transfer:
         return AppColors.tertiaryAlpha10;
     }

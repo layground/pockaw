@@ -25,11 +25,11 @@ class MenuTileButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
-      tileColor: context.purpleBackground(context.themeMode),
+      tileColor: context.purpleBackground,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppRadius.radius8),
         // Use context.colors.outline or a custom color that adapts
-        side: BorderSide(color: context.purpleBorderLighter(context.themeMode)),
+        side: BorderSide(color: context.purpleBorderLighter),
       ),
       title: Text(
         label,
@@ -45,7 +45,7 @@ class MenuTileButton extends StatelessWidget {
           : null,
       leading: Icon(
         icon,
-        color: context.purpleIcon(context.themeMode),
+        color: context.purpleIcon,
       ), // Leading icon uses primary color
       trailing: Icon(
         suffixIcon ?? HugeIcons.strokeRoundedArrowRight01,

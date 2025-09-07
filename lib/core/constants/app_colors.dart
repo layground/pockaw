@@ -139,115 +139,110 @@ extension ColorExtensions on BuildContext {
   bool get isDarkMode => Theme.of(this).brightness == Brightness.dark;
   ThemeMode get themeMode => isDarkMode ? ThemeMode.dark : ThemeMode.light;
 
-  Color primaryText(ThemeMode themeMode) =>
+  Color get primaryText =>
       themeMode == ThemeMode.dark ? AppColors.primary400 : AppColors.primary;
 
-  Color secondaryBackground(ThemeMode themeMode) => themeMode == ThemeMode.dark
+  Color get secondaryBackground => themeMode == ThemeMode.dark
       ? AppColors.secondaryAlpha10
       : AppColors.secondary50;
 
-  Color secondaryButtonBackground(ThemeMode themeMode) =>
-      themeMode == ThemeMode.dark
+  Color get secondaryButtonBackground => themeMode == ThemeMode.dark
       ? AppColors.secondaryAlpha10
       : AppColors.secondary100;
 
-  Color secondaryBackgroundSolid(ThemeMode themeMode) =>
-      themeMode == ThemeMode.dark
+  Color get secondaryBackgroundSolid => themeMode == ThemeMode.dark
       ? AppColors.secondary950
       : AppColors.secondary50;
 
-  Color secondaryText(ThemeMode themeMode) => themeMode == ThemeMode.dark
+  Color get secondaryText => themeMode == ThemeMode.dark
       ? AppColors.secondary200
       : AppColors.secondary950;
 
-  Color secondaryBorder(ThemeMode themeMode) => themeMode == ThemeMode.dark
+  Color get secondaryBorder => themeMode == ThemeMode.dark
       ? AppColors.secondaryAlpha25
       : AppColors.secondary200;
 
-  Color secondaryBorderLighter(ThemeMode themeMode) =>
-      themeMode == ThemeMode.dark
+  Color get secondaryBorderLighter => themeMode == ThemeMode.dark
       ? AppColors.secondaryAlpha10
       : AppColors.secondary200;
 
-  Color incomeBackground(ThemeMode themeMode) => AppColors.primaryAlpha10;
+  Color get incomeBackground => AppColors.primaryAlpha10;
 
-  Color incomeForeground(ThemeMode themeMode) =>
+  Color get incomeForeground =>
       themeMode == ThemeMode.dark ? AppColors.neutral50 : AppColors.neutral900;
 
-  Color incomeText(ThemeMode themeMode) =>
+  Color get incomeText =>
       themeMode == ThemeMode.dark ? AppColors.green200 : AppColors.green200;
 
-  Color incomeLine(ThemeMode themeMode) => themeMode == ThemeMode.dark
+  Color get incomeLine => themeMode == ThemeMode.dark
       ? AppColors.primaryAlpha10
       : AppColors.primaryAlpha25;
 
-  Color expenseBackground(ThemeMode themeMode) =>
+  Color get expenseBackground =>
       themeMode == ThemeMode.dark ? AppColors.redAlpha10 : AppColors.red50;
 
-  Color expenseStatsBackground(ThemeMode themeMode) => AppColors.redAlpha10;
+  Color get expenseStatsBackground => AppColors.redAlpha10;
 
-  Color expenseForeground(ThemeMode themeMode) =>
+  Color get expenseForeground =>
       themeMode == ThemeMode.dark ? AppColors.neutral50 : AppColors.red800;
 
-  Color expenseText(ThemeMode themeMode) =>
+  Color get expenseText =>
       themeMode == ThemeMode.dark ? AppColors.red700 : AppColors.red700;
 
-  Color expenseLine(ThemeMode themeMode) =>
+  Color get expenseLine =>
       themeMode == ThemeMode.dark ? AppColors.redAlpha10 : AppColors.redAlpha10;
 
-  Color purpleBackground(ThemeMode themeMode) => themeMode == ThemeMode.dark
+  Color get purpleBackground => themeMode == ThemeMode.dark
       ? AppColors.neutralAlpha25
       : AppColors.purple50;
 
-  Color purpleBackgroundActive(ThemeMode themeMode) =>
+  Color get purpleBackgroundActive =>
       themeMode == ThemeMode.dark ? AppColors.purple : AppColors.purple400;
 
-  Color purpleButtonBackground(ThemeMode themeMode) =>
-      themeMode == ThemeMode.dark
+  Color get purpleButtonBackground => themeMode == ThemeMode.dark
       ? AppColors.purpleAlpha10
       : AppColors.purple100;
 
-  Color purpleButtonBorder(ThemeMode themeMode) => themeMode == ThemeMode.dark
+  Color get purpleButtonBorder => themeMode == ThemeMode.dark
       ? AppColors.purpleAlpha50
       : AppColors.purple200;
 
-  Color purpleBorder(ThemeMode themeMode) =>
+  Color get purpleBorder =>
       themeMode == ThemeMode.dark ? AppColors.purpleAlpha50 : AppColors.purple;
 
-  Color purpleBorderLighter(ThemeMode themeMode) => themeMode == ThemeMode.dark
+  Color get purpleBorderLighter => themeMode == ThemeMode.dark
       ? AppColors.neutralAlpha25
       : AppColors.purpleAlpha10;
 
-  Color purpleProgressBackground(ThemeMode themeMode) =>
-      themeMode == ThemeMode.dark
+  Color get purpleProgressBackground => themeMode == ThemeMode.dark
       ? AppColors.purpleAlpha25
       : AppColors.purpleAlpha10;
 
-  Color purpleProgressColor(ThemeMode themeMode) =>
+  Color get purpleProgressColor =>
       themeMode == ThemeMode.dark ? AppColors.purple600 : AppColors.purple600;
 
-  Color purpleText(ThemeMode themeMode) =>
+  Color get purpleText =>
       themeMode == ThemeMode.dark ? AppColors.purple300 : AppColors.purple;
 
-  Color purpleIcon(ThemeMode themeMode) =>
+  Color get purpleIcon =>
       themeMode == ThemeMode.dark ? AppColors.purple200 : AppColors.purple;
 
-  Color purpleIconActive(ThemeMode themeMode) =>
+  Color get purpleIconActive =>
       themeMode == ThemeMode.dark ? AppColors.purple50 : AppColors.purple100;
 
-  Color floatingContainer(ThemeMode themeMode) =>
+  Color get floatingContainer =>
       themeMode == ThemeMode.dark ? AppColors.dark : AppColors.light;
 
-  Color disabledText(ThemeMode themeMode) =>
+  Color get disabledText =>
       themeMode == ThemeMode.dark ? AppColors.neutral700 : AppColors.neutral400;
 
-  Color progressBackground(ThemeMode themeMode) => themeMode == ThemeMode.dark
+  Color get progressBackground => themeMode == ThemeMode.dark
       ? AppColors.neutral900
       : AppColors.purpleAlpha10;
 
-  Color placeholderBackground(ThemeMode themeMode) =>
+  Color get placeholderBackground =>
       themeMode == ThemeMode.dark ? AppColors.neutral500 : AppColors.neutral100;
 
-  Color breakLineColor(ThemeMode themeMode) =>
+  Color get breakLineColor =>
       themeMode == ThemeMode.dark ? AppColors.neutral700 : AppColors.neutral100;
 }

@@ -35,7 +35,7 @@ class SpendingByCategoryChart extends ConsumerWidget {
           margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
           padding: const EdgeInsets.all(AppSpacing.spacing16),
           decoration: BoxDecoration(
-            color: context.purpleBackground(context.themeMode),
+            color: context.purpleBackground,
             borderRadius: BorderRadius.circular(AppRadius.radius12),
           ),
           child: Column(

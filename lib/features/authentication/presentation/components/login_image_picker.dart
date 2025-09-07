@@ -48,10 +48,10 @@ class LoginImagePicker extends ConsumerWidget {
       child: Stack(
         children: [
           CircleAvatar(
-            backgroundColor: context.secondaryBackground(context.themeMode),
+            backgroundColor: context.secondaryBackground,
             radius: 70,
             child: CircleAvatar(
-              backgroundColor: context.placeholderBackground(context.themeMode),
+              backgroundColor: context.placeholderBackground,
               backgroundImage: image.imageFile != null
                   ? Image.file(image.imageFile!).image
                   : null,
@@ -59,7 +59,7 @@ class LoginImagePicker extends ConsumerWidget {
               child: image.imageFile == null
                   ? Icon(
                       HugeIcons.strokeRoundedUpload04,
-                      color: context.purpleIcon(context.themeMode),
+                      color: context.purpleIcon,
                       size: 40,
                     )
                   : null,
@@ -71,7 +71,7 @@ class LoginImagePicker extends ConsumerWidget {
             child: Container(
               padding: EdgeInsets.all(AppSpacing.spacing8),
               decoration: BoxDecoration(
-                color: context.secondaryBackgroundSolid(context.themeMode),
+                color: context.secondaryBackgroundSolid,
                 shape: BoxShape.circle,
               ),
               child: Icon(HugeIcons.strokeRoundedCamera02, size: 20),

@@ -14,8 +14,8 @@ class BudgetTotalCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.spacing8),
       decoration: BoxDecoration(
-        color: context.incomeBackground(context.themeMode),
-        border: Border.all(color: context.incomeLine(context.themeMode)),
+        color: context.incomeBackground,
+        border: Border.all(color: context.incomeLine),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
       child: Column(
@@ -24,7 +24,7 @@ class BudgetTotalCard extends StatelessWidget {
           Text(
             'Total Budget',
             style: AppTextStyles.body5.copyWith(
-              color: context.incomeText(context.themeMode),
+              color: context.incomeText,
               fontWeight: FontWeight.w600,
             ),
           ),

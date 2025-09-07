@@ -25,11 +25,11 @@ class ButtonChip extends StatelessWidget {
       borderRadius: BorderRadius.circular(AppRadius.radiusFull),
       child: Container(
         decoration: BoxDecoration(
-          color: active ? context.purpleBackground(context.themeMode) : null,
+          color: active ? context.purpleBackground : null,
           border: Border.all(
             color: active
-                ? context.purpleBorderLighter(context.themeMode)
-                : context.purpleButtonBorder(context.themeMode),
+                ? context.purpleBorderLighter
+                : context.purpleButtonBorder,
           ),
           borderRadius: BorderRadius.circular(AppRadius.radiusFull),
         ),
@@ -46,13 +46,13 @@ class ButtonChip extends StatelessWidget {
               active
                   ? HugeIcons.strokeRoundedCheckmarkCircle01
                   : HugeIcons.strokeRoundedCircle,
-              color: active ? context.purpleIcon(context.themeMode) : null,
+              color: active ? context.purpleIcon : null,
             ),
             const Gap(AppSpacing.spacing8),
             Text(
               label,
               style: AppTextStyles.body3.copyWith(
-                color: active ? context.purpleText(context.themeMode) : null,
+                color: active ? context.purpleText : null,
               ),
             ),
           ],

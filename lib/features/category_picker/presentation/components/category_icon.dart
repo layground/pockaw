@@ -21,7 +21,7 @@ class CategoryIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget iconWidget = Container();
-    Color? backgroundColor = context.purpleBackground(context.themeMode);
+    Color? backgroundColor = context.purpleBackground;
 
     if (iconBackground.isNotEmpty) {
       backgroundColor = Color(
@@ -49,7 +49,7 @@ class CategoryIcon extends StatelessWidget {
             style: AppTextStyles.heading4.copyWith(
               height: 0.9,
               fontVariations: [FontVariation.weight(700)],
-              color: context.primaryText(context.themeMode),
+              color: context.primaryText,
             ),
           ),
         );

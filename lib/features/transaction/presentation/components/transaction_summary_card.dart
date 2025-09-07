@@ -30,10 +30,8 @@ class TransactionSummaryCard extends ConsumerWidget {
       margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
       padding: const EdgeInsets.all(AppSpacing.spacing16),
       decoration: BoxDecoration(
-        color: context.purpleBackground(context.themeMode),
-        border: Border.all(
-          color: context.purpleBorderLighter(context.themeMode),
-        ),
+        color: context.purpleBackground,
+        border: Border.all(color: context.purpleBorderLighter),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
       child: Column(
@@ -48,7 +46,7 @@ class TransactionSummaryCard extends ConsumerWidget {
                   '$currency ${transactions.totalIncome.toPriceFormat()}',
                   textAlign: TextAlign.end,
                   style: AppTextStyles.numericMedium.copyWith(
-                    color: context.incomeText(context.themeMode),
+                    color: context.incomeText,
                   ),
                 ),
               ),
@@ -64,17 +62,13 @@ class TransactionSummaryCard extends ConsumerWidget {
                   '- $currency ${transactions.totalExpenses.toPriceFormat()}',
                   textAlign: TextAlign.end,
                   style: AppTextStyles.numericMedium.copyWith(
-                    color: context.expenseText(context.themeMode),
+                    color: context.expenseText,
                   ),
                 ),
               ),
             ],
           ),
-          Divider(
-            color: context.breakLineColor(context.themeMode),
-            thickness: 1,
-            height: 9,
-          ),
+          Divider(color: context.breakLineColor, thickness: 1, height: 9),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -96,9 +90,9 @@ class TransactionSummaryCard extends ConsumerWidget {
           const Gap(AppSpacing.spacing4),
           SmallButton(
             label: 'View full report',
-            backgroundColor: context.purpleButtonBackground(context.themeMode),
-            borderColor: context.purpleButtonBorder(context.themeMode),
-            foregroundColor: context.secondaryText(context.themeMode),
+            backgroundColor: context.purpleButtonBackground,
+            borderColor: context.purpleButtonBorder,
+            foregroundColor: context.secondaryText,
             labelTextStyle: AppTextStyles.body5,
             onTap: () => context.push(
               Routes.basicMonthlyReports,

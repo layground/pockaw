@@ -57,11 +57,9 @@ class CategoryIconAssetPicker extends ConsumerWidget {
                 child: Container(
                   padding: EdgeInsets.all(AppSpacing.spacing8),
                   decoration: BoxDecoration(
-                    color: context.purpleBackground(context.themeMode),
+                    color: context.purpleBackground,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: context.purpleBorderLighter(context.themeMode),
-                    ),
+                    border: Border.all(color: context.purpleBorderLighter),
                   ),
                   child: Image.asset(assetPath),
                 ),

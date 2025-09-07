@@ -33,7 +33,7 @@ class SpendingProgressChart extends ConsumerWidget {
               const Gap(AppSpacing.spacing8),
               CustomProgressIndicator(
                 value: 0,
-                color: context.placeholderBackground(context.themeMode),
+                color: context.placeholderBackground,
                 radius: BorderRadius.circular(AppRadius.radiusFull),
               ),
             ],

@@ -45,11 +45,9 @@ class CurrencyListTiles extends ConsumerWidget {
                     horizontal: AppSpacing.spacing8,
                   ),
                   decoration: BoxDecoration(
-                    color: context.purpleBackground(context.themeMode),
+                    color: context.purpleBackground,
                     borderRadius: BorderRadius.circular(AppRadius.radius8),
-                    border: Border.all(
-                      color: context.purpleBorderLighter(context.themeMode),
-                    ),
+                    border: Border.all(color: context.purpleBorderLighter),
                   ),
                   child: Row(
                     children: [
@@ -60,23 +58,19 @@ class CurrencyListTiles extends ConsumerWidget {
                               width: 50,
                               padding: EdgeInsets.all(AppSpacing.spacing8),
                               decoration: BoxDecoration(
-                                color: context.purpleButtonBackground(
-                                  context.themeMode,
-                                ),
+                                color: context.purpleButtonBackground,
                                 borderRadius: BorderRadius.circular(
                                   AppRadius.radius4,
                                 ),
                                 border: Border.all(
-                                  color: context.purpleButtonBorder(
-                                    context.themeMode,
-                                  ),
+                                  color: context.purpleButtonBorder,
                                 ),
                               ),
                               child: Text(
                                 currency.symbol,
                                 textAlign: TextAlign.center,
                                 style: AppTextStyles.body3.copyWith(
-                                  color: context.purpleText(context.themeMode),
+                                  color: context.purpleText,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -97,9 +91,7 @@ class CurrencyListTiles extends ConsumerWidget {
                                       AppRadius.radius4,
                                     ),
                                     border: Border.all(
-                                      color: context.purpleBorderLighter(
-                                        context.themeMode,
-                                      ),
+                                      color: context.purpleBorderLighter,
                                     ),
                                   ),
                                   child: CountryFlag.fromCountryCode(

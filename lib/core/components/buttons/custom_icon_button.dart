@@ -37,13 +37,11 @@ class CustomIconButton extends IconButton {
              color:
                  backgroundColor ??
                  (active
-                     ? context.purpleBackgroundActive(context.themeMode)
-                     : context.purpleBackground(context.themeMode)),
+                     ? context.purpleBackgroundActive
+                     : context.purpleBackground),
              borderRadius: BorderRadius.circular(AppRadius.radius8),
              border: Border.all(
-               color:
-                   borderColor ??
-                   context.purpleBorderLighter(context.themeMode)
+               color: borderColor ?? context.purpleBorderLighter,
              ),
            ),
            child: isLoading
@@ -55,8 +53,8 @@ class CustomIconButton extends IconButton {
                        color:
                            color ??
                            (active
-                               ? context.purpleIconActive(context.themeMode)
-                               : context.purpleIcon(context.themeMode)),
+                               ? context.purpleIconActive
+                               : context.purpleIcon),
                        size: _getIconSize(iconSize),
                      ),
                      !showBadge
