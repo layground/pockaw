@@ -38,6 +38,8 @@ class CategoryIcon extends StatelessWidget {
     switch (iconType) {
       case IconType.emoji:
         iconWidget = Center(child: Text(icon, style: AppTextStyles.heading4));
+
+        backgroundColor = null;
       case IconType.initial:
         iconWidget = Center(
           child: AutoSizeText(
