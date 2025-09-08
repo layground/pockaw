@@ -317,8 +317,9 @@ TransactionFormState useTransactionFormState({
           }
           // categoryController.text is handled by another useEffect based on selectedCategory
 
-          dateFieldController.text = transaction.date
-              .toDayMonthYearTime12Hour();
+          dateFieldController.text = transaction.date.toRelativeDayFormatted(
+            showTime: true,
+          );
 
           final imagePath = transaction.imagePath;
           if (imagePath != null && imagePath.isNotEmpty) {
