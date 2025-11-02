@@ -2,7 +2,6 @@ import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/foundation.dart' as foundation;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
@@ -37,17 +36,6 @@ class CategoryIconEmojiPicker extends StatelessWidget {
             categoryViewConfig: CategoryViewConfig(
               iconColorSelected: context.purpleBackgroundActive,
               indicatorColor: context.purpleBackgroundActive,
-              categoryIcons: CategoryIcons(
-                recentIcon: HugeIcons.strokeRoundedTimeQuarter02,
-                smileyIcon: HugeIcons.strokeRoundedSmile,
-                animalIcon: HugeIcons.strokeRoundedHorse,
-                foodIcon: HugeIcons.strokeRoundedTaco01,
-                objectIcon: HugeIcons.strokeRoundedTools,
-                activityIcon: HugeIcons.strokeRoundedWorkoutRun,
-                travelIcon: HugeIcons.strokeRoundedLake,
-                symbolIcon: HugeIcons.strokeRoundedCharacterPhonetic,
-                flagIcon: HugeIcons.strokeRoundedFlag02,
-              ),
             ),
             searchViewConfig: SearchViewConfig(
               backgroundColor: context.purpleBackground,

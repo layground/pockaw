@@ -47,8 +47,8 @@ class CustomFab extends StatelessWidget {
                     color: AppColors.primary,
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(
-                    HugeIcons.strokeRoundedPlusSign,
+                  child: const HugeIcon(
+                    icon: HugeIcons.strokeRoundedPlusSign,
                     color: AppColors.light,
                   ),
                 ),
@@ -56,7 +56,7 @@ class CustomFab extends StatelessWidget {
             ),
             closeButtonBuilder: DefaultFloatingActionButtonBuilder(
               shape: const CircleBorder(),
-              child: const Icon(HugeIcons.strokeRoundedCancel01),
+              child: const HugeIcon(icon: HugeIcons.strokeRoundedCancel01),
             ),
             onOpen: () {},
             onClose: () {},
@@ -72,8 +72,8 @@ class CustomFab extends StatelessWidget {
                   FloatingActionButton(
                     heroTag: null,
                     shape: const CircleBorder(),
-                    child: const Icon(
-                      HugeIcons.strokeRoundedMoneyReceive01,
+                    child: const HugeIcon(
+                      icon: HugeIcons.strokeRoundedMoneyReceive01,
                       color: Colors.green,
                     ),
                     onPressed: () {},
@@ -87,8 +87,8 @@ class CustomFab extends StatelessWidget {
                   FloatingActionButton(
                     heroTag: null,
                     shape: const CircleBorder(),
-                    child: const Icon(
-                      HugeIcons.strokeRoundedMoneySend01,
+                    child: const HugeIcon(
+                      icon: HugeIcons.strokeRoundedMoneySend01,
                       color: Colors.red,
                     ),
                     onPressed: () {

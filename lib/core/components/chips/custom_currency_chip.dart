@@ -42,9 +42,11 @@ class CustomCurrencyChip extends StatelessWidget {
         children: [
           CountryFlag.fromCurrencyCode(
             currencyCode,
-            width: 20,
-            height: 14,
-            shape: RoundedRectangle(AppRadius.radius4),
+            theme: ImageTheme(
+              width: 20,
+              height: 14,
+              shape: RoundedRectangle(AppRadius.radius4),
+            ),
           ),
           const Gap(AppSpacing.spacing4),
           Text(label, style: AppTextStyles.body4.copyWith(color: foreground)),

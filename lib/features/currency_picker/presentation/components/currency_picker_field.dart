@@ -69,9 +69,11 @@ class CurrencyPickerField extends HookConsumerWidget {
                   )
                 : CountryFlag.fromCountryCode(
                     currency.countryCode,
-                    width: 40,
-                    height: 32,
-                    shape: const RoundedRectangle(AppRadius.radius4),
+                    theme: ImageTheme(
+                      width: 40,
+                      height: 32,
+                      shape: const RoundedRectangle(AppRadius.radius4),
+                    ),
                   ),
           ),
         ),

@@ -53,7 +53,7 @@ class GoalCard extends ConsumerWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                Icon(HugeIcons.strokeRoundedArrowRight01, size: 20),
+                HugeIcon(icon: HugeIcons.strokeRoundedArrowRight01, size: 20),
               ],
             ),
             const Gap(AppSpacing.spacing16),
@@ -96,7 +96,8 @@ class GoalCard extends ConsumerWidget {
                                     final Color itemColor = isCompleted
                                         ? context.disabledText
                                         : context.purpleText;
-                                    final IconData itemIconData = isCompleted
+                                    final List<List<dynamic>> itemIconData =
+                                        isCompleted
                                         ? HugeIcons
                                               .strokeRoundedCheckmarkCircle01
                                         : HugeIcons.strokeRoundedCircle;
@@ -107,8 +108,8 @@ class GoalCard extends ConsumerWidget {
                                       ),
                                       child: Row(
                                         children: [
-                                          Icon(
-                                            itemIconData,
+                                          HugeIcon(
+                                            icon: itemIconData,
                                             color: itemColor,
                                             size: 20,
                                           ),

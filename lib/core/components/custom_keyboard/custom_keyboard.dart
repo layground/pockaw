@@ -10,11 +10,7 @@ import 'package:vibration/vibration.dart';
 class CustomKeyboard extends StatefulWidget {
   final TextEditingController controller;
   final int? maxLength;
-  const CustomKeyboard({
-    super.key,
-    this.maxLength,
-    required this.controller,
-  });
+  const CustomKeyboard({super.key, this.maxLength, required this.controller});
 
   @override
   State<CustomKeyboard> createState() => _CustomKeyboardState();
@@ -38,13 +34,7 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
     '{backspace}',
   ];
 
-  final quickAmount = [
-    '10.000',
-    '50.000',
-    '100.000',
-    '500.000',
-    '1.000.000',
-  ];
+  final quickAmount = ['10.000', '50.000', '100.000', '500.000', '1.000.000'];
 
   // Method to format input with thousand separators and custom symbols
   void _formatAndSetText(String input) {
@@ -105,12 +95,11 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
   void _startBackspaceHold(String key) {
     if (key != '{backspace}') return;
 
-    _backspaceHoldTimer = Timer.periodic(
-      const Duration(milliseconds: 100),
-      (timer) {
-        _onKeyPressed('{backspace}');
-      },
-    );
+    _backspaceHoldTimer = Timer.periodic(const Duration(milliseconds: 100), (
+      timer,
+    ) {
+      _onKeyPressed('{backspace}');
+    });
   }
 
   void _stopBackspaceHold(String key) {
@@ -180,8 +169,8 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
                   ),
                   child: Center(
                     child: keys[index] == '{backspace}'
-                        ? const Icon(
-                            HugeIcons.strokeRoundedArrowLeft04,
+                        ? const HugeIcon(
+                            icon: HugeIcons.strokeRoundedArrowLeft04,
                             size: 30,
                           )
                         : Text(

@@ -10,6 +10,7 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/backup_and_restore/presentation/components/backup_dialog.dart';
+import 'package:pockaw/features/backup_and_restore/presentation/components/drive_backup_section.dart';
 import 'package:pockaw/features/backup_and_restore/presentation/components/restore_dialog.dart';
 
 enum BackupSchedule { daily, weekly, monthly }
@@ -64,6 +65,7 @@ class BackupRestoreScreen extends HookConsumerWidget {
                 );
               },
             ),
+            DriveBackupSection(),
           ],
         ),
       ),

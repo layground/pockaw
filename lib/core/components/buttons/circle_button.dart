@@ -8,7 +8,7 @@ class CircleIconButton extends StatelessWidget {
   final Color? backgroundColor;
   final Color? foregroundColor;
   final Color? splashColor;
-  final IconData icon;
+  final List<List<dynamic>> icon;
   final Widget? child;
   final GestureTapCallback? onTap;
 

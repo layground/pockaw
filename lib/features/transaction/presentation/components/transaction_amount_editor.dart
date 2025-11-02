@@ -27,12 +27,9 @@ class TransactionAmountEditor extends StatelessWidget {
           const Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                'Transaction Amount',
-                style: AppTextStyles.body3,
-              ),
-              Icon(
-                HugeIcons.strokeRoundedArrowDown01,
+              Text('Transaction Amount', style: AppTextStyles.body3),
+              HugeIcon(
+                icon: HugeIcons.strokeRoundedArrowDown01,
                 size: 20,
                 color: AppColors.primaryAlpha25,
               ),
@@ -46,9 +43,7 @@ class TransactionAmountEditor extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               color: AppColors.secondaryAlpha10,
-              borderRadius: BorderRadius.circular(
-                AppRadius.radius8,
-              ),
+              borderRadius: BorderRadius.circular(AppRadius.radius8),
             ),
             child: AutoSizeTextFormField(
               autofocus: true,
@@ -83,10 +78,7 @@ class TransactionAmountEditor extends StatelessWidget {
             ),
           ),
           const Gap(AppSpacing.spacing16),
-          PrimaryButton(
-            label: 'Save',
-            onPressed: () {},
-          ),
+          PrimaryButton(label: 'Save', onPressed: () {}),
         ],
       ),
     );

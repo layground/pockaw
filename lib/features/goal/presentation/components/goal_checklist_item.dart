@@ -77,8 +77,8 @@ class GoalChecklistItem extends ConsumerWidget {
               children: [
                 // Checklist icon to the left
                 IconButton(
-                  icon: Icon(
-                    item.completed
+                  icon: HugeIcon(
+                    icon: item.completed
                         ? HugeIcons.strokeRoundedCheckmarkSquare01
                         : HugeIcons.strokeRoundedSquare,
                     color: item.completed

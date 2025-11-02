@@ -47,8 +47,8 @@ class WalletSelectorBottomSheet extends ConsumerWidget {
                   '${wallet.currencyByIsoCode(ref).symbol} ${wallet.balance.toPriceFormat()}',
                   style: AppTextStyles.body3,
                 ),
-                trailing: Icon(
-                  isSelected
+                trailing: HugeIcon(
+                  icon: isSelected
                       ? HugeIcons.strokeRoundedCheckmarkCircle01
                       : HugeIcons.strokeRoundedCircle,
                   color: isSelected ? Colors.green : Colors.grey,

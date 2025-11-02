@@ -11,13 +11,13 @@ import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
 class CustomNumericField extends ConsumerWidget {
   final String label;
-  final String? defaultCurreny;
+  final String? defaultCurrency;
   final TextEditingController? controller;
   final String? hint;
   final Color? hintColor;
   final Color? background;
-  final IconData? icon;
-  final IconData? suffixIcon;
+  final List<List<dynamic>>? icon;
+  final List<List<dynamic>>? suffixIcon;
   final bool useSelectedCurrency;
   final bool appendCurrencySymbolToHint;
   final bool isRequired;
@@ -26,7 +26,7 @@ class CustomNumericField extends ConsumerWidget {
   const CustomNumericField({
     super.key,
     required this.label,
-    this.defaultCurreny,
+    this.defaultCurrency,
     this.controller,
     this.hint,
     this.hintColor,
@@ -43,7 +43,7 @@ class CustomNumericField extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     Currency currency = ref.watch(currencyProvider);
     String defaultCurrency =
-        defaultCurreny ??
+        this.defaultCurrency ??
         ref.read(activeWalletProvider).value?.currencyByIsoCode(ref).symbol ??
         CurrencyLocalDataSource.dummy.symbol;
 

@@ -91,8 +91,8 @@ class PersonalDetailsScreen extends HookConsumerWidget {
                               color: Colors.black26,
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(
-                              HugeIcons.strokeRoundedCamera02,
+                            child: HugeIcon(
+                              icon: HugeIcons.strokeRoundedCamera02,
                               size: 20,
                               color: AppColors.neutral200,
                             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/loading_indicators/loading_indicator.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
@@ -10,7 +11,7 @@ class CustomIconButton extends IconButton {
     BuildContext context, {
     super.key,
     required GestureTapCallback super.onPressed,
-    required IconData icon,
+    required List<List<dynamic>> icon,
     ThemeMode themeMode = ThemeMode.system,
     Color? backgroundColor,
     Color? borderColor,
@@ -48,8 +49,8 @@ class CustomIconButton extends IconButton {
                ? SizedBox.square(dimension: 18, child: LoadingIndicator())
                : Stack(
                    children: [
-                     Icon(
-                       icon,
+                     HugeIcon(
+                       icon: icon,
                        color:
                            color ??
                            (active

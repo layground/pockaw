@@ -57,8 +57,8 @@ class LoginImagePicker extends ConsumerWidget {
                   : null,
               radius: 69,
               child: image.imageFile == null
-                  ? Icon(
-                      HugeIcons.strokeRoundedUpload04,
+                  ? HugeIcon(
+                      icon: HugeIcons.strokeRoundedUpload04,
                       color: context.purpleIcon,
                       size: 40,
                     )
@@ -74,7 +74,7 @@ class LoginImagePicker extends ConsumerWidget {
                 color: context.secondaryBackgroundSolid,
                 shape: BoxShape.circle,
               ),
-              child: Icon(HugeIcons.strokeRoundedCamera02, size: 20),
+              child: HugeIcon(icon: HugeIcons.strokeRoundedCamera02, size: 20),
             ),
           ),
         ],

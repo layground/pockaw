@@ -63,7 +63,7 @@ class RestoreDialog extends HookConsumerWidget {
 
     return Column(
       children: [
-        Icon(HugeIcons.strokeRoundedInformationSquare),
+        HugeIcon(icon: HugeIcons.strokeRoundedInformationSquare),
         Gap(AppSpacing.spacing12),
         Text(
           'Restoring will overwrite all existing data. Restore data will only access and import the folder containing your backup files with this format:',
