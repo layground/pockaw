@@ -1,9 +1,9 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_constants.dart';
-import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/router/app_router.dart';
 import 'package:pockaw/features/theme_switcher/presentation/riverpod/theme_mode_provider.dart';
@@ -23,113 +23,12 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
 
-    final buttonShape = RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(8.0),
-    );
-    const buttonMinimumSize = Size.fromHeight(48);
-
-    // Define the light theme using the standard ThemeData
-    final lightTheme = ThemeData(
-      useMaterial3: true,
-      fontFamily: AppConstants.fontFamilyPrimary,
-      scaffoldBackgroundColor: AppColors.light,
-      colorScheme: const ColorScheme.light(
-        primary: AppColors.primary,
-        primaryContainer: AppColors.primary100,
-        secondary: AppColors.secondary,
-        secondaryContainer: AppColors.secondaryAlpha10,
-        tertiary: AppColors.tertiary,
-        tertiaryContainer: AppColors.tertiary100,
-        error: AppColors.red,
-      ),
-      appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-      ),
-      inputDecorationTheme: InputDecorationTheme(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
-        hintStyle: AppTextStyles.body3.copyWith(color: AppColors.neutral300),
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          minimumSize: buttonMinimumSize,
-          shape: buttonShape,
-        ),
-      ),
-      outlinedButtonTheme: OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(
-          padding: const EdgeInsets.all(AppSpacing.spacing20),
-          backgroundColor: context.colors.secondaryContainer,
-          side: const BorderSide(color: AppColors.purpleAlpha10),
-          minimumSize: buttonMinimumSize,
-          shape: buttonShape,
-          foregroundColor: AppColors.purple,
-        ),
-      ),
-      textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(
-          minimumSize: buttonMinimumSize,
-          shape: buttonShape,
-        ),
-      ),
-      textTheme: TextTheme(bodyMedium: AppTextStyles.body2),
-    );
-
-    // Define the dark theme using the standard ThemeData
-    final darkTheme = ThemeData(
-      useMaterial3: true,
-      brightness: Brightness.dark,
-      fontFamily: AppConstants.fontFamilyPrimary,
-      scaffoldBackgroundColor: AppColors.dark,
-      colorScheme: const ColorScheme.dark(
-        primary: AppColors.primary400,
-        primaryContainer: AppColors.primary900,
-        secondary: AppColors.secondary400,
-        secondaryContainer: AppColors.secondaryAlpha25,
-        tertiary: AppColors.tertiary400,
-        tertiaryContainer: AppColors.tertiary900,
-        error: AppColors.red400,
-      ),
-      appBarTheme: const AppBarTheme(backgroundColor: AppColors.dark),
-      inputDecorationTheme: InputDecorationTheme(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
-        hintStyle: AppTextStyles.body3.copyWith(color: AppColors.neutral600),
-      ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          minimumSize: buttonMinimumSize,
-          shape: buttonShape,
-        ),
-      ),
-      outlinedButtonTheme: OutlinedButtonThemeData(
-        style: OutlinedButton.styleFrom(
-          padding: const EdgeInsets.all(AppSpacing.spacing20),
-          backgroundColor: AppColors.secondaryAlpha10,
-          side: const BorderSide(color: AppColors.purpleAlpha10),
-          minimumSize: buttonMinimumSize,
-          shape: buttonShape,
-          foregroundColor: AppColors.light,
-        ),
-      ),
-      textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(
-          minimumSize: buttonMinimumSize,
-          shape: buttonShape,
-        ),
-      ),
-      bottomSheetTheme: BottomSheetThemeData(
-        modalBarrierColor: AppColors.neutral700.withAlpha(150),
-      ),
-      textTheme: TextTheme(bodyMedium: AppTextStyles.body2),
-    );
-
     return ToastificationWrapper(
       child: MaterialApp.router(
-        key: rootKey,
         title: AppConstants.appName,
         debugShowCheckedModeBanner: false,
-        theme: lightTheme,
-        darkTheme: darkTheme,
+        theme: _buildTheme(Brightness.light),
+        darkTheme: _buildTheme(Brightness.dark),
         themeMode: themeMode, // Set the theme mode from the provider
         builder: (context, child) => ResponsiveBreakpoints.builder(
           child: MediaQuery(
@@ -164,7 +63,54 @@ class MyApp extends ConsumerWidget {
           ],
         ),
         routerConfig: router,
+        // Add the observer to the router's navigator observers
+        // Note: GoRouter automatically adds this to its navigator.
+        // We just need to pass it in the constructor.
       ),
+    );
+  }
+
+  ThemeData _buildTheme(Brightness brightness) {
+    final colorScheme = brightness == Brightness.light
+        ? const ColorScheme.light(
+            primary: AppColors.primary,
+            primaryContainer: AppColors.primary100,
+            secondary: AppColors.secondary,
+            secondaryContainer: AppColors.secondaryAlpha10,
+            tertiary: AppColors.tertiary,
+            tertiaryContainer: AppColors.tertiary100,
+            error: AppColors.red,
+            surface: AppColors.light,
+          )
+        : const ColorScheme.dark(
+            primary: AppColors.primary400,
+            primaryContainer: AppColors.primary900,
+            secondary: AppColors.secondary400,
+            secondaryContainer: AppColors.secondaryAlpha25,
+            tertiary: AppColors.tertiary400,
+            tertiaryContainer: AppColors.tertiary900,
+            error: AppColors.red400,
+            surface: AppColors.dark,
+          );
+
+    return FlexThemeData.light(
+      colorScheme: colorScheme,
+      useMaterial3: true,
+      fontFamily: AppConstants.fontFamilyPrimary,
+    ).copyWith(
+      textTheme: const TextTheme(bodyMedium: AppTextStyles.body2),
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
+        hintStyle: brightness == Brightness.light
+            ? AppTextStyles.body3.copyWith(color: AppColors.neutral300)
+            : AppTextStyles.body3.copyWith(color: AppColors.neutral600),
+      ),
+      // You can add other sub-theme customizations here if FlexColorScheme defaults aren't enough
+      bottomSheetTheme: brightness == Brightness.dark
+          ? BottomSheetThemeData(
+              modalBarrierColor: AppColors.neutral700.withAlpha(150),
+            )
+          : null,
     );
   }
 }
