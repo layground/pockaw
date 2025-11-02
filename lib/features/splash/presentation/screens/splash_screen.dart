@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -28,9 +30,11 @@ class SplashScreen extends HookConsumerWidget {
         final packageInfoService = ref.read(packageInfoServiceProvider);
         await packageInfoService.init();
 
-        // Delete log file
-        final file = await Log.getLogFile();
-        file?.delete();
+        // Delete log file only for mobile platforms
+        if (Platform.isAndroid || Platform.isIOS) {
+          final file = await Log.getLogFile();
+          file?.delete();
+        }
 
         // Fetch currencies and populate the static provider
         // Using ref.read(currenciesProvider.future) to get the future directly
