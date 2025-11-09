@@ -14,7 +14,7 @@ class LoginInfo extends StatelessWidget {
         style: AppTextStyles.body4,
         children: [
           TextSpan(
-            text: 'Read more.',
+            text: 'Read more',
             style: AppTextStyles.body4.copyWith(
               decoration: TextDecoration.underline,
               decorationColor: context.secondaryText,
@@ -25,6 +25,7 @@ class LoginInfo extends StatelessWidget {
                 LinkLauncher.launch(AppConstants.privacyPolicyUrl);
               },
           ),
+          TextSpan(text: ' to find out.'),
         ],
       ),
     );

@@ -93,24 +93,36 @@ class MyApp extends ConsumerWidget {
             surface: AppColors.dark,
           );
 
-    return FlexThemeData.light(
-      colorScheme: colorScheme,
-      useMaterial3: true,
-      fontFamily: AppConstants.fontFamilyPrimary,
-    ).copyWith(
-      textTheme: const TextTheme(bodyMedium: AppTextStyles.body2),
+    // Use FlexThemeData.dark for the dark theme.
+    final baseTheme = brightness == Brightness.light
+        ? FlexThemeData.light(
+            colorScheme: colorScheme,
+            useMaterial3: true,
+            fontFamily: AppConstants.fontFamilyPrimary,
+          )
+        : FlexThemeData.dark(
+            colorScheme: colorScheme,
+            useMaterial3: true,
+            fontFamily: AppConstants.fontFamilyPrimary,
+          );
+
+    return baseTheme.copyWith(
+      // Let FlexColorScheme handle the text theme colors.
+      // If you need to override font size or weight, do it like this,
+      // but avoid setting a specific color.
+      textTheme: baseTheme.textTheme.copyWith(
+        bodyMedium: AppTextStyles.body2.copyWith(
+          color: colorScheme.onSurface, // Explicitly use theme color
+        ),
+      ),
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
-        hintStyle: brightness == Brightness.light
-            ? AppTextStyles.body3.copyWith(color: AppColors.neutral300)
-            : AppTextStyles.body3.copyWith(color: AppColors.neutral600),
+        hintStyle: AppTextStyles.body3, // Let the theme handle hint color
       ),
-      // You can add other sub-theme customizations here if FlexColorScheme defaults aren't enough
-      bottomSheetTheme: brightness == Brightness.dark
-          ? BottomSheetThemeData(
-              modalBarrierColor: AppColors.neutral700.withAlpha(150),
-            )
-          : null,
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: colorScheme.surface,
+        modalBarrierColor: colorScheme.shadow.withAlpha(180),
+      ),
     );
   }
 }
