@@ -9,6 +9,7 @@ class Form extends HookConsumerWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
+          const Gap(AppSpacing.spacing56),
           const LoginImagePicker(),
           const Gap(AppSpacing.spacing20),
           const Column(
@@ -39,6 +40,7 @@ class Form extends HookConsumerWidget {
           ),
           const Gap(AppSpacing.spacing20),
           const LoginInfo(),
+          const Gap(AppSpacing.spacing56),
           const Gap(AppSpacing.spacing56),
         ],
       ),

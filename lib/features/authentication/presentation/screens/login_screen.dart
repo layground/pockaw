@@ -70,9 +70,10 @@ class LoginScreen extends HookConsumerWidget {
       actions: [
         CustomIconButton(
           context,
-          onPressed: () =>
-              context.openBottomSheet(child: ReportLogFileDialog()),
-          icon: HugeIcons.strokeRoundedComplaint,
+          onPressed: () => context.openBottomSheet(
+            child: ReportLogFileDialog(),
+          ),
+          icon: HugeIcons.strokeRoundedAlertDiamond,
           themeMode: context.themeMode,
         ),
         Gap(AppSpacing.spacing8),
@@ -91,54 +92,38 @@ class LoginScreen extends HookConsumerWidget {
           Container(
             // color: Colors.yellow,
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [Form(nameField: nameField)],
-            ),
+            child: Form(nameField: nameField),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppSpacing.spacing20,
-                horizontal: AppSpacing.spacing20,
-              ),
-              child: PrimaryButton(
-                label: 'Start Journey',
-                onPressed: () {
-                  KeyboardService.closeKeyboard();
+          PrimaryButton(
+            label: 'Start Journey',
+            onPressed: () {
+              KeyboardService.closeKeyboard();
 
-                  final username = nameField.text.trim();
+              final username = nameField.text.trim();
 
-                  if (username.isEmpty) {
-                    toastification.show(
-                      description: Text(
-                        'Please enter a name.',
-                        style: AppTextStyles.body2,
-                      ),
-                      type: ToastificationType.error,
-                      autoCloseDuration: const Duration(seconds: 3),
-                    );
-                    return;
-                  }
+              if (username.isEmpty) {
+                toastification.show(
+                  description: Text(
+                    'Please enter a name.',
+                    style: AppTextStyles.body2,
+                  ),
+                  type: ToastificationType.error,
+                  autoCloseDuration: const Duration(seconds: 3),
+                );
+                return;
+              }
 
-                  final user = UserModel(
-                    name: username,
-                    email:
-                        '${username.replaceAll(' ', '').toLowerCase()}@mail.com',
-                    profilePicture: ref.read(loginImageProvider).savedPath,
-                    createdAt: DateTime.now(),
-                  );
+              final user = UserModel(
+                name: username,
+                email: '${username.replaceAll(' ', '').toLowerCase()}@mail.com',
+                profilePicture: ref.read(loginImageProvider).savedPath,
+                createdAt: DateTime.now(),
+              );
 
-                  ref.read(authStateProvider.notifier).setUser(user);
-                  context.push(Routes.main);
-                },
-              ),
-            ),
-          ),
+              ref.read(authStateProvider.notifier).setUser(user);
+              context.push(Routes.main);
+            },
+          ).floatingBottomContained,
         ],
       ),
     );
