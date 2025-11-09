@@ -80,15 +80,15 @@ class CustomNumericField extends ConsumerWidget {
       }
 
       // Format the integer part with thousand separator
-      final formatter = NumberFormat("#,##0", "en_US");
+      final formatter = NumberFormat('#,##0', 'en_US');
       String formattedInteger = integerPart.isNotEmpty
           ? formatter.format(int.parse(integerPart))
           : '';
 
       // Combine integer and decimal parts
       String formattedValue = (decimalPart.isNotEmpty || parts.length == 2)
-          ? "$defaultCurrency $formattedInteger.$decimalPart"
-          : "$defaultCurrency $formattedInteger";
+          ? '$defaultCurrency $formattedInteger.$decimalPart'
+          : '$defaultCurrency $formattedInteger';
 
       if (formattedInteger.isEmpty) {
         formattedValue = '';

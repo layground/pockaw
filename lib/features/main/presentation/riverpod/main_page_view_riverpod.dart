@@ -20,5 +20,5 @@ class PageControllerNotifier extends StateNotifier<int> {
 
 final pageControllerProvider =
     StateNotifierProvider<PageControllerNotifier, int>(
-  (ref) => PageControllerNotifier(),
-);
+      (ref) => PageControllerNotifier(),
+    );

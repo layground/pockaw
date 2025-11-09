@@ -12,10 +12,10 @@ extension DoubleFormattingExtensions on double {
     // Check if the double is effectively an integer (e.g., 123.0)
     if (this % 1 == 0) {
       // Format as an integer with thousand separators
-      return NumberFormat("#,##0", locale).format(this);
+      return NumberFormat('#,##0', locale).format(this);
     } else {
       // Format with two decimal places and thousand separators
-      return NumberFormat("#,##0.00", locale).format(this);
+      return NumberFormat('#,##0.00', locale).format(this);
     }
   }
 

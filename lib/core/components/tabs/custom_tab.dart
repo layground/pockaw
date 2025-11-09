@@ -11,11 +11,11 @@ class CustomTab extends Tab {
     super.iconMargin,
     required this.label,
   }) : super(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: AppSpacing.spacing12,
-            ),
-            child: Text(label),
-          ),
-        );
+         child: Padding(
+           padding: const EdgeInsets.symmetric(
+             horizontal: AppSpacing.spacing12,
+           ),
+           child: Text(label),
+         ),
+       );
 }

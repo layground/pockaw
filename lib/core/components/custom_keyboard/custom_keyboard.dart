@@ -17,7 +17,7 @@ class CustomKeyboard extends StatefulWidget {
 }
 
 class _CustomKeyboardState extends State<CustomKeyboard> {
-  final NumberFormat _numberFormat = NumberFormat("#,##0.###", "en_US");
+  final NumberFormat _numberFormat = NumberFormat('#,##0.###', 'en_US');
   Timer? _backspaceHoldTimer;
   final keys = [
     '1',
@@ -39,7 +39,7 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
   // Method to format input with thousand separators and custom symbols
   void _formatAndSetText(String input) {
     // Remove existing formatting to get the raw number
-    String sanitizedText = input.replaceAll(".", "").replaceAll(",", "");
+    String sanitizedText = input.replaceAll('.', '').replaceAll(',', '');
 
     // Limit input to a maximum of 14 characters
     if (sanitizedText.length > 15) {
@@ -65,14 +65,14 @@ class _CustomKeyboardState extends State<CustomKeyboard> {
   // Called on each key press to update the value
   void _onKeyPressed(String key) {
     Vibration.vibrate(duration: 50);
-    String currentText = widget.controller.text.replaceAll(".", "");
+    String currentText = widget.controller.text.replaceAll('.', '');
 
     setState(() {
       if (key == '{backspace}') {
         if (currentText.isNotEmpty) {
           currentText = currentText.substring(0, currentText.length - 1);
           if (currentText.isEmpty) {
-            currentText = "0"; // Set to "0" if no characters are left
+            currentText = '0'; // Set to "0" if no characters are left
           }
           debugPrint('$key: $currentText');
           _formatAndSetText(currentText);
