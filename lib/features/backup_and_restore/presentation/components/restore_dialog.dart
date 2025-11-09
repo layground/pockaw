@@ -29,7 +29,7 @@ class RestoreDialog extends HookConsumerWidget {
       isLoading.value = true;
 
       Toast.show('Starting restore...', type: ToastificationType.info);
-      final success = await dataBackupService.restoreDataDocman();
+      final success = await dataBackupService.restoreData();
 
       if (success) {
         Toast.show(

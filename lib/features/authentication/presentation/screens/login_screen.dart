@@ -72,7 +72,7 @@ class LoginScreen extends HookConsumerWidget {
           context,
           onPressed: () =>
               context.openBottomSheet(child: ReportLogFileDialog()),
-          icon: HugeIcons.strokeRoundedAlert02,
+          icon: HugeIcons.strokeRoundedComplaint,
           themeMode: context.themeMode,
         ),
         Gap(AppSpacing.spacing8),

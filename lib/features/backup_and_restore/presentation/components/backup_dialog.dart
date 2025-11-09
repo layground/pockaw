@@ -24,7 +24,7 @@ class BackupDialog extends ConsumerWidget {
 
       Toast.show('Starting backup...', type: ToastificationType.info);
       final path = await dataBackupService.backupData();
-      if (path != null) {
+      if (path) {
         Toast.show('Backup saved to:\n$path', type: ToastificationType.success);
         onSuccess?.call();
       } else {
