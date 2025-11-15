@@ -40,6 +40,25 @@ class Form extends HookConsumerWidget {
           ),
           const Gap(AppSpacing.spacing20),
           const LoginInfo(),
+          const Gap(AppSpacing.spacing20),
+          CustomTextButton(
+            label: 'Sign in with Google',
+            onPressed: () {
+              final notifier = ref.read(driveBackupProvider.notifier);
+              notifier.signIn(
+                (account) async {
+                  await ref
+                      .read(startJourneyProvider.notifier)
+                      .startJourney(
+                        context: context,
+                        username: account.displayName ?? '',
+                        email: account.email,
+                        profilePicture: account.photoUrl,
+                      );
+                },
+              );
+            },
+          ),
           const Gap(AppSpacing.spacing56),
           const Gap(AppSpacing.spacing56),
         ],

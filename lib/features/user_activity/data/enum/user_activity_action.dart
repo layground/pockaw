@@ -25,6 +25,11 @@ enum UserActivityAction {
   backupFailed,
   restoreFailed,
 
+  cloudBackupCreated,
+  cloudBackupRestored,
+  cloudBackupFailed,
+  cloudRestoreFailed,
+
   // Import / export
   importCompleted,
   exportCompleted,
@@ -56,6 +61,9 @@ enum UserActivityAction {
   // Profile / settings
   profileUpdated,
   settingsUpdated,
+
+  // Data management
+  databaseCleared,
 }
 
 /// Convert enum to a simple string name for JSON/DB.

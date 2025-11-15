@@ -3,9 +3,12 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pockaw/core/database/daos/user_dao.dart';
 import 'package:pockaw/core/database/database_provider.dart';
+import 'package:pockaw/core/services/google/google_drive_service.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/authentication/data/repositories/user_repository.dart';
 import 'package:pockaw/features/authentication/data/models/user_model.dart';
+import 'package:pockaw/features/user_activity/data/enum/user_activity_action.dart';
+import 'package:pockaw/features/user_activity/riverpod/user_activity_provider.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -95,14 +98,25 @@ class AuthNotifier extends Notifier<UserModel> {
     final db = ref.read(databaseProvider);
     await db.clearAllTables();
     await db.populateCategories();
+
+    await ref
+        .read(userActivityServiceProvider)
+        .logActivity(action: UserActivityAction.databaseCleared);
   }
 
   Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('user');
 
+    await ref
+        .read(userActivityServiceProvider)
+        .logActivity(action: UserActivityAction.signOut);
+
     // reset all providers
     ref.read(activeWalletProvider.notifier).reset();
+
+    final googleAccount = ref.read(driveBackupProvider.notifier);
+    googleAccount.signOut();
 
     state = UserRepository.dummy;
   }

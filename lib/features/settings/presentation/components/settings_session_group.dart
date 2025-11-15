@@ -13,10 +13,8 @@ class SettingsSessionGroup extends ConsumerWidget {
           icon: HugeIcons.strokeRoundedLogout01,
           onTap: () {
             // show confirm dialog then perform logout
-            showModalBottomSheet(
-              context: context,
-              showDragHandle: true,
-              builder: (_) => AlertBottomSheet(
+            context.openBottomSheet(
+              child: AlertBottomSheet(
                 context: context,
                 title: 'Logout',
                 confirmText: 'Logout',

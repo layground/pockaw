@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/database/daos/user_activity_dao.dart';
@@ -59,17 +61,21 @@ class UserActivityService {
     // Fetch all activities and convert to json string
     final activities = await db.userActivityDao.getAllActivities();
     // Ensure timestamp is shared as integer (milliseconds since epoch)
-    final json = activities.map((e) {
+    var activitiesMap = activities.map((e) {
       final map = e.toJson();
       final ts = e.timestamp;
       map['timestamp'] = ts.toIso8601String();
       return map;
     }).toList();
-    // share activities using share package
 
+    final json = {
+      'user_activities_log': activitiesMap,
+    };
+
+    // share activities using share package
     final result = await SharePlus.instance.share(
       ShareParams(
-        text: json.toString(),
+        text: jsonEncode(json),
         subject: 'User Activity Logs',
       ),
     );

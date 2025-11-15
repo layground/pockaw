@@ -1,18 +1,6 @@
-/* import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:hugeicons/hugeicons.dart';
-import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
-import 'package:pockaw/core/components/buttons/menu_tile_button.dart';
-import 'package:pockaw/core/components/buttons/secondary_button.dart';
-import 'package:pockaw/core/components/progress/custom_progress_bar.dart';
-import 'package:pockaw/core/constants/app_spacing.dart';
-import 'package:pockaw/core/constants/app_text_styles.dart';
-import 'package:pockaw/core/extensions/popup_extension.dart';
-import 'package:pockaw/core/services/google/google_drive_service.dart';
+part of '../../../settings/presentation/screens/backup_restore_screen.dart';
 
-class DriveBackupSection extends HookConsumerWidget {
+class DriveBackupSection extends ConsumerWidget {
   const DriveBackupSection({super.key});
 
   @override
@@ -32,31 +20,26 @@ class DriveBackupSection extends HookConsumerWidget {
 
             context.openBottomSheet(
               isScrollControlled: false,
-              child: Container(),
-              builder: (dialogContext) => CustomBottomSheet(
+              child: AlertBottomSheet(
                 title: 'Backup Data',
-                child: Column(
-                  children: [
-                    Text(
-                      'This will backup your data to Google Drive:\n'
-                      '• All transactions and categories\n'
-                      '• Goals and budgets\n'
-                      '• Settings and preferences\n'
-                      '• Images and attachments',
-                      style: AppTextStyles.body3,
-                      textAlign: TextAlign.center,
-                    ),
-                    const Gap(24),
-                    SecondaryButton(
-                      context: context,
-                      onPressed: () async {
-                        context.pop();
-                        await notifier.backupToDrive();
-                      },
-                      label: 'Start Backup',
-                    ),
-                  ],
+                context: context,
+                confirmText: 'Start Backup',
+                showCancelButton: false,
+                content: SizedBox(
+                  width: context.screenSize.width * 0.7,
+                  child: Text(
+                    'This will backup your data to Google Drive:\n\n'
+                    '• All transactions and categories\n'
+                    '• Goals and budgets\n'
+                    '• Settings and preferences\n'
+                    '• Images and attachments',
+                    style: AppTextStyles.body3,
+                  ),
                 ),
+                onConfirm: () async {
+                  context.pop();
+                  await notifier.backupToDrive();
+                },
               ),
             );
           },
@@ -64,55 +47,68 @@ class DriveBackupSection extends HookConsumerWidget {
         MenuTileButton(
           label: 'Restore from Google Drive',
           icon: HugeIcons.strokeRoundedCloudDownload,
-          subtitle: const Text('Restore your data from a backup'),
+          subtitle: const Text('Restore your data from a cloud backup'),
           onTap: () {
             if (state.isLoading) return;
+
             context.openBottomSheet(
               isScrollControlled: false,
-              child: Container(),
-              builder: (dialogContext) => CustomBottomSheet(
+              child: AlertBottomSheet(
                 title: 'Restore Data',
-                child: Column(
-                  children: [
-                    Text(
-                      'This will restore your data from the most recent Google Drive backup:\n'
-                      '• All existing data will be replaced\n'
-                      '• This cannot be undone\n'
-                      '• Make sure you have a recent backup',
-                      style: AppTextStyles.body3,
-                      textAlign: TextAlign.center,
-                    ),
-                    const Gap(24),
-                    SecondaryButton(
-                      context: context,
-                      onPressed: () async {
-                        context.pop();
-                        await notifier.restoreFromDrive();
-                      },
-                      label: 'Start Restore',
-                    ),
-                  ],
+                context: context,
+                confirmText: 'Start Restore',
+                showCancelButton: false,
+                content: SizedBox(
+                  width: context.screenSize.width * 0.7,
+                  child: Text(
+                    'This will restore your data from the most recent Google Drive backup:\n\n'
+                    '• All existing data will be replaced\n'
+                    '• This cannot be undone\n'
+                    '• Make sure you have a recent backup',
+                    style: AppTextStyles.body3,
+                  ),
                 ),
+                onConfirm: () async {
+                  context.pop();
+                  await notifier.restoreFromDrive();
+                },
               ),
             );
           },
         ),
-
-        if (state.isLoading)
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: CustomProgressBar(),
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            spacing: AppSpacing.spacing4,
+            children: [
+              Gap(AppSpacing.spacing2),
+              Text(
+                state.isLoading
+                    ? 'Backup in progress...'
+                    : 'Google Drive Backup Status',
+                style: AppTextStyles.body3.bold,
+              ),
+              state.isLoading
+                  ? LinearProgressIndicator(
+                      value: state.progress,
+                      color: AppColors.primary,
+                      borderRadius: BorderRadius.circular(AppRadius.radius12),
+                      minHeight: 6.0,
+                    )
+                  : Text(
+                      state.error != null
+                          ? 'Error: ${state.error}'
+                          : 'Perform backup or restore to see status',
+                      style: AppTextStyles.body3,
+                    ),
+            ],
           ),
-        if (state.error != null)
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              state.error!,
-              style: TextStyle(color: Theme.of(context).colorScheme.error),
-            ),
-          ),
+        ),
       ],
     );
   }
 }
- */

@@ -11,6 +11,8 @@ import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/authentication/data/models/user_model.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
+import 'package:pockaw/features/user_activity/data/enum/user_activity_action.dart';
+import 'package:pockaw/features/user_activity/riverpod/user_activity_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:toastification/toastification.dart';
@@ -103,6 +105,11 @@ class StartJourneyNotifier extends AsyncNotifier<void> {
 
       // Save user to auth state
       ref.read(authStateProvider.notifier).setUser(user);
+
+      /// log user journey started
+      await ref
+          .read(userActivityServiceProvider)
+          .logActivity(action: UserActivityAction.journeyStarted);
 
       // Navigate to main screen
       if (context.mounted) {
