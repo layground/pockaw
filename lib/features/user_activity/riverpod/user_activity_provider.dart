@@ -72,10 +72,12 @@ class UserActivityService {
       'user_activities_log': activitiesMap,
     };
 
+    final logFile = await Log.writeActivityLogFile(jsonEncode(json));
+
     // share activities using share package
     final result = await SharePlus.instance.share(
       ShareParams(
-        text: jsonEncode(json),
+        files: logFile != null ? [XFile(logFile.path)] : [],
         subject: 'User Activity Logs',
       ),
     );

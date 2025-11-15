@@ -61,4 +61,12 @@ class Log {
     final file = File('${dir.path}/pockaw_log.txt');
     return file;
   }
+
+  static Future<File?> writeActivityLogFile(String jsonContent) async {
+    final dir = await TemporaryStorageDirectory.getDirectory();
+    if (dir == null) return null;
+    final file = File('${dir.path}/pockaw_activity_log.json');
+    await file.writeAsString(jsonContent);
+    return file;
+  }
 }
