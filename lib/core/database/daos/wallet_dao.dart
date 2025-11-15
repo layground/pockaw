@@ -47,7 +47,7 @@ class WalletDao extends DatabaseAccessor<AppDatabase> with _$WalletDaoMixin {
   Future<Wallet?> getWalletByUserId(int userId) {
     return (select(
       wallets,
-    )..where((w) => w.id.equals(userId))).getSingleOrNull();
+    )..where((w) => w.userId.equals(userId))).getSingleOrNull();
   }
 
   Future<List<Wallet>> getWalletsByIds(List<int> ids) {

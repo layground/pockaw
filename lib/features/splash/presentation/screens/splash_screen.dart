@@ -12,7 +12,6 @@ import 'package:pockaw/core/services/device_info/device_info.dart';
 import 'package:pockaw/core/services/package_info/package_info_provider.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
-import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:pockaw/features/user_activity/data/enum/user_activity_action.dart';
 import 'package:pockaw/features/user_activity/riverpod/user_activity_provider.dart'; // Import for useEffect
@@ -46,21 +45,6 @@ class SplashScreen extends HookConsumerWidget {
         if (Platform.isAndroid || Platform.isIOS) {
           final file = await Log.getLogFile();
           file?.delete();
-        }
-
-        // Fetch currencies and populate the static provider
-        // Using ref.read(currenciesProvider.future) to get the future directly
-        try {
-          final currencyList = await ref.read(currenciesProvider.future);
-          ref
-              .read(currenciesStaticProvider.notifier)
-              .setCurrencies(currencyList);
-          Log.d(currencyList.length, label: 'currencies populated');
-        } catch (e) {
-          Log.e(
-            'Failed to load currencies for static provider',
-            label: 'currencies',
-          );
         }
 
         // Check user session and navigate

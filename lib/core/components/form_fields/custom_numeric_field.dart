@@ -110,6 +110,7 @@ class CustomNumericField extends ConsumerWidget {
     }
 
     return CustomTextField(
+      context: context,
       controller: controller,
       label: label,
       prefixIcon: icon,

@@ -65,6 +65,7 @@ class WalletFormBottomSheet extends HookConsumerWidget {
           spacing: AppSpacing.spacing16,
           children: [
             CustomTextField(
+              context: context,
               controller: nameController,
               label: 'Wallet Name (max. 15)',
               hint: 'e.g., Savings Account',

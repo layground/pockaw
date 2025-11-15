@@ -228,6 +228,8 @@ class AuthNotifier extends Notifier<UserModel> {
       Log.i(userModel.toJson(), label: 'user session from prefs');
     }
 
+    await selectDefaultCurrency();
+
     final userDao = ref.read(userDaoProvider);
     final userFromDb = await userDao.getUserByEmail(
       userModel?.email ?? email ?? '',
@@ -241,6 +243,19 @@ class AuthNotifier extends Notifier<UserModel> {
 
     Log.i(null, label: 'no user session in db');
     return null;
+  }
+
+  Future<void> selectDefaultCurrency() async {
+    try {
+      final currencyList = await ref.read(currenciesProvider.future);
+      ref.read(currenciesStaticProvider.notifier).setCurrencies(currencyList);
+      Log.d(currencyList.length, label: 'currencies populated');
+    } catch (e) {
+      Log.e(
+        'Failed to load currencies for static provider',
+        label: 'currencies',
+      );
+    }
   }
 
   Future<void> deleteUser() async {
@@ -275,7 +290,6 @@ class AuthNotifier extends Notifier<UserModel> {
     state = UserRepository.dummy;
   }
 
-  /// Delete data
   Future<void> deleteData() async {
     // reset all providers
     ref.read(activeWalletProvider.notifier).reset();
