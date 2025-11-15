@@ -65,6 +65,7 @@ class WalletFormBottomSheet extends HookConsumerWidget {
           spacing: AppSpacing.spacing16,
           children: [
             CustomTextField(
+              context: context,
               controller: nameController,
               label: 'Wallet Name (max. 15)',
               hint: 'e.g., Savings Account',
@@ -113,9 +114,9 @@ class WalletFormBottomSheet extends HookConsumerWidget {
                         .read(activeWalletProvider.notifier)
                         .updateActiveWallet(newWallet);
                   } else {
-                    Log.d(newWallet.toJson(), label: 'new wallet');
-                    int id = await db.walletDao.addWallet(newWallet);
-                    Log.d(id, label: 'new wallet');
+                    ref
+                        .read(activeWalletProvider.notifier)
+                        .createNewActiveWallet(newWallet);
                   }
 
                   onSave?.call(

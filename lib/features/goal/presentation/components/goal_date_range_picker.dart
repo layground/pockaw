@@ -50,7 +50,7 @@ class GoalDateRangePicker extends HookConsumerWidget {
         );
 
         if (dateRange != null) {
-          selectedDateNotifier.state = dateRange;
+          selectedDateNotifier.setRange(dateRange);
           updateDate();
         }
       },

@@ -22,7 +22,8 @@ linter:
   # producing the lint.
   rules:
     # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    prefer_single_quotes: true # Uncomment to enable the `prefer_single_quotes` rule
+    require_trailing_commas: true # Uncomment to enable the `require_trailing_commas` rule
 
 analyzer:
   plugins:
@@ -31,3 +32,6 @@ analyzer:
     invalid_annotation_target: ignore
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
+
+formatter:
+  trailing_commas: preserve

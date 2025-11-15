@@ -24,6 +24,8 @@ import 'package:pockaw/features/budget/presentation/riverpod/budget_providers.da
 import 'package:pockaw/features/budget/presentation/riverpod/date_picker_provider.dart'
     as budget_date_provider; // Alias to avoid conflict
 import 'package:pockaw/features/category/data/model/category_model.dart';
+import 'package:pockaw/features/user_activity/data/enum/user_activity_action.dart';
+import 'package:pockaw/features/user_activity/riverpod/user_activity_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:toastification/toastification.dart';
@@ -35,7 +37,7 @@ class BudgetFormScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final wallet = ref.read(activeWalletProvider);
-    final defaultCurrency = wallet.value?.currencyByIsoCode(ref).symbol;
+    final defaultCurrency = wallet.asData?.value?.currencyByIsoCode(ref).symbol;
     final isEditing = budgetId != null;
     final budgetDetails = isEditing
         ? ref.watch(budgetDetailsProvider(budgetId!))
@@ -55,7 +57,7 @@ class BudgetFormScreen extends HookConsumerWidget {
 
     useEffect(() {
       walletController.text =
-          '${activeWalletsAsync.valueOrNull?.currencyByIsoCode(ref).symbol} ${activeWalletsAsync.valueOrNull?.balance.toPriceFormat()}';
+          '${activeWalletsAsync.asData?.value?.currencyByIsoCode(ref).symbol} ${activeWalletsAsync.asData?.value?.balance.toPriceFormat()}';
 
       if (isEditing && budgetDetails is AsyncData<BudgetModel?>) {
         final budget = budgetDetails.value;
@@ -75,8 +77,8 @@ class BudgetFormScreen extends HookConsumerWidget {
     }, [isEditing, budgetDetails, activeWalletsAsync]);
 
     final remainingBudgetForEntry = useMemoized<double?>(() {
-      final wallet = selectedWallet.valueOrNull;
-      final budgets = allBudgetsAsync.valueOrNull;
+      final wallet = selectedWallet.asData?.value;
+      final budgets = allBudgetsAsync.asData?.value;
 
       // Don't calculate if essential data is missing
       if (wallet == null || budgets == null) {
@@ -140,7 +142,7 @@ class BudgetFormScreen extends HookConsumerWidget {
 
       // Get all budgets to calculate the current total
       final allBudgetsAsync = ref.read(budgetListProvider);
-      final allBudgets = allBudgetsAsync.valueOrNull ?? [];
+      final allBudgets = allBudgetsAsync.asData?.value ?? [];
 
       double totalExistingBudgetsAmount = allBudgets.fold(
         0.0,
@@ -181,6 +183,16 @@ class BudgetFormScreen extends HookConsumerWidget {
           await budgetDao.addBudget(budgetToSave);
           Toast.show('Budget created!', type: ToastificationType.success);
         }
+
+        ref
+            .read(userActivityServiceProvider)
+            .logActivity(
+              action: isEditing
+                  ? UserActivityAction.budgetUpdated
+                  : UserActivityAction.budgetCreated,
+              subjectId: budgetToSave.id,
+            );
+
         if (context.mounted) context.pop();
       } catch (e) {
         Log.e('Failed to save budget: $e');
@@ -214,6 +226,14 @@ class BudgetFormScreen extends HookConsumerWidget {
                     context.pop(); // close detail screen
 
                     ref.read(budgetDaoProvider).deleteBudget(budgetId!);
+
+                    ref
+                        .read(userActivityServiceProvider)
+                        .logActivity(
+                          action: UserActivityAction.budgetDeleted,
+                          subjectId: budgetId,
+                        );
+
                     Toast.show('Budget deleted!');
                   },
                 ),

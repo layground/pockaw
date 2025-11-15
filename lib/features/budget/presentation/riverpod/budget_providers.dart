@@ -1,4 +1,4 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pockaw/core/database/daos/budget_dao.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/utils/logger.dart';
@@ -26,27 +26,19 @@ final budgetDetailsProvider = StreamProvider.autoDispose
     });
 
 // Provider to get the spent amount for a specific budget
-// This is an AsyncNotifier because calculating spent amount involves an async call
-class BudgetSpentAmountNotifier
-    extends AutoDisposeFamilyAsyncNotifier<double, BudgetModel> {
-  @override
-  Future<double> build(BudgetModel budget) async {
-    final budgetDao = ref.watch(budgetDaoProvider);
-    return budgetDao.getSpentAmountForBudget(budget);
-  }
-}
-
-final budgetSpentAmountProvider = AsyncNotifierProvider.autoDispose
-    .family<BudgetSpentAmountNotifier, double, BudgetModel>(
-      BudgetSpentAmountNotifier.new,
-    );
+// This is a FutureProvider.family since we need the budget param
+final budgetSpentAmountProvider = FutureProvider.autoDispose
+    .family<double, BudgetModel>((ref, budget) async {
+      final budgetDao = ref.watch(budgetDaoProvider);
+      return budgetDao.getSpentAmountForBudget(budget);
+    });
 
 // Provider to fetch transactions relevant to a specific budget
 final transactionsForBudgetProvider = FutureProvider.autoDispose
     .family<List<TransactionModel>, BudgetModel>((ref, budget) async {
       Log.d(budget.toJson(), label: 'budget');
       final db = ref.watch(databaseProvider);
-      final activeWallet = ref.watch(activeWalletProvider).valueOrNull;
+      final activeWallet = ref.watch(activeWalletProvider).asData?.value;
       final categories = await db.categoryDao.getSubCategories(
         budget.category.id!,
       );
@@ -85,12 +77,24 @@ final budgetPeriodListProvider = Provider.autoDispose<List<DateTime>>((ref) {
   );
 });
 
-// StateProvider to keep track of the currently selected budget period (month)
-final selectedBudgetPeriodProvider = StateProvider.autoDispose<DateTime>((ref) {
-  // Default to the start of the current month
-  final now = DateTime.now();
-  return DateTime(now.year, now.month, 1);
-});
+// Notifier for managing the currently selected budget period (month)
+class SelectedBudgetPeriodNotifier extends Notifier<DateTime> {
+  @override
+  DateTime build() {
+    // Default to the start of the current month
+    final now = DateTime.now();
+    return DateTime(now.year, now.month, 1);
+  }
+
+  void setPeriod(DateTime period) {
+    state = period;
+  }
+}
+
+final selectedBudgetPeriodProvider =
+    NotifierProvider.autoDispose<SelectedBudgetPeriodNotifier, DateTime>(
+      SelectedBudgetPeriodNotifier.new,
+    );
 
 // Provider that filters the budgetListProvider based on the selectedBudgetPeriodProvider
 final filteredBudgetListProvider = FutureProvider.autoDispose

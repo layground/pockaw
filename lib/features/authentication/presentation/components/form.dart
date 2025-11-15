@@ -9,6 +9,7 @@ class Form extends HookConsumerWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
+          const Gap(AppSpacing.spacing56),
           const LoginImagePicker(),
           const Gap(AppSpacing.spacing20),
           const Column(
@@ -29,6 +30,7 @@ class Form extends HookConsumerWidget {
             spacing: AppSpacing.spacing16,
             children: [
               CustomTextField(
+                context: context,
                 controller: nameField,
                 label: 'Name',
                 hint: 'John Doe',
@@ -39,6 +41,15 @@ class Form extends HookConsumerWidget {
           ),
           const Gap(AppSpacing.spacing20),
           const LoginInfo(),
+          const Gap(AppSpacing.spacing20),
+          CustomTextButton(
+            label: 'Sign in with Google',
+            icon: Image.asset('assets/icon/search.png', width: 24, height: 24),
+            onPressed: () => ref
+                .read(authStateProvider.notifier)
+                .signInWithGoogle(context: context),
+          ),
+          const Gap(AppSpacing.spacing56),
           const Gap(AppSpacing.spacing56),
         ],
       ),

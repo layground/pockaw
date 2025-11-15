@@ -86,8 +86,8 @@ class TransactionCard extends ConsumerWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      percentDifference.isNegative
+                    HugeIcon(
+                      icon: percentDifference.isNegative
                           ? HugeIcons.strokeRoundedArrowDown01
                           : HugeIcons.strokeRoundedArrowUp01,
                       size: 14,

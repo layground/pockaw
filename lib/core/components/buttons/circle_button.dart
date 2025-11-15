@@ -8,7 +8,7 @@ class CircleIconButton extends StatelessWidget {
   final Color? backgroundColor;
   final Color? foregroundColor;
   final Color? splashColor;
-  final IconData icon;
+  final List<List<dynamic>> icon;
   final Widget? child;
   final GestureTapCallback? onTap;
 
@@ -40,10 +40,12 @@ class CircleIconButton extends StatelessWidget {
           height: radius! * 2,
           child:
               child ??
-              HugeIcon(
-                icon: icon,
-                color: foregroundColor ?? Colors.black,
-                size: iconSize,
+              Center(
+                child: HugeIcon(
+                  icon: icon,
+                  color: foregroundColor ?? Colors.black,
+                  size: iconSize,
+                ),
               ),
         ),
       ),

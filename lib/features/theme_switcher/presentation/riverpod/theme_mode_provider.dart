@@ -5,17 +5,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// Key for storing theme mode preference in SharedPreferences.
 const String _themeModeKey = 'themeMode';
 
-/// A [StateNotifierProvider] that manages the application's [ThemeMode].
-/// It persists the selected theme mode using [SharedPreferences].
-final themeModeProvider = StateNotifierProvider<ThemeModeNotifier, ThemeMode>((
-  ref,
-) {
-  return ThemeModeNotifier();
-});
-
-class ThemeModeNotifier extends StateNotifier<ThemeMode> {
-  ThemeModeNotifier() : super(ThemeMode.system) {
+/// Migrated from StateNotifierProvider to NotifierProvider (Riverpod 3 pattern)
+class ThemeModeNotifier extends Notifier<ThemeMode> {
+  @override
+  ThemeMode build() {
     _loadThemeMode();
+    return ThemeMode.system;
   }
 
   /// Loads the saved theme mode preference from SharedPreferences.
@@ -51,3 +46,7 @@ class ThemeModeNotifier extends StateNotifier<ThemeMode> {
     }
   }
 }
+
+final themeModeProvider = NotifierProvider<ThemeModeNotifier, ThemeMode>(
+  ThemeModeNotifier.new,
+);

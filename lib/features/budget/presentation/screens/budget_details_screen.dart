@@ -44,10 +44,10 @@ class BudgetDetailsScreen extends ConsumerWidget {
               context,
               onPressed: () {
                 // Date range is handled by BudgetDateRangePicker and its provider
-                ref.read(datePickerProvider.notifier).state = [
+                ref.read(datePickerProvider.notifier).setRange([
                   budget.startDate,
                   budget.endDate,
-                ];
+                ]);
 
                 context.push('${Routes.budgetForm}/edit/$budgetId');
               },

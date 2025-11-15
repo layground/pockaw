@@ -15,6 +15,9 @@ abstract class WalletModel with _$WalletModel {
     /// The unique identifier for the wallet.
     int? id,
 
+    /// The identifier of the user who owns this wallet.
+    int? userId,
+
     /// The name of the wallet (e.g., "Primary Checking", "Savings").
     @Default('My Wallet') String name,
 

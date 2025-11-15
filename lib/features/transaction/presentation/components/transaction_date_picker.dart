@@ -33,14 +33,14 @@ class TransactionDatePicker extends ConsumerWidget {
       prefixIcon: HugeIcons.strokeRoundedCalendar01,
       isRequired: true,
       onTap: () {
-        selectedDateNotifier.state = initialdate ?? DateTime.now();
+        selectedDateNotifier.setDate(initialdate ?? DateTime.now());
 
         CustomDatePicker.selectSingleDate(
           context,
           title: 'Transaction Date & Time',
           selectedDate: initialdate ?? DateTime.now(),
           onDateTimeChanged: (date) {
-            selectedDateNotifier.state = date;
+            selectedDateNotifier.setDate(date);
             Log.d(date, label: 'selected date');
             dateFieldController.text = date.toRelativeDayFormatted(
               showTime: true,

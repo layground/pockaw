@@ -39,7 +39,7 @@ class CategoryPopulationService {
     }
 
     Log.i(
-      'Default categories initialization complete: (${allDefaultCategories.length}',
+      'Default categories initialization complete: ${allDefaultCategories.length}',
       label: 'category',
     );
   }

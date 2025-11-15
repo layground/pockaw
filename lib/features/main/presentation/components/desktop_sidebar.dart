@@ -24,7 +24,7 @@ class DesktopSidebar extends ConsumerWidget {
       ),
       decoration: const BoxDecoration(color: AppColors.dark),
       child: Column(
-        // Using ListView for scrollability if items exceed height
+        // Using ListView for scrolling if items exceed height
         // mainAxisAlignment: MainAxisAlignment.start, // Align items to the top
         // crossAxisAlignment: CrossAxisAlignment.stretch, // Make ListTiles fill width
         children: <Widget>[
@@ -79,7 +79,7 @@ class DesktopSidebar extends ConsumerWidget {
     required BuildContext context,
     required WidgetRef ref,
     required String title,
-    required IconData icon,
+    required List<List<dynamic>> icon,
     required VoidCallback onTap,
     int? pageIndex,
     bool isSpecialAction = false,
@@ -91,7 +91,7 @@ class DesktopSidebar extends ConsumerWidget {
               .getIconColor(pageIndex ?? -1);
 
     return ListTile(
-      leading: Icon(icon, color: itemColor, size: 26),
+      leading: HugeIcon(icon: icon, color: itemColor, size: 26),
       title: Text(
         title,
         style: AppTextStyles.body2.copyWith(

@@ -89,11 +89,12 @@ class CustomInputBorder extends InputBorder {
 
   @override
   Path getInnerPath(Rect rect, {TextDirection? textDirection}) {
-    return Path()
-      ..addRRect(borderRadius
+    return Path()..addRRect(
+      borderRadius
           .resolve(textDirection)
           .toRRect(rect)
-          .deflate(borderSide.width));
+          .deflate(borderSide.width),
+    );
   }
 
   @override
@@ -102,8 +103,12 @@ class CustomInputBorder extends InputBorder {
   }
 
   @override
-  void paintInterior(Canvas canvas, Rect rect, Paint paint,
-      {TextDirection? textDirection}) {
+  void paintInterior(
+    Canvas canvas,
+    Rect rect,
+    Paint paint, {
+    TextDirection? textDirection,
+  }) {
     canvas.drawRRect(borderRadius.resolve(textDirection).toRRect(rect), paint);
   }
 
@@ -160,8 +165,8 @@ abstract class MaterialStateOutlinedInputBorder extends CustomInputBorder
   /// The given callback parameter must return a non-null text style in the default
   /// state.
   static MaterialStateOutlinedInputBorder resolveWith(
-          WidgetPropertyResolver<InputBorder> callback) =>
-      _MaterialStateOutlinedInputBorder(callback);
+    WidgetPropertyResolver<InputBorder> callback,
+  ) => _MaterialStateOutlinedInputBorder(callback);
 
   /// Returns a [InputBorder] that's to be used when a Material component is in the
   /// specified state.

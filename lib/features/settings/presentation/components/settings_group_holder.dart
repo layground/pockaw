@@ -20,10 +20,7 @@ class SettingsGroupHolder extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: AppSpacing.spacing8,
         children: [
-          Text(
-            title,
-            style: AppTextStyles.body2,
-          ),
+          Text(title, style: AppTextStyles.body2),
           Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,

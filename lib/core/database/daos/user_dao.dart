@@ -1,6 +1,7 @@
 import 'package:drift/drift.dart';
 import 'package:pockaw/core/database/pockaw_database.dart';
 import 'package:pockaw/core/database/tables/users.dart';
+import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/authentication/data/models/user_model.dart';
 
 part 'user_dao.g.dart';
@@ -12,12 +13,21 @@ class UserDao extends DatabaseAccessor<AppDatabase> with _$UserDaoMixin {
   Future<User?> getFirstUser() => select(users).getSingleOrNull();
   Future<User?> getUserById(int id) =>
       (select(users)..where((tbl) => tbl.id.equals(id))).getSingleOrNull();
+  Future<User?> getUserByEmail(String email) => (select(
+    users,
+  )..where((tbl) => tbl.email.equals(email))).getSingleOrNull();
 
   Future<List<User>> getAllUsers() => select(users).get();
 
-  Future<int> insertUser(UsersCompanion user) => into(users).insert(user);
+  Future<int> insertUser(UsersCompanion user) {
+    Log.d(user.toString(), label: 'inserting user');
+    return into(users).insert(user);
+  }
 
-  Future<bool> updateUser(UsersCompanion user) => update(users).replace(user);
+  Future<bool> updateUser(UsersCompanion user) {
+    Log.d(user.toString(), label: 'updating user');
+    return update(users).replace(user);
+  }
 
   Future<void> deleteAllUsers() => delete(users).go();
 }

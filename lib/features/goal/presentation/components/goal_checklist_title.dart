@@ -18,20 +18,12 @@ class GoalChecklistTitle extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  'Goal Checklist',
-                  style: AppTextStyles.body3,
-                ),
-                Text(
-                  'Hold item to show options',
-                  style: AppTextStyles.body5,
-                ),
+                Text('Goal Checklist', style: AppTextStyles.body3),
+                Text('Hold item to show options', style: AppTextStyles.body5),
               ],
             ),
           ),
-          Icon(
-            HugeIcons.strokeRoundedSortByDown01,
-          )
+          HugeIcon(icon: HugeIcons.strokeRoundedSortByDown01),
         ],
       ),
     );

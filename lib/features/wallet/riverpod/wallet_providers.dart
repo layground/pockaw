@@ -1,6 +1,8 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/utils/logger.dart';
+import 'package:pockaw/features/user_activity/data/enum/user_activity_action.dart';
+import 'package:pockaw/features/user_activity/riverpod/user_activity_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 // import 'package:pockaw/features/wallet/data/repositories/wallet_repo.dart'; // No longer needed for hardcoded list
 
@@ -12,36 +14,35 @@ final allWalletsStreamProvider = StreamProvider.autoDispose<List<WalletModel>>((
   return db.walletDao.watchAllWallets();
 });
 
-final walletAmountVisibilityProvider = StateProvider<bool>((ref) {
-  // set default to visible
-  return true;
-});
-
-/// StateNotifier for managing the active wallet.
-class ActiveWalletNotifier extends StateNotifier<AsyncValue<WalletModel?>> {
-  final Ref _ref;
-
-  ActiveWalletNotifier(this._ref) : super(const AsyncValue.loading()) {
-    initializeActiveWallet();
+/// Use a Notifier to hold simple mutable boolean state (replaces StateProvider)
+class WalletAmountVisibilityNotifier extends Notifier<bool> {
+  @override
+  bool build() {
+    return true; // default visible
   }
 
-  // Renamed to fetchAndSetInitialWallet for clarity
-  Future<void> initializeActiveWallet() async {
+  void setVisible(bool visible) => state = visible;
+  void toggle() => state = !state;
+}
+
+final walletAmountVisibilityProvider =
+    NotifierProvider<WalletAmountVisibilityNotifier, bool>(
+      WalletAmountVisibilityNotifier.new,
+    );
+
+/// StateNotifier for managing the active wallet.
+class ActiveWalletNotifier extends AsyncNotifier<WalletModel?> {
+  @override
+  Future<WalletModel?> build() async {
+    // called once when the notifier is first created
     try {
-      final db = _ref.read(databaseProvider);
-      // Attempt to get the first wallet from the database
-      // Using watchAllWallets().first might be problematic if the stream doesn't emit quickly during init.
+      final db = ref.read(databaseProvider);
       final wallets = await db.walletDao.watchAllWallets().first;
-      if (wallets.isNotEmpty) {
-        state = AsyncValue.data(wallets.first);
-      } else {
-        // This case should ideally not happen if default wallets are populated.
-        // If it does, it means no wallets exist.
-        // change to defaultWallets.first to avoid null value
-        state = const AsyncValue.data(null); // No active wallet
-      }
-    } catch (e, s) {
-      state = AsyncValue.error(e, s);
+      if (wallets.isNotEmpty) return wallets.first;
+      return null;
+    } catch (e) {
+      // Re-throw to let Riverpod handle the error state
+      rethrow;
     }
   }
 
@@ -49,48 +50,84 @@ class ActiveWalletNotifier extends StateNotifier<AsyncValue<WalletModel?>> {
     state = AsyncValue.data(wallet);
   }
 
+  Future<void> setActiveWalletByID(int walletID) async {
+    final db = ref.read(databaseProvider);
+    final wallets = await db.walletDao.watchAllWallets().first;
+    if (wallets.isNotEmpty) {
+      state = AsyncValue.data(
+        wallets.firstWhere((wallet) => wallet.id == walletID),
+      );
+
+      ref
+          .read(userActivityServiceProvider)
+          .logActivity(
+            action: UserActivityAction.walletSelected,
+            subjectId: walletID,
+          );
+    }
+  }
+
+  /// create new wallet and set as active wallet
+  Future<void> createNewActiveWallet(WalletModel newWallet) async {
+    final db = ref.read(databaseProvider);
+    Log.d(newWallet.toJson(), label: 'new wallet');
+    int id = await db.walletDao.addWallet(newWallet);
+    Log.d(id, label: 'new wallet');
+
+    ref
+        .read(userActivityServiceProvider)
+        .logActivity(
+          action: UserActivityAction.walletCreated,
+          subjectId: id,
+        );
+  }
+
   void updateActiveWallet(WalletModel? newWalletData) {
-    final currentActiveWallet = state.valueOrNull;
+    final currentActiveWallet = state.asData?.value;
     final currentActiveWalletId = currentActiveWallet?.id;
+    UserActivityAction action = UserActivityAction.walletSelected;
 
     if (newWalletData != null && newWalletData.id == currentActiveWalletId) {
-      // If the incoming wallet data is for the currently active wallet ID
       Log.d(
         'Updating active wallet ID ${newWalletData.id} with new data: ${newWalletData.toJson()}',
         label: 'ActiveWalletNotifier',
       );
-      // Update the state with the new WalletModel instance.
-      // This ensures watchers receive the new object.
       state = AsyncValue.data(newWalletData);
+      action = UserActivityAction.walletUpdated;
     } else if (newWalletData != null && currentActiveWalletId == null) {
-      // This case is more for setActiveWallet, but if update is called when no active wallet, set it.
       Log.d(
         'Setting active wallet (was null) to ID ${newWalletData.id} via updateActiveWallet: ${newWalletData.toJson()}',
         label: 'ActiveWalletNotifier',
       );
       state = AsyncValue.data(newWalletData);
+      action = UserActivityAction.walletSelected;
     } else if (newWalletData == null && currentActiveWalletId != null) {
       Log.d(
         'Clearing active wallet (was ID $currentActiveWalletId) via updateActiveWallet.',
         label: 'ActiveWalletNotifier',
       );
       state = const AsyncValue.data(null);
+      action = UserActivityAction.walletDeleted;
     }
+
+    ref
+        .read(userActivityServiceProvider)
+        .logActivity(
+          action: action,
+          subjectId: newWalletData?.id,
+        );
   }
 
-  /// Refreshes the data for the currently active wallet from the database.
-  /// Useful if the wallet data might have changed externally or by other operations.
   Future<void> refreshActiveWallet() async {
-    final currentWalletId = state.valueOrNull?.id;
+    final currentWalletId = state.asData?.value?.id;
     if (currentWalletId != null) {
       try {
-        final db = _ref.read(databaseProvider);
+        final db = ref.read(databaseProvider);
         final refreshedWallet = await db.walletDao
             .watchWalletById(currentWalletId)
             .first;
         state = AsyncValue.data(refreshedWallet);
       } catch (e, s) {
-        // Keep the old state but log error, or set to error state
         state = AsyncValue.error(e, s);
       }
     }
@@ -101,10 +138,7 @@ class ActiveWalletNotifier extends StateNotifier<AsyncValue<WalletModel?>> {
   }
 }
 
-/// Provider for the ActiveWalletNotifier, managing the currently selected wallet.
 final activeWalletProvider =
-    StateNotifierProvider<ActiveWalletNotifier, AsyncValue<WalletModel?>>((
-      ref,
-    ) {
-      return ActiveWalletNotifier(ref);
-    });
+    AsyncNotifierProvider<ActiveWalletNotifier, WalletModel?>(
+      ActiveWalletNotifier.new,
+    );

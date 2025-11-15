@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 
-class PageControllerNotifier extends StateNotifier<int> {
-  PageControllerNotifier() : super(0);
+class PageControllerNotifier extends Notifier<int> {
+  @override
+  int build() => 0;
 
   void setPage(int page) {
     state = page;
@@ -18,7 +19,6 @@ class PageControllerNotifier extends StateNotifier<int> {
   }
 }
 
-final pageControllerProvider =
-    StateNotifierProvider<PageControllerNotifier, int>(
-  (ref) => PageControllerNotifier(),
+final pageControllerProvider = NotifierProvider<PageControllerNotifier, int>(
+  PageControllerNotifier.new,
 );

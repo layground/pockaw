@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
@@ -8,8 +9,8 @@ import 'package:pockaw/core/constants/app_text_styles.dart';
 class SmallButton extends StatelessWidget {
   final String label;
   final TextStyle labelTextStyle;
-  final IconData? prefixIcon;
-  final IconData? suffixIcon;
+  final List<List<dynamic>>? prefixIcon;
+  final List<List<dynamic>>? suffixIcon;
   final Color? backgroundColor;
   final Color? foregroundColor;
   final Color? borderColor;
@@ -49,8 +50,8 @@ class SmallButton extends StatelessWidget {
               spacing: AppSpacing.spacing4,
               children: [
                 if (prefixIcon != null)
-                  Icon(
-                    prefixIcon,
+                  HugeIcon(
+                    icon: prefixIcon!,
                     size: 16,
                     color: foregroundColor ?? AppColors.secondary400,
                   ),
@@ -62,8 +63,8 @@ class SmallButton extends StatelessWidget {
             ),
             if (suffixIcon != null) const Gap(AppSpacing.spacing8),
             if (suffixIcon != null)
-              Icon(
-                suffixIcon,
+              HugeIcon(
+                icon: suffixIcon!,
                 size: 14,
                 color: foregroundColor ?? AppColors.secondary400,
               ),

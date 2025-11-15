@@ -1,6 +1,1 @@
-enum ButtonState {
-  active,
-  inactive,
-  outlinedActive,
-  outlinedInactive,
-}
+enum ButtonState { active, inactive, outlinedActive, outlinedInactive }

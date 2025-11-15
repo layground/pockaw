@@ -87,7 +87,7 @@ class TransactionFilterFormState {
       dateEnd: dateEnd?.toMidnightEnd,
     );
 
-    ref.read(transactionFilterProvider.notifier).state = filter;
+    ref.read(transactionFilterProvider.notifier).setFilter(filter);
     Log.d(filter.toJson(), label: 'applied filters');
     context.pop();
   }
@@ -102,10 +102,10 @@ class TransactionFilterFormState {
     selectedTransactionType.value = TransactionType.expense;
     selectedCategory.value = null;
     // Reset date picker provider as well
-    ref.read(filterDatePickerProvider.notifier).state = [
+    ref.read(filterDatePickerProvider.notifier).setRange([
       DateTime.now().subtract(const Duration(days: 5)),
       DateTime.now(),
-    ];
+    ]);
   }
 
   void dispose() {
@@ -129,12 +129,12 @@ TransactionFilterFormState useTransactionFilterFormState({
   final minAmountController = useTextEditingController(
     text: initialFilter?.minAmount == null
         ? ''
-        : '${activeWallet.valueOrNull?.currencyByIsoCode(ref).symbol} ${initialFilter?.minAmount?.toPriceFormat()}',
+        : '${activeWallet.asData?.value?.currencyByIsoCode(ref).symbol} ${initialFilter?.minAmount?.toPriceFormat()}',
   );
   final maxAmountController = useTextEditingController(
     text: initialFilter?.maxAmount == null
         ? ''
-        : '${activeWallet.valueOrNull?.currencyByIsoCode(ref).symbol} ${initialFilter?.maxAmount?.toPriceFormat()}',
+        : '${activeWallet.asData?.value?.currencyByIsoCode(ref).symbol} ${initialFilter?.maxAmount?.toPriceFormat()}',
   );
   final notesController = useTextEditingController(
     text: initialFilter?.notes ?? '',
@@ -152,10 +152,10 @@ TransactionFilterFormState useTransactionFilterFormState({
   // Set date picker provider if filter has dates
   useState(() {
     if (initialFilter?.dateStart != null && initialFilter?.dateEnd != null) {
-      ref.read(filterDatePickerProvider.notifier).state = [
+      ref.read(filterDatePickerProvider.notifier).setRange([
         initialFilter!.dateStart,
         initialFilter.dateEnd,
-      ];
+      ]);
     }
     return null;
   });

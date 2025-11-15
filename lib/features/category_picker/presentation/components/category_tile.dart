@@ -13,7 +13,7 @@ class CategoryTile extends StatelessWidget {
   final CategoryModel category;
   final double? height;
   final double? iconSize;
-  final IconData? suffixIcon;
+  final List<List<dynamic>>? suffixIcon;
   final GestureTapCallback? onSuffixIconPressed;
   final Function(CategoryModel)? onSelectCategory;
   const CategoryTile({

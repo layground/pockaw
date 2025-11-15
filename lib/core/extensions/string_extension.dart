@@ -70,8 +70,8 @@ extension CustomDateParsing on String {
   /// - "Yesterday, 11.33" or "Yesterday"
   /// - "Tomorrow, 11.33" or "Tomorrow"
   DateTime toDateTimeFromDayMonthYearTime12Hour() {
-    final standardFormat = DateFormat("d MMMM yyyy, hh.mm a");
-    final timeOnlyFormat = DateFormat("hh.mm a");
+    final standardFormat = DateFormat('d MMMM yyyy hh.mm a');
+    final timeOnlyFormat = DateFormat('hh.mm a');
 
     // Split by comma to separate date and time parts
     final parts = trim().split(',').map((e) => e.trim()).toList();

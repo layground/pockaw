@@ -17,7 +17,7 @@ class ImagePickerDialog extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     return Column(
       children: [
-        Icon(HugeIcons.strokeRoundedInformationSquare),
+        HugeIcon(icon: HugeIcons.strokeRoundedInformationSquare),
         Gap(AppSpacing.spacing12),
         Text(
           'Your selected image is used only to personalize your profile within this app. '

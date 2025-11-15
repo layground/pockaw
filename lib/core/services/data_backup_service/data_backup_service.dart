@@ -1,22 +1,36 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:docman/docman.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:archive/archive_io.dart'; // Changed from flutter_archive
 import 'package:file_picker/file_picker.dart';
 import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
 import 'package:pockaw/core/database/pockaw_database.dart';
 import 'package:pockaw/core/services/data_backup_service/backup_data_model.dart';
 import 'package:pockaw/core/services/image_service/image_service.dart';
 import 'package:pockaw/core/utils/drift_json_converter.dart';
 import 'package:pockaw/core/utils/logger.dart';
+import 'package:share_plus/share_plus.dart';
 
 class DataBackupService {
   final AppDatabase _db;
   final ImageService _imageService;
+  final FirebaseCrashlytics _crashlytics;
 
-  DataBackupService(this._db, this._imageService);
+  DataBackupService(
+    this._db,
+    this._imageService,
+    this._crashlytics, // Inject Crashlytics
+  );
+
+  static const String _jsonFileName = 'data.json';
+  static const String _imagesDirName = 'images';
+  static const String _tempBackupDirName = 'pockaw-temp-backup';
+  static const String _tempRestoreDirName = 'pockaw-temp-restore';
 
   /// Exports all database records into a [BackupData] object.
+  /// Image paths are converted to relative filenames (basenames).
   Future<BackupData> _exportDatabaseToJson() async {
     Log.i('Exporting database to JSON...');
 
@@ -73,119 +87,184 @@ class DataBackupService {
     Log.i('JSON data import complete.');
   }
 
-  /// Initiates the backup process, allowing the user to choose a destination folder.
-  /// Returns the path where the backup was saved, or null if cancelled/failed.
-  Future<String?> backupData() async {
-    Log.i('Starting backup process...');
-
-    // Let user pick a directory
-    String? selectedDirectory = await FilePicker.platform.getDirectoryPath(
-      dialogTitle: 'Select a folder to save your Pockaw backup',
-      lockParentWindow: true,
-    );
-
-    if (selectedDirectory == null) {
-      Log.i('Backup cancelled by user.', label: 'Backup');
-      return null;
+  /// Gets a clean temporary directory for backup/restore operations.
+  Future<Directory> _getTempDirectory(String dirName) async {
+    final tempDir = await getTemporaryDirectory();
+    final backupTempDir = Directory(p.join(tempDir.path, dirName));
+    if (await backupTempDir.exists()) {
+      await backupTempDir.delete(recursive: true);
     }
+    await backupTempDir.create(recursive: true);
+    return backupTempDir;
+  }
+
+  /// Initiates the backup process.
+  /// Creates a .zip file and opens the system share sheet.
+  /// Returns true if successful, false otherwise.
+  Future<bool> backupData() async {
+    Log.i('Starting backup process...');
+    Directory? tempBackupDir;
 
     try {
+      // 1. Create a clean temporary directory for the backup
+      tempBackupDir = await _getTempDirectory(_tempBackupDirName);
+      final tempImagesDir = Directory(
+        p.join(tempBackupDir.path, _imagesDirName),
+      );
+      await tempImagesDir.create(recursive: true);
+
+      // 2. Export database to JSON (with relative image paths)
       final backupData = await _exportDatabaseToJson();
-      final timestamp = DateTime.now()
-          .toIso8601String()
-          .replaceAll(':', '-')
-          .split('.')
-          .first;
-      final backupFolderName = 'Pockaw_Backup_$timestamp';
-      final backupFolderPath = p.join(selectedDirectory, backupFolderName);
-      final backupDir = Directory(backupFolderPath);
-      if (!await backupDir.exists()) {
-        await backupDir.create(recursive: true);
-      }
-
-      // Save JSON data
-      final jsonFile = File(p.join(backupFolderPath, 'data.json'));
+      final jsonFile = File(p.join(tempBackupDir.path, _jsonFileName));
       await jsonFile.writeAsString(jsonEncode(backupData.toJson()));
-      Log.i('Database JSON saved to ${jsonFile.path}', label: 'Backup');
+      Log.i('Database JSON saved to temporary file: ${jsonFile.path}');
 
-      // Collect and copy images
-      final imagesDir = Directory(p.join(backupFolderPath, 'images'));
-      if (!await imagesDir.exists()) {
-        await imagesDir.create(recursive: true);
-      }
-
-      final List<String> imagePathsToCopy = [];
-      // User profile picture
+      // 3. Collect and copy all original images to the temp images folder
+      final List<String> originalImagePaths = [];
       for (var userMap in backupData.users) {
-        if (userMap['profilePicture'] != null &&
-            (userMap['profilePicture'] as String).isNotEmpty) {
-          imagePathsToCopy.add(userMap['profilePicture'] as String);
+        // Find the original path from the DB, not the basename
+        if (userMap['id'] != null) {
+          final user = await _db.userDao.getUserById(userMap['id'] as int);
+          if (user?.profilePicture != null) {
+            originalImagePaths.add(user!.profilePicture!);
+          }
         }
       }
-      // Transaction images
       for (var transactionMap in backupData.transactions) {
-        if (transactionMap['imagePath'] != null &&
-            (transactionMap['imagePath'] as String).isNotEmpty) {
-          imagePathsToCopy.add(transactionMap['imagePath'] as String);
+        // Find the original path from the DB, not the basename
+        if (transactionMap['id'] != null) {
+          if (transactionMap['imagePath'] != null) {
+            originalImagePaths.add(transactionMap['imagePath']);
+          }
         }
       }
 
-      for (String originalPath in imagePathsToCopy) {
+      for (String originalPath in originalImagePaths.toSet()) {
+        // Use .toSet() to avoid duplicates
         final originalFile = File(originalPath);
         if (await originalFile.exists()) {
           final fileName = p.basename(originalPath);
-          final destinationPath = p.join(imagesDir.path, fileName);
+          final destinationPath = p.join(tempImagesDir.path, fileName);
           await originalFile.copy(destinationPath);
-          Log.d('Copied image: $fileName', label: 'Backup Images');
         } else {
           Log.e(
-            'Original image not found: $originalPath',
+            'Original image not found during backup: $originalPath',
             label: 'Backup Images',
           );
         }
       }
+      Log.i('All images copied to temporary backup folder.');
 
-      Log.i(
-        'Backup process completed successfully at $backupFolderPath',
-        label: 'Backup',
+      // 4. Zip the temporary directory
+      final timestamp = DateTime.now()
+          .toIso8601String()
+          .replaceAll(':', '-')
+          .split('.')[0];
+      final zipFileName = 'Pockaw_Backup_$timestamp.zip';
+      final zipFile = File(
+        p.join((await getTemporaryDirectory()).path, zipFileName),
       );
-      return backupFolderPath;
-    } catch (e, st) {
-      Log.e('Backup failed: $e\n$st', label: 'Backup Error');
-      return null;
-    }
-  }
 
-  /// Initiates the restore process, allowing the user to select a backup folder.
-  /// Returns true if restore was successful, false otherwise.
-  Future<bool> restoreData() async {
-    Log.i('Starting restore process...');
+      // Use archive_io.ZipFileEncoder
+      final encoder = ZipFileEncoder();
+      encoder.create(zipFile.path);
+      await encoder.addDirectory(tempBackupDir, includeDirName: false);
+      encoder.close();
 
-    String? selectedDirectory = await FilePicker.platform.getDirectoryPath(
-      dialogTitle: 'Select your Pockaw backup folder (containing data.json)',
-      lockParentWindow: true,
-    );
+      Log.i('Backup zip file created at: ${zipFile.path}');
 
-    if (selectedDirectory == null) {
-      Log.i('Restore cancelled by user.', label: 'Restore');
-      return false;
-    }
+      // 5. Open Share dialog to save/send the zip file
+      // This is the key part: no permissions needed.
+      final result = await SharePlus.instance.share(
+        ShareParams(
+          files: [XFile(zipFile.path)],
+          subject: zipFileName,
+          text: 'My Pockaw Backup File',
+        ),
+      );
 
-    try {
-      final jsonFile = File(p.join(selectedDirectory, 'data.json'));
-      if (!await jsonFile.exists()) {
+      if (result.status == ShareResultStatus.success) {
+        Log.i('Backup shared successfully.');
+        return true;
+      } else {
         Log.e(
-          'data.json not found in selected folder: ${jsonFile.path}',
-          label: 'Restore Error',
+          'Backup sharing was cancelled or failed: ${result.status}',
+          label: 'Backup',
         );
         return false;
       }
+    } catch (e, st) {
+      Log.e('Backup failed: $e\n$st', label: 'Backup Error');
+      // Report to Crashlytics
+      await _crashlytics.log('Custom log: Pockaw Backup process failed.');
+      await _crashlytics.recordError(e, st, reason: 'Backup Failed');
+      return false;
+    } finally {
+      // 6. Clean up the temporary backup directory
+      if (tempBackupDir != null && await tempBackupDir.exists()) {
+        await tempBackupDir.delete(recursive: true);
+      }
+      Log.i('Backup cleanup complete.');
+    }
+  }
 
+  /// Initiates the restore process.
+  /// Asks user to pick a .zip file.
+  /// Returns true if restore was successful, false otherwise.
+  Future<bool> restoreData() async {
+    Log.i('Starting restore process...');
+    Directory? tempRestoreDir;
+
+    try {
+      // 1. Let user pick the .zip backup file
+      final result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['zip'],
+      );
+
+      if (result == null || result.files.single.path == null) {
+        Log.i('Restore cancelled by user.', label: 'Restore');
+        return false;
+      }
+
+      final backupZipFile = File(result.files.single.path!);
+      Log.i('Backup file picked: ${backupZipFile.path}');
+
+      // 2. Create a clean temporary directory to unzip into
+      tempRestoreDir = await _getTempDirectory(_tempRestoreDirName);
+
+      // 3. Unzip the file
+      // Use archive_io to extract
+      final inputStream = InputFileStream(backupZipFile.path);
+      final archive = ZipDecoder().decodeStream(inputStream);
+      extractArchiveToDisk(archive, tempRestoreDir.path);
+      await inputStream.close();
+
+      Log.i('Backup file unzipped to: ${tempRestoreDir.path}');
+
+      // 4. Verify file structure
+      final jsonFile = File(p.join(tempRestoreDir.path, _jsonFileName));
+      final imagesDir = Directory(p.join(tempRestoreDir.path, _imagesDirName));
+
+      if (!await jsonFile.exists()) {
+        throw Exception('Backup is invalid: "$_jsonFileName" not found.');
+      }
+      if (!await imagesDir.exists()) {
+        Log.e(
+          '"$_imagesDirName" folder not found, restoring without images.',
+          label: 'Restore',
+        );
+        // Create it so the rest of the logic doesn't fail
+        await imagesDir.create();
+      }
+
+      // 5. Read and parse data.json
       final String jsonString = await jsonFile.readAsString();
       final Map<String, dynamic> rawData = jsonDecode(jsonString);
       final BackupData backupData = BackupData.fromJson(rawData);
 
-      // Copy images first and map new paths
+      // 6. Copy images from unzipped folder to app's internal image directory
+      // And update the paths in backupData to point to the new location
       final appImagesDir = Directory(
         await _imageService.getAppImagesDirectory(),
       );
@@ -193,215 +272,51 @@ class DataBackupService {
         await appImagesDir.create(recursive: true);
       }
 
-      final backupImagesDir = Directory(p.join(selectedDirectory, 'images'));
-      if (await backupImagesDir.exists()) {
-        await for (var entity in backupImagesDir.list(recursive: false)) {
-          if (entity is File) {
-            final fileName = p.basename(entity.path);
-            final newPath = p.join(appImagesDir.path, fileName);
-            await entity.copy(newPath);
-            Log.d(
-              'Copied backup image: $fileName to $newPath',
-              label: 'Restore Images',
-            );
-          }
+      final Map<String, String> imagePathMap =
+          {}; // Maps old basename to new full path
+
+      await for (var entity in imagesDir.list()) {
+        if (entity is File) {
+          final fileName = p.basename(entity.path);
+          final newPath = p.join(appImagesDir.path, fileName);
+          await entity.copy(newPath);
+          imagePathMap[fileName] = newPath;
         }
       }
+      Log.i('Restored images copied to app storage.');
 
-      // Update image paths in the data before importing to DB
+      // 7. Update all image paths in the backupData object
       for (var userMap in backupData.users) {
-        if (userMap['profilePicture'] != null &&
-            (userMap['profilePicture'] as String).isNotEmpty) {
-          final oldFileName = p.basename(userMap['profilePicture'] as String);
-          userMap['profilePicture'] = p.join(appImagesDir.path, oldFileName);
+        final String? oldFileName = userMap['profilePicture'];
+        if (oldFileName != null && imagePathMap.containsKey(oldFileName)) {
+          userMap['profilePicture'] = imagePathMap[oldFileName];
         }
       }
       for (var transactionMap in backupData.transactions) {
-        if (transactionMap['imagePath'] != null &&
-            (transactionMap['imagePath'] as String).isNotEmpty) {
-          final oldFileName = p.basename(transactionMap['imagePath'] as String);
-          transactionMap['imagePath'] = p.join(appImagesDir.path, oldFileName);
+        final String? oldFileName = transactionMap['imagePath'];
+        if (oldFileName != null && imagePathMap.containsKey(oldFileName)) {
+          transactionMap['imagePath'] = imagePathMap[oldFileName];
         }
       }
+      Log.i('Image paths updated in backup data.');
 
+      // 8. Import the modified data into the database
       await _importJsonToDatabase(backupData);
 
       Log.i('Restore process completed successfully.', label: 'Restore');
       return true;
     } catch (e, st) {
       Log.e('Restore failed: $e\n$st', label: 'Restore Error');
+      // Report to Crashlytics
+      await _crashlytics.log('Custom log: Pockaw Restore process failed.');
+      await _crashlytics.recordError(e, st, reason: 'Restore Failed');
       return false;
-    }
-  }
-
-  Future<bool> restoreDataDocman() async {
-    Log.i('Starting restore process...');
-
-    // 1. Let the user pick a directory using Docman
-    // This returns a DocumentDirectory object which represents the picked directory
-    DocumentFile? selectedDocDirectory;
-
-    if (Platform.isAndroid || Platform.isIOS) {
-      selectedDocDirectory = await DocMan.pick.directory();
-    }
-
-    if (selectedDocDirectory == null) {
-      Log.i(
-        'Restore cancelled by user or no directory selected.',
-        label: 'Restore',
-      );
-      return false;
-    }
-
-    Log.d(
-      'Selected directory URI: ${selectedDocDirectory.uri}',
-      label: 'Restore',
-    );
-    Log.d(
-      'Selected directory Name: ${selectedDocDirectory.name}',
-      label: 'Restore',
-    );
-
-    try {
-      // 2. Find and read 'data.json' from the selected directory using Docman
-      final List<DocumentFile> filesInDir = await selectedDocDirectory
-          .listDocuments();
-      DocumentFile? jsonDocFile;
-
-      for (var docFile in filesInDir) {
-        if (docFile.name == 'data.json') {
-          jsonDocFile = docFile;
-          break;
-        }
+    } finally {
+      // 9. Clean up the temporary restore directory
+      if (tempRestoreDir != null && await tempRestoreDir.exists()) {
+        await tempRestoreDir.delete(recursive: true);
       }
-
-      if (jsonDocFile == null) {
-        Log.e(
-          'data.json not found in selected folder: ${selectedDocDirectory.name}',
-          label: 'Restore Error',
-        );
-        return false;
-      }
-
-      Log.d(
-        'Found data.json: ${jsonDocFile.name} (URI: ${jsonDocFile.uri})',
-        label: 'Restore',
-      );
-
-      // Read the content of data.json
-      // Docman's DocumentFile doesn't have a direct readAsString, so read as bytes then decode
-      final List<int>? jsonDataBytes = await jsonDocFile.read();
-      if (jsonDataBytes == null) {
-        Log.e('Failed to read data.json content.', label: 'Restore Error');
-        return false;
-      }
-      final String jsonString = utf8.decode(
-        jsonDataBytes,
-      ); // Assuming UTF-8 encoding
-      final Map<String, dynamic> rawData = jsonDecode(jsonString);
-      final BackupData backupData = BackupData.fromJson(rawData);
-
-      // 3. Copy images from the 'images' subdirectory in the backup to app storage
-      final appImagesDirPath = await _imageService.getAppImagesDirectory();
-      final appImagesDir = Directory(appImagesDirPath);
-      if (!await appImagesDir.exists()) {
-        await appImagesDir.create(recursive: true);
-      }
-
-      // Find the 'images' subdirectory within the selected backup directory
-      DocumentFile? backupImagesDocDir;
-      // Re-list or find specifically, as listFiles() on selectedDocDirectory gives files and immediate subdirs
-      // A more robust way might be to look for a DocumentDirectory named 'images'
-      // For simplicity, let's assume we can construct a path or list and find it.
-      // Docman might not directly support navigating to subdirectories by string path easily.
-      // You might need to list files/directories and find the one named 'images'.
-
-      // Attempt 1: Iterate and find the 'images' directory
-      for (var item in filesInDir) {
-        // filesInDir contains DocumentFile and DocumentDirectory
-        if (item.isDirectory && item.name == 'images') {
-          backupImagesDocDir = item;
-          break;
-        }
-      }
-
-      if (backupImagesDocDir != null) {
-        Log.d(
-          'Found images directory: ${backupImagesDocDir.name}',
-          label: 'Restore Images',
-        );
-        final List<DocumentFile> imageDocFiles = await backupImagesDocDir
-            .listDocuments();
-
-        for (var imageDocFile in imageDocFiles) {
-          if (!(imageDocFile.name.endsWith('.png') ||
-              imageDocFile.name.endsWith('.jpg') ||
-              imageDocFile.name.endsWith('.jpeg'))) {
-            Log.e(
-              'Skipping non-image or unnamed file in backup: ${imageDocFile.name}',
-              label: 'Restore Images',
-            );
-            continue;
-          }
-
-          final fileName = imageDocFile.name; // Should have a name
-          final newPath = p.join(appImagesDir.path, fileName);
-
-          // Read image bytes using Docman and write to app storage using dart:io
-          final List<int>? imageBytes = await imageDocFile.read();
-          if (imageBytes != null) {
-            final newFile = File(newPath);
-            await newFile.writeAsBytes(imageBytes);
-            Log.d(
-              'Copied backup image: $fileName to $newPath',
-              label: 'Restore Images',
-            );
-          } else {
-            Log.e(
-              'Could not read bytes for image: $fileName',
-              label: 'Restore Images',
-            );
-          }
-        }
-      } else {
-        Log.i(
-          'No "images" sub-directory found in the backup.',
-          label: 'Restore Images',
-        );
-      }
-
-      // 4. Update image paths in the data before importing to DB
-      // This part remains the same as your original logic, using p.basename and p.join
-      for (var userMap in backupData.users) {
-        if (userMap['profilePicture'] != null &&
-            (userMap['profilePicture'] as String).isNotEmpty) {
-          final oldFileName = p.basename(userMap['profilePicture'] as String);
-          userMap['profilePicture'] = p.join(appImagesDir.path, oldFileName);
-        }
-      }
-      for (var transactionMap in backupData.transactions) {
-        if (transactionMap['imagePath'] != null &&
-            (transactionMap['imagePath'] as String).isNotEmpty) {
-          final oldFileName = p.basename(transactionMap['imagePath'] as String);
-          transactionMap['imagePath'] = p.join(appImagesDir.path, oldFileName);
-        }
-      }
-
-      // 5. Import to database
-      await _importJsonToDatabase(backupData); // Your existing method
-
-      Log.i('Restore process completed successfully.', label: 'Restore');
-      return true;
-    } catch (e, st) {
-      Log.e('Restore failed: $e\n$st', label: 'Restore Error');
-      // If error occurs with Docman, you might want to check for plugin specific exceptions
-      if (e is DocManException) {
-        Log.e(
-          'Docman specific error: ${e.toString()} (Code: ${e.code})',
-          label: 'Docman Error',
-        );
-      }
-      return false;
+      Log.i('Restore cleanup complete.');
     }
   }
 }

@@ -36,7 +36,7 @@ class WalletSelectorBottomSheet extends ConsumerWidget {
             itemBuilder: (context, index) {
               final wallet = wallets[index];
               final bool isSelected =
-                  activeWalletAsync.valueOrNull?.id == wallet.id;
+                  activeWalletAsync.asData?.value?.id == wallet.id;
 
               return ListTile(
                 title: Text(wallet.name, style: AppTextStyles.body1),
@@ -47,8 +47,8 @@ class WalletSelectorBottomSheet extends ConsumerWidget {
                   '${wallet.currencyByIsoCode(ref).symbol} ${wallet.balance.toPriceFormat()}',
                   style: AppTextStyles.body3,
                 ),
-                trailing: Icon(
-                  isSelected
+                trailing: HugeIcon(
+                  icon: isSelected
                       ? HugeIcons.strokeRoundedCheckmarkCircle01
                       : HugeIcons.strokeRoundedCircle,
                   color: isSelected ? Colors.green : Colors.grey,

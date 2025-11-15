@@ -99,7 +99,7 @@ class TransactionFilterFormDialog extends HookConsumerWidget {
                     ),
                     onConfirm: () {
                       formState.reset(ref);
-                      ref.read(transactionFilterProvider.notifier).state = null;
+                      ref.read(transactionFilterProvider.notifier).clear();
                       context.pop();
                       context.pop();
                     },

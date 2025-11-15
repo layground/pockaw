@@ -49,7 +49,7 @@ class TransactionForm extends HookConsumerWidget {
       defaultCurrency: defaultCurrency ?? CurrencyLocalDataSource.dummy.symbol,
       isEditing: isEditing,
       transaction:
-          asyncTransaction?.valueOrNull, // Pass current data, hook handles null
+          asyncTransaction?.value, // Pass current data, hook handles null
     );
 
     return CustomScaffold(

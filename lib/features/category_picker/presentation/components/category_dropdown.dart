@@ -48,7 +48,7 @@ class CategoryDropdown extends HookConsumerWidget {
             context.pop(selectedCategory);
           } else {
             // reset parent selection
-            ref.read(selectedParentCategoryProvider.notifier).state = null;
+            ref.read(selectedParentCategoryProvider.notifier).clear();
 
             context.openBottomSheet(
               child: CategoryFormScreen(
@@ -84,7 +84,7 @@ class CategoryDropdown extends HookConsumerWidget {
                 context.pop(selectedCategory);
               } else {
                 // reset parent selection
-                ref.read(selectedParentCategoryProvider.notifier).state = null;
+                ref.read(selectedParentCategoryProvider.notifier).clear();
 
                 // select parent if possible
                 if (selectedCategory.parentId != null) {
@@ -94,8 +94,9 @@ class CategoryDropdown extends HookConsumerWidget {
                       .getCategoryById(selectedCategory.parentId!);
                   Log.d(parentCategory?.toJson(), label: 'parent category');
                   if (parentCategory != null) {
-                    ref.read(selectedParentCategoryProvider.notifier).state =
-                        parentCategory.toModel();
+                    ref
+                        .read(selectedParentCategoryProvider.notifier)
+                        .setParent(parentCategory.toModel());
                   }
                 }
 

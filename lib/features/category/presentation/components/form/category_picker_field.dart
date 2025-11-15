@@ -71,8 +71,9 @@ class CategoryPickerField extends StatelessWidget {
                     );
                     // If a category was selected and returned, update the provider
                     if (result != null) {
-                      ref.read(selectedParentCategoryProvider.notifier).state =
-                          result;
+                      ref
+                          .read(selectedParentCategoryProvider.notifier)
+                          .setParent(result);
                       parentCategoryController.text = result.title;
                     }
                   },

@@ -72,7 +72,7 @@ class CategoryIcon extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(color: backgroundColor),
         child: icon.isEmpty
-            ? Icon(HugeIcons.strokeRoundedPizza01, size: 25)
+            ? HugeIcon(icon: HugeIcons.strokeRoundedPizza01, size: 25)
             : iconWidget,
       ),
     );

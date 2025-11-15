@@ -11,17 +11,23 @@ import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
-import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/services/keyboard_service/virtual_keyboard_service.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
-import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:toastification/toastification.dart';
 
-final accountDeletionLoadingProvider = StateProvider.autoDispose<bool>(
-  (ref) => false,
-);
+class AccountDeletionLoadingNotifier extends Notifier<bool> {
+  @override
+  bool build() => false;
+
+  void setLoading(bool v) => state = v;
+}
+
+final accountDeletionLoadingProvider =
+    NotifierProvider.autoDispose<AccountDeletionLoadingNotifier, bool>(
+      AccountDeletionLoadingNotifier.new,
+    );
 
 class AccountDeletionScreen extends HookConsumerWidget {
   const AccountDeletionScreen({super.key});
@@ -55,19 +61,12 @@ class AccountDeletionScreen extends HookConsumerWidget {
     WidgetRef ref,
     BuildContext context,
   ) async {
-    ref.read(accountDeletionLoadingProvider.notifier).state = true;
+    ref.read(accountDeletionLoadingProvider.notifier).setLoading(true);
     await Future.delayed(Duration(milliseconds: 1200));
 
     try {
-      final db = ref.read(databaseProvider);
-      await ref.read(authStateProvider.notifier).logout();
+      await ref.read(authStateProvider.notifier).deleteData();
       Log.i('User logged out.');
-
-      await db.clearAllDataAndReset();
-      Log.i('Database has been reset successfully.');
-
-      // reset all providers
-      ref.read(activeWalletProvider.notifier).reset();
 
       // Dismiss loading dialog
       if (context.mounted) Navigator.of(context, rootNavigator: true).pop();
@@ -87,7 +86,7 @@ class AccountDeletionScreen extends HookConsumerWidget {
       // Ensure loading state is reset.
       // If the widget is disposed (e.g. due to navigation), autoDispose handles the provider.
       // If still mounted (e.g. error occurred), this hides the overlay.
-      ref.read(accountDeletionLoadingProvider.notifier).state = false;
+      ref.read(accountDeletionLoadingProvider.notifier).setLoading(false);
     }
   }
 
@@ -139,7 +138,7 @@ class AccountDeletionScreen extends HookConsumerWidget {
                 ),
                 const Spacer(),
                 PrimaryButton(
-                  label: 'Delete My Account and Erase Data',
+                  label: 'Delete My Data',
                   onPressed: isChallengeMet.value
                       ? () => _showConfirmationSheet(context, ref)
                       : null,

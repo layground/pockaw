@@ -243,6 +243,12 @@ extension ColorExtensions on BuildContext {
   Color get placeholderBackground =>
       themeMode == ThemeMode.dark ? AppColors.neutral500 : AppColors.neutral100;
 
+  Color get placeholderForeground =>
+      themeMode == ThemeMode.dark ? AppColors.neutral600 : AppColors.neutral400;
+
   Color get breakLineColor =>
       themeMode == ThemeMode.dark ? AppColors.neutral700 : AppColors.neutral100;
+
+  Color get bottomSheetBackground =>
+      themeMode == ThemeMode.dark ? AppColors.dark : AppColors.neutral100;
 }

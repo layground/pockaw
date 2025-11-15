@@ -20,10 +20,7 @@ class CustomProgressIndicator extends StatelessWidget {
       flex: (value * 100).toInt(),
       child: Container(
         height: height,
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: radius,
-        ),
+        decoration: BoxDecoration(color: color, borderRadius: radius),
         /*child: const Center(
           child: Text(
             'Groceries',

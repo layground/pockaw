@@ -96,10 +96,12 @@ class CurrencyListTiles extends ConsumerWidget {
                                   ),
                                   child: CountryFlag.fromCountryCode(
                                     currency.countryCode,
-                                    width: 44,
-                                    height: 32,
-                                    shape: const RoundedRectangle(
-                                      AppRadius.radius4,
+                                    theme: ImageTheme(
+                                      width: 44,
+                                      height: 32,
+                                      shape: const RoundedRectangle(
+                                        AppRadius.radius4,
+                                      ),
                                     ),
                                   ),
                                 ),

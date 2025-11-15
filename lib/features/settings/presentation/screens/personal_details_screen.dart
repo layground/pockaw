@@ -13,6 +13,8 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/services/image_service/image_service.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
+import 'package:pockaw/features/user_activity/data/enum/user_activity_action.dart';
+import 'package:pockaw/features/user_activity/riverpod/user_activity_provider.dart';
 import 'package:toastification/toastification.dart';
 
 class PersonalDetailsScreen extends HookConsumerWidget {
@@ -69,7 +71,9 @@ class PersonalDetailsScreen extends HookConsumerWidget {
                               context,
                             ).colorScheme.surface, // Use colorScheme.surface
                             backgroundImage: profilePicture.value != null
-                                ? FileImage(profilePicture.value!)
+                                ? profilePicture.value!.path.contains('http')
+                                      ? NetworkImage(profilePicture.value!.path)
+                                      : FileImage(profilePicture.value!)
                                 : null,
                             radius: 69,
                             child: profilePicture.value == null
@@ -91,8 +95,8 @@ class PersonalDetailsScreen extends HookConsumerWidget {
                               color: Colors.black26,
                               shape: BoxShape.circle,
                             ),
-                            child: Icon(
-                              HugeIcons.strokeRoundedCamera02,
+                            child: HugeIcon(
+                              icon: HugeIcons.strokeRoundedCamera02,
                               size: 20,
                               color: AppColors.neutral200,
                             ),
@@ -139,6 +143,10 @@ class PersonalDetailsScreen extends HookConsumerWidget {
                 'Personal details updated!',
                 type: ToastificationType.success,
               );
+
+              ref
+                  .read(userActivityServiceProvider)
+                  .logActivity(action: UserActivityAction.profileUpdated);
 
               if (context.mounted) context.pop();
             },

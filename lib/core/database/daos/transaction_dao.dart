@@ -97,7 +97,7 @@ class TransactionDao extends DatabaseAccessor<AppDatabase>
     int walletId,
   ) {
     Log.d(
-      'ubscribing to watchTransactionsByWalletIdWithDetails($walletId)',
+      'Subscribing to watchTransactionsByWalletIdWithDetails($walletId)',
       label: 'transaction',
     );
     final query = select(transactions).join([

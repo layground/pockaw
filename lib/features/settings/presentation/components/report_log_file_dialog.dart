@@ -17,9 +17,10 @@ class ReportLogFileDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Log file is for development and investigation purposes only. '
+            'Log file contains non-sensitive information. '
+            'It is for development and investigation purposes only. '
             'Please only share this file with the developer.\n\n'
-            'Log history is one-time session. It will be cleared everytime you open the app.',
+            'Log history is one-time session. It will be cleared every time you open the app.',
             textAlign: TextAlign.center,
           ),
           Gap(AppSpacing.spacing32),

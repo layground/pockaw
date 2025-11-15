@@ -3,42 +3,42 @@ import 'package:intl/intl.dart';
 extension DateTimeExtension on DateTime {
   /// Format: March
   String toMonthName() {
-    return DateFormat("MMMM").format(this);
+    return DateFormat('MMMM').format(this);
   }
 
   /// Format: 13 March 2025
   String toDayMonthYear() {
-    return DateFormat("d MMMM yyyy").format(this);
+    return DateFormat('d MMMM yyyy').format(this);
   }
 
   /// Format: 12 Nov 2024
   String toDayShortMonth() {
-    return DateFormat("d MMM").format(this);
+    return DateFormat('d MMM').format(this);
   }
 
   /// Format: 12 Nov 2024
   String toDayShortMonthYear() {
-    return DateFormat("d MMM yyyy").format(this);
+    return DateFormat('d MMM yyyy').format(this);
   }
 
   /// Format: March 13, 2025
   String toMonthDayYear() {
-    return DateFormat("MMMM d, yyyy").format(this);
+    return DateFormat('MMMM d, yyyy').format(this);
   }
 
   /// Format: 13/03/2025
   String toDayMonthYearNumeric() {
-    return DateFormat("dd/MM/yyyy").format(this);
+    return DateFormat('dd/MM/yyyy').format(this);
   }
 
   /// Format: 03/2025
   String toMonthYearNumeric() {
-    return DateFormat("MM/yyyy").format(this);
+    return DateFormat('MM/yyyy').format(this);
   }
 
   /// Format: Oct 2024
   String toMonthYear() {
-    return DateFormat("MMM yyyy").format(this);
+    return DateFormat('MMM yyyy').format(this);
   }
 
   DateTime get toMidnightStart {
@@ -73,18 +73,18 @@ extension DateTimeExtension on DateTime {
 
     String baseText;
     if (differenceInDays == 0) {
-      baseText = "Today";
+      baseText = 'Today';
     } else if (differenceInDays == 1) {
-      baseText = "Yesterday";
+      baseText = 'Yesterday';
     } else {
       baseText = toDayMonthYear();
     }
 
     if (showTime) {
       final time = use24Hours
-          ? DateFormat("HH.mm").format(this)
-          : DateFormat("hh.mm a").format(this);
-      return "$baseText, $time";
+          ? DateFormat('HH.mm').format(this)
+          : DateFormat('hh.mm a').format(this);
+      return '$baseText, $time';
     }
     return baseText;
   }
@@ -98,22 +98,22 @@ extension DateTimeExtension on DateTime {
 
     if (thisMonthStart.year == currentMonthStart.year &&
         thisMonthStart.month == currentMonthStart.month) {
-      return "This Month";
+      return 'This Month';
     }
     if (thisMonthStart.year == lastMonthStart.year &&
         thisMonthStart.month == lastMonthStart.month) {
-      return "Last Month";
+      return 'Last Month';
     }
-    return DateFormat("MMM yyyy").format(this); // e.g., "Oct 2024"
+    return DateFormat('MMM yyyy').format(this); // e.g., "Oct 2024"
   }
 
   /// Format: 13 March 2025 05.44 am / 13 March 2025 05.44 pm
   String toDayMonthYearTime12Hour() {
-    return DateFormat("d MMMM yyyy hh.mm a").format(this);
+    return DateFormat('d MMMM yyyy hh.mm a').format(this);
   }
 
   /// Format: 13 March 2025 17.44
   String toDayMonthYearTime24Hour() {
-    return DateFormat("d MMMM yyyy HH.mm").format(this);
+    return DateFormat('d MMMM yyyy HH.mm').format(this);
   }
 }

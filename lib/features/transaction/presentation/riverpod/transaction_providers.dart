@@ -1,4 +1,4 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_filter_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
@@ -59,6 +59,15 @@ final transactionDetailsProvider = StreamProvider.autoDispose.family<Transaction
   );
 });
 
-final transactionFilterProvider = StateProvider<TransactionFilter?>(
-  (ref) => null,
-);
+class TransactionFilterNotifier extends Notifier<TransactionFilter?> {
+  @override
+  TransactionFilter? build() => null;
+
+  void setFilter(TransactionFilter? filter) => state = filter;
+  void clear() => state = null;
+}
+
+final transactionFilterProvider =
+    NotifierProvider<TransactionFilterNotifier, TransactionFilter?>(
+      TransactionFilterNotifier.new,
+    );

@@ -5,6 +5,7 @@ import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 @DataClassName('Wallet')
 class Wallets extends Table {
   IntColumn get id => integer().autoIncrement()();
+  IntColumn get userId => integer().nullable()();
   TextColumn get name => text().withDefault(const Constant('My Wallet'))();
   RealColumn get balance => real().withDefault(const Constant(0.0))();
   TextColumn get currency => text().withDefault(const Constant('IDR'))();
@@ -20,6 +21,7 @@ extension WalletExtension on Wallet {
   Wallet fromJson(Map<String, dynamic> json) {
     return Wallet(
       id: json['id'] as int,
+      userId: json['userId'] as int?,
       name: json['name'] as String,
       balance: json['balance'] as double,
       currency: json['currency'] as String,
@@ -35,6 +37,7 @@ extension WalletTableExtensions on Wallet {
   WalletModel toModel() {
     return WalletModel(
       id: id,
+      userId: userId,
       name: name,
       balance: balance,
       currency: currency,
@@ -52,6 +55,7 @@ extension WalletModelExtensions on WalletModel {
       id: isInsert
           ? const Value.absent()
           : (id == null ? const Value.absent() : Value(id!)),
+      userId: userId == null ? const Value.absent() : Value(userId!),
       name: Value(name),
       balance: Value(balance),
       currency: Value(currency),

@@ -1,4 +1,4 @@
-import 'package:flutter/gestures.dart';
+﻿import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
+import 'package:pockaw/core/components/buttons/custom_text_button.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
@@ -18,17 +19,14 @@ import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/services/image_service/domain/image_state.dart';
 import 'package:pockaw/core/services/image_service/image_service.dart';
-import 'package:pockaw/core/services/image_service/riverpod/image_notifier.dart';
 import 'package:pockaw/core/services/keyboard_service/virtual_keyboard_service.dart';
 import 'package:pockaw/core/services/url_launcher/url_launcher.dart';
-import 'package:pockaw/features/authentication/data/models/user_model.dart';
 import 'package:pockaw/features/authentication/presentation/components/create_first_wallet_field.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/backup_and_restore/presentation/components/restore_dialog.dart';
 import 'package:pockaw/features/image_picker/presentation/screens/image_picker_dialog.dart';
 import 'package:pockaw/features/settings/presentation/components/report_log_file_dialog.dart';
 import 'package:pockaw/features/theme_switcher/presentation/components/theme_mode_switcher.dart';
-import 'package:toastification/toastification.dart';
 
 part '../components/form.dart';
 part '../components/get_started_description.dart';
@@ -70,9 +68,10 @@ class LoginScreen extends HookConsumerWidget {
       actions: [
         CustomIconButton(
           context,
-          onPressed: () =>
-              context.openBottomSheet(child: ReportLogFileDialog()),
-          icon: HugeIcons.strokeRoundedAlert02,
+          onPressed: () => context.openBottomSheet(
+            child: ReportLogFileDialog(),
+          ),
+          icon: HugeIcons.strokeRoundedAlertDiamond,
           themeMode: context.themeMode,
         ),
         Gap(AppSpacing.spacing8),
@@ -91,54 +90,19 @@ class LoginScreen extends HookConsumerWidget {
           Container(
             // color: Colors.yellow,
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [Form(nameField: nameField)],
-            ),
+            child: Form(nameField: nameField),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: AppSpacing.spacing20,
-                horizontal: AppSpacing.spacing20,
-              ),
-              child: PrimaryButton(
-                label: 'Start Journey',
-                onPressed: () {
-                  KeyboardService.closeKeyboard();
-
-                  final username = nameField.text.trim();
-
-                  if (username.isEmpty) {
-                    toastification.show(
-                      description: Text(
-                        'Please enter a name.',
-                        style: AppTextStyles.body2,
-                      ),
-                      type: ToastificationType.error,
-                      autoCloseDuration: const Duration(seconds: 3),
-                    );
-                    return;
-                  }
-
-                  final user = UserModel(
-                    name: username,
-                    email:
-                        '${username.replaceAll(' ', '').toLowerCase()}@mail.com',
-                    profilePicture: ref.read(loginImageProvider).savedPath,
-                    createdAt: DateTime.now(),
-                  );
-
-                  ref.read(authStateProvider.notifier).setUser(user);
-                  context.push(Routes.main);
-                },
-              ),
-            ),
-          ),
+          PrimaryButton(
+            label: 'Start Journey',
+            isLoading: ref.watch(authStateProvider.notifier).isLoading,
+            onPressed: () => ref
+                .read(authStateProvider.notifier)
+                .startJourney(
+                  context: context,
+                  username: nameField.text,
+                  profilePicture: ref.read(loginImageProvider).savedPath,
+                ),
+          ).floatingBottomContained,
         ],
       ),
     );

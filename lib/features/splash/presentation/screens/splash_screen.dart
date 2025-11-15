@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -6,11 +8,13 @@ import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/router/app_router.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/core/services/device_info/device_info.dart';
 import 'package:pockaw/core/services/package_info/package_info_provider.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
-import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
-import 'package:flutter_hooks/flutter_hooks.dart'; // Import for useEffect
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:pockaw/features/user_activity/data/enum/user_activity_action.dart';
+import 'package:pockaw/features/user_activity/riverpod/user_activity_provider.dart'; // Import for useEffect
 
 class SplashScreen extends HookConsumerWidget {
   // Changed to HookConsumerWidget
@@ -24,35 +28,35 @@ class SplashScreen extends HookConsumerWidget {
         // Initialize database (this also triggers onCreate population services)
         ref.read(databaseProvider);
 
+        // Initialize device info service
+        ref.read(deviceInfoUtilProvider);
+
         // Initialize PackageInfoService
         final packageInfoService = ref.read(packageInfoServiceProvider);
         await packageInfoService.init();
 
-        // Delete log file
-        final file = await Log.getLogFile();
-        file?.delete();
+        // Initialize user activity service
+        final userActivityService = ref.read(userActivityServiceProvider);
+        await userActivityService.logActivity(
+          action: UserActivityAction.appLaunched,
+        );
 
-        // Fetch currencies and populate the static provider
-        // Using ref.read(currenciesProvider.future) to get the future directly
-        try {
-          final currencyList = await ref.read(currenciesProvider.future);
-          ref.read(currenciesStaticProvider.notifier).state = currencyList;
-          Log.d(currencyList.length, label: 'currencies populated');
-        } catch (e) {
-          Log.e(
-            'Failed to load currencies for static provider',
-            label: 'currencies',
-          );
+        // Delete log file only for mobile platforms
+        if (Platform.isAndroid || Platform.isIOS) {
+          final file = await Log.getLogFile();
+          file?.delete();
         }
 
         // Check user session and navigate
         final auth = ref.read(authStateProvider.notifier);
         final user = await auth.getSession();
         if (context.mounted) {
-          // Ensure context is still valid
           if (user == null) {
             GoRouter.of(rootNavKey.currentContext!).go(Routes.onboarding);
           } else {
+            ref
+                .read(userActivityServiceProvider)
+                .logActivity(action: UserActivityAction.signInWithSession);
             GoRouter.of(rootNavKey.currentContext!).go(Routes.main);
           }
         }

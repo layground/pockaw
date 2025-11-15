@@ -9,9 +9,6 @@ class AuthenticationRouter {
       path: Routes.getStarted,
       builder: (context, state) => const LoginScreen(),
     ),
-    GoRoute(
-      path: Routes.main,
-      builder: (context, state) => const MainScreen(),
-    ),
+    GoRoute(path: Routes.main, builder: (context, state) => const MainScreen()),
   ];
 }

@@ -44,7 +44,7 @@ class CurrencyPickerField extends HookConsumerWidget {
               Routes.currencyListTile,
             );
             if (selectedCurrency != null) {
-              ref.read(currencyProvider.notifier).state = selectedCurrency;
+              ref.read(currencyProvider.notifier).setCurrency(selectedCurrency);
               currencyController.text = selectedCurrency.symbolWithCountry;
             }
           },
@@ -69,9 +69,11 @@ class CurrencyPickerField extends HookConsumerWidget {
                   )
                 : CountryFlag.fromCountryCode(
                     currency.countryCode,
-                    width: 40,
-                    height: 32,
-                    shape: const RoundedRectangle(AppRadius.radius4),
+                    theme: ImageTheme(
+                      width: 40,
+                      height: 32,
+                      shape: const RoundedRectangle(AppRadius.radius4),
+                    ),
                   ),
           ),
         ),

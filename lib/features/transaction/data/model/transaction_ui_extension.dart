@@ -7,7 +7,7 @@ import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 
 /// Extension on Transaction to provide UI-specific properties based on type.
 extension TransactionUIExtensions on TransactionModel {
-  IconData get iconData {
+  List<List<dynamic>> get iconData {
     switch (transactionType) {
       case TransactionType.income:
         return HugeIcons.strokeRoundedArrowDown02;

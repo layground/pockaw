@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/form_fields/custom_input_border.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 
 class CustomTextField extends TextField {
+  static const int maxInputLength = 30;
+
   CustomTextField({
     super.key,
     super.controller,
     super.focusNode,
     super.keyboardType,
     super.textInputAction,
-    super.inputFormatters,
     super.readOnly,
     super.autofocus,
     super.maxLength,
@@ -26,13 +29,21 @@ class CustomTextField extends TextField {
     String? customCounterText,
     String? hint,
     String? label,
-    IconData? prefixIcon,
-    IconData? suffixIcon,
+    List<TextInputFormatter>? inputFormatters,
+    List<List<dynamic>>? prefixIcon,
+    List<List<dynamic>>? suffixIcon,
     GestureTapCallback? onTapSuffixIcon,
   }) : super(
          style: AppTextStyles.body3,
+         inputFormatters: [
+           LengthLimitingTextInputFormatter(maxLength ?? maxInputLength),
+           ...inputFormatters ?? [],
+         ],
          decoration: InputDecoration(
            hintText: hint,
+           hintStyle: AppTextStyles.body3.copyWith(
+             color: context?.placeholderForeground,
+           ),
            label: label == null
                ? const SizedBox()
                : Padding(
@@ -83,7 +94,7 @@ class CustomTextField extends TextField {
                    padding: const EdgeInsets.symmetric(
                      horizontal: AppSpacing.spacing12,
                    ),
-                   child: Icon(prefixIcon, size: 24),
+                   child: HugeIcon(icon: prefixIcon, size: 24),
                  ),
            suffixIcon: suffixIcon == null
                ? null
@@ -94,8 +105,8 @@ class CustomTextField extends TextField {
                      padding: const EdgeInsets.symmetric(
                        horizontal: AppSpacing.spacing12,
                      ),
-                     child: Icon(
-                       suffixIcon,
+                     child: HugeIcon(
+                       icon: suffixIcon,
                        color: AppColors.neutral200,
                        size: 24,
                      ),

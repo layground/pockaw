@@ -9,6 +9,8 @@ import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
 import 'package:pockaw/features/category/presentation/riverpod/category_actions_provider.dart';
 import 'package:pockaw/features/category/presentation/riverpod/category_providers.dart';
+import 'package:pockaw/features/user_activity/data/enum/user_activity_action.dart';
+import 'package:pockaw/features/user_activity/riverpod/user_activity_provider.dart';
 import 'package:toastification/toastification.dart';
 
 class CategoryFormService {
@@ -49,17 +51,27 @@ class CategoryFormService {
       ); // Use upsert for create/update
 
       Log.d(row, label: 'row affected');
+
+      ref
+          .read(userActivityServiceProvider)
+          .logActivity(
+            action: categoryModel.id == null
+                ? UserActivityAction.categoryCreated
+                : UserActivityAction.categoryUpdated,
+            subjectId: categoryModel.id,
+          );
+
       // Clear the selected parent state after saving
-      ref.read(selectedParentCategoryProvider.notifier).state = null;
+      ref.read(selectedParentCategoryProvider.notifier).clear();
       if (!context.mounted) return;
       context.pop(); // Go back after successful save
     } catch (e) {
       // Handle database save errors
       if (!context.mounted) return;
-      toastification.show(
-        context: context, // optional if you use ToastificationWrapper
-        title: Text('Failed to save category: $e'),
-        autoCloseDuration: const Duration(seconds: 5),
+
+      Toast.show(
+        'Failed to save category',
+        type: ToastificationType.error,
       );
     }
   }
@@ -80,5 +92,12 @@ class CategoryFormService {
 
     // Then delete the main category
     actions.delete(categoryModel.id ?? 0);
+
+    ref
+        .read(userActivityServiceProvider)
+        .logActivity(
+          action: UserActivityAction.categoryDeleted,
+          subjectId: categoryModel.id,
+        );
   }
 }
