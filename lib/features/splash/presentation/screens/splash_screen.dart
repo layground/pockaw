@@ -8,11 +8,14 @@ import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/router/app_router.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/core/services/device_info/device_info.dart';
 import 'package:pockaw/core/services/package_info/package_info_provider.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
-import 'package:flutter_hooks/flutter_hooks.dart'; // Import for useEffect
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:pockaw/features/user_activity/data/enum/user_activity_action.dart';
+import 'package:pockaw/features/user_activity/riverpod/user_activity_provider.dart'; // Import for useEffect
 
 class SplashScreen extends HookConsumerWidget {
   // Changed to HookConsumerWidget
@@ -26,9 +29,18 @@ class SplashScreen extends HookConsumerWidget {
         // Initialize database (this also triggers onCreate population services)
         ref.read(databaseProvider);
 
+        // Initialize device info service
+        ref.read(deviceInfoUtilProvider);
+
         // Initialize PackageInfoService
         final packageInfoService = ref.read(packageInfoServiceProvider);
         await packageInfoService.init();
+
+        // Initialize user activity service
+        final userActivityService = ref.read(userActivityServiceProvider);
+        await userActivityService.logActivity(
+          action: UserActivityAction.appLaunched,
+        );
 
         // Delete log file only for mobile platforms
         if (Platform.isAndroid || Platform.isIOS) {

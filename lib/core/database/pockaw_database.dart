@@ -12,6 +12,7 @@ import 'package:pockaw/core/database/daos/checklist_item_dao.dart';
 import 'package:pockaw/core/database/daos/goal_dao.dart';
 import 'package:pockaw/core/database/daos/user_dao.dart';
 import 'package:pockaw/core/database/daos/wallet_dao.dart'; // Import new DAO
+import 'package:pockaw/core/database/daos/user_activity_dao.dart';
 import 'package:pockaw/core/database/tables/budgets_table.dart';
 import 'package:pockaw/core/database/tables/category_table.dart';
 import 'package:pockaw/core/database/tables/transaction_table.dart';
@@ -19,6 +20,7 @@ import 'package:pockaw/core/database/tables/checklist_item_table.dart';
 import 'package:pockaw/core/database/tables/goal_table.dart';
 import 'package:pockaw/core/database/tables/users.dart';
 import 'package:pockaw/core/database/tables/wallet_table.dart'; // Import new table
+import 'package:pockaw/core/database/tables/user_activities_table.dart';
 import 'package:pockaw/core/services/data_population_service/category_population_service.dart';
 import 'package:pockaw/core/services/data_population_service/wallet_population_service.dart'; // Import new population service
 import 'package:pockaw/core/utils/logger.dart';
@@ -34,6 +36,7 @@ part 'pockaw_database.g.dart';
     Transactions,
     Wallets,
     Budgets,
+    UserActivities,
   ],
   daos: [
     UserDao,
@@ -43,13 +46,14 @@ part 'pockaw_database.g.dart';
     TransactionDao,
     WalletDao,
     BudgetDao,
+    UserActivityDao,
   ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 9; // Increment schema version for the new fields
+  int get schemaVersion => 10; // Increment schema version for the new fields
 
   @override
   MigrationStrategy get migration {
@@ -74,6 +78,19 @@ class AppDatabase extends _$AppDatabase {
         if (from < 9) {
           Log.i('Adding user_id column to wallets table...', label: 'database');
           await m.addColumn(wallets, wallets.userId);
+          return;
+        }
+
+        // Create user_activities table in version 10
+        if (from < 10) {
+          Log.i(
+            'Creating user_activities table by ensuring all tables exist...',
+            label: 'database',
+          );
+          // Create any missing tables (including the new user_activities table).
+          // Using createAll avoids referencing generated table symbols directly
+          // during migrations which can cause analyzer/codegen ordering issues.
+          await m.createAll();
           return;
         }
 

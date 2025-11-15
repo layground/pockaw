@@ -12,6 +12,7 @@ class MenuTileButton extends StatelessWidget {
   final List<List<dynamic>> icon;
   final List<List<dynamic>>? suffixIcon;
   final GestureTapCallback? onTap;
+  final GestureLongPressCallback? onLongPress;
   const MenuTileButton({
     super.key,
     required this.label,
@@ -19,12 +20,14 @@ class MenuTileButton extends StatelessWidget {
     this.subtitle,
     this.suffixIcon,
     this.onTap,
+    this.onLongPress,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
+      onLongPress: onLongPress,
       tileColor: context.purpleBackground,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppRadius.radius8),

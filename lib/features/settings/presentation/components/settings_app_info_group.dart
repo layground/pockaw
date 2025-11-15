@@ -30,6 +30,9 @@ class SettingsAppInfoGroup extends ConsumerWidget {
           label: 'Report Log File',
           icon: HugeIcons.strokeRoundedFileCorrupt,
           onTap: () => context.openBottomSheet(child: ReportLogFileDialog()),
+          onLongPress: () {
+            ref.read(userActivityServiceProvider).shareLogActivities();
+          },
         ),
         if (kDebugMode)
           MenuTileButton(
