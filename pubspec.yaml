@@ -37,6 +37,7 @@ dependencies:
   calendar_date_picker2: ^2.0.1
   collection: ^1.19.1
   country_flags: ^4.1.0
+  cached_network_image: ^3.4.1
   cupertino_calendar_picker: ^2.2.6
   device_info_plus: ^12.2.0
   device_region: ^1.4.0

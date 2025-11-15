@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,7 +5,6 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
-import 'package:pockaw/core/components/buttons/circle_button.dart';
 import 'package:pockaw/core/components/buttons/menu_tile_button.dart';
 import 'package:pockaw/core/components/chips/custom_currency_chip.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
@@ -20,6 +17,7 @@ import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/services/package_info/package_info_provider.dart';
 import 'package:pockaw/core/services/url_launcher/url_launcher.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
+import 'package:pockaw/features/main/presentation/components/profile_picture.dart';
 import 'package:pockaw/features/settings/presentation/components/report_log_file_dialog.dart';
 import 'package:pockaw/features/settings/presentation/components/settings_group_holder.dart';
 import 'package:pockaw/features/theme_switcher/presentation/components/theme_mode_switcher.dart';

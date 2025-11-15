@@ -17,14 +17,12 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/router/routes.dart';
-import 'package:pockaw/core/services/google/google_drive_service.dart';
 import 'package:pockaw/core/services/image_service/domain/image_state.dart';
 import 'package:pockaw/core/services/image_service/image_service.dart';
 import 'package:pockaw/core/services/keyboard_service/virtual_keyboard_service.dart';
 import 'package:pockaw/core/services/url_launcher/url_launcher.dart';
 import 'package:pockaw/features/authentication/presentation/components/create_first_wallet_field.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
-import 'package:pockaw/features/authentication/presentation/riverpod/user_form_provider.dart';
 import 'package:pockaw/features/backup_and_restore/presentation/components/restore_dialog.dart';
 import 'package:pockaw/features/image_picker/presentation/screens/image_picker_dialog.dart';
 import 'package:pockaw/features/settings/presentation/components/report_log_file_dialog.dart';
@@ -96,17 +94,14 @@ class LoginScreen extends HookConsumerWidget {
           ),
           PrimaryButton(
             label: 'Start Journey',
-            isLoading: ref.watch(startJourneyProvider).isLoading,
-            onPressed: () async {
-              final profilePicture = ref.read(loginImageProvider).savedPath;
-              await ref
-                  .read(startJourneyProvider.notifier)
-                  .startJourney(
-                    context: context,
-                    username: nameField.text,
-                    profilePicture: profilePicture,
-                  );
-            },
+            isLoading: ref.watch(authStateProvider.notifier).isLoading,
+            onPressed: () => ref
+                .read(authStateProvider.notifier)
+                .startJourney(
+                  context: context,
+                  username: nameField.text,
+                  profilePicture: ref.read(loginImageProvider).savedPath,
+                ),
           ).floatingBottomContained,
         ],
       ),

@@ -1,5 +1,6 @@
 import 'package:pockaw/core/components/custom_keyboard/custom_keyboard.dart';
 import 'package:flutter/material.dart';
+import 'package:pockaw/core/constants/app_colors.dart';
 
 extension PopupExtension on BuildContext {
   Future<T?> openBottomSheet<T>({
@@ -11,6 +12,7 @@ extension PopupExtension on BuildContext {
       context: this,
       showDragHandle: true,
       isScrollControlled: isScrollControlled,
+      backgroundColor: bottomSheetBackground,
       builder: builder ?? (context) => child,
     );
   }

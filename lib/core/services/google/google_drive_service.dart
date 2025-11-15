@@ -639,8 +639,6 @@ class DriveBackupState {
 
 /// Drive backup controller that wraps `GoogleDriveService` and auth.
 class DriveBackupNotifier extends Notifier<DriveBackupState> {
-  GoogleSignInAccount? _account;
-
   @override
   DriveBackupState build() => DriveBackupState();
 
@@ -648,21 +646,8 @@ class DriveBackupNotifier extends Notifier<DriveBackupState> {
     // No-op for now; implementations may respect cancellation callbacks.
   }
 
-  GoogleSignInAccount? get account => _account;
-
-  Future<void> signIn([Function(GoogleSignInAccount)? onSuccess]) async {
-    await ref.read(googleAuthProvider.notifier).signIn();
-    _account = ref.read(googleAuthProvider);
-    if (_account != null) onSuccess?.call(_account!);
-  }
-
   Future<GoogleSignInAccount?> lightweightAuthentication() async {
     return ref.read(googleAuthProvider);
-  }
-
-  Future<void> signOut() async {
-    await ref.read(googleAuthProvider.notifier).signOut();
-    _account = null;
   }
 
   Future<bool> backupToDrive({bool overwriteExisting = false}) async {
@@ -674,7 +659,6 @@ class DriveBackupNotifier extends Notifier<DriveBackupState> {
       // Ensure the user is signed in. If not, open the sign-in flow.
       if (ref.read(googleAuthProvider) == null) {
         await ref.read(googleAuthProvider.notifier).signIn();
-        _account = ref.read(googleAuthProvider);
       }
 
       // Ensure Drive scopes are granted before proceeding by attempting to
@@ -771,7 +755,6 @@ class DriveBackupNotifier extends Notifier<DriveBackupState> {
       // Ensure the user is signed in. If not, open the sign-in flow.
       if (ref.read(googleAuthProvider) == null) {
         await ref.read(googleAuthProvider.notifier).signIn();
-        _account = ref.read(googleAuthProvider);
       }
 
       // Ensure Drive scopes are granted before proceeding by attempting to

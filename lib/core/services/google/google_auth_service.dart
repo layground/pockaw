@@ -72,16 +72,23 @@ class GoogleAuthNotifier extends Notifier<GoogleSignInAccount?> {
   }
 
   /// Triggers the Google Sign-In UI.
-  Future<void> signIn() async {
+  Future<void> signIn({
+    Function(GoogleSignInAccount?)? onSuccess,
+    Function? onError,
+    Function? onCanceled,
+  }) async {
     try {
       // Make sure the instance is initialized with the client ID too.
       await _googleSignIn.initialize();
       if (GoogleSignIn.instance.supportsAuthenticate()) {
-        await GoogleSignIn.instance.authenticate();
+        state = await GoogleSignIn.instance.authenticate();
+        if (state != null) {
+          onSuccess?.call(state);
+        } else {
+          onCanceled?.call();
+        }
       } else {
-        throw Exception(
-          'This platform does not support Google authentication.',
-        );
+        onError?.call();
       }
     } catch (e, st) {
       String errorMessage = 'signIn failed: $e';

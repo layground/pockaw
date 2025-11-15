@@ -11,27 +11,9 @@ class ProfileCard extends ConsumerWidget {
     return Row(
       children: [
         CircleAvatar(
-          backgroundColor: colorScheme
-              .surfaceContainerHighest, // Use a surface color that adapts
+          backgroundColor: colorScheme.surfaceContainerHighest,
           radius: 50,
-          child: auth.profilePicture == null
-              ? const CircleIconButton(
-                  icon: HugeIcons.strokeRoundedUser,
-                  radius: 49,
-                  iconSize: 40,
-                  backgroundColor: AppColors.secondary100,
-                  foregroundColor: AppColors.secondary800,
-                )
-              : CircleAvatar(
-                  backgroundColor:
-                      colorScheme.surface, // Use a surface color that adapts
-                  backgroundImage: auth.profilePicture == null
-                      ? null
-                      : auth.profilePicture!.contains('http')
-                      ? NetworkImage(auth.profilePicture!)
-                      : FileImage(File(auth.profilePicture!)),
-                  radius: 49,
-                ),
+          child: ProfilePicture(radius: 45),
         ),
         const Gap(AppSpacing.spacing12),
         Column(
@@ -39,9 +21,8 @@ class ProfileCard extends ConsumerWidget {
           children: [
             Text(auth.name, style: AppTextStyles.body1),
             Text(
-              'The Clever Squirrel', // This text color will adapt via DefaultTextStyle or explicit style
-              style: AppTextStyles
-                  .body2, // Use onSurfaceVariant for secondary text
+              'The Clever Squirrel',
+              style: AppTextStyles.body2,
             ),
             const Gap(AppSpacing.spacing8),
             CustomCurrencyChip(

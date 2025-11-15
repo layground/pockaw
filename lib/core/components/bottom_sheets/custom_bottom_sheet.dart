@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/text_style_extensions.dart';
 
 class CustomBottomSheet extends StatelessWidget {
   final String title;
@@ -28,13 +29,15 @@ class CustomBottomSheet extends StatelessWidget {
               AppSpacing.spacing20,
               AppSpacing.spacing20,
             ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(title, style: AppTextStyles.body1),
-            const Gap(AppSpacing.spacing32),
-            child,
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(title, style: AppTextStyles.body1.bold),
+              const Gap(AppSpacing.spacing32),
+              child,
+            ],
+          ),
         ),
       ),
     );

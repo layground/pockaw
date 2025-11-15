@@ -94,9 +94,9 @@ class BackupInfoCards extends StatelessWidget {
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12.0),
-            border: Border.all(color: Colors.grey.shade200),
+            color: context.purpleBackground,
+            borderRadius: BorderRadius.circular(AppRadius.radius12),
+            border: Border.all(color: context.purpleBorderLighter),
           ),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -130,7 +130,7 @@ class BackupInfoCards extends StatelessWidget {
                       style: AppTextStyles.body3,
                     ),
                     Text(
-                      'Last action: ${lastBackup?['message']}',
+                      'Last action: ${lastBackup?['message'] ?? '—'}',
                       style: AppTextStyles.body3,
                     ),
                     Text(
@@ -147,9 +147,9 @@ class BackupInfoCards extends StatelessWidget {
         Container(
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(12.0),
-            border: Border.all(color: Colors.grey.shade200),
+            color: context.purpleBackground,
+            borderRadius: BorderRadius.circular(AppRadius.radius12),
+            border: Border.all(color: context.purpleBorderLighter),
           ),
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -183,7 +183,7 @@ class BackupInfoCards extends StatelessWidget {
                       style: AppTextStyles.body3,
                     ),
                     Text(
-                      'Last action: ${lastRestore?['message']}',
+                      'Last action: ${lastRestore?['message'] ?? '—'}',
                       style: AppTextStyles.body3,
                     ),
                     Text(

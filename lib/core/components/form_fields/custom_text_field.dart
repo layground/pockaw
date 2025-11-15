@@ -41,6 +41,9 @@ class CustomTextField extends TextField {
          ],
          decoration: InputDecoration(
            hintText: hint,
+           hintStyle: AppTextStyles.body3.copyWith(
+             color: context?.placeholderForeground,
+           ),
            label: label == null
                ? const SizedBox()
                : Padding(

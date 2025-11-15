@@ -9,18 +9,7 @@ class GreetingCard extends ConsumerWidget {
 
     return Row(
       children: [
-        auth.profilePicture == null
-            ? const CircleIconButton(
-                icon: HugeIcons.strokeRoundedUser,
-                radius: 25,
-                backgroundColor: AppColors.secondary100,
-                foregroundColor: AppColors.secondary800,
-              )
-            : CircleAvatar(
-                backgroundImage: auth.profilePicture!.contains('http')
-                    ? NetworkImage(auth.profilePicture!)
-                    : FileImage(File(auth.profilePicture!)),
-              ),
+        ProfilePicture(),
         const Gap(AppSpacing.spacing12),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
