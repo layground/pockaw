@@ -47,7 +47,7 @@ class RestoreDialog extends HookConsumerWidget {
 
         final userModel = user.toModel();
         ref.read(authStateProvider.notifier).setUser(userModel);
-        await ref.read(activeWalletProvider.notifier).initializeActiveWallet();
+        await ref.read(activeWalletProvider.notifier).refreshActiveWallet();
         isLoading.value = false;
 
         onSuccess?.call();

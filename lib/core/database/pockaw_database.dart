@@ -49,7 +49,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase([QueryExecutor? executor]) : super(executor ?? _openConnection());
 
   @override
-  int get schemaVersion => 8; // Increment schema version for the new fields
+  int get schemaVersion => 9; // Increment schema version for the new fields
 
   @override
   MigrationStrategy get migration {
@@ -70,7 +70,14 @@ class AppDatabase extends _$AppDatabase {
           return;
         }
 
-        if (kDebugMode) {
+        // Add user_id on wallets table in version 9
+        if (from < 9) {
+          Log.i('Adding user_id column to wallets table...', label: 'database');
+          await m.addColumn(wallets, wallets.userId);
+          return;
+        }
+
+        /* if (kDebugMode) {
           // In debug mode, clear and recreate everything for other migrations
           Log.i(
             'Debug mode: Wiping and recreating all tables for upgrade from $from to $to.',
@@ -81,7 +88,7 @@ class AppDatabase extends _$AppDatabase {
           Log.i('All tables recreated after debug upgrade.', label: 'database');
 
           return; // exit
-        }
+        } */
       },
     );
   }
@@ -230,6 +237,11 @@ class AppDatabase extends _$AppDatabase {
     await migrator.drop(categories);
     await migrator.createTable(categories);
 
+    await populateCategories();
+  }
+
+  /// Populate categories
+  Future<void> populateCategories() async {
     Log.i('Populating default categories...', label: 'database');
     await CategoryPopulationService.populate(this);
   }

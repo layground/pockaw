@@ -1,20 +1,24 @@
 import 'dart:io';
 
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pockaw/core/services/image_service/domain/image_state.dart';
-import 'package:pockaw/core/services/image_service/image_service.dart';
 import 'package:pockaw/core/services/image_service/riverpod/image_service_provider.dart';
 
-class ImageNotifier extends StateNotifier<ImageState> {
-  final ImageService _imageService;
-
-  ImageNotifier(this._imageService) : super(ImageState());
+/// Migrated from StateNotifier to Notifier (Riverpod 3 pattern)
+class ImageNotifier extends Notifier<ImageState> {
+  @override
+  ImageState build() {
+    // Initialize image service by watching the provider (ensures it's available).
+    ref.watch(imageServiceProvider);
+    return ImageState();
+  }
 
   Future<String?> pickImage() async {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
-      final image = await _imageService.pickImageFromGallery();
+      final imageService = ref.read(imageServiceProvider);
+      final image = await imageService.pickImageFromGallery();
       state = state.copyWith(imageFile: image, isLoading: false);
       return state.savedPath;
     } catch (e) {
@@ -31,7 +35,8 @@ class ImageNotifier extends StateNotifier<ImageState> {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
-      final image = await _imageService.takePhoto();
+      final imageService = ref.read(imageServiceProvider);
+      final image = await imageService.takePhoto();
       state = state.copyWith(imageFile: image, isLoading: false);
       return state.savedPath;
     } catch (e) {
@@ -49,7 +54,8 @@ class ImageNotifier extends StateNotifier<ImageState> {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
-      final savedPath = await _imageService.saveImage(state.imageFile!);
+      final imageService = ref.read(imageServiceProvider);
+      final savedPath = await imageService.saveImage(state.imageFile!);
       state = state.copyWith(savedPath: savedPath, isLoading: false);
       return savedPath;
     } catch (e) {
@@ -68,10 +74,11 @@ class ImageNotifier extends StateNotifier<ImageState> {
     state = state.copyWith(isLoading: true, error: null);
 
     try {
-      final success = await _imageService.deleteImage(state.savedPath!);
+      final imageService = ref.read(imageServiceProvider);
+      final success = await imageService.deleteImage(state.savedPath!);
 
       if (!success) {
-        state.clear();
+        state = state.clear();
       } else {
         state = state.copyWith(isLoading: false);
       }
@@ -112,7 +119,6 @@ class ImageNotifier extends StateNotifier<ImageState> {
   }
 }
 
-final imageProvider = StateNotifierProvider<ImageNotifier, ImageState>((ref) {
-  final imageService = ref.watch(imageServiceProvider);
-  return ImageNotifier(imageService);
-});
+final imageProvider = NotifierProvider<ImageNotifier, ImageState>(
+  ImageNotifier.new,
+);

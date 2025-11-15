@@ -36,7 +36,7 @@ class WalletSelectorBottomSheet extends ConsumerWidget {
             itemBuilder: (context, index) {
               final wallet = wallets[index];
               final bool isSelected =
-                  activeWalletAsync.valueOrNull?.id == wallet.id;
+                  activeWalletAsync.asData?.value?.id == wallet.id;
 
               return ListTile(
                 title: Text(wallet.name, style: AppTextStyles.body1),

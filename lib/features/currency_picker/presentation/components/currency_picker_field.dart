@@ -44,7 +44,7 @@ class CurrencyPickerField extends HookConsumerWidget {
               Routes.currencyListTile,
             );
             if (selectedCurrency != null) {
-              ref.read(currencyProvider.notifier).state = selectedCurrency;
+              ref.read(currencyProvider.notifier).setCurrency(selectedCurrency);
               currencyController.text = selectedCurrency.symbolWithCountry;
             }
           },

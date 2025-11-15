@@ -40,10 +40,12 @@ class CircleIconButton extends StatelessWidget {
           height: radius! * 2,
           child:
               child ??
-              HugeIcon(
-                icon: icon,
-                color: foregroundColor ?? Colors.black,
-                size: iconSize,
+              Center(
+                child: HugeIcon(
+                  icon: icon,
+                  color: foregroundColor ?? Colors.black,
+                  size: iconSize,
+                ),
               ),
         ),
       ),

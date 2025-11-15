@@ -7,7 +7,7 @@ class WalletAmountEditButton extends ConsumerWidget {
     return CustomIconButton(
       context,
       onPressed: () {
-        final activeWallet = ref.read(activeWalletProvider).valueOrNull;
+        final activeWallet = ref.read(activeWalletProvider).asData?.value;
         final defaultCurrencies = ref.read(currenciesStaticProvider);
 
         if (activeWallet != null) {
@@ -16,7 +16,7 @@ class WalletAmountEditButton extends ConsumerWidget {
             orElse: () => defaultCurrencies.first,
           );
 
-          ref.read(currencyProvider.notifier).state = selectedCurrency;
+          ref.read(currencyProvider.notifier).setCurrency(selectedCurrency);
 
           context.openBottomSheet(
             child: WalletFormBottomSheet(wallet: activeWallet),

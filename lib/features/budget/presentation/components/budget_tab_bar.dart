@@ -20,7 +20,7 @@ class BudgetTabBar extends HookConsumerWidget {
     // Update the selected period when the tab changes
     useEffect(() {
       void listener() {
-        selectedPeriodNotifier.state = budgetPeriods[tabController.index];
+        selectedPeriodNotifier.setPeriod(budgetPeriods[tabController.index]);
       }
 
       tabController.addListener(listener);

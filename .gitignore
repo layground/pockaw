@@ -54,3 +54,5 @@ firebase.json
 lib/firebase_options.dart
 
 .github/instructions/pockaw-instruction.instructions.md
+GEMINI.md
+*.txt

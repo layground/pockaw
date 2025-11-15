@@ -70,7 +70,7 @@ class TransactionFormState {
 
     final db = ref.read(databaseProvider);
     final imagePickerState = ref.read(imageProvider);
-    final activeWallet = ref.read(activeWalletProvider).valueOrNull;
+    final activeWallet = ref.read(activeWalletProvider).asData?.value;
 
     if (activeWallet == null || activeWallet.id == null) {
       Toast.show(
@@ -193,7 +193,7 @@ class TransactionFormState {
     newTransaction, // The new transaction (null for deletions)
   ) async {
     final db = ref.read(databaseProvider);
-    final activeWallet = ref.read(activeWalletProvider).valueOrNull;
+    final activeWallet = ref.read(activeWalletProvider).asData?.value;
 
     if (activeWallet == null || activeWallet.id == null) {
       Log.i(

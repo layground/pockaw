@@ -27,6 +27,8 @@ class ProfileCard extends ConsumerWidget {
                       colorScheme.surface, // Use a surface color that adapts
                   backgroundImage: auth.profilePicture == null
                       ? null
+                      : auth.profilePicture!.contains('http')
+                      ? NetworkImage(auth.profilePicture!)
                       : FileImage(File(auth.profilePicture!)),
                   radius: 49,
                 ),

@@ -17,7 +17,9 @@ class GreetingCard extends ConsumerWidget {
                 foregroundColor: AppColors.secondary800,
               )
             : CircleAvatar(
-                backgroundImage: FileImage(File(auth.profilePicture!)),
+                backgroundImage: auth.profilePicture!.contains('http')
+                    ? NetworkImage(auth.profilePicture!)
+                    : FileImage(File(auth.profilePicture!)),
               ),
         const Gap(AppSpacing.spacing12),
         Column(

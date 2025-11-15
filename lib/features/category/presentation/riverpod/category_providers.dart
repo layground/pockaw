@@ -1,4 +1,4 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/database/pockaw_database.dart';
 import 'package:pockaw/core/database/tables/category_table.dart'
@@ -64,6 +64,15 @@ List<CategoryModel> _buildCategoryHierarchy(
 
 /// Provider to temporarily hold the selected parent category when navigating
 /// back from the category picker screen.
-final selectedParentCategoryProvider = StateProvider<CategoryModel?>(
-  (ref) => null,
-);
+class SelectedParentCategoryNotifier extends Notifier<CategoryModel?> {
+  @override
+  CategoryModel? build() => null;
+
+  void setParent(CategoryModel? cat) => state = cat;
+  void clear() => state = null;
+}
+
+final selectedParentCategoryProvider =
+    NotifierProvider<SelectedParentCategoryNotifier, CategoryModel?>(
+      SelectedParentCategoryNotifier.new,
+    );

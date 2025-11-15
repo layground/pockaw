@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
 import 'package:pockaw/core/components/buttons/circle_button.dart';
 import 'package:pockaw/core/components/buttons/menu_tile_button.dart';
 import 'package:pockaw/core/components/chips/custom_currency_chip.dart';
@@ -33,6 +34,7 @@ part '../components/settings_data_group.dart';
 part '../components/settings_finance_group.dart';
 part '../components/settings_preferences_group.dart';
 part '../components/settings_profile_group.dart';
+part '../components/settings_session_group.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -54,6 +56,7 @@ class SettingsScreen extends ConsumerWidget {
             SettingsFinanceGroup(),
             SettingsDataGroup(),
             SettingsAppInfoGroup(),
+            SettingsSessionGroup(),
             AppVersionInfo(),
           ],
         ),

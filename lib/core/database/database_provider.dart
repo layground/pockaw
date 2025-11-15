@@ -1,4 +1,4 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pockaw/core/database/pockaw_database.dart';
 import 'package:pockaw/core/utils/logger.dart';
 

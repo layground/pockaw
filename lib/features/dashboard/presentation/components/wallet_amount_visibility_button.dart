@@ -9,7 +9,10 @@ class WalletAmountVisibilityButton extends ConsumerWidget {
     return CustomIconButton(
       context,
       onPressed: () {
-        ref.read(walletAmountVisibilityProvider.notifier).state = !isVisible;
+        // Use the notifier toggle method instead of mutating state directly
+        ref
+            .read(walletAmountVisibilityProvider.notifier)
+            .setVisible(!isVisible);
       },
       icon: isVisible
           ? HugeIcons.strokeRoundedView

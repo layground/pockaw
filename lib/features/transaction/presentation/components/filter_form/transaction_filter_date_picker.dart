@@ -37,7 +37,7 @@ class TransactionFilterDatePicker extends HookConsumerWidget {
         );
 
         if (range != null) {
-          selectedDateNotifier.state = range;
+          selectedDateNotifier.setRange(range);
           Log.d(range, label: 'selected date');
           controller.text =
               '${range.first?.toRelativeDayFormatted()} - ${range.last?.toRelativeDayFormatted()}';

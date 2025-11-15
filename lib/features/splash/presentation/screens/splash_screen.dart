@@ -40,7 +40,9 @@ class SplashScreen extends HookConsumerWidget {
         // Using ref.read(currenciesProvider.future) to get the future directly
         try {
           final currencyList = await ref.read(currenciesProvider.future);
-          ref.read(currenciesStaticProvider.notifier).state = currencyList;
+          ref
+              .read(currenciesStaticProvider.notifier)
+              .setCurrencies(currencyList);
           Log.d(currencyList.length, label: 'currencies populated');
         } catch (e) {
           Log.e(

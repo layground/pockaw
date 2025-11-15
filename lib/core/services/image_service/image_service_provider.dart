@@ -1,4 +1,4 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pockaw/core/services/image_service/image_service.dart';
 
 /// Provider for the [ImageService]

@@ -35,7 +35,7 @@ class BudgetDateRangePicker extends HookConsumerWidget {
         );
 
         if (dateRange != null) {
-          selectedDateNotifier.state = dateRange;
+          selectedDateNotifier.setRange(dateRange);
           dateFieldController.text =
               '${dateRange.first!.toDayShortMonthYear()} - ${dateRange.last!.toDayShortMonthYear()}';
         }

@@ -10,7 +10,7 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/backup_and_restore/presentation/components/backup_dialog.dart';
-import 'package:pockaw/features/backup_and_restore/presentation/components/drive_backup_section.dart';
+// import 'package:pockaw/features/backup_and_restore/presentation/components/drive_backup_section.dart';
 import 'package:pockaw/features/backup_and_restore/presentation/components/restore_dialog.dart';
 
 enum BackupSchedule { daily, weekly, monthly }
@@ -31,17 +31,30 @@ class BackupRestoreScreen extends HookConsumerWidget {
           children: [
             MenuTileButton(
               label: 'Backup Manually',
+              subtitle: const Text('Create a backup of your data locally'),
               icon: HugeIcons.strokeRoundedDatabaseExport,
               suffixIcon: null,
               onTap: () {
                 context.openBottomSheet(
                   isScrollControlled: false,
-                  child: BackupDialog(onSuccess: () => context.pop()),
+                  child: Container(),
+                  builder: (dialogContext) => CustomBottomSheet(
+                    title: 'Backup Data',
+                    child: BackupDialog(
+                      onSuccess: () {
+                        if (context.mounted) {
+                          dialogContext.pop();
+                          context.replace(Routes.main);
+                        }
+                      },
+                    ),
+                  ),
                 );
               },
             ),
             MenuTileButton(
               label: 'Restore Data',
+              subtitle: const Text('Restore your data from a local backup'),
               icon: HugeIcons.strokeRoundedDatabaseImport,
               onTap: () {
                 context.openBottomSheet(
@@ -65,7 +78,7 @@ class BackupRestoreScreen extends HookConsumerWidget {
                 );
               },
             ),
-            DriveBackupSection(),
+            // DriveBackupSection(),
           ],
         ),
       ),

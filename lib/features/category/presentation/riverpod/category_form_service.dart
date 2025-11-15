@@ -50,7 +50,7 @@ class CategoryFormService {
 
       Log.d(row, label: 'row affected');
       // Clear the selected parent state after saving
-      ref.read(selectedParentCategoryProvider.notifier).state = null;
+      ref.read(selectedParentCategoryProvider.notifier).clear();
       if (!context.mounted) return;
       context.pop(); // Go back after successful save
     } catch (e) {

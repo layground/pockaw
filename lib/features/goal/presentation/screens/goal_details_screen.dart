@@ -73,8 +73,13 @@ class GoalDetailsScreen extends ConsumerWidget {
           context,
           onPressed: () {
             if (goalAsync.value != null) {
-              ref.read(datePickerProvider.notifier).state =
-                  goalAsync.value!.goalDates;
+              ref
+                  .read(datePickerProvider.notifier)
+                  .setDate(goalAsync.value!.goalDates.first);
+
+              // if goalDates contains a range and you need filterDatePickerProvider,
+              // use that provider instead. The original code set datePickerProvider to goalDates;
+              // adjust as needed depending on expected shape.
 
               context.openBottomSheet(
                 child: GoalFormDialog(goal: goalAsync.value!),

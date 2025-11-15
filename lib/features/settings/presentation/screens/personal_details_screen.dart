@@ -69,7 +69,9 @@ class PersonalDetailsScreen extends HookConsumerWidget {
                               context,
                             ).colorScheme.surface, // Use colorScheme.surface
                             backgroundImage: profilePicture.value != null
-                                ? FileImage(profilePicture.value!)
+                                ? profilePicture.value!.path.contains('http')
+                                      ? NetworkImage(profilePicture.value!.path)
+                                      : FileImage(profilePicture.value!)
                                 : null,
                             radius: 69,
                             child: profilePicture.value == null
