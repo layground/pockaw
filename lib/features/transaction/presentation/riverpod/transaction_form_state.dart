@@ -16,6 +16,8 @@ import 'package:pockaw/core/services/image_service/riverpod/image_notifier.dart'
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
+import 'package:pockaw/features/user_activity/data/enum/user_activity_action.dart';
+import 'package:pockaw/features/user_activity/riverpod/user_activity_provider.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:toastification/toastification.dart';
 
@@ -135,6 +137,15 @@ class TransactionFormState {
         await _adjustWalletBalance(ref, initialTransaction, transactionToSave);
       }
 
+      ref
+          .read(userActivityServiceProvider)
+          .logActivity(
+            action: isEditing
+                ? UserActivityAction.transactionUpdated
+                : UserActivityAction.transactionCreated,
+            subjectId: savedTransactionId,
+          );
+
       if (context.mounted) {
         context.pop();
       }
@@ -177,6 +188,13 @@ class TransactionFormState {
           final id = await db.transactionDao.deleteTransaction(
             initialTransaction!.id!,
           );
+
+          ref
+              .read(userActivityServiceProvider)
+              .logActivity(
+                action: UserActivityAction.transactionDeleted,
+                subjectId: id,
+              );
 
           Log.d(id, label: 'deleted transaction id');
         },

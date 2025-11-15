@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/utils/logger.dart';
+import 'package:pockaw/features/user_activity/data/enum/user_activity_action.dart';
+import 'package:pockaw/features/user_activity/riverpod/user_activity_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 // import 'package:pockaw/features/wallet/data/repositories/wallet_repo.dart'; // No longer needed for hardcoded list
 
@@ -55,12 +57,35 @@ class ActiveWalletNotifier extends AsyncNotifier<WalletModel?> {
       state = AsyncValue.data(
         wallets.firstWhere((wallet) => wallet.id == walletID),
       );
+
+      ref
+          .read(userActivityServiceProvider)
+          .logActivity(
+            action: UserActivityAction.walletSelected,
+            subjectId: walletID,
+          );
     }
+  }
+
+  /// create new wallet and set as active wallet
+  Future<void> createNewActiveWallet(WalletModel newWallet) async {
+    final db = ref.read(databaseProvider);
+    Log.d(newWallet.toJson(), label: 'new wallet');
+    int id = await db.walletDao.addWallet(newWallet);
+    Log.d(id, label: 'new wallet');
+
+    ref
+        .read(userActivityServiceProvider)
+        .logActivity(
+          action: UserActivityAction.walletCreated,
+          subjectId: id,
+        );
   }
 
   void updateActiveWallet(WalletModel? newWalletData) {
     final currentActiveWallet = state.asData?.value;
     final currentActiveWalletId = currentActiveWallet?.id;
+    UserActivityAction action = UserActivityAction.walletSelected;
 
     if (newWalletData != null && newWalletData.id == currentActiveWalletId) {
       Log.d(
@@ -68,19 +93,29 @@ class ActiveWalletNotifier extends AsyncNotifier<WalletModel?> {
         label: 'ActiveWalletNotifier',
       );
       state = AsyncValue.data(newWalletData);
+      action = UserActivityAction.walletUpdated;
     } else if (newWalletData != null && currentActiveWalletId == null) {
       Log.d(
         'Setting active wallet (was null) to ID ${newWalletData.id} via updateActiveWallet: ${newWalletData.toJson()}',
         label: 'ActiveWalletNotifier',
       );
       state = AsyncValue.data(newWalletData);
+      action = UserActivityAction.walletSelected;
     } else if (newWalletData == null && currentActiveWalletId != null) {
       Log.d(
         'Clearing active wallet (was ID $currentActiveWalletId) via updateActiveWallet.',
         label: 'ActiveWalletNotifier',
       );
       state = const AsyncValue.data(null);
+      action = UserActivityAction.walletDeleted;
     }
+
+    ref
+        .read(userActivityServiceProvider)
+        .logActivity(
+          action: action,
+          subjectId: newWalletData?.id,
+        );
   }
 
   Future<void> refreshActiveWallet() async {

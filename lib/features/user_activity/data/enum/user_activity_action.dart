@@ -5,6 +5,7 @@
 enum UserActivityAction {
   // Authentication
   signIn,
+  signInWithSession,
   signOut,
 
   // Onboarding / journey
@@ -47,12 +48,14 @@ enum UserActivityAction {
   goalUpdated,
   goalDeleted,
 
+  walletSelected,
   walletCreated,
   walletUpdated,
   walletDeleted,
 
   categoryCreated,
   categoryUpdated,
+  categoryDeleted,
 
   // Media
   imageUploaded,

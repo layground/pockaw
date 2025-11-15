@@ -51,10 +51,12 @@ class SplashScreen extends HookConsumerWidget {
         final auth = ref.read(authStateProvider.notifier);
         final user = await auth.getSession();
         if (context.mounted) {
-          // Ensure context is still valid
           if (user == null) {
             GoRouter.of(rootNavKey.currentContext!).go(Routes.onboarding);
           } else {
+            ref
+                .read(userActivityServiceProvider)
+                .logActivity(action: UserActivityAction.signInWithSession);
             GoRouter.of(rootNavKey.currentContext!).go(Routes.main);
           }
         }

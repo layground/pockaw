@@ -8,6 +8,8 @@ import 'package:pockaw/features/goal/data/model/checklist_item_model.dart';
 import 'package:pockaw/features/goal/data/model/goal_model.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/checklist_actions_provider.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/goals_actions_provider.dart';
+import 'package:pockaw/features/user_activity/data/enum/user_activity_action.dart';
+import 'package:pockaw/features/user_activity/riverpod/user_activity_provider.dart';
 
 class GoalFormService {
   Future<void> save(
@@ -52,6 +54,15 @@ class GoalFormService {
         ),
       );
     }
+
+    ref
+        .read(userActivityServiceProvider)
+        .logActivity(
+          action: isEditing
+              ? UserActivityAction.goalUpdated
+              : UserActivityAction.goalCreated,
+          subjectId: goal.id,
+        );
 
     if (!context.mounted) return;
     context.pop();

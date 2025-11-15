@@ -175,6 +175,7 @@ class AppDatabase extends _$AppDatabase {
   Future<void> _deleteAllUsers() => delete(users).go();
   Future<void> _deleteAllWallets() => delete(wallets).go();
   Future<void> _deleteAllCategories() => delete(categories).go();
+  Future<void> _deleteAllUserActivities() => delete(userActivities).go();
 
   /// Clears all data from all tables in the correct order to respect foreign key constraints.
   Future<void> clearAllTables() async {
@@ -188,6 +189,7 @@ class AppDatabase extends _$AppDatabase {
       await _deleteAllUsers(); // Users table has no incoming FKs from other tables
       await _deleteAllWallets();
       await _deleteAllCategories();
+      await _deleteAllUserActivities();
     });
     Log.i('All database tables cleared.', label: 'database');
   }

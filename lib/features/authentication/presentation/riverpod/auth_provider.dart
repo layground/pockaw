@@ -152,6 +152,10 @@ class AuthNotifier extends Notifier<UserModel> {
               .read(activeWalletProvider.notifier)
               .setActiveWalletByID(wallet.id);
         }
+
+        ref
+            .read(userActivityServiceProvider)
+            .logActivity(action: UserActivityAction.signIn);
       } else {
         await _setSession();
         final currencyNotifier = ref.read(currenciesStaticProvider.notifier);
@@ -170,12 +174,11 @@ class AuthNotifier extends Notifier<UserModel> {
         int walletID = await db.walletDao.addWallet(wallet);
         Log.d(wallet.toJson(), label: 'selected wallet');
         ref.read(activeWalletProvider.notifier).setActiveWalletByID(walletID);
-      }
 
-      /// log user journey started
-      await ref
-          .read(userActivityServiceProvider)
-          .logActivity(action: UserActivityAction.journeyStarted);
+        ref
+            .read(userActivityServiceProvider)
+            .logActivity(action: UserActivityAction.journeyStarted);
+      }
 
       // Navigate to main screen
       if (context.mounted) {

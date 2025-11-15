@@ -24,6 +24,8 @@ import 'package:pockaw/features/budget/presentation/riverpod/budget_providers.da
 import 'package:pockaw/features/budget/presentation/riverpod/date_picker_provider.dart'
     as budget_date_provider; // Alias to avoid conflict
 import 'package:pockaw/features/category/data/model/category_model.dart';
+import 'package:pockaw/features/user_activity/data/enum/user_activity_action.dart';
+import 'package:pockaw/features/user_activity/riverpod/user_activity_provider.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:toastification/toastification.dart';
@@ -181,6 +183,16 @@ class BudgetFormScreen extends HookConsumerWidget {
           await budgetDao.addBudget(budgetToSave);
           Toast.show('Budget created!', type: ToastificationType.success);
         }
+
+        ref
+            .read(userActivityServiceProvider)
+            .logActivity(
+              action: isEditing
+                  ? UserActivityAction.budgetUpdated
+                  : UserActivityAction.budgetCreated,
+              subjectId: budgetToSave.id,
+            );
+
         if (context.mounted) context.pop();
       } catch (e) {
         Log.e('Failed to save budget: $e');
@@ -214,6 +226,14 @@ class BudgetFormScreen extends HookConsumerWidget {
                     context.pop(); // close detail screen
 
                     ref.read(budgetDaoProvider).deleteBudget(budgetId!);
+
+                    ref
+                        .read(userActivityServiceProvider)
+                        .logActivity(
+                          action: UserActivityAction.budgetDeleted,
+                          subjectId: budgetId,
+                        );
+
                     Toast.show('Budget deleted!');
                   },
                 ),
