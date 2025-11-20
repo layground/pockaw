@@ -114,33 +114,42 @@ class DriveBackupSection extends ConsumerWidget {
         ),
         Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+          padding: const EdgeInsets.all(AppSpacing.spacing16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(AppRadius.radius12),
+            border: Border.all(color: context.breakLineColor),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            spacing: AppSpacing.spacing4,
             children: [
-              Gap(AppSpacing.spacing2),
               Text(
-                state.status == BackupStatus.loading
-                    ? 'Backup in progress...'
-                    : 'Google Drive Backup Status',
+                'Google Drive Backup Info',
                 style: AppTextStyles.body3.bold,
               ),
-              state.status == BackupStatus.loading
-                  ? LinearProgressIndicator(
-                      value: state.status == BackupStatus.loading ? null : 0.0,
-                      color: AppColors.primary,
-                      borderRadius: BorderRadius.circular(AppRadius.radius12),
-                      minHeight: 6.0,
-                    )
-                  : Text(
-                      state.status == BackupStatus.error
-                          ? 'Error: ${state.message}'
-                          : 'Perform backup or restore to see status',
-                      style: AppTextStyles.body3,
-                    ),
+              const Gap(AppSpacing.spacing8),
+              Text(
+                'Backup File: ${state.driveDirectory ?? 'Not set'}',
+                style: AppTextStyles.body3,
+              ),
+              const Gap(AppSpacing.spacing4),
+              Text(
+                'Last Backup Time: ${state.lastDriveBackupTime != null ? state.lastDriveBackupTime!.toDayMonthYearTime12Hour() : 'No backups yet'}',
+                style: AppTextStyles.body3,
+              ),
+              // last restore time
+              const Gap(AppSpacing.spacing4),
+              Text(
+                'Last Restore Time: ${state.lastDriveRestoreTime != null ? state.lastDriveRestoreTime!.toDayMonthYearTime12Hour() : 'No restores yet'}',
+                style: AppTextStyles.body3,
+              ),
+
+              if (state.status == BackupStatus.loading)
+                LinearProgressIndicator(
+                  value: null,
+                  color: AppColors.primary,
+                  borderRadius: BorderRadius.circular(AppRadius.radius12),
+                  minHeight: 6.0,
+                ),
             ],
           ),
         ),

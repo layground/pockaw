@@ -11,20 +11,20 @@ final _lastActivityInfoProvider =
       final activities = await dao.getByUserId(uid);
 
       // backup-related actions (local and cloud)
-      final backupActions = [
-        UserActivityAction.backupCreated,
-        UserActivityAction.backupFailed,
-        UserActivityAction.cloudBackupCreated,
-        UserActivityAction.cloudBackupFailed,
-      ].map(userActivityActionToJson).toSet();
+      final backupActions = {
+        UserActivityAction.backupCreated.nameAsString,
+        UserActivityAction.backupFailed.nameAsString,
+        UserActivityAction.cloudBackupCreated.nameAsString,
+        UserActivityAction.cloudBackupFailed.nameAsString,
+      };
 
       // restore-related actions (local and cloud)
-      final restoreActions = [
-        UserActivityAction.backupRestored,
-        UserActivityAction.restoreFailed,
-        UserActivityAction.cloudBackupRestored,
-        UserActivityAction.cloudRestoreFailed,
-      ].map(userActivityActionToJson).toSet();
+      final restoreActions = {
+        UserActivityAction.backupRestored.nameAsString,
+        UserActivityAction.restoreFailed.nameAsString,
+        UserActivityAction.cloudBackupRestored.nameAsString,
+        UserActivityAction.cloudRestoreFailed.nameAsString,
+      };
 
       // helper to pick the latest activity from a set of action names
       Map<String, dynamic>? pickLatest(Set<String> actions) {
@@ -36,21 +36,21 @@ final _lastActivityInfoProvider =
         final latest = list.first;
 
         final createdBackupNames = {
-          userActivityActionToJson(UserActivityAction.backupCreated),
-          userActivityActionToJson(UserActivityAction.cloudBackupCreated),
+          UserActivityAction.backupCreated.nameAsString,
+          UserActivityAction.cloudBackupCreated.nameAsString,
         };
         final failedBackupNames = {
-          userActivityActionToJson(UserActivityAction.backupFailed),
-          userActivityActionToJson(UserActivityAction.cloudBackupFailed),
+          UserActivityAction.backupFailed.nameAsString,
+          UserActivityAction.cloudBackupFailed.nameAsString,
         };
 
         final restoredNames = {
-          userActivityActionToJson(UserActivityAction.backupRestored),
-          userActivityActionToJson(UserActivityAction.cloudBackupRestored),
+          UserActivityAction.backupRestored.nameAsString,
+          UserActivityAction.cloudBackupRestored.nameAsString,
         };
         final failedRestoreNames = {
-          userActivityActionToJson(UserActivityAction.restoreFailed),
-          userActivityActionToJson(UserActivityAction.cloudRestoreFailed),
+          UserActivityAction.restoreFailed.nameAsString,
+          UserActivityAction.cloudRestoreFailed.nameAsString,
         };
 
         bool? success;

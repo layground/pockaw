@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hugeicons/hugeicons.dart';
@@ -13,20 +12,17 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
-import 'package:pockaw/core/database/daos/user_dao.dart';
 import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/extensions/screen_utils_extensions.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/core/router/routes.dart';
-import 'package:pockaw/core/services/data_backup_service/data_backup_service_provider.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/backup_and_restore/presentation/components/backup_dialog.dart';
 import 'package:pockaw/features/backup_and_restore/presentation/components/restore_dialog.dart';
 import 'package:pockaw/features/backup_and_restore/presentation/riverpod/backup_controller.dart';
 import 'package:pockaw/features/user_activity/data/enum/user_activity_action.dart';
 import 'package:pockaw/features/user_activity/riverpod/user_activity_provider.dart';
-import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:toastification/toastification.dart';
 
 part '../../../backup_and_restore/presentation/components/local_backup_section.dart';
@@ -52,8 +48,6 @@ class BackupRestoreScreen extends StatelessWidget {
             LocalBackupSection(),
             Divider(color: context.breakLineColor),
             DriveBackupSection(),
-            Divider(color: context.breakLineColor),
-            BackupInfoCards(),
           ],
         ),
       ),

@@ -36,8 +36,6 @@ class UserActivityService {
     final resolvedUserId = userId ?? currentUser.id;
     if (resolvedUserId == null) return; // nothing to log without a user id
 
-    final actionName = userActivityActionToJson(action);
-
     // get device info using provider deviceInfoUtilProvider
     final deviceModel = await ref.read(deviceInfoUtilProvider).getDeviceModel();
 
@@ -47,7 +45,7 @@ class UserActivityService {
     await db.userActivityDao.logActivity(
       userId: resolvedUserId,
       subjectId: subjectId,
-      action: actionName,
+      action: action.nameAsString,
       success: success,
       appVersion: appVersion,
       deviceModel: deviceModel,

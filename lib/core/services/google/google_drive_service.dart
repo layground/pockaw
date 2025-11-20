@@ -65,6 +65,15 @@ class GoogleDriveService {
     }
   }
 
+  /// Returns last backup zip file on Google Drive
+  Future<DriveFileSummary?> getLatestBackup() async {
+    final backups = await searchBackups();
+    if (backups.isNotEmpty) {
+      return backups.first;
+    }
+    return null;
+  }
+
   // Download a specific backup file
   Future<File?> downloadBackup(String fileId) async {
     final headers = await _headers();

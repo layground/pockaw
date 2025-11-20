@@ -3,6 +3,9 @@
 /// Use the `.toJson()` / `userActivityActionFromJson()` helpers when
 /// serializing to/from strings (for JSON, DB export, or logging).
 enum UserActivityAction {
+  // None
+  none,
+
   // Authentication
   signIn,
   signInWithSession,
@@ -69,15 +72,16 @@ enum UserActivityAction {
   databaseCleared,
 }
 
-/// Convert enum to a simple string name for JSON/DB.
-String userActivityActionToJson(UserActivityAction action) =>
-    action.toString().split('.').last;
-
 /// Convert string name back to enum. Returns `null` if input is null.
 UserActivityAction? userActivityActionFromJson(String? name) {
   if (name == null) return null;
   return UserActivityAction.values.firstWhere(
-    (e) => e.toString().split('.').last == name,
+    (e) => e.nameAsString == name,
     orElse: () => UserActivityAction.appLaunched,
   );
+}
+
+extension UserActivityActionExtension on UserActivityAction {
+  /// Convert enum to a simple string name for JSON/DB.
+  String get nameAsString => toString().split('.').last;
 }

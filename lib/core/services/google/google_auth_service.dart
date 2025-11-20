@@ -177,6 +177,9 @@ final googleAuthProvider =
 /// `GoogleAuthService` class. This delegates to the GoogleSignIn SDK
 /// directly and provides the same async helpers as the notifier.
 class GoogleAuthService {
+  GoogleSignInAccount? user;
+  GoogleSignInClientAuthorization? auth;
+
   // Drive scope kept in sync with the notifier above
   static const List<String> _driveScopes = [drive.DriveApi.driveScope];
 
@@ -189,22 +192,21 @@ class GoogleAuthService {
 
   Future<bool> hasDriveAccess() async {
     await GoogleSignIn.instance.initialize();
-    final user = await GoogleSignIn.instance.attemptLightweightAuthentication();
+    user = await GoogleSignIn.instance.attemptLightweightAuthentication();
     if (user == null) return false;
-    final auth = await user.authorizationClient.authorizationForScopes(
+    auth = await user?.authorizationClient.authorizationForScopes(
       _driveScopes,
     );
     return auth != null;
   }
 
   Future<bool> requestDriveAccess() async {
-    final user = await GoogleSignIn.instance.attemptLightweightAuthentication();
     if (user == null) {
       Log.e('No user signed in to request scopes.', label: 'Auth');
       return false;
     }
     try {
-      await user.authorizationClient.authorizeScopes(_driveScopes);
+      await user?.authorizationClient.authorizeScopes(_driveScopes);
       Log.i('Drive scope request result: true', label: 'Auth');
       return true;
     } catch (e, st) {
@@ -218,13 +220,12 @@ class GoogleAuthService {
   }
 
   Future<Map<String, String>?> getAuthHeaders() async {
-    final user = await GoogleSignIn.instance.attemptLightweightAuthentication();
     if (user == null) {
       Log.e('No user to get auth headers.', label: 'Auth');
       return null;
     }
     try {
-      final headers = await user.authorizationClient.authorizationHeaders(
+      final headers = await user?.authorizationClient.authorizationHeaders(
         _driveScopes,
       );
       if (headers == null) {

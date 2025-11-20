@@ -5,106 +5,7 @@ class LocalBackupSection extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isLoading = useState(false);
-
-    Future<void> backup() async {
-      Toast.show(
-        'Starting backup...',
-        type: ToastificationType.info,
-      );
-      final path = await ref
-          .read(dataBackupServiceProvider)
-          .createBackupZipFile();
-      if (await path.exists()) {
-        Toast.show(
-          'Backup saved to:\n$path',
-          type: ToastificationType.success,
-        );
-
-        await ref
-            .read(userActivityServiceProvider)
-            .logActivity(action: UserActivityAction.backupCreated);
-
-        if (context.mounted) {
-          context.pop();
-          context.replace(Routes.main);
-        }
-      } else {
-        Toast.show(
-          'Backup failed or cancelled.',
-          type: ToastificationType.error,
-        );
-
-        await ref
-            .read(userActivityServiceProvider)
-            .logActivity(action: UserActivityAction.backupFailed);
-      }
-    }
-
-    Future<void> restore() async {
-      isLoading.value = true;
-
-      Toast.show('Starting restore...', type: ToastificationType.info);
-      final zipFile = await ref
-          .read(dataBackupServiceProvider)
-          .pickBackupZipFile();
-
-      if (zipFile == null) {
-        isLoading.value = false;
-        Toast.show(
-          'Restore cancelled.',
-          type: ToastificationType.error,
-        );
-        return;
-      }
-
-      final success = await ref
-          .read(dataBackupServiceProvider)
-          .restoreDataFromFile(zipFile);
-
-      if (success) {
-        Toast.show(
-          'Data restored successfully! refreshing app...',
-          type: ToastificationType.success,
-        );
-        // Optionally, restart app or refresh all data providers
-        // For now, just show toast. User might need to restart for full effect.
-
-        final user = await ref.read(userDaoProvider).getFirstUser();
-        if (user == null) {
-          Toast.show('Restore failed.', type: ToastificationType.error);
-          return;
-        }
-
-        final userModel = user.toModel();
-        ref.read(authStateProvider.notifier).setUser(userModel);
-        await ref.read(activeWalletProvider.notifier).refreshActiveWallet();
-        isLoading.value = false;
-
-        await Future.delayed(
-          const Duration(milliseconds: 1500),
-        );
-
-        await ref
-            .read(userActivityServiceProvider)
-            .logActivity(action: UserActivityAction.backupRestored);
-
-        if (context.mounted) {
-          context.pop();
-          context.replace(Routes.main);
-        }
-      } else {
-        await ref
-            .read(userActivityServiceProvider)
-            .logActivity(action: UserActivityAction.restoreFailed);
-
-        isLoading.value = false;
-        Toast.show(
-          'Restore failed or cancelled.',
-          type: ToastificationType.error,
-        );
-      }
-    }
+    final state = ref.watch(backupControllerProvider);
 
     return Column(
       spacing: AppSpacing.spacing8,
@@ -121,7 +22,33 @@ class LocalBackupSection extends HookConsumerWidget {
                 context: context,
                 title: 'Backup Data',
                 confirmText: 'Select Directory for Backup',
-                onConfirm: backup,
+                onConfirm: () async {
+                  Toast.show(
+                    'Starting backup...',
+                    type: ToastificationType.info,
+                  );
+
+                  final zip = await ref
+                      .read(backupControllerProvider.notifier)
+                      .backupLocally();
+
+                  if (zip != null && await zip.exists()) {
+                    Toast.show(
+                      'Backup saved to:\n${zip.path}',
+                      type: ToastificationType.success,
+                    );
+
+                    if (context.mounted) {
+                      context.pop();
+                      context.replace(Routes.main);
+                    }
+                  } else {
+                    Toast.show(
+                      'Backup failed or cancelled.',
+                      type: ToastificationType.error,
+                    );
+                  }
+                },
                 showCancelButton: false,
                 content: BackupDialog(),
               ),
@@ -139,12 +66,72 @@ class LocalBackupSection extends HookConsumerWidget {
                 title: 'Restore Data',
                 context: context,
                 confirmText: 'Select Backup Folder',
-                onConfirm: restore,
+                onConfirm: () async {
+                  Toast.show(
+                    'Starting restore...',
+                    type: ToastificationType.info,
+                  );
+
+                  final success = await ref
+                      .read(backupControllerProvider.notifier)
+                      .restoreFromLocalFile();
+
+                  if (success) {
+                    Toast.show(
+                      'Data restored successfully! refreshing app...',
+                      type: ToastificationType.success,
+                    );
+
+                    if (context.mounted) {
+                      context.pop();
+                      context.replace(Routes.main);
+                    }
+                  } else {
+                    Toast.show(
+                      'Restore failed or cancelled.',
+                      type: ToastificationType.error,
+                    );
+                  }
+                },
                 showCancelButton: false,
                 content: RestoreDialog(),
               ),
             );
           },
+        ),
+        // show local backup and restore info card. card contains backup directory and last action date time
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(AppSpacing.spacing16),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(AppRadius.radius12),
+            border: Border.all(color: context.breakLineColor),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Local Backup Info',
+                style: AppTextStyles.body3.bold,
+              ),
+              const Gap(AppSpacing.spacing8),
+              Text(
+                'Backup Directory: ${state.localDirectory ?? 'Not set'}',
+                style: AppTextStyles.body3,
+              ),
+              const Gap(AppSpacing.spacing4),
+              Text(
+                'Last Backup Time: ${state.lastLocalBackupTime != null ? state.lastLocalBackupTime!.toDayMonthYearTime12Hour() : 'No backups yet'}',
+                style: AppTextStyles.body3,
+              ),
+              // last restore time
+              const Gap(AppSpacing.spacing4),
+              Text(
+                'Last Restore Time: ${state.lastLocalRestoreTime != null ? state.lastLocalRestoreTime!.toDayMonthYearTime12Hour() : 'No restores yet'}',
+                style: AppTextStyles.body3,
+              ),
+            ],
+          ),
         ),
       ],
     );
