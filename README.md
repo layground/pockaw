@@ -30,6 +30,12 @@
 
 > _\* Coming Soon_
 
+## 🔔 Subscribe to Release Notification
+
+Don't forget to watch or subscribe to receive release notifications.
+
+![Pockaw subscribe to GitHub release notification](https://raw.githubusercontent.com/layground/pockaw/master/assets/promotions/pockaw-release-subscription.gif)
+
 ## 📝 Overview
 
 **Hello, Pockies!** say goodbye to spreadsheet-based expense and budget tracking! **Pockaw** is your new intuitive, user-friendly app for seamless pocket and wallet-sized finance buddy, tailored for both personal use and small businesses. **Pockaw** offers powerful features to simplify cash flow management:
