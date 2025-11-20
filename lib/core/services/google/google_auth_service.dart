@@ -188,6 +188,7 @@ class GoogleAuthService {
   Future<void> signOut() => GoogleSignIn.instance.disconnect();
 
   Future<bool> hasDriveAccess() async {
+    await GoogleSignIn.instance.initialize();
     final user = await GoogleSignIn.instance.attemptLightweightAuthentication();
     if (user == null) return false;
     final auth = await user.authorizationClient.authorizationForScopes(

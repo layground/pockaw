@@ -5,8 +5,8 @@ class DriveBackupSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(driveBackupProvider);
-    final notifier = ref.read(driveBackupProvider.notifier);
+    final state = ref.watch(backupControllerProvider);
+    final notifier = ref.read(backupControllerProvider.notifier);
 
     return Column(
       spacing: AppSpacing.spacing8,
@@ -16,7 +16,7 @@ class DriveBackupSection extends ConsumerWidget {
           subtitle: const Text('Save your data securely in the cloud'),
           icon: HugeIcons.strokeRoundedCloudUpload,
           onTap: () {
-            if (state.isLoading) return;
+            if (state.status == BackupStatus.loading) return;
 
             context.openBottomSheet(
               isScrollControlled: false,
@@ -49,7 +49,7 @@ class DriveBackupSection extends ConsumerWidget {
           icon: HugeIcons.strokeRoundedCloudDownload,
           subtitle: const Text('Restore your data from a cloud backup'),
           onTap: () {
-            if (state.isLoading) return;
+            if (state.status == BackupStatus.loading) return;
 
             context.openBottomSheet(
               isScrollControlled: false,
@@ -70,7 +70,43 @@ class DriveBackupSection extends ConsumerWidget {
                 ),
                 onConfirm: () async {
                   context.pop();
-                  await notifier.restoreFromDrive();
+                  await notifier.fetchDriveBackups();
+                  if (context.mounted) {
+                    context.openBottomSheet(
+                      isScrollControlled: false,
+                      child: AlertBottomSheet(
+                        title: 'Restore Data',
+                        context: context,
+                        confirmText: 'Start Restore',
+                        showCancelButton: false,
+                        content: SizedBox(
+                          width: context.screenSize.height * 0.7,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: state.driveBackups.length,
+                            itemBuilder: (context, index) {
+                              final backup = state.driveBackups[index];
+                              return ListTile(
+                                title: Text(
+                                  'Backup from ${backup.modifiedTime?.toLocal().toString().split('.').first ?? 'Unknown Date'}',
+                                ),
+                                subtitle: Text(
+                                  'Size: ${(backup.size > 0) ? '${(backup.size / (1024 * 1024)).toStringAsFixed(2)} MB' : 'Unknown Size'}',
+                                ),
+                                onTap: () async {
+                                  context.pop();
+                                  await notifier.restoreFromDrive(backup.id);
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                        onConfirm: () async {
+                          context.pop();
+                        },
+                      ),
+                    );
+                  }
                 },
               ),
             );
@@ -87,21 +123,21 @@ class DriveBackupSection extends ConsumerWidget {
             children: [
               Gap(AppSpacing.spacing2),
               Text(
-                state.isLoading
+                state.status == BackupStatus.loading
                     ? 'Backup in progress...'
                     : 'Google Drive Backup Status',
                 style: AppTextStyles.body3.bold,
               ),
-              state.isLoading
+              state.status == BackupStatus.loading
                   ? LinearProgressIndicator(
-                      value: state.progress,
+                      value: state.status == BackupStatus.loading ? null : 0.0,
                       color: AppColors.primary,
                       borderRadius: BorderRadius.circular(AppRadius.radius12),
                       minHeight: 6.0,
                     )
                   : Text(
-                      state.error != null
-                          ? 'Error: ${state.error}'
+                      state.status == BackupStatus.error
+                          ? 'Error: ${state.message}'
                           : 'Perform backup or restore to see status',
                       style: AppTextStyles.body3,
                     ),

@@ -117,7 +117,7 @@ class BackupInfoCards extends StatelessWidget {
                           size: 14,
                         ),
                         Text(
-                          'Backup info',
+                          'Backup History',
                           style: AppTextStyles.body3.bold,
                         ),
                       ],
@@ -169,7 +169,7 @@ class BackupInfoCards extends StatelessWidget {
                           size: 14,
                         ),
                         Text(
-                          'Restore info',
+                          'Restore History',
                           style: AppTextStyles.body3.bold,
                         ),
                       ],

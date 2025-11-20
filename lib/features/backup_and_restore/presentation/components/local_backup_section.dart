@@ -12,8 +12,10 @@ class LocalBackupSection extends HookConsumerWidget {
         'Starting backup...',
         type: ToastificationType.info,
       );
-      final path = await ref.read(dataBackupServiceProvider).backupData();
-      if (path) {
+      final path = await ref
+          .read(dataBackupServiceProvider)
+          .createBackupZipFile();
+      if (await path.exists()) {
         Toast.show(
           'Backup saved to:\n$path',
           type: ToastificationType.success,
@@ -43,7 +45,22 @@ class LocalBackupSection extends HookConsumerWidget {
       isLoading.value = true;
 
       Toast.show('Starting restore...', type: ToastificationType.info);
-      final success = await ref.read(dataBackupServiceProvider).restoreData();
+      final zipFile = await ref
+          .read(dataBackupServiceProvider)
+          .pickBackupZipFile();
+
+      if (zipFile == null) {
+        isLoading.value = false;
+        Toast.show(
+          'Restore cancelled.',
+          type: ToastificationType.error,
+        );
+        return;
+      }
+
+      final success = await ref
+          .read(dataBackupServiceProvider)
+          .restoreDataFromFile(zipFile);
 
       if (success) {
         Toast.show(
