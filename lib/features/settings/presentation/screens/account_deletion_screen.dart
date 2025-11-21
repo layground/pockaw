@@ -111,16 +111,19 @@ class AccountDeletionScreen extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Warning: Account Deletion is Permanent',
-                  style: AppTextStyles.body2.copyWith(color: AppColors.red),
+                  'Warning: Account Deletion is PERMANENT!',
+                  style: AppTextStyles.body2.copyWith(color: AppColors.red500),
                 ),
                 const Gap(AppSpacing.spacing12),
                 Text(
-                  'If you decided proceed, all your application data, including financial records, '
+                  'If you decided to proceed, all your application data, including financial records, '
                   'goals, and settings, will be permanently erased from this device. '
                   'This action cannot be undone or irreversible. '
                   'The application will be reset to its initial state, '
-                  'and you will be logged out.',
+                  'and you will be logged out. \n\n'
+                  'This will not delete any backup files '
+                  'you may have stored on local and/or Google Drive. '
+                  'If you are not confident, please backup to local or Google Drive first.',
                   style: AppTextStyles.body2,
                 ),
                 const Gap(AppSpacing.spacing16),
