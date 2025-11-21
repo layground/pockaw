@@ -270,6 +270,9 @@ class BackupController extends Notifier<BackupState> {
       final success = await _backupService.restoreDataFromFile(file);
 
       if (success) {
+        // Refresh active wallet
+        await ref.read(activeWalletProvider.notifier).setDefaultWallet();
+
         state = state.copyWith(
           status: BackupStatus.success,
           message: 'Restore complete! Please restart the app.',
@@ -363,7 +366,7 @@ class BackupController extends Notifier<BackupState> {
       await ref.read(authStateProvider.notifier).setUser(userModel);
 
       // Refresh active wallet
-      await ref.read(activeWalletProvider.notifier).refreshActiveWallet();
+      await ref.read(activeWalletProvider.notifier).setDefaultWallet();
 
       // Small delay to let UI settle (matches previous behavior in widget)
       await Future.delayed(const Duration(milliseconds: 1500));

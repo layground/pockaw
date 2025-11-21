@@ -50,6 +50,21 @@ class ActiveWalletNotifier extends AsyncNotifier<WalletModel?> {
     state = AsyncValue.data(wallet);
   }
 
+  Future<void> setDefaultWallet() async {
+    final db = ref.read(databaseProvider);
+    final wallets = await db.walletDao.watchAllWallets().first;
+    if (wallets.isNotEmpty) {
+      state = AsyncValue.data(wallets.first);
+
+      ref
+          .read(userActivityServiceProvider)
+          .logActivity(
+            action: UserActivityAction.walletSelected,
+            subjectId: wallets.first.id,
+          );
+    }
+  }
+
   Future<void> setActiveWalletByID(int walletID) async {
     final db = ref.read(databaseProvider);
     final wallets = await db.walletDao.watchAllWallets().first;
