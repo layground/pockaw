@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  connectivity_plus
   device_region
   emoji_picker_flutter
   file_selector_windows

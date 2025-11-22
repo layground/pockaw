@@ -7,6 +7,7 @@ class DriveBackupSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(backupControllerProvider);
     final notifier = ref.read(backupControllerProvider.notifier);
+    final connectionStatus = ref.watch(connectionStatusProvider);
 
     return Column(
       spacing: AppSpacing.spacing8,
@@ -15,8 +16,12 @@ class DriveBackupSection extends ConsumerWidget {
           label: 'Backup to Google Drive',
           subtitle: const Text('Save your data securely in the cloud'),
           icon: HugeIcons.strokeRoundedCloudUpload,
+          disabled: connectionStatus.value == ConnectionStatus.offline,
           onTap: () {
-            if (state.status == BackupStatus.loading) return;
+            if (state.status == BackupStatus.loading ||
+                connectionStatus.value == ConnectionStatus.offline) {
+              return;
+            }
 
             context.openBottomSheet(
               isScrollControlled: false,
@@ -48,8 +53,12 @@ class DriveBackupSection extends ConsumerWidget {
           label: 'Restore from Google Drive',
           icon: HugeIcons.strokeRoundedCloudDownload,
           subtitle: const Text('Restore your data from a cloud backup'),
+          disabled: connectionStatus.value == ConnectionStatus.offline,
           onTap: () {
-            if (state.status == BackupStatus.loading) return;
+            if (state.status == BackupStatus.loading ||
+                connectionStatus.value == ConnectionStatus.offline) {
+              return;
+            }
 
             context.openBottomSheet(
               isScrollControlled: false,

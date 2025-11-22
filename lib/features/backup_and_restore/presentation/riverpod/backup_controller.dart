@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:path/path.dart';
+import 'package:pockaw/core/components/dialogs/toast.dart';
 import 'package:pockaw/core/services/data_backup_service/data_backup_service.dart';
 import 'package:pockaw/core/services/data_backup_service/data_backup_service_provider.dart';
 import 'package:pockaw/core/services/google/google_auth_service.dart';
@@ -110,6 +111,7 @@ class BackupController extends Notifier<BackupState> {
           status: BackupStatus.error,
           message: 'Permission denied',
         );
+        Toast.show('Permission denied. Please grant access to Google Drive.');
         return;
       }
 
@@ -118,7 +120,11 @@ class BackupController extends Notifier<BackupState> {
         message: 'Creating local backup...',
       );
 
-      final zip = await _backupService.createBackupZipFile();
+      final zip = await _backupService.createBackupZipFile(
+        deleteImageBackupDirectory: true,
+        deleteDataBackupFile: true,
+        deleteBackupZipFile: false,
+      );
 
       state = state.copyWith(
         status: BackupStatus.loading,
@@ -141,6 +147,8 @@ class BackupController extends Notifier<BackupState> {
             userId: ref.read(authStateProvider).id,
           );
 
+      Toast.show('Backup uploaded successfully!');
+
       // Cleanup local file
       if (await zip.exists()) await zip.delete();
     } catch (e, st) {
@@ -156,6 +164,8 @@ class BackupController extends Notifier<BackupState> {
             action: UserActivityAction.cloudBackupFailed,
             userId: ref.read(authStateProvider).id,
           );
+
+      Toast.show('Backup failed');
     }
   }
 
@@ -168,7 +178,11 @@ class BackupController extends Notifier<BackupState> {
     );
 
     try {
-      final zip = await _backupService.createBackupZipFile();
+      final zip = await _backupService.createBackupZipFile(
+        deleteDataBackupFile: true,
+        deleteImageBackupDirectory: true,
+        deleteBackupZipFile: false,
+      );
 
       if (await zip.exists()) {
         state = state.copyWith(
@@ -186,6 +200,7 @@ class BackupController extends Notifier<BackupState> {
               userId: ref.read(authStateProvider).id,
             );
 
+        Toast.show('Backup saved to: ${zip.path}');
         return zip;
       } else {
         state = state.copyWith(
@@ -196,6 +211,9 @@ class BackupController extends Notifier<BackupState> {
         ref
             .read(userActivityServiceProvider)
             .logActivity(action: UserActivityAction.restoreFailed);
+
+        Toast.show('Backup failed or cancelled.');
+
         return null;
       }
     } catch (e, st) {
@@ -208,6 +226,7 @@ class BackupController extends Notifier<BackupState> {
         status: BackupStatus.error,
         message: 'Backup failed: $e',
       );
+      Toast.show('Backup failed');
       return null;
     }
   }
@@ -270,10 +289,13 @@ class BackupController extends Notifier<BackupState> {
       final success = await _backupService.restoreDataFromFile(file);
 
       if (success) {
+        // Refresh active wallet
+        await ref.read(activeWalletProvider.notifier).setDefaultWallet();
+
         state = state.copyWith(
           status: BackupStatus.success,
           message: 'Restore complete! Please restart the app.',
-          lastLocalRestoreTime: DateTime.now(),
+          lastDriveRestoreTime: DateTime.now(),
         );
 
         ref
@@ -283,6 +305,8 @@ class BackupController extends Notifier<BackupState> {
               metadata: file.path,
               userId: ref.read(authStateProvider).id,
             );
+
+        Toast.show('Restore complete');
       } else {
         state = state.copyWith(
           status: BackupStatus.error,
@@ -295,6 +319,8 @@ class BackupController extends Notifier<BackupState> {
               action: UserActivityAction.cloudRestoreFailed,
               userId: ref.read(authStateProvider).id,
             );
+
+        Toast.show('Restore failed');
       }
 
       if (await file.exists()) await file.delete();
@@ -304,7 +330,17 @@ class BackupController extends Notifier<BackupState> {
         status: BackupStatus.error,
         message: 'Restore failed: $e',
       );
+      Toast.show('Restore failed');
     }
+  }
+
+  /// Restore last backup from google drive
+  Future<void> restoreLastBackupFromDrive() async {
+    await fetchDriveBackups();
+    if (state.driveBackups.isEmpty) return;
+
+    final latestBackup = state.driveBackups.first;
+    await restoreFromDrive(latestBackup.id);
   }
 
   // --- Local Restore Flow ---
@@ -339,6 +375,9 @@ class BackupController extends Notifier<BackupState> {
         ref
             .read(userActivityServiceProvider)
             .logActivity(action: UserActivityAction.restoreFailed);
+
+        Toast.show('Restore failed');
+
         return false;
       }
 
@@ -356,6 +395,8 @@ class BackupController extends Notifier<BackupState> {
             .read(userActivityServiceProvider)
             .logActivity(action: UserActivityAction.restoreFailed);
 
+        Toast.show('Restore failed');
+
         return false;
       }
 
@@ -363,7 +404,7 @@ class BackupController extends Notifier<BackupState> {
       await ref.read(authStateProvider.notifier).setUser(userModel);
 
       // Refresh active wallet
-      await ref.read(activeWalletProvider.notifier).refreshActiveWallet();
+      await ref.read(activeWalletProvider.notifier).setDefaultWallet();
 
       // Small delay to let UI settle (matches previous behavior in widget)
       await Future.delayed(const Duration(milliseconds: 1500));
@@ -378,6 +419,8 @@ class BackupController extends Notifier<BackupState> {
           .read(userActivityServiceProvider)
           .logActivity(action: UserActivityAction.backupRestored);
 
+      Toast.show('Restore complete');
+
       return true;
     } catch (e, st) {
       Log.e('restoreFromLocalFile failed: $e\n$st', label: 'BackupController');
@@ -390,6 +433,8 @@ class BackupController extends Notifier<BackupState> {
       ref
           .read(userActivityServiceProvider)
           .logActivity(action: UserActivityAction.restoreFailed);
+
+      Toast.show('Restore failed');
 
       return false;
     }

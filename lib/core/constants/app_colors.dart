@@ -233,6 +233,12 @@ extension ColorExtensions on BuildContext {
   Color get floatingContainer =>
       themeMode == ThemeMode.dark ? AppColors.dark : AppColors.light;
 
+  Color get disabledTileBackground =>
+      themeMode == ThemeMode.dark ? AppColors.neutral900 : AppColors.neutral300;
+
+  Color get disabledTileForeground =>
+      themeMode == ThemeMode.dark ? AppColors.neutral500 : AppColors.neutral700;
+
   Color get disabledText =>
       themeMode == ThemeMode.dark ? AppColors.neutral700 : AppColors.neutral400;
 

@@ -11,14 +11,17 @@ class MenuTileButton extends StatelessWidget {
   final Widget? subtitle;
   final List<List<dynamic>> icon;
   final List<List<dynamic>>? suffixIcon;
+  final bool disabled;
   final GestureTapCallback? onTap;
   final GestureLongPressCallback? onLongPress;
+
   const MenuTileButton({
     super.key,
     required this.label,
     required this.icon,
     this.subtitle,
     this.suffixIcon,
+    this.disabled = false,
     this.onTap,
     this.onLongPress,
   });
@@ -28,7 +31,9 @@ class MenuTileButton extends StatelessWidget {
     return ListTile(
       onTap: onTap,
       onLongPress: onLongPress,
-      tileColor: context.purpleBackground,
+      tileColor: disabled
+          ? context.disabledTileBackground
+          : context.purpleBackground,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppRadius.radius8),
         // Use context.colors.outline or a custom color that adapts
@@ -41,18 +46,22 @@ class MenuTileButton extends StatelessWidget {
       subtitle: subtitle != null
           ? DefaultTextStyle.merge(
               style: AppTextStyles.body3.copyWith(
-                color: context.colors.onSurfaceVariant,
+                color: disabled
+                    ? context.disabledTileForeground
+                    : context.colors.onSurfaceVariant,
               ), // Subtitle color
               child: subtitle!,
             )
           : null,
       leading: HugeIcon(
         icon: icon,
-        color: context.purpleIcon,
+        color: disabled ? context.disabledTileForeground : context.purpleIcon,
       ), // Leading icon uses primary color
       trailing: HugeIcon(
         icon: suffixIcon ?? HugeIcons.strokeRoundedArrowRight01,
-        color: context.isDarkMode
+        color: disabled
+            ? context.disabledTileForeground
+            : context.isDarkMode
             ? context.colors.onSurfaceVariant
             : AppColors.purpleAlpha50,
         size: 20,

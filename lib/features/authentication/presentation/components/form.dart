@@ -42,13 +42,7 @@ class Form extends HookConsumerWidget {
           const Gap(AppSpacing.spacing20),
           const LoginInfo(),
           const Gap(AppSpacing.spacing20),
-          CustomTextButton(
-            label: 'Sign in with Google',
-            icon: Image.asset('assets/icon/search.png', width: 24, height: 24),
-            onPressed: () => ref
-                .read(authStateProvider.notifier)
-                .signInWithGoogle(context: context),
-          ),
+          const GoogleSignInButton(),
           const Gap(AppSpacing.spacing56),
           const Gap(AppSpacing.spacing56),
         ],

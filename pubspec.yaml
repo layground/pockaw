@@ -34,10 +34,11 @@ dependencies:
   archive: ^4.0.7
   auto_size_text: ^3.0.0
   auto_size_text_field: ^2.2.4
+  cached_network_image: ^3.4.1
   calendar_date_picker2: ^2.0.1
   collection: ^1.19.1
+  connectivity_plus: ^7.0.0
   country_flags: ^4.1.0
-  cached_network_image: ^3.4.1
   cupertino_calendar_picker: ^2.2.6
   device_info_plus: ^12.2.0
   device_region: ^1.4.0

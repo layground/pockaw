@@ -17,6 +17,7 @@ import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/extensions/screen_utils_extensions.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/core/services/connectivity_service/connectivity_service.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/backup_and_restore/presentation/components/backup_dialog.dart';
 import 'package:pockaw/features/backup_and_restore/presentation/components/restore_dialog.dart';

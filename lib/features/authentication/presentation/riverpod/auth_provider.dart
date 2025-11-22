@@ -7,6 +7,7 @@ import 'package:pockaw/core/components/dialogs/toast.dart';
 import 'package:pockaw/core/database/daos/user_dao.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/core/services/connectivity_service/connectivity_service.dart';
 import 'package:pockaw/core/services/google/google_auth_service.dart';
 import 'package:pockaw/core/services/keyboard_service/virtual_keyboard_service.dart';
 import 'package:pockaw/core/utils/locale_utils.dart';
@@ -55,6 +56,16 @@ class AuthNotifier extends Notifier<UserModel> {
     required BuildContext context,
   }) async {
     KeyboardService.closeKeyboard();
+
+    // exit if no connection available
+    final connectionStatus = ref.read(connectionStatusProvider);
+    if (connectionStatus.value == ConnectionStatus.offline) {
+      Toast.show(
+        'No internet connection. Please check your connection and try again.',
+        type: ToastificationType.error,
+      );
+      return;
+    }
 
     ref
         .read(googleAuthProvider.notifier)

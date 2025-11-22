@@ -21,33 +21,16 @@ class LocalBackupSection extends HookConsumerWidget {
               child: AlertBottomSheet(
                 context: context,
                 title: 'Backup Data',
-                confirmText: 'Select Directory for Backup',
+                confirmText: 'Continue Backup',
                 onConfirm: () async {
                   Toast.show(
                     'Starting backup...',
                     type: ToastificationType.info,
                   );
 
-                  final zip = await ref
-                      .read(backupControllerProvider.notifier)
-                      .backupLocally();
+                  ref.read(backupControllerProvider.notifier).backupLocally();
 
-                  if (zip != null && await zip.exists()) {
-                    Toast.show(
-                      'Backup saved to:\n${zip.path}',
-                      type: ToastificationType.success,
-                    );
-
-                    if (context.mounted) {
-                      context.pop();
-                      context.replace(Routes.main);
-                    }
-                  } else {
-                    Toast.show(
-                      'Backup failed or cancelled.',
-                      type: ToastificationType.error,
-                    );
-                  }
+                  context.pop();
                 },
                 showCancelButton: false,
                 content: BackupDialog(),
