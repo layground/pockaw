@@ -120,7 +120,11 @@ class BackupController extends Notifier<BackupState> {
         message: 'Creating local backup...',
       );
 
-      final zip = await _backupService.createBackupZipFile();
+      final zip = await _backupService.createBackupZipFile(
+        deleteImageBackupDirectory: true,
+        deleteDataBackupFile: true,
+        deleteBackupZipFile: false,
+      );
 
       state = state.copyWith(
         status: BackupStatus.loading,
@@ -174,7 +178,11 @@ class BackupController extends Notifier<BackupState> {
     );
 
     try {
-      final zip = await _backupService.createBackupZipFile();
+      final zip = await _backupService.createBackupZipFile(
+        deleteDataBackupFile: true,
+        deleteImageBackupDirectory: true,
+        deleteBackupZipFile: false,
+      );
 
       if (await zip.exists()) {
         state = state.copyWith(
@@ -324,6 +332,15 @@ class BackupController extends Notifier<BackupState> {
       );
       Toast.show('Restore failed');
     }
+  }
+
+  /// Restore last backup from google drive
+  Future<void> restoreLastBackupFromDrive() async {
+    await fetchDriveBackups();
+    if (state.driveBackups.isEmpty) return;
+
+    final latestBackup = state.driveBackups.first;
+    await restoreFromDrive(latestBackup.id);
   }
 
   // --- Local Restore Flow ---

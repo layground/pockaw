@@ -26,7 +26,9 @@ class DataBackupService {
 
   static const String _jsonFileName = 'data.json';
   static const String _imagesDirName = 'images';
-  static const String _tempBackupDirName = 'pockaw-temp-backup';
+  static const String _defaultBackupDirectory = '/storage/emulated/0/Documents';
+  static const String _backupDir = 'PockawBackup';
+  // static const String _tempBackupDirName = 'pockaw-temp-backup';
   static const String _tempRestoreDirName = 'pockaw-temp-restore';
 
   // ---------------------------------------------------------------------------
@@ -35,13 +37,17 @@ class DataBackupService {
 
   /// 1. Create ZIP File
   /// Creates a temporary folder, exports JSON + images, zips it, and returns the file.
-  Future<File> createBackupZipFile() async {
+  Future<File> createBackupZipFile({
+    bool deleteImageBackupDirectory = false,
+    bool deleteDataBackupFile = false,
+    bool deleteBackupZipFile = true,
+  }) async {
     Log.i('Creating backup ZIP file...', label: 'Backup');
     Directory? tempBackupDir;
 
     try {
       // A. Prepare temp directory
-      tempBackupDir = await _getTempDirectory(_tempBackupDirName);
+      tempBackupDir = await _getDefaultDirectory();
       final tempImagesDir = Directory(
         p.join(tempBackupDir.path, _imagesDirName),
       );
@@ -70,13 +76,21 @@ class DataBackupService {
           .split('.')[0];
       final zipFileName = 'Pockaw_Backup_$timestamp.zip';
       final zipFile = File(
-        p.join((await getTemporaryDirectory()).path, zipFileName),
+        p.join(tempBackupDir.path, zipFileName),
       );
 
       final encoder = ZipFileEncoder();
       encoder.create(zipFile.path);
       await encoder.addDirectory(tempBackupDir, includeDirName: false);
       encoder.close();
+
+      if (deleteImageBackupDirectory) {
+        tempImagesDir.delete(recursive: true);
+      }
+
+      if (deleteDataBackupFile) {
+        jsonFile.delete();
+      }
 
       Log.i('Backup ZIP created at: ${zipFile.path}', label: 'Backup');
       return zipFile;
@@ -85,7 +99,9 @@ class DataBackupService {
       rethrow;
     } finally {
       // Cleanup temp folder (but keep the zip file)
-      if (tempBackupDir != null && await tempBackupDir.exists()) {
+      if (deleteBackupZipFile &&
+          tempBackupDir != null &&
+          await tempBackupDir.exists()) {
         await tempBackupDir.delete(recursive: true);
       }
     }
@@ -207,6 +223,29 @@ class DataBackupService {
   // ---------------------------------------------------------------------------
   // PRIVATE HELPERS
   // ---------------------------------------------------------------------------
+
+  /// Perform file picker to select directory
+  Future<Directory> _getDefaultDirectory() async {
+    try {
+      /// declare default internal android directory path
+      final String defaultDirectory = Platform.isAndroid
+          ? _defaultBackupDirectory
+          : (await getApplicationDocumentsDirectory()).path;
+
+      final backupDirectory = Directory(p.join(defaultDirectory, _backupDir));
+      Log.d(backupDirectory, label: 'Selected Directory');
+
+      return backupDirectory;
+    } catch (e, st) {
+      Log.e('Failed to pick directory: $e\n$st', label: 'Backup Error');
+
+      final String defaultDirectory =
+          (await getApplicationDocumentsDirectory()).path;
+      final backupDirectory = Directory(p.join(defaultDirectory, _backupDir));
+
+      return backupDirectory;
+    }
+  }
 
   Future<Directory> _getTempDirectory(String dirName) async {
     final tempDir = await getTemporaryDirectory();
