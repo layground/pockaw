@@ -50,30 +50,15 @@ class LocalBackupSection extends HookConsumerWidget {
                 context: context,
                 confirmText: 'Select Backup Folder',
                 onConfirm: () async {
-                  Toast.show(
-                    'Starting restore...',
-                    type: ToastificationType.info,
-                  );
-
                   final success = await ref
                       .read(backupControllerProvider.notifier)
                       .restoreFromLocalFile();
 
                   if (success) {
-                    Toast.show(
-                      'Data restored successfully! refreshing app...',
-                      type: ToastificationType.success,
-                    );
-
                     if (context.mounted) {
                       context.pop();
                       context.replace(Routes.main);
                     }
-                  } else {
-                    Toast.show(
-                      'Restore failed or cancelled.',
-                      type: ToastificationType.error,
-                    );
                   }
                 },
                 showCancelButton: false,
