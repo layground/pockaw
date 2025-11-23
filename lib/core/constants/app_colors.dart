@@ -242,6 +242,12 @@ extension ColorExtensions on BuildContext {
   Color get disabledText =>
       themeMode == ThemeMode.dark ? AppColors.neutral700 : AppColors.neutral400;
 
+  Color get cardTitleText =>
+      themeMode == ThemeMode.dark ? AppColors.neutral100 : AppColors.neutral900;
+
+  Color get cardSubtitleText =>
+      themeMode == ThemeMode.dark ? AppColors.neutral300 : AppColors.neutral700;
+
   Color get progressBackground => themeMode == ThemeMode.dark
       ? AppColors.neutral900
       : AppColors.purpleAlpha10;

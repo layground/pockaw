@@ -45,6 +45,7 @@ dependencies:
   dotted_border: ^3.1.0
   drift: ^2.29.0
   drift_flutter: ^0.2.7
+  equatable: ^2.0.7
   emoji_picker_flutter: ^4.3.0
   expandable: ^5.0.1
   file_picker: ^10.2.0
