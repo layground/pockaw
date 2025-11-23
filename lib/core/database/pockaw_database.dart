@@ -1,9 +1,5 @@
-import 'dart:io';
-
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
-import 'package:flutter/foundation.dart';
-import 'package:path/path.dart';
+import 'package:drift_flutter/drift_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pockaw/core/database/daos/budget_dao.dart';
 import 'package:pockaw/core/database/daos/category_dao.dart';
@@ -274,17 +270,16 @@ class AppDatabase extends _$AppDatabase {
     Log.i('Populating default wallets...', label: 'database');
     await WalletPopulationService.populate(this);
   }
-}
 
-/// https://github.com/simolus3/drift/issues/188
-LazyDatabase _openConnection() {
-  return LazyDatabase(() async {
-    final dbFolder =
-        await getApplicationSupportDirectory(); // Use support directory for database
-    final file = File(join(dbFolder.path, 'pockaw.sqlite'));
-    if (kDebugMode) {
-      // await file.delete(); // Uncomment for fresh DB on every run in debug
-    }
-    return NativeDatabase(file);
-  });
+  static QueryExecutor _openConnection() {
+    return driftDatabase(
+      name: 'my_database',
+      native: const DriftNativeOptions(
+        // By default, `driftDatabase` from `package:drift_flutter` stores the
+        // database files in `getApplicationDocumentsDirectory()`.
+        databaseDirectory: getApplicationSupportDirectory,
+      ),
+      // If you need web support, see https://drift.simonbinder.eu/platforms/web/
+    );
+  }
 }

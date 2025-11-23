@@ -19,6 +19,18 @@ extension DoubleFormattingExtensions on double {
     }
   }
 
+  String toCompact({
+    String? symbol,
+    int? decimalDigits,
+    String? locale,
+  }) {
+    return NumberFormat.compactCurrency(
+      symbol: symbol,
+      decimalDigits: decimalDigits,
+      locale: locale,
+    ).format(this);
+  }
+
   /// Formats the double as a human-readable short price (e.g., 1K, 2,5M)
   /// Uses comma as decimal separator and up to 2 decimals for M, K, etc.
   String toShortPriceFormat() {

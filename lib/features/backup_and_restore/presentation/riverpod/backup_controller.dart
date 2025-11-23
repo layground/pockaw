@@ -12,6 +12,7 @@ import 'package:pockaw/features/user_activity/data/enum/user_activity_action.dar
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:pockaw/core/database/daos/user_dao.dart';
+import 'package:toastification/toastification.dart';
 
 // Placeholder providers if not globally exported yet.
 // Ensure these match your actual provider definitions.
@@ -381,6 +382,8 @@ class BackupController extends Notifier<BackupState> {
         return false;
       }
 
+      Toast.show('Starting restore...');
+
       // After successful restore, load the first user from DB and set auth state.
       final userRow = await ref.read(userDaoProvider).getFirstUser();
       if (userRow == null) {
@@ -395,7 +398,7 @@ class BackupController extends Notifier<BackupState> {
             .read(userActivityServiceProvider)
             .logActivity(action: UserActivityAction.restoreFailed);
 
-        Toast.show('Restore failed');
+        Toast.show('Restore failed', type: ToastificationType.error);
 
         return false;
       }
@@ -419,7 +422,10 @@ class BackupController extends Notifier<BackupState> {
           .read(userActivityServiceProvider)
           .logActivity(action: UserActivityAction.backupRestored);
 
-      Toast.show('Restore complete');
+      Toast.show(
+        'Data restored successfully! refreshing app...',
+        type: ToastificationType.success,
+      );
 
       return true;
     } catch (e, st) {
@@ -434,7 +440,7 @@ class BackupController extends Notifier<BackupState> {
           .read(userActivityServiceProvider)
           .logActivity(action: UserActivityAction.restoreFailed);
 
-      Toast.show('Restore failed');
+      Toast.show('Restore failed', type: ToastificationType.error);
 
       return false;
     }
@@ -474,6 +480,7 @@ class BackupController extends Notifier<BackupState> {
 
   /// Returns the configured drive backup directory, or null if not set.
   Future<void> fetchLastDriveBackupFile() async {
+    if (Platform.isWindows || Platform.isMacOS || Platform.isLinux) return;
     if (!(await _authService.hasDriveAccess())) return;
 
     final backupFile = await _driveService.getLatestBackup();

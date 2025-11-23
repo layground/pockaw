@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
+import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
 import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
@@ -24,6 +25,7 @@ import 'package:pockaw/features/authentication/presentation/components/create_fi
 import 'package:pockaw/features/authentication/presentation/components/google_signin_button.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/backup_and_restore/presentation/components/restore_dialog.dart';
+import 'package:pockaw/features/backup_and_restore/presentation/riverpod/backup_controller.dart';
 import 'package:pockaw/features/image_picker/presentation/screens/image_picker_dialog.dart';
 import 'package:pockaw/features/settings/presentation/components/report_log_file_dialog.dart';
 import 'package:pockaw/features/theme_switcher/presentation/components/theme_mode_switcher.dart';
@@ -42,17 +44,29 @@ class LoginScreen extends HookConsumerWidget {
     final nameField = useTextEditingController();
 
     void restoreData() {
-      showModalBottomSheet(
-        context: context,
-        showDragHandle: true,
-        builder: (dialogContext) => CustomBottomSheet(
+      context.openBottomSheet(
+        child: AlertBottomSheet(
           title: 'Restore Data',
-          child: RestoreDialog(
+          context: context,
+          confirmText: 'Continue Restore',
+          showCancelButton: false,
+          onConfirm: () async {
+            final success = await ref
+                .read(backupControllerProvider.notifier)
+                .restoreFromLocalFile();
+
+            if (success) {
+              if (context.mounted) {
+                context.pop();
+                context.replace(Routes.main);
+              }
+            }
+          },
+          content: RestoreDialog(
             onSuccess: () async {
               await Future.delayed(Duration(milliseconds: 1500));
 
               if (context.mounted) {
-                dialogContext.pop();
                 context.replace(Routes.main);
               }
             },

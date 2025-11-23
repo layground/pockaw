@@ -134,7 +134,7 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 
 ## 📆 Roadmap
 
-### Q1 (Closed Testing #1) - Core Setup & MVP Launch ![100%](https://progress-bar.xyz/100/?width=40)
+### Round 1 (Closed Testing #1) - Core Setup & MVP Launch ![100%](https://progress-bar.xyz/100/?width=40)
 
 * [x] **Splash & Onboarding** - Design and implement welcoming splash screen and onboarding process.
 * [x] **Authentication?** - Just fill personal data for offline use, no registration.
@@ -143,7 +143,7 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 * [x] **Custom Categories** - Enable users to create and manage custom categories for better personalization.
 * [x] **Publish on GitHub** - The first fully offline experience of Pockaw.
 
-### Q2 (Open Beta) - Goals & Budgeting with Progression ![100%](https://progress-bar.xyz/100/?width=40)
+### Round 2 (Open Beta) - Goals & Budgeting with Progression ![100%](https://progress-bar.xyz/100/?width=40)
 
 * [x] **Goals Tracking** - Create goals and its checklist items to breakdown your target.
 * [x] **Budget Tracking** - Set monthly/weekly spending budgets and get the visualization.
@@ -153,14 +153,14 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 * [x] **Basic Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
 * [x] **Open Beta Test** - Pockaw will be available on **Google PlayStore** as Early Access open beta test.
 
-### Q3 - Enhanced User Experience ![0%](https://progress-bar.xyz/0/?width=40)
+### Round 3 - Enhanced User Experience ![0%](https://progress-bar.xyz/0/?width=40)
 
 * [ ] **Advanced Summary & Analytics** - Add charts for monthly income/expense trends, custom filters, and analytics.
 * [ ] **Advanced Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
 * [ ] **Transaction Reminder** - Forgetting things? Chill! Pockaw will remind you to record transactions.
 * [ ] **User Reminders & Notifications** - Implement notifications for due dates and spending goals.
 
-### Q4 - Shields On! ![0%](https://progress-bar.xyz/0/?width=40)
+### Round 4 - Shields On! ![0%](https://progress-bar.xyz/0/?width=40)
 
 * [ ] **Release on Web** - Get a wider view and perspective of Pockaw (of course need a network connection).
 * [ ] **Release on Desktop** - Windows users will get the official desktop look and feel of Pockaw. **

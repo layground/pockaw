@@ -72,6 +72,7 @@ extension DateTimeExtension on DateTime {
         .inDays;
 
     String baseText;
+    bool useComma = differenceInDays == 0 || differenceInDays == 1;
     if (differenceInDays == 0) {
       baseText = 'Today';
     } else if (differenceInDays == 1) {
@@ -84,7 +85,12 @@ extension DateTimeExtension on DateTime {
       final time = use24Hours
           ? DateFormat('HH.mm').format(this)
           : DateFormat('hh.mm a').format(this);
-      return '$baseText, $time';
+
+      if (useComma) {
+        return '$baseText, $time';
+      }
+
+      return '$baseText $time';
     }
     return baseText;
   }

@@ -54,9 +54,6 @@ class RecentTransactionList extends ConsumerWidget {
               const Gap(AppSpacing.spacing16),
               ListView.separated(
                 shrinkWrap: true,
-                padding: const EdgeInsets.only(
-                  bottom: AppSpacing.spacing20,
-                ), // Adjusted bottom padding
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: displayTransactions.length,
                 itemBuilder: (context, index) {

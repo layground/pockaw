@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:pockaw/core/utils/color_generator.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
+import 'package:pockaw/features/reports/data/models/category_chart_model.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 
 part 'transaction_model.freezed.dart';
@@ -53,5 +55,30 @@ extension TransactionList on List<TransactionModel> {
     double total = 0;
     total = totalIncome - totalExpenses;
     return total;
+  }
+
+  List<CategoryChartData> get chartDataList {
+    final Map<String, double> categoryExpenses = {};
+
+    for (var transaction in this) {
+      if (transaction.transactionType == TransactionType.expense) {
+        final categoryName = transaction.category.title;
+        categoryExpenses.update(
+          categoryName,
+          (value) => value + transaction.amount,
+          ifAbsent: () => transaction.amount,
+        );
+      }
+    }
+
+    return categoryExpenses.entries.map(
+      (entry) {
+        return CategoryChartData(
+          category: entry.key,
+          amount: entry.value,
+          color: ColorGenerator.generateRandomColor(),
+        );
+      },
+    ).toList();
   }
 }

@@ -19,6 +19,7 @@ import 'package:pockaw/core/extensions/screen_utils_extensions.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
+import 'package:pockaw/features/dashboard/presentation/components/analytic_chart_reports.dart';
 import 'package:pockaw/features/goal/presentation/components/goal_pinned_holder.dart';
 import 'package:pockaw/features/main/presentation/components/profile_picture.dart';
 import 'package:pockaw/features/theme_switcher/presentation/components/theme_mode_switcher.dart';
@@ -74,6 +75,7 @@ class DashboardScreen extends StatelessWidget {
           ),
           const GoalPinnedHolder(),
           const RecentTransactionList(),
+          const AnalyticChartReports(),
         ],
       ),
     );
