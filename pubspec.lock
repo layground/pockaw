@@ -565,10 +565,10 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_crashlytics
-      sha256: c3ebe3ed9f3b1d36c0864a4a28b041fcc2686f11fb2a4f7891319ea8d1d161cc
+      sha256: bd4eadd620071ae48ef0e3617499be2a0ea4062d6d5c6fea6c1cec41ebbb2435
       url: "https://pub.dev"
     source: hosted
-    version: "5.0.4"
+    version: "5.0.5"
   firebase_crashlytics_platform_interface:
     dependency: transitive
     description:
@@ -606,6 +606,14 @@ packages:
     description:
       name: fixnum
       sha256: b6dc7065e46c974bc7c5f143080a6764ec7a4be6da1285ececdc37be96de53be
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
+  fl_chart:
+    dependency: "direct main"
+    description:
+      name: fl_chart
+      sha256: "7ca9a40f4eb85949190e54087be8b4d6ac09dc4c54238d782a34cf1f7c011de9"
       url: "https://pub.dev"
     source: hosted
     version: "1.1.1"
@@ -1579,7 +1587,7 @@ packages:
     source: hosted
     version: "2.4.0"
   sqlite3:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: sqlite3
       sha256: "3145bd74dcdb4fd6f5c6dda4d4e4490a8087d7f286a14dee5d37087290f0f8a2"
@@ -1587,7 +1595,7 @@ packages:
     source: hosted
     version: "2.9.4"
   sqlite3_flutter_libs:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: sqlite3_flutter_libs
       sha256: "69c80d812ef2500202ebd22002cbfc1b6565e9ff56b2f971e757fac5d42294df"
@@ -1642,14 +1650,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.1"
-  syncfusion_flutter_charts:
-    dependency: "direct main"
-    description:
-      name: syncfusion_flutter_charts
-      sha256: a97279172317db498e286b7f39da4f36080016b73c8f25caea796c2c93210fcd
-      url: "https://pub.dev"
-    source: hosted
-    version: "31.2.5"
   syncfusion_flutter_core:
     dependency: transitive
     description:
