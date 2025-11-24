@@ -71,7 +71,7 @@ class SpendingProgressChart extends ConsumerWidget {
           padding: const EdgeInsets.all(AppSpacing.spacing16),
           decoration: BoxDecoration(
             color: context.purpleBackground,
-            borderRadius: BorderRadius.circular(AppRadius.radius16),
+            borderRadius: BorderRadius.circular(AppRadius.radius12),
             border: Border.all(color: context.secondaryBorderLighter),
           ),
           child: Column(
@@ -79,51 +79,60 @@ class SpendingProgressChart extends ConsumerWidget {
             children: [
               _buildHeader(context),
               if (topCategories.isNotEmpty)
-                Row(
-                  children: topCategories.map((entry) {
-                    // final categoryName = entry.key;
-                    final categoryTotal = entry.value;
-                    final percentage = totalMonthSpending > 0
-                        ? categoryTotal / totalMonthSpending
-                        : 0.0;
-                    final color = colorMap[entry.key]!;
+                Container(
+                  padding: const EdgeInsets.all(AppSpacing.spacing4),
+                  decoration: ShapeDecoration(
+                    color: context.purpleProgressBackground,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(AppRadius.radiusFull),
+                    ),
+                  ),
+                  child: Row(
+                    children: topCategories.map((entry) {
+                      // final categoryName = entry.key;
+                      final categoryTotal = entry.value;
+                      final percentage = totalMonthSpending > 0
+                          ? categoryTotal / totalMonthSpending
+                          : 0.0;
+                      final color = colorMap[entry.key]!;
 
-                    // Determine radius for first and last items
-                    BorderRadius? radius;
-                    if (topCategories.first == entry) {
-                      radius = const BorderRadius.horizontal(
-                        left: Radius.circular(AppRadius.radiusFull),
+                      // Determine radius for first and last items
+                      BorderRadius? radius;
+                      if (topCategories.first == entry) {
+                        radius = const BorderRadius.horizontal(
+                          left: Radius.circular(AppRadius.radiusFull),
+                        );
+                      }
+                      if (topCategories.last == entry &&
+                          topCategories.length > 1) {
+                        // Only apply right radius if it's also the last element and not the only element
+                        radius =
+                            radius?.copyWith(
+                              topRight: const Radius.circular(
+                                AppRadius.radiusFull,
+                              ),
+                              bottomRight: const Radius.circular(
+                                AppRadius.radiusFull,
+                              ),
+                            ) ??
+                            const BorderRadius.horizontal(
+                              right: Radius.circular(AppRadius.radiusFull),
+                            );
+                      } else if (topCategories.last == entry &&
+                          topCategories.length == 1) {
+                        radius = BorderRadius.circular(
+                          AppRadius.radiusFull,
+                        ); // Full radius if only one item
+                      }
+
+                      return CustomProgressIndicator(
+                        value: percentage,
+                        color: color,
+                        radius: radius,
+                        height: 12,
                       );
-                    }
-                    if (topCategories.last == entry &&
-                        topCategories.length > 1) {
-                      // Only apply right radius if it's also the last element and not the only element
-                      radius =
-                          radius?.copyWith(
-                            topRight: const Radius.circular(
-                              AppRadius.radiusFull,
-                            ),
-                            bottomRight: const Radius.circular(
-                              AppRadius.radiusFull,
-                            ),
-                          ) ??
-                          const BorderRadius.horizontal(
-                            right: Radius.circular(AppRadius.radiusFull),
-                          );
-                    } else if (topCategories.last == entry &&
-                        topCategories.length == 1) {
-                      radius = BorderRadius.circular(
-                        AppRadius.radiusFull,
-                      ); // Full radius if only one item
-                    }
-
-                    return CustomProgressIndicator(
-                      value: percentage,
-                      color: color,
-                      radius: radius,
-                      height: 14,
-                    );
-                  }).toList(),
+                    }).toList(),
+                  ),
                 )
               else
                 Container(),

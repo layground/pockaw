@@ -35,6 +35,16 @@ class GoalPinnedHolder extends ConsumerWidget {
                 );
               }
 
+              if (data.length == 1) {
+                return Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: AppSpacing.spacing20,
+                  ),
+                  width: double.infinity,
+                  child: GoalCard(goal: data.first),
+                );
+              }
+
               return SizedBox(
                 height: 150,
                 child: ListView.separated(

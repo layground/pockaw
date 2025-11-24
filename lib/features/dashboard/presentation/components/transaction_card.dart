@@ -41,7 +41,7 @@ class TransactionCard extends ConsumerWidget {
           padding: const EdgeInsets.all(AppSpacing.spacing16),
           decoration: BoxDecoration(
             color: backgroundColor,
-            borderRadius: BorderRadius.circular(AppRadius.radius16),
+            borderRadius: BorderRadius.circular(AppRadius.radius12),
             border: Border.all(color: borderColor ?? AppColors.neutralAlpha25),
           ),
           child: Column(
