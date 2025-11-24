@@ -1,3 +1,4 @@
+import 'package:pockaw/features/reports/data/models/daily_net_flow_model.dart';
 import 'package:pockaw/features/reports/data/models/monthly_financial_summary_model.dart';
 import 'package:pockaw/features/reports/data/models/weekly_financial_summary_model.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
@@ -105,5 +106,59 @@ class FinancialHealthRepository {
     }
 
     return weeklyData;
+  }
+
+  /// Calculates the cumulative net flow (Income - Expense) for every day of the current month.
+  Future<List<DailyNetFlowSummary>> getCurrentMonthDailyNetFlow() async {
+    final now = DateTime.now();
+    final daysInMonth = DateTime(now.year, now.month + 1, 0).day;
+
+    // 1. Fetch all relevant transactions (sorted by date ascending)
+    final currentMonthTransactions = _transactions
+        .where((t) => t.date.year == now.year && t.date.month == now.month)
+        .toList();
+
+    currentMonthTransactions.sort((a, b) => a.date.compareTo(b.date));
+
+    // 2. Aggregate daily income/expense changes
+    Map<int, double> dailyChange = {};
+    for (int i = 1; i <= daysInMonth; i++) {
+      dailyChange[i] = 0.0;
+    }
+
+    for (var t in currentMonthTransactions) {
+      final day = t.date.day;
+      double change = 0.0;
+
+      // Determine if it's a positive or negative flow
+      if (t.transactionType == TransactionType.income) {
+        change = t.amount;
+      } else if (t.transactionType == TransactionType.expense) {
+        change = -t.amount;
+      }
+
+      dailyChange[day] = dailyChange[day]! + change;
+    }
+
+    // 3. Calculate Cumulative Net Flow
+    List<DailyNetFlowSummary> netFlowData = [];
+    double cumulativeSum = 0.0;
+
+    for (int day = 1; day <= daysInMonth; day++) {
+      // Add the daily change to the running total
+      cumulativeSum += dailyChange[day] ?? 0.0;
+
+      netFlowData.add(
+        DailyNetFlowSummary(
+          day: day,
+          netAmount: cumulativeSum,
+        ),
+      );
+
+      // Stop calculation once we hit the current day
+      if (day >= now.day) break;
+    }
+
+    return netFlowData;
   }
 }

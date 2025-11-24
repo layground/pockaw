@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pockaw/features/reports/data/models/daily_net_flow_model.dart';
 import 'package:pockaw/features/reports/data/models/monthly_financial_summary_model.dart';
 import 'package:pockaw/features/reports/data/models/weekly_financial_summary_model.dart';
 import 'package:pockaw/features/reports/data/repositories/financial_health_repository.dart';
@@ -24,3 +25,9 @@ final financialHealthRepositoryProvider = Provider<FinancialHealthRepository>((
   final transactionsAsync = ref.watch(transactionListProvider);
   return FinancialHealthRepository(transactionsAsync.value ?? []);
 });
+
+final dailyNetFlowProvider =
+    FutureProvider.autoDispose<List<DailyNetFlowSummary>>((ref) async {
+      final repo = ref.watch(financialHealthRepositoryProvider);
+      return repo.getCurrentMonthDailyNetFlow();
+    });
