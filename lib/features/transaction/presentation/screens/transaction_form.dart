@@ -138,7 +138,7 @@ class TransactionForm extends HookConsumerWidget {
         const Gap(AppSpacing.spacing16),
         TransactionDatePicker(
           dateFieldController: formState.dateFieldController,
-          initialdate: formState.initialTransaction?.date,
+          initialDate: formState.initialTransaction?.date,
         ),
         const Gap(AppSpacing.spacing16),
         TransactionNotesField(controller: formState.notesController),
