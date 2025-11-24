@@ -56,6 +56,9 @@ class SixMonthsIncomeExpenseChart extends ConsumerWidget {
       LineChartData(
         lineTouchData: LineTouchData(
           touchTooltipData: LineTouchTooltipData(
+            getTooltipColor: (touchedSpot) => context.secondaryBackgroundSolid,
+            tooltipBorder: BorderSide(color: context.purpleBorderLighter),
+            tooltipBorderRadius: BorderRadius.circular(AppRadius.radius4),
             getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
               return touchedBarSpots.map((barSpot) {
                 final flSpot = barSpot;
@@ -75,9 +78,6 @@ class SixMonthsIncomeExpenseChart extends ConsumerWidget {
                 );
               }).toList();
             },
-            getTooltipColor: (touchedSpot) => context.purpleBackground,
-            tooltipBorder: BorderSide(color: context.purpleBorderLighter),
-            tooltipBorderRadius: BorderRadius.circular(AppRadius.radius4),
             // Customize tooltip background color based on context if needed
             // tooltipBgColor: Colors.blueGrey,
           ),

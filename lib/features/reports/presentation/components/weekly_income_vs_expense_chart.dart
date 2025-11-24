@@ -57,7 +57,7 @@ class WeeklyIncomeExpenseChart extends ConsumerWidget {
       LineChartData(
         lineTouchData: LineTouchData(
           touchTooltipData: LineTouchTooltipData(
-            getTooltipColor: (group) => context.purpleBackground,
+            getTooltipColor: (group) => context.secondaryBackgroundSolid,
             tooltipBorder: BorderSide(color: context.purpleBorderLighter),
             tooltipBorderRadius: BorderRadius.circular(AppRadius.radius8),
             getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
