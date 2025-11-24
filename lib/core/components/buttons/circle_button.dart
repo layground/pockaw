@@ -45,6 +45,7 @@ class CircleIconButton extends StatelessWidget {
                   icon: icon,
                   color: foregroundColor ?? Colors.black,
                   size: iconSize,
+                  strokeWidth: 2,
                 ),
               ),
         ),

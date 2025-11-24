@@ -88,7 +88,7 @@ class DesktopSidebar extends ConsumerWidget {
         ? AppColors.primary
         : ref
               .read(pageControllerProvider.notifier)
-              .getIconColor(pageIndex ?? -1);
+              .getIconColor(context, pageIndex ?? -1);
 
     return ListTile(
       leading: HugeIcon(icon: icon, color: itemColor, size: 26),
