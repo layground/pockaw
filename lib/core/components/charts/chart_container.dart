@@ -42,9 +42,8 @@ class ChartContainer extends StatelessWidget {
         children: [
           Text(
             title,
-            style: AppTextStyles.heading6.copyWith(
+            style: AppTextStyles.body1.copyWith(
               color: context.cardTitleText,
-              fontWeight: FontWeight.bold,
             ),
           ),
           Text(
