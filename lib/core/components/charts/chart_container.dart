@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
@@ -47,6 +48,7 @@ class ChartContainer extends StatelessWidget {
               color: context.cardSubtitleText,
             ),
           ),
+          Gap(AppSpacing.spacing16),
           Expanded(child: chart),
         ],
       ),

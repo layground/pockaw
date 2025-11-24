@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pockaw/core/components/charts/chart_container.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
+import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
-import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/components/loading_indicators/loading_indicator.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/features/reports/data/models/daily_net_flow_model.dart';
 import 'package:pockaw/features/reports/presentation/riverpod/financial_health_provider.dart';
 import 'dart:math';
@@ -20,29 +21,12 @@ class MoneyInsiderChart extends ConsumerWidget {
 
     return ChartContainer(
       title: 'Money Insider',
-      subtitle: 'Daily Net Flow',
+      subtitle: 'Daily Net Flow vs. Zero Line (This Month)',
       height: 350, // Taller chart for better visualization
-      chart: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Money Insider',
-            style: AppTextStyles.body3.copyWith(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            'Daily Net Flow vs. Zero Line (This Month)',
-            style: AppTextStyles.body4.copyWith(color: Colors.grey),
-          ),
-          const SizedBox(height: AppSpacing.spacing24),
-          Expanded(
-            child: netFlowAsync.when(
-              data: (data) => _buildChart(context, data),
-              loading: () => const Center(child: LoadingIndicator()),
-              error: (err, stack) => Center(child: Text('Error: $err')),
-            ),
-          ),
-        ],
+      chart: netFlowAsync.when(
+        data: (data) => _buildChart(context, data),
+        loading: () => const Center(child: LoadingIndicator()),
+        error: (err, stack) => Center(child: Text('Error: $err')),
       ),
     );
   }
@@ -78,15 +62,15 @@ class MoneyInsiderChart extends ConsumerWidget {
           horizontalLines: [
             HorizontalLine(
               y: 0, // The crucial Zero Line
-              color: Colors.grey.withAlpha(50),
+              color: Colors.white,
               strokeWidth: 2,
               dashArray: [10, 5],
               label: HorizontalLineLabel(
                 show: true,
-                labelResolver: (a) => 'Zero Net Flow',
+                // labelResolver: (a) => 'Zero Net Flow',
                 alignment: Alignment.topRight,
-                style: AppTextStyles.body5.copyWith(
-                  color: Colors.grey.shade600,
+                style: AppTextStyles.body4.copyWith(
+                  color: context.incomeForeground,
                 ),
               ),
             ),
@@ -96,13 +80,16 @@ class MoneyInsiderChart extends ConsumerWidget {
         // Tooltip (shows net amount and day)
         lineTouchData: LineTouchData(
           touchTooltipData: LineTouchTooltipData(
+            getTooltipColor: (group) => context.secondaryBackgroundSolid,
+            tooltipBorder: BorderSide(color: context.purpleBorderLighter),
+            tooltipBorderRadius: BorderRadius.circular(AppRadius.radius8),
             getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
               return touchedBarSpots.map((barSpot) {
                 final flSpot = barSpot;
                 final isPositive = flSpot.y >= 0;
                 final color = isPositive
-                    ? context.incomeForeground
-                    : context.expenseForeground;
+                    ? context.incomeText
+                    : context.expenseText;
 
                 return LineTooltipItem(
                   flSpot.y.toShortPriceFormat(), // Show + or - sign
@@ -114,10 +101,7 @@ class MoneyInsiderChart extends ConsumerWidget {
                   children: [
                     TextSpan(
                       text: '\nDay ${flSpot.x.toInt()}',
-                      style: const TextStyle(
-                        color: Colors.white70,
-                        fontSize: 10,
-                      ),
+                      style: AppTextStyles.body3,
                     ),
                   ],
                 );
@@ -134,7 +118,7 @@ class MoneyInsiderChart extends ConsumerWidget {
           drawHorizontalLine: true,
           horizontalInterval: absoluteMax / 3, // Create grid for context
           getDrawingVerticalLine: (value) => FlLine(
-            color: Colors.grey.withAlpha(505),
+            color: Colors.grey.withAlpha(50),
             strokeWidth: 1,
           ),
           getDrawingHorizontalLine: (value) => FlLine(
@@ -157,9 +141,7 @@ class MoneyInsiderChart extends ConsumerWidget {
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Text(
                       '${value.toInt()}', // Just the day number
-                      style: AppTextStyles.body5.copyWith(
-                        color: Colors.grey[600],
-                      ),
+                      style: AppTextStyles.body4.bold,
                     ),
                   );
                 }
@@ -176,7 +158,7 @@ class MoneyInsiderChart extends ConsumerWidget {
                 if (value == 0) return const SizedBox.shrink();
                 return Text(
                   value.toShortPriceFormat(),
-                  style: AppTextStyles.body5.copyWith(color: Colors.grey[400]),
+                  style: AppTextStyles.body4,
                 );
               },
             ),
@@ -196,8 +178,7 @@ class MoneyInsiderChart extends ConsumerWidget {
             spots: spots,
             isCurved: true,
             curveSmoothness: 0.35,
-            color: AppColors
-                .tertiary, // Use a strong accent color for the main line
+            color: AppColors.tertiary,
             barWidth: 4,
             isStrokeCapRound: true,
             dotData: FlDotData(
