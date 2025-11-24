@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
+import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 
@@ -28,23 +30,16 @@ class ChartContainer extends StatelessWidget {
       padding: padding ?? const EdgeInsets.all(AppSpacing.spacing16),
       decoration: BoxDecoration(
         color: context.purpleBackground,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha(10),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(AppRadius.radius12),
+        border: Border.all(color: AppColors.neutralAlpha25),
       ),
       child: Column(
         spacing: AppSpacing.spacing4,
         children: [
           Text(
             title,
-            style: AppTextStyles.heading6.copyWith(
+            style: AppTextStyles.body1.copyWith(
               color: context.cardTitleText,
-              fontWeight: FontWeight.bold,
             ),
           ),
           Text(
@@ -53,6 +48,7 @@ class ChartContainer extends StatelessWidget {
               color: context.cardSubtitleText,
             ),
           ),
+          Gap(AppSpacing.spacing16),
           Expanded(child: chart),
         ],
       ),

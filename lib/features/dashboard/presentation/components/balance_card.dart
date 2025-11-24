@@ -39,7 +39,7 @@ class BalanceCard extends ConsumerWidget {
               padding: const EdgeInsets.all(AppSpacing.spacing16),
               decoration: BoxDecoration(
                 color: context.secondaryBackground,
-                borderRadius: BorderRadius.circular(AppRadius.radius16),
+                borderRadius: BorderRadius.circular(AppRadius.radius12),
                 border: Border.all(color: context.secondaryBorderLighter),
               ),
               child: Column(

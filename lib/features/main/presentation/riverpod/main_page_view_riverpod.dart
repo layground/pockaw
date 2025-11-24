@@ -10,12 +10,12 @@ class PageControllerNotifier extends Notifier<int> {
     state = page;
   }
 
-  Color getIconColor(int page) {
+  Color getIconColor(BuildContext context, int page) {
     if (state == page) {
-      return AppColors.light;
+      return context.isDarkMode ? AppColors.dark : AppColors.primary;
     }
 
-    return AppColors.neutral400;
+    return context.isDarkMode ? AppColors.darkGrey : AppColors.neutral400;
   }
 }
 

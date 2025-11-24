@@ -153,10 +153,10 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 * [x] **Basic Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
 * [x] **Open Beta Test** - Pockaw will be available on **Google PlayStore** as Early Access open beta test.
 
-### Round 3 - Enhanced User Experience ![0%](https://progress-bar.xyz/0/?width=40)
+### Round 3 - Enhanced User Experience ![50%](https://progress-bar.xyz/50/?width=40)
 
-* [ ] **Advanced Summary & Analytics** - Add charts for monthly income/expense trends, custom filters, and analytics.
-* [ ] **Advanced Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
+* [x] **Advanced Summary & Analytics** - Add charts for monthly income/expense trends, custom filters, and analytics.
+* [x] **Advanced Transaction Filters** - Add filters for date, category, and other custom criteria for transactions.
 * [ ] **Transaction Reminder** - Forgetting things? Chill! Pockaw will remind you to record transactions.
 * [ ] **User Reminders & Notifications** - Implement notifications for due dates and spending goals.
 
@@ -190,7 +190,7 @@ Connect with other Pockies, share tips, and contribute to the growth of Pockaw. 
 * [ ] **MacOS** *
 * [ ] **Linux** **
 >
-> * \* Sponsors and/or donations are expected to register to Apple Developer Program.
+> * \* iOS and MacOS are not coming out very soon.
 > * \** Linux release will follow after Windows release is stable.
 
 ***

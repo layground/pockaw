@@ -11,6 +11,7 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/utils/logger.dart';
+import 'package:pockaw/features/goal/data/model/checklist_item_model.dart';
 import 'package:pockaw/features/goal/data/model/goal_model.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/checklist_items_provider.dart';
 
@@ -40,25 +41,8 @@ class GoalCard extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Text(
-                    goal.title,
-                    style: AppTextStyles.body3.copyWith(
-                      fontWeight: FontWeight.w700,
-                    ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                HugeIcon(icon: HugeIcons.strokeRoundedArrowRight01, size: 20),
-              ],
-            ),
+            _title(),
             const Gap(AppSpacing.spacing16),
-            // This entire section's content (progress bar + checklist preview)
-            // will now be determined by the state of checklistItemsProvider.
             ref
                 .watch(checklistItemsProvider(goal.id!))
                 .when(
@@ -77,63 +61,7 @@ class GoalCard extends ConsumerWidget {
                       children: [
                         ProgressBar(value: progress),
                         const Gap(AppSpacing.spacing8),
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: AppSpacing.spacing4,
-                          ),
-                          child: checklistItems.isEmpty
-                              ? Text(
-                                  'No checklist items yet.',
-                                  style: AppTextStyles.body4.copyWith(
-                                    fontStyle: FontStyle.italic,
-                                  ),
-                                )
-                              : Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: checklistItems.take(2).map((item) {
-                                    final bool isCompleted = item.completed;
-                                    final Color itemColor = isCompleted
-                                        ? context.disabledText
-                                        : context.purpleText;
-                                    final List<List<dynamic>> itemIconData =
-                                        isCompleted
-                                        ? HugeIcons
-                                              .strokeRoundedCheckmarkCircle01
-                                        : HugeIcons.strokeRoundedCircle;
-
-                                    return Padding(
-                                      padding: const EdgeInsets.only(
-                                        bottom: AppSpacing.spacing4,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          HugeIcon(
-                                            icon: itemIconData,
-                                            color: itemColor,
-                                            size: 20,
-                                          ),
-                                          const Gap(AppSpacing.spacing4),
-                                          Expanded(
-                                            child: Text(
-                                              item.title,
-                                              style: AppTextStyles.body4
-                                                  .copyWith(
-                                                    color: itemColor,
-                                                    decoration: isCompleted
-                                                        ? TextDecoration
-                                                              .lineThrough
-                                                        : null,
-                                                  ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }).toList(),
-                                ),
-                        ),
+                        _checkList(context, checklistItems: checklistItems),
                       ],
                     );
                   },
@@ -143,6 +71,96 @@ class GoalCard extends ConsumerWidget {
                 ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _title() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Text(
+            goal.title,
+            style: AppTextStyles.body3.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        HugeIcon(icon: HugeIcons.strokeRoundedArrowRight01, size: 20),
+      ],
+    );
+  }
+
+  Widget _checkList(
+    BuildContext context, {
+    required List<ChecklistItemModel> checklistItems,
+  }) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.spacing4,
+      ),
+      child: checklistItems.isEmpty
+          ? Text(
+              'No checklist items yet.',
+              style: AppTextStyles.body4.copyWith(
+                fontStyle: FontStyle.italic,
+              ),
+            )
+          : Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: checklistItems.take(2).map((item) {
+                final bool isCompleted = item.completed;
+                final Color itemColor = isCompleted
+                    ? context.disabledTileForeground
+                    : context.purpleText;
+                final List<List<dynamic>> itemIconData = isCompleted
+                    ? HugeIcons.strokeRoundedCheckmarkCircle01
+                    : HugeIcons.strokeRoundedCircle;
+
+                return _checkListItems(
+                  itemIconData: itemIconData,
+                  item: item,
+                  itemColor: itemColor,
+                  isCompleted: isCompleted,
+                );
+              }).toList(),
+            ),
+    );
+  }
+
+  Widget _checkListItems({
+    required List<List<dynamic>> itemIconData,
+    required ChecklistItemModel item,
+    Color? itemColor,
+    bool isCompleted = false,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        bottom: AppSpacing.spacing4,
+      ),
+      child: Row(
+        children: [
+          HugeIcon(
+            icon: itemIconData,
+            color: itemColor,
+            size: 20,
+          ),
+          const Gap(AppSpacing.spacing4),
+          Expanded(
+            child: Text(
+              item.title,
+              style: AppTextStyles.body4.copyWith(
+                color: itemColor,
+                decoration: isCompleted ? TextDecoration.lineThrough : null,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
       ),
     );
   }
