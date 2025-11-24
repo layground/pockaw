@@ -5,17 +5,8 @@ class SpendingProgressChart extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final Random random = Random(30);
     final transactionsAsyncValue = ref.watch(transactionListProvider);
-
-    // Define a list of colors for categories
-    final List<Color> categoryColors = [
-      const Color(0xFF93DBF3), // Light Blue
-      const Color(0xFFE27DE5), // Pink/Purple
-      const Color(0xFFA0EBA1), // Light Green
-      const Color(0xFFEBC58F), // Light Orange/Yellow
-      const Color(0xFFADD8E6), // Another Light Blue
-      const Color(0xFFF08080), // Light Coral
-    ];
 
     return transactionsAsyncValue.when(
       data: (transactions) {
@@ -60,85 +51,104 @@ class SpendingProgressChart extends ConsumerWidget {
 
         final topCategories = sortedCategories.take(4).toList();
 
+        // Use a persistent map to store colors for consistent display across reloads
+        final Map<String, Color> colorMap = {};
+        for (var entry in sortedCategories) {
+          if (!colorMap.containsKey(entry.key)) {
+            // Generate a color only if it doesn't exist yet
+            colorMap[entry.key] = ColorGenerator.generatePleasingRandomColor(
+              random,
+            );
+          }
+        }
+
         // If there are more than 4 categories, group the rest into "Others"
         // For simplicity, this example just takes the top 4.
         // A more complex implementation could sum the rest into an "Others" category.
 
-        return Column(
-          children: [
-            _buildHeader(context),
-            const Gap(AppSpacing.spacing8),
-            if (topCategories.isNotEmpty)
-              Row(
-                children: topCategories.map((entry) {
-                  // final categoryName = entry.key;
-                  final categoryTotal = entry.value;
-                  final percentage = totalMonthSpending > 0
-                      ? categoryTotal / totalMonthSpending
-                      : 0.0;
-                  final colorIndex =
-                      topCategories.indexOf(entry) % categoryColors.length;
-                  final color = categoryColors[colorIndex];
+        return Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(AppSpacing.spacing16),
+          decoration: BoxDecoration(
+            color: context.purpleBackground,
+            borderRadius: BorderRadius.circular(AppRadius.radius16),
+            border: Border.all(color: context.secondaryBorderLighter),
+          ),
+          child: Column(
+            spacing: AppSpacing.spacing20,
+            children: [
+              _buildHeader(context),
+              if (topCategories.isNotEmpty)
+                Row(
+                  children: topCategories.map((entry) {
+                    // final categoryName = entry.key;
+                    final categoryTotal = entry.value;
+                    final percentage = totalMonthSpending > 0
+                        ? categoryTotal / totalMonthSpending
+                        : 0.0;
+                    final color = colorMap[entry.key]!;
 
-                  // Determine radius for first and last items
-                  BorderRadius? radius;
-                  if (topCategories.first == entry) {
-                    radius = const BorderRadius.horizontal(
-                      left: Radius.circular(AppRadius.radiusFull),
+                    // Determine radius for first and last items
+                    BorderRadius? radius;
+                    if (topCategories.first == entry) {
+                      radius = const BorderRadius.horizontal(
+                        left: Radius.circular(AppRadius.radiusFull),
+                      );
+                    }
+                    if (topCategories.last == entry &&
+                        topCategories.length > 1) {
+                      // Only apply right radius if it's also the last element and not the only element
+                      radius =
+                          radius?.copyWith(
+                            topRight: const Radius.circular(
+                              AppRadius.radiusFull,
+                            ),
+                            bottomRight: const Radius.circular(
+                              AppRadius.radiusFull,
+                            ),
+                          ) ??
+                          const BorderRadius.horizontal(
+                            right: Radius.circular(AppRadius.radiusFull),
+                          );
+                    } else if (topCategories.last == entry &&
+                        topCategories.length == 1) {
+                      radius = BorderRadius.circular(
+                        AppRadius.radiusFull,
+                      ); // Full radius if only one item
+                    }
+
+                    return CustomProgressIndicator(
+                      value: percentage,
+                      color: color,
+                      radius: radius,
+                      height: 14,
                     );
-                  }
-                  if (topCategories.last == entry && topCategories.length > 1) {
-                    // Only apply right radius if it's also the last element and not the only element
-                    radius =
-                        radius?.copyWith(
-                          topRight: const Radius.circular(AppRadius.radiusFull),
-                          bottomRight: const Radius.circular(
-                            AppRadius.radiusFull,
-                          ),
-                        ) ??
-                        const BorderRadius.horizontal(
-                          right: Radius.circular(AppRadius.radiusFull),
-                        );
-                  } else if (topCategories.last == entry &&
-                      topCategories.length == 1) {
-                    radius = BorderRadius.circular(
-                      AppRadius.radiusFull,
-                    ); // Full radius if only one item
-                  }
-
-                  return CustomProgressIndicator(
-                    value: percentage,
-                    color: color,
-                    radius: radius,
-                  );
-                }).toList(),
-              )
-            else
-              Container(), // Empty container if no categories to show in progress bar
-            const Gap(AppSpacing.spacing8),
-            if (topCategories.isNotEmpty)
-              Wrap(
-                spacing:
-                    AppSpacing.spacing8, // Horizontal space between legends
-                runSpacing: AppSpacing
-                    .spacing4, // Vertical space between lines of legends
-                alignment: WrapAlignment
-                    .start, // Or WrapAlignment.center if you prefer
-                children: topCategories.map((entry) {
-                  final categoryName = entry.key;
-                  final colorIndex =
-                      topCategories.indexOf(entry) % categoryColors.length;
-                  final color = categoryColors[colorIndex];
-                  // No longer need Flexible or extra Padding here as Wrap handles spacing
-                  return CustomProgressIndicatorLegend(
-                    label: categoryName,
-                    color: color,
-                  );
-                }).toList(),
-              )
-            else
-              Container(), // Empty container if no legends
-          ],
+                  }).toList(),
+                )
+              else
+                Container(),
+              if (topCategories.isNotEmpty)
+                Wrap(
+                  spacing:
+                      AppSpacing.spacing8, // Horizontal space between legends
+                  runSpacing: AppSpacing
+                      .spacing4, // Vertical space between lines of legends
+                  alignment: WrapAlignment
+                      .start, // Or WrapAlignment.center if you prefer
+                  children: topCategories.map((entry) {
+                    final categoryName = entry.key;
+                    final color = colorMap[entry.key]!;
+                    // No longer need Flexible or extra Padding here as Wrap handles spacing
+                    return CustomProgressIndicatorLegend(
+                      label: categoryName,
+                      color: color,
+                    );
+                  }).toList(),
+                )
+              else
+                Container(), // Empty container if no legends
+            ],
+          ),
         );
       },
       loading: () => const Center(child: CircularProgressIndicator.adaptive()),
@@ -153,9 +163,7 @@ class SpendingProgressChart extends ConsumerWidget {
       children: [
         Text(
           'My spending this month',
-          style: AppTextStyles.body4.copyWith(
-            fontVariations: [AppFontWeights.medium],
-          ),
+          style: AppTextStyles.body3,
         ),
         InkWell(
           onTap: () {

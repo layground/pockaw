@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,7 +10,6 @@ import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/progress_indicators/custom_progress_indicator.dart';
 import 'package:pockaw/core/components/progress_indicators/custom_progress_indicator_legend.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
-import 'package:pockaw/core/constants/app_font_weights.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
@@ -17,6 +18,7 @@ import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/extensions/screen_utils_extensions.dart';
 import 'package:pockaw/core/router/routes.dart';
+import 'package:pockaw/core/utils/color_generator.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
 import 'package:pockaw/features/dashboard/presentation/components/analytic_chart_reports.dart';

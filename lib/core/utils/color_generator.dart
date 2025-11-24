@@ -16,4 +16,14 @@ class ColorGenerator {
       random.nextInt(256), // Blue (0-255)
     );
   }
+
+  /// Generates a random color that is aesthetically pleasing (HSV method).
+  static Color generatePleasingRandomColor(Random random) {
+    final double hue = random.nextDouble() * 360;
+    final double saturation =
+        0.6 + (random.nextDouble() * 0.4); // Min 60% saturation
+    final double value =
+        0.8 + (random.nextDouble() * 0.2); // Min 80% brightness
+    return HSVColor.fromAHSV(1.0, hue, saturation, value).toColor();
+  }
 }
