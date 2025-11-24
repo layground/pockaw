@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pockaw/core/utils/color_generator.dart';
 import 'package:pockaw/features/category/data/model/category_model.dart';
@@ -76,7 +78,9 @@ extension TransactionList on List<TransactionModel> {
         return CategoryChartData(
           category: entry.key,
           amount: entry.value,
-          color: ColorGenerator.generateRandomColor(),
+          color: ColorGenerator.generatePleasingRandomColor(
+            Random(entry.value.toInt()),
+          ),
         );
       },
     ).toList();

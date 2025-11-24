@@ -86,32 +86,14 @@ class SpendingPieChart extends ConsumerWidget {
       );
     }
 
-    return Container(
+    return ChartContainer(
+      title: 'Spending by Category',
+      subtitle: 'Current Month Breakdown',
+      height: 360,
       margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing16),
-      padding: const EdgeInsets.all(AppSpacing.spacing16),
-      decoration: BoxDecoration(
-        color: context.purpleBackground,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withAlpha(10),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
+      chart: Column(
         children: [
-          // 1. Chart Title
-          Text(
-            'Spending by Category',
-            style: AppTextStyles.heading5.copyWith(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 24),
-
-          // 2. The Doughnut Chart + Center Text
-          SizedBox(
-            height: 250, // Fixed height for the chart area
+          Expanded(
             child: Stack(
               children: [
                 PieChart(
@@ -130,23 +112,18 @@ class SpendingPieChart extends ConsumerWidget {
                       },
                     ),
                     borderData: FlBorderData(show: false),
-                    sectionsSpace: 2, // Slight gap between sections
-                    centerSpaceRadius: 70, // This creates the "Doughnut" hole
+                    sectionsSpace: 2,
+                    centerSpaceRadius: 60,
                     sections: showingSections(),
                   ),
                 ),
-
-                // Center Text (Annotations)
                 Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         'Total Spent',
-                        style: AppTextStyles.body3.copyWith(
-                          color: Colors.grey[400], // AppColors.neutral400
-                          fontSize: 12,
-                        ),
+                        style: AppTextStyles.body3,
                       ),
                       const SizedBox(height: 4),
                       Text(
@@ -162,10 +139,6 @@ class SpendingPieChart extends ConsumerWidget {
               ],
             ),
           ),
-
-          const SizedBox(height: 24),
-
-          // 3. Custom Legend
           buildLegend(),
         ],
       ),
