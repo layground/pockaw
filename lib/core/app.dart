@@ -110,11 +110,6 @@ class MyApp extends ConsumerWidget {
       // Let FlexColorScheme handle the text theme colors.
       // If you need to override font size or weight, do it like this,
       // but avoid setting a specific color.
-      textTheme: baseTheme.textTheme.copyWith(
-        bodyMedium: AppTextStyles.body2.copyWith(
-          color: colorScheme.onSurface, // Explicitly use theme color
-        ),
-      ),
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(8.0)),
         hintStyle: AppTextStyles.body3, // Let the theme handle hint color
