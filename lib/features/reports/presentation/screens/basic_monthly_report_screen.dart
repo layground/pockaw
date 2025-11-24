@@ -10,7 +10,7 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/features/reports/data/models/category_chart_model.dart';
-import 'package:pockaw/features/reports/presentation/components/weekly_income_vs_expense_bar_chart.dart';
+import 'package:pockaw/features/reports/presentation/components/weekly_income_vs_expense_chart.dart';
 import 'package:pockaw/features/reports/presentation/riverpod/filtered_transactions_provider.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/features/reports/presentation/riverpod/pie_chart_touch_index.dart';
