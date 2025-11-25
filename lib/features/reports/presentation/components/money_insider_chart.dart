@@ -40,9 +40,17 @@ class MoneyInsiderChart extends ConsumerWidget {
     final allValues = data.map((d) => d.netAmount).toList();
     final double absoluteMax = allValues.map((v) => v.abs()).reduce(max);
 
-    // Ensure the Y-axis is symmetric around 0 for clear visualization
-    final double minY = -absoluteMax * 1.1;
-    final double maxY = absoluteMax * 1.1;
+    // Ensure the Y-axis is symmetric around 0 for clear visualization and to
+    // prevent division-by-zero errors on intervals if all data points are zero.
+    final double minY;
+    final double maxY;
+    if (absoluteMax == 0.0) {
+      minY = -1.0;
+      maxY = 1.0;
+    } else {
+      minY = -absoluteMax * 1.1;
+      maxY = absoluteMax * 1.1;
+    }
 
     final spots = data
         .map((d) => FlSpot(d.day.toDouble(), d.netAmount))
@@ -116,7 +124,7 @@ class MoneyInsiderChart extends ConsumerWidget {
           show: true,
           drawVerticalLine: true,
           drawHorizontalLine: true,
-          horizontalInterval: absoluteMax / 3, // Create grid for context
+          horizontalInterval: maxY / 3, // Create grid for context
           getDrawingVerticalLine: (value) => FlLine(
             color: Colors.grey.withAlpha(50),
             strokeWidth: 1,
@@ -153,7 +161,7 @@ class MoneyInsiderChart extends ConsumerWidget {
             sideTitles: SideTitles(
               showTitles: true,
               reservedSize: 40,
-              interval: absoluteMax / 3,
+              interval: maxY / 3,
               getTitlesWidget: (value, meta) {
                 if (value == 0) return const SizedBox.shrink();
                 return Text(

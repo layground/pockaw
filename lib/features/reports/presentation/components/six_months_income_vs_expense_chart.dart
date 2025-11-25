@@ -52,6 +52,10 @@ class SixMonthsIncomeExpenseChart extends ConsumerWidget {
     maxY = maxY * 1.2;
     if (maxY == 0) maxY = 100;
 
+    // Ensure maxX > minX to prevent chart errors with single data points.
+    final double rawMaxX = (data.length - 1).toDouble();
+    final double maxX = rawMaxX <= 0 ? 1.0 : rawMaxX;
+
     return LineChart(
       LineChartData(
         lineTouchData: LineTouchData(
@@ -139,7 +143,7 @@ class SixMonthsIncomeExpenseChart extends ConsumerWidget {
         ),
         borderData: FlBorderData(show: false),
         minX: 0,
-        maxX: (data.length - 1).toDouble(),
+        maxX: maxX,
         minY: 0,
         maxY: maxY,
         lineBarsData: [
