@@ -95,9 +95,12 @@ class BudgetFormScreen extends HookConsumerWidget {
       );
 
       if (isEditing) {
-        // budgetDetails is guaranteed to have value here because of the check above
-        final originalAmount = budgetDetails!.value!.amount;
-        totalExistingBudgetsAmount -= originalAmount;
+        final budget = budgetDetails?.value;
+        if (budget != null) {
+          // When editing, subtract the original amount of the current budget
+          // to correctly calculate the available balance for the new amount.
+          totalExistingBudgetsAmount -= budget.amount;
+        }
       }
 
       final availableAmount = wallet.balance - totalExistingBudgetsAmount;
