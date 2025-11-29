@@ -1,35 +1,48 @@
-// ignore_for_file: avoid_print
-
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
+import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
 
 import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
+import 'package:pockaw/core/components/buttons/menu_tile_button.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
+import 'package:pockaw/core/components/chips/custom_chip.dart';
 import 'package:pockaw/core/components/dialogs/toast.dart';
 import 'package:pockaw/core/components/loading_indicators/loading_indicator.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
+import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
+import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/popup_extension.dart';
+import 'package:pockaw/core/extensions/string_extension.dart';
+import 'package:pockaw/core/services/keyboard_service/virtual_keyboard_service.dart';
+import 'package:pockaw/core/services/url_launcher/url_launcher.dart';
+import 'package:pockaw/core/utils/logger.dart';
+import 'package:pockaw/features/goal/data/model/checklist_item_model.dart';
 import 'package:pockaw/features/goal/data/model/goal_model.dart';
-import 'package:pockaw/features/goal/presentation/components/goal_checklist_holder.dart';
-import 'package:pockaw/features/goal/presentation/components/goal_title_card.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/checklist_items_provider.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/date_picker_provider.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/goal_details_provider.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_checklist_form_dialog.dart';
 import 'package:pockaw/features/goal/presentation/screens/goal_form_dialog.dart';
+import 'package:pockaw/features/goal/presentation/services/goal_form_service.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 import 'package:toastification/toastification.dart';
+
+part '../components/goal_checklist_holder.dart';
+part '../components/goal_checklist_item.dart';
+part '../components/goal_checklist_title.dart';
+part '../components/goal_checklist.dart';
+part '../components/goal_title_card.dart';
 
 class GoalDetailsScreen extends ConsumerWidget {
   final int goalId;
@@ -106,8 +119,8 @@ class GoalDetailsScreen extends ConsumerWidget {
                   onConfirm: () {
                     final db = ref.read(databaseProvider);
                     db.goalDao.deleteGoal(goalId);
-                    context.pop();
-                    context.pop();
+                    context.pop(); // Close the bottom sheet
+                    context.pop(); // Close the goal details screen
                   },
                 ),
               );
@@ -149,7 +162,6 @@ class GoalDetailsScreen extends ConsumerWidget {
             state: ButtonState.outlinedActive,
             themeMode: context.themeMode,
             onPressed: () {
-              print('➕  Opening checklist dialog for goalId=$goalId');
               context.openBottomSheet(
                 child: GoalChecklistFormDialog(goalId: goalId),
               );

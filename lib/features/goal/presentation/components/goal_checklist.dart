@@ -1,10 +1,4 @@
-// lib/features/goal/presentation/components/goal_checklist.dart
-
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:pockaw/core/constants/app_spacing.dart';
-import 'package:pockaw/features/goal/data/model/checklist_item_model.dart';
-import 'package:pockaw/features/goal/presentation/components/goal_checklist_item.dart';
+part of '../screens/goal_details_screen.dart';
 
 class GoalChecklist extends StatelessWidget {
   final List<ChecklistItemModel> items;

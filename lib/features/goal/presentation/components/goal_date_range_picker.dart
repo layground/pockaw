@@ -1,12 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
-
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:hugeicons/hugeicons.dart';
-import 'package:pockaw/core/components/date_picker/custom_date_picker.dart';
-import 'package:pockaw/core/components/form_fields/custom_select_field.dart';
-import 'package:pockaw/core/extensions/date_time_extension.dart';
-import 'package:pockaw/features/goal/presentation/riverpod/date_picker_provider.dart';
+part of '../screens/goal_form_dialog.dart';
 
 class GoalDateRangePicker extends HookConsumerWidget {
   final List<DateTime?>? initialDate;

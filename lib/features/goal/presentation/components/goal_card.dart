@@ -117,12 +117,8 @@ class GoalCard extends ConsumerWidget {
                 final Color itemColor = isCompleted
                     ? context.disabledTileForeground
                     : context.purpleText;
-                final List<List<dynamic>> itemIconData = isCompleted
-                    ? HugeIcons.strokeRoundedCheckmarkCircle01
-                    : HugeIcons.strokeRoundedCircle;
 
                 return _checkListItems(
-                  itemIconData: itemIconData,
                   item: item,
                   itemColor: itemColor,
                   isCompleted: isCompleted,
@@ -133,7 +129,6 @@ class GoalCard extends ConsumerWidget {
   }
 
   Widget _checkListItems({
-    required List<List<dynamic>> itemIconData,
     required ChecklistItemModel item,
     Color? itemColor,
     bool isCompleted = false,
@@ -145,7 +140,9 @@ class GoalCard extends ConsumerWidget {
       child: Row(
         children: [
           HugeIcon(
-            icon: itemIconData,
+            icon: isCompleted
+                ? HugeIcons.strokeRoundedCheckmarkCircle01
+                : HugeIcons.strokeRoundedCircle,
             color: itemColor,
             size: 20,
           ),

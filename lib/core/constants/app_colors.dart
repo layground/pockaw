@@ -279,4 +279,7 @@ extension ColorExtensions on BuildContext {
 
   Color get bottomSheetBackground =>
       themeMode == ThemeMode.dark ? AppColors.neutral950 : AppColors.neutral50;
+
+  Color get dialogBackground =>
+      themeMode == ThemeMode.dark ? AppColors.neutral950 : AppColors.neutral50;
 }

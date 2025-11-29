@@ -1,24 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:hugeicons/hugeicons.dart';
-import 'package:pockaw/core/components/chips/custom_chip.dart';
-import 'package:pockaw/core/constants/app_colors.dart';
-import 'package:pockaw/core/constants/app_radius.dart';
-import 'package:pockaw/core/constants/app_spacing.dart';
-import 'package:pockaw/core/constants/app_text_styles.dart';
-import 'package:pockaw/core/extensions/double_extension.dart';
-import 'package:pockaw/core/extensions/popup_extension.dart';
-import 'package:pockaw/core/extensions/string_extension.dart';
-import 'package:pockaw/core/services/keyboard_service/virtual_keyboard_service.dart';
-import 'package:pockaw/core/services/url_launcher/url_launcher.dart';
-import 'package:pockaw/core/utils/logger.dart';
-import 'package:pockaw/features/goal/data/model/checklist_item_model.dart';
-import 'package:pockaw/features/goal/presentation/screens/goal_checklist_form_dialog.dart';
-import 'package:pockaw/features/goal/presentation/services/goal_form_service.dart';
-import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
-import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
+part of '../screens/goal_details_screen.dart';
 
 class GoalChecklistItem extends ConsumerWidget {
   final bool isOdd;
@@ -38,19 +18,10 @@ class GoalChecklistItem extends ConsumerWidget {
         ? context.purpleBackground.withAlpha(50)
         : context.purpleBackground.withAlpha(50);
 
-    void toggle() {
-      final updatedItem = item.toggleCompleted();
-      GoalFormService().toggleComplete(
-        context,
-        ref,
-        checklistItem: updatedItem,
-      );
-    }
-
     return InkWell(
       onTap: () {
         int goalId = item.goalId;
-        Log.d('➕  Opening checklist dialog for goalId=$goalId');
+        Log.d(goalId, label: 'open goal id');
         context.openBottomSheet(
           child: GoalChecklistFormDialog(
             goalId: goalId,
@@ -58,7 +29,7 @@ class GoalChecklistItem extends ConsumerWidget {
           ),
         );
       },
-      onDoubleTap: toggle,
+      onDoubleTap: () => toggle(context, ref),
       child: Container(
         padding: const EdgeInsets.symmetric(
           vertical: AppSpacing.spacing8,
@@ -88,7 +59,7 @@ class GoalChecklistItem extends ConsumerWidget {
                   ),
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(),
-                  onPressed: toggle,
+                  onPressed: () => toggle(context, ref),
                   tooltip: item.completed
                       ? 'Mark as incomplete'
                       : 'Mark as complete',
@@ -143,6 +114,49 @@ class GoalChecklistItem extends ConsumerWidget {
               ),
           ],
         ),
+      ),
+    );
+  }
+
+  void toggle(
+    BuildContext context,
+    WidgetRef ref,
+  ) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        backgroundColor: context.dialogBackground,
+        title: Text(
+          'Mark as ${item.completed ? 'Incomplete' : 'Complete'}',
+          style: AppTextStyles.body2,
+        ),
+        content: Text(
+          'Are you sure you want to mark this item as ${item.completed ? 'incomplete' : 'complete'}?',
+          style: AppTextStyles.body3,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => context.pop(),
+            child: Text(
+              'Cancel',
+              style: AppTextStyles.body3.copyWith(color: context.purpleText),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              context.pop();
+              final updatedItem = item.toggleCompleted();
+              GoalFormService().toggleComplete(
+                ref,
+                checklistItem: updatedItem,
+              );
+            },
+            child: Text(
+              'OK',
+              style: AppTextStyles.body3.copyWith(color: context.purpleText),
+            ),
+          ),
+        ],
       ),
     );
   }
