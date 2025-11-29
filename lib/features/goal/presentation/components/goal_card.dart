@@ -33,9 +33,9 @@ class GoalCard extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.spacing12),
         decoration: BoxDecoration(
-          color: context.purpleBackground,
+          color: context.secondaryBackground,
           borderRadius: BorderRadius.circular(AppRadius.radius12),
-          border: Border.all(color: context.purpleBorderLighter),
+          border: Border.all(color: context.secondaryBorderLighter),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,

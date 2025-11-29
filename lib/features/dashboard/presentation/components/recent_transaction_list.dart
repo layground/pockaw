@@ -46,7 +46,7 @@ class RecentTransactionList extends ConsumerWidget {
             .toList();
 
         return Container(
-          padding: const EdgeInsets.all(AppSpacing.spacing20),
+          padding: const EdgeInsets.all(AppSpacing.spacing16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

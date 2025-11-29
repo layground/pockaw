@@ -17,6 +17,7 @@ import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/extensions/screen_utils_extensions.dart';
+import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/utils/color_generator.dart';
 import 'package:pockaw/features/authentication/presentation/riverpod/auth_provider.dart';
@@ -60,9 +61,9 @@ class DashboardScreen extends StatelessWidget {
         children: [
           Container(
             margin: const EdgeInsets.fromLTRB(
-              AppSpacing.spacing20,
+              AppSpacing.spacing16,
               0,
-              AppSpacing.spacing20,
+              AppSpacing.spacing16,
               AppSpacing.spacing20,
             ),
             child: const Column(
@@ -76,7 +77,9 @@ class DashboardScreen extends StatelessWidget {
             ),
           ),
           const GoalPinnedHolder(),
+          Gap(AppSpacing.spacing12),
           const RecentTransactionList(),
+          Gap(AppSpacing.spacing12),
           const AnalyticChartReports(),
         ],
       ),

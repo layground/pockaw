@@ -29,9 +29,9 @@ class ChartContainer extends StatelessWidget {
       margin: margin,
       padding: padding ?? const EdgeInsets.all(AppSpacing.spacing16),
       decoration: BoxDecoration(
-        color: context.purpleBackground,
+        color: context.secondaryBackground,
         borderRadius: BorderRadius.circular(AppRadius.radius12),
-        border: Border.all(color: AppColors.neutralAlpha25),
+        border: Border.all(color: context.secondaryBorderLighter),
       ),
       child: Column(
         spacing: AppSpacing.spacing4,
@@ -48,7 +48,8 @@ class ChartContainer extends StatelessWidget {
               color: context.cardSubtitleText,
             ),
           ),
-          Gap(AppSpacing.spacing16),
+          Divider(color: context.secondaryBorderLighter),
+          Gap(AppSpacing.spacing8),
           Expanded(child: chart),
         ],
       ),

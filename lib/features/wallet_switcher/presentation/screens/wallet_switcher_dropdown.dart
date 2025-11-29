@@ -20,7 +20,9 @@ class WalletSwitcherDropdown extends ConsumerWidget {
           label: wallet?.name ?? 'No Wallet', // Handle null case
           suffixIcon: HugeIcons.strokeRoundedArrowDown01,
           onTap: () {
-            context.openBottomSheet(child: const WalletSelectorBottomSheet());
+            context.openBottomSheet(
+              child: const WalletSelectorBottomSheet(),
+            );
           },
         );
       },

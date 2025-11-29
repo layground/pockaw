@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/form_fields/custom_select_field.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/database/tables/category_table.dart';
@@ -27,6 +28,7 @@ class TransactionCategorySelector extends HookConsumerWidget {
       label: 'Category',
       hint: 'Select Category',
       isRequired: true,
+      prefixIcon: HugeIcons.strokeRoundedStructure01,
       onTap: () async {
         final category = await context.push<CategoryModel>(Routes.categoryList);
         Log.d(category?.toJson(), label: 'category selected via text field');

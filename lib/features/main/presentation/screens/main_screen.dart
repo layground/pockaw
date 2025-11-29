@@ -53,8 +53,8 @@ class MainScreen extends ConsumerWidget {
                   pageViewWidget,
                   Positioned(
                     bottom: AppSpacing.spacing8,
-                    left: AppSpacing.spacing8,
-                    right: AppSpacing.spacing8,
+                    left: AppSpacing.spacing16,
+                    right: AppSpacing.spacing16,
                     child: navigationControls,
                   ),
                 ],

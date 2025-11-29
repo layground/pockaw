@@ -57,7 +57,7 @@ class BudgetSummaryCard extends ConsumerWidget {
           margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
           padding: const EdgeInsets.all(AppSpacing.spacing16),
           decoration: BoxDecoration(
-            color: context.purpleBackground,
+            color: context.secondaryBackground,
             border: Border.all(color: context.purpleBorderLighter),
             borderRadius: BorderRadius.circular(AppRadius.radius8),
           ),

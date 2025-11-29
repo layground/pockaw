@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
 import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
@@ -40,6 +39,7 @@ class TransactionFilterFormDialog extends HookConsumerWidget {
               onTypeSelected: formState.onTypeSelected,
             ),
             CustomTextField(
+              context: context,
               controller: formState.keywordController,
               hint: 'Dinner with ...',
               label: 'Search with keyword',
@@ -62,7 +62,6 @@ class TransactionFilterFormDialog extends HookConsumerWidget {
                   child: CustomNumericField(
                     label: 'Min. Amount',
                     hint: '100,000',
-                    icon: HugeIcons.strokeRoundedMoney03,
                     appendCurrencySymbolToHint: true,
                     controller: formState.minAmountController,
                   ),
@@ -71,7 +70,6 @@ class TransactionFilterFormDialog extends HookConsumerWidget {
                   child: CustomNumericField(
                     label: 'Max. Amount',
                     hint: '2,500,000',
-                    icon: HugeIcons.strokeRoundedMoney03,
                     appendCurrencySymbolToHint: true,
                     controller: formState.maxAmountController,
                   ),

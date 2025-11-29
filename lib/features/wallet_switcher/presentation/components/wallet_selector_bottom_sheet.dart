@@ -4,9 +4,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
 import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
+import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
@@ -32,6 +34,7 @@ class WalletSelectorBottomSheet extends ConsumerWidget {
           return ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
+            padding: const EdgeInsets.only(bottom: AppSpacing.spacing16),
             itemCount: wallets.length,
             itemBuilder: (context, index) {
               final wallet = wallets[index];
@@ -39,10 +42,20 @@ class WalletSelectorBottomSheet extends ConsumerWidget {
                   activeWalletAsync.asData?.value?.id == wallet.id;
 
               return ListTile(
-                title: Text(wallet.name, style: AppTextStyles.body1),
+                title: Text(
+                  wallet.name,
+                  style: AppTextStyles.body2.bold.copyWith(
+                    color: context.secondaryText,
+                  ),
+                ),
                 dense: true,
-                // You can add icons or other details here
-                // leading: wallet.iconName != null ? Icon(...) : null,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(AppSpacing.spacing12),
+                  side: BorderSide(color: context.secondaryBorderLighter),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.spacing16,
+                ),
                 subtitle: Text(
                   '${wallet.currencyByIsoCode(ref).symbol} ${wallet.balance.toPriceFormat()}',
                   style: AppTextStyles.body3,

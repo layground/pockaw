@@ -15,14 +15,14 @@ class CustomTabBar extends StatelessWidget {
       padding: const EdgeInsets.all(AppSpacing.spacing8),
       margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(100),
-        border: Border.all(color: context.purpleBorder),
+        borderRadius: BorderRadius.circular(AppSpacing.spacing12),
+        border: Border.all(color: context.secondaryBorderLighter),
       ),
       child: SizedBox(
         height: 30,
         width: double.infinity,
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(100),
+          borderRadius: BorderRadius.circular(AppSpacing.spacing8),
           child: TabBar(
             controller: tabController,
             tabAlignment: TabAlignment.start,
@@ -31,11 +31,11 @@ class CustomTabBar extends StatelessWidget {
             ),
             isScrollable: true,
             dividerHeight: 0,
-            splashBorderRadius: BorderRadius.circular(100),
+            splashBorderRadius: BorderRadius.circular(AppSpacing.spacing8),
             indicatorSize: TabBarIndicatorSize.tab,
             indicator: BoxDecoration(
               color: AppColors.purple,
-              borderRadius: BorderRadius.circular(100),
+              borderRadius: BorderRadius.circular(AppSpacing.spacing8),
             ),
             unselectedLabelStyle: AppTextStyles.body4,
             labelStyle: AppTextStyles.body4.extraBold,

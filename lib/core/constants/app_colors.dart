@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // Primary (Robin's Egg Blue) Color Scheme
-  static const Color primary50 = Color(0xFFEEFFFD);
+  static const Color primary50 = Color(0xFFF7FFFE);
   static const Color primary100 = Color(0xFFC6FFFB);
   static const Color primary200 = Color(0xFF8EFFF8);
   static const Color primary300 = Color(0xFF4DFBF4);
@@ -20,7 +20,7 @@ class AppColors {
   static const Color primary = primary700;
 
   // Secondary (Electric Violet) Color Scheme
-  static const Color secondary50 = Color(0xFFFBF4FF);
+  static const Color secondary50 = Color(0xFFFBF8FD);
   static const Color secondary100 = Color(0xFFF7E8FF);
   static const Color secondary200 = Color(0xFFEFD0FE);
   static const Color secondary300 = Color(0xFFE5AAFD);
@@ -31,10 +31,10 @@ class AppColors {
   static const Color secondary800 = Color(0xFF761890);
   static const Color secondary900 = Color(0xFF641976);
   static const Color secondary950 = Color(0xFF40034F);
-  static const Color secondaryAlpha10 = Color(0x1AAD25DA);
-  static const Color secondaryAlpha25 = Color(0x40AD25DA);
-  static const Color secondaryAlpha50 = Color(0x80AD25DA);
-  static const Color secondaryAlpha75 = Color(0xBFAD25DA);
+  static const Color secondaryAlpha10 = Color(0x28FBF8FD);
+  static const Color secondaryAlpha25 = Color(0x40FBF8FD);
+  static const Color secondaryAlpha50 = Color(0x80FBF8FD);
+  static const Color secondaryAlpha75 = Color(0xBFFBF8FD);
   static const Color secondary = secondary700;
 
   // Tertiary (Bird Flower) Color Scheme
@@ -110,7 +110,7 @@ class AppColors {
 
   // Neutral Colors
   static const Color light = neutral50;
-  static const Color dark = Color(0xFF18011D);
+  static const Color dark = Color(0xFF0E0011);
 
   // Specific Dark Grey for Alpha Variants
   static const Color darkGrey = Color(
@@ -126,6 +126,10 @@ class AppColors {
   // Green Color Shades
   static const Color green100 = Color(0xFF52DF83);
   static const Color green200 = Color(0xFF21B354);
+  static const Color green400 = Color(0xFF19A048);
+  static const Color green500 = Color(0xFF146E34);
+  static const Color green600 = Color(0xFF12642F);
+  static const Color green700 = Color(0xFF0E4A23);
 
   // Green Alpha Variant
   static const Color greenAlpha10 = Color(0x1A52DF83);
@@ -142,13 +146,12 @@ extension ColorExtensions on BuildContext {
   Color get primaryText =>
       themeMode == ThemeMode.dark ? AppColors.primary400 : AppColors.primary;
 
-  Color get secondaryBackground => themeMode == ThemeMode.dark
-      ? AppColors.secondaryAlpha10
-      : AppColors.secondary50;
+  Color get secondaryBackground =>
+      themeMode == ThemeMode.dark ? AppColors.dark : AppColors.neutral50;
 
   Color get secondaryButtonBackground => themeMode == ThemeMode.dark
-      ? AppColors.secondaryAlpha10
-      : AppColors.secondary100;
+      ? AppColors.neutralAlpha25
+      : AppColors.neutral50;
 
   Color get secondaryBackgroundSolid => themeMode == ThemeMode.dark
       ? AppColors.secondary950
@@ -159,23 +162,29 @@ extension ColorExtensions on BuildContext {
       : AppColors.secondary950;
 
   Color get secondaryBorder => themeMode == ThemeMode.dark
-      ? AppColors.secondaryAlpha25
+      ? AppColors.secondaryAlpha10
       : AppColors.secondary200;
 
   Color get secondaryBorderLighter => themeMode == ThemeMode.dark
       ? AppColors.secondaryAlpha10
-      : AppColors.secondary200;
+      : AppColors.neutralAlpha10;
 
   Color get incomeBackground => AppColors.primaryAlpha10;
 
   Color get incomeForeground =>
       themeMode == ThemeMode.dark ? AppColors.neutral50 : AppColors.neutral900;
 
+  Color get incomeStatsBackground =>
+      themeMode == ThemeMode.dark ? AppColors.greenAlpha20 : AppColors.green200;
+
+  Color get incomeStatsForeground =>
+      themeMode == ThemeMode.dark ? AppColors.neutral50 : AppColors.neutral50;
+
   Color get incomeText =>
       themeMode == ThemeMode.dark ? AppColors.green200 : AppColors.green200;
 
   Color get incomeLine => themeMode == ThemeMode.dark
-      ? AppColors.primaryAlpha10
+      ? secondaryBorderLighter
       : AppColors.primaryAlpha25;
 
   Color get expenseBackground =>
@@ -184,13 +193,14 @@ extension ColorExtensions on BuildContext {
   Color get expenseStatsBackground => AppColors.redAlpha10;
 
   Color get expenseForeground =>
-      themeMode == ThemeMode.dark ? AppColors.neutral50 : AppColors.red800;
+      themeMode == ThemeMode.dark ? AppColors.neutral50 : AppColors.neutral900;
 
   Color get expenseText =>
       themeMode == ThemeMode.dark ? AppColors.red700 : AppColors.red700;
 
-  Color get expenseLine =>
-      themeMode == ThemeMode.dark ? AppColors.redAlpha10 : AppColors.redAlpha10;
+  Color get expenseLine => themeMode == ThemeMode.dark
+      ? secondaryBorderLighter
+      : AppColors.redAlpha10;
 
   Color get purpleBackground => themeMode == ThemeMode.dark
       ? AppColors.neutralAlpha25
@@ -200,11 +210,11 @@ extension ColorExtensions on BuildContext {
       themeMode == ThemeMode.dark ? AppColors.purple : AppColors.purple400;
 
   Color get purpleButtonBackground => themeMode == ThemeMode.dark
-      ? AppColors.purpleAlpha10
+      ? AppColors.neutralAlpha25
       : AppColors.purple100;
 
   Color get purpleButtonBorder => themeMode == ThemeMode.dark
-      ? AppColors.purpleAlpha50
+      ? AppColors.neutralAlpha25
       : AppColors.purple200;
 
   Color get purpleBorder =>
@@ -229,6 +239,9 @@ extension ColorExtensions on BuildContext {
 
   Color get purpleIconActive =>
       themeMode == ThemeMode.dark ? AppColors.purple50 : AppColors.purple100;
+
+  Color get chartLineColor =>
+      themeMode == ThemeMode.dark ? AppColors.purple : AppColors.purple;
 
   Color get floatingContainer =>
       themeMode == ThemeMode.dark ? AppColors.dark : AppColors.light;
@@ -256,11 +269,14 @@ extension ColorExtensions on BuildContext {
       themeMode == ThemeMode.dark ? AppColors.neutral500 : AppColors.neutral100;
 
   Color get placeholderForeground =>
+      themeMode == ThemeMode.dark ? AppColors.neutral400 : AppColors.neutral400;
+
+  Color get placeholderButtonForeground =>
       themeMode == ThemeMode.dark ? AppColors.neutral600 : AppColors.neutral400;
 
   Color get breakLineColor =>
       themeMode == ThemeMode.dark ? AppColors.neutral700 : AppColors.neutral100;
 
   Color get bottomSheetBackground =>
-      themeMode == ThemeMode.dark ? AppColors.dark : AppColors.neutral100;
+      themeMode == ThemeMode.dark ? AppColors.neutral950 : AppColors.neutral50;
 }

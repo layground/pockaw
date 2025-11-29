@@ -16,6 +16,7 @@ class TransactionTitleField extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CustomTextField(
+      context: context,
       controller: controller,
       label: 'Title (max. 50)',
       hint: 'Lunch with my friends',

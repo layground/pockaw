@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/date_picker/custom_date_picker.dart';
 import 'package:pockaw/core/components/form_fields/custom_select_field.dart';
 import 'package:pockaw/core/extensions/date_time_extension.dart';
@@ -29,7 +28,6 @@ class TransactionFilterDatePicker extends HookConsumerWidget {
       controller: controller,
       label: 'Set a date range',
       hint: '1 June 2025 - 31 July 2024',
-      prefixIcon: HugeIcons.strokeRoundedCalendar01,
       onTap: () async {
         var range = await CustomDatePicker.selectDateRange(
           context,

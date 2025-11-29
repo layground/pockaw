@@ -186,7 +186,7 @@ class MoneyInsiderChart extends ConsumerWidget {
             spots: spots,
             isCurved: true,
             curveSmoothness: 0.35,
-            color: AppColors.tertiary,
+            color: context.chartLineColor,
             barWidth: 4,
             isStrokeCapRound: true,
             dotData: FlDotData(
@@ -196,10 +196,10 @@ class MoneyInsiderChart extends ConsumerWidget {
                 // Highlight the current day's spot
                 return FlDotCirclePainter(
                   radius: isToday ? 6 : 3,
-                  color: isToday ? Colors.white : AppColors.tertiary,
+                  color: isToday ? Colors.white : context.chartLineColor,
                   strokeWidth: isToday ? 3 : 1,
                   strokeColor: isToday
-                      ? AppColors.tertiary
+                      ? context.chartLineColor
                       : Colors.transparent,
                 );
               },

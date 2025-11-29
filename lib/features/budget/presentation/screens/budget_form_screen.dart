@@ -280,7 +280,7 @@ class BudgetFormScreen extends HookConsumerWidget {
                       label: 'Category',
                       hint: 'Select Category',
                       isRequired: true,
-                      prefixIcon: HugeIcons.strokeRoundedPackage,
+                      prefixIcon: HugeIcons.strokeRoundedStructure01,
                       onTap: () async {
                         final CategoryModel? result = await context.push(
                           Routes.categoryList,

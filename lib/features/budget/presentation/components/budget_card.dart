@@ -50,7 +50,7 @@ class BudgetCard extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.spacing12),
         decoration: BoxDecoration(
-          color: context.purpleBackground,
+          color: context.secondaryBackground,
           borderRadius: BorderRadius.circular(AppRadius.radius8),
           border: Border.all(color: context.purpleBorderLighter),
         ),

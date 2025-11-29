@@ -59,6 +59,7 @@ class GoalChecklistFormDialog extends HookConsumerWidget {
           spacing: AppSpacing.spacing16,
           children: [
             CustomTextField(
+              context: context,
               controller: titleController,
               label: 'Title (max. 25)',
               hint: 'Buy something',
@@ -78,6 +79,7 @@ class GoalChecklistFormDialog extends HookConsumerWidget {
               isRequired: true,
             ),
             CustomTextField(
+              context: context,
               controller: linkController,
               label: 'Offline store or link to buy',
               hint: 'Insert or paste link here...',

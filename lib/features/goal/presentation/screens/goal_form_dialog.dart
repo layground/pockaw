@@ -54,6 +54,7 @@ class GoalFormDialog extends HookConsumerWidget {
           spacing: AppSpacing.spacing16,
           children: [
             CustomTextField(
+              context: context,
               controller: titleController,
               label: 'Title (max. 25)',
               hint: 'Buy something',
@@ -66,6 +67,7 @@ class GoalFormDialog extends HookConsumerWidget {
             ),
             GoalDateRangePicker(initialDate: dateRange),
             CustomTextField(
+              context: context,
               controller: noteController,
               label: 'Write a note',
               hint: 'Write here...',

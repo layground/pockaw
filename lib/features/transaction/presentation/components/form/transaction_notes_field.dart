@@ -11,6 +11,7 @@ class TransactionNotesField extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return CustomTextField(
+      context: context,
       controller: controller,
       label: 'Write a note',
       hint: 'Write here...',
