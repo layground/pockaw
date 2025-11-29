@@ -14,6 +14,7 @@ import 'package:pockaw/core/utils/locale_utils.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/authentication/data/repositories/user_repository.dart';
 import 'package:pockaw/features/authentication/data/models/user_model.dart';
+import 'package:pockaw/features/backup_and_restore/presentation/riverpod/backup_controller.dart';
 import 'package:pockaw/features/currency_picker/presentation/riverpod/currency_picker_provider.dart';
 import 'package:pockaw/features/user_activity/data/enum/user_activity_action.dart';
 import 'package:pockaw/features/user_activity/riverpod/user_activity_provider.dart';
@@ -74,12 +75,16 @@ class AuthNotifier extends Notifier<UserModel> {
             if (account != null && context.mounted) {
               Log.d('proceed', label: 'google signin');
 
-              signInOrRegister(
+              await signInOrRegister(
                 context: context,
                 username: account.displayName ?? 'User',
                 email: account.email,
                 profilePicture: account.photoUrl,
               );
+
+              await ref
+                  .read(backupControllerProvider.notifier)
+                  .restoreLastBackupFromDrive();
             }
           },
           onError: () {

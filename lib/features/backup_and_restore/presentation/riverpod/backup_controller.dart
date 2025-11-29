@@ -91,9 +91,13 @@ class BackupController extends Notifier<BackupState> {
     _authService = ref.read(googleAuthServiceProvider);
     _driveService = ref.read(googleDriveServiceProvider);
     _backupService = ref.read(dataBackupServiceProvider);
+    fetchLastBackup();
+    return const BackupState();
+  }
+
+  void fetchLastBackup() {
     fetchLastLocalBackupFile();
     fetchLastDriveBackupFile();
-    return const BackupState();
   }
 
   // --- Drive Backup Flow ---
@@ -307,7 +311,7 @@ class BackupController extends Notifier<BackupState> {
               userId: ref.read(authStateProvider).id,
             );
 
-        Toast.show('Restore complete');
+        Toast.show('Restore from Google Drive complete');
       } else {
         state = state.copyWith(
           status: BackupStatus.error,
@@ -321,7 +325,7 @@ class BackupController extends Notifier<BackupState> {
               userId: ref.read(authStateProvider).id,
             );
 
-        Toast.show('Restore failed');
+        Toast.show('Restore from Google Drive failed');
       }
 
       if (await file.exists()) await file.delete();
@@ -331,12 +335,13 @@ class BackupController extends Notifier<BackupState> {
         status: BackupStatus.error,
         message: 'Restore failed: $e',
       );
-      Toast.show('Restore failed');
+      Toast.show('Restore from Google Drive error');
     }
   }
 
   /// Restore last backup from google drive
   Future<void> restoreLastBackupFromDrive() async {
+    Toast.show('Restoring from Google Drive. Please wait...');
     await fetchDriveBackups();
     if (state.driveBackups.isEmpty) return;
 
