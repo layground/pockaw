@@ -23,7 +23,7 @@ class SpendingPieChart extends ConsumerWidget {
 
     if (expenseData.isEmpty) {
       return const SizedBox(
-        height: 300,
+        height: 400,
         child: Center(child: Text('No expenses to display')),
       );
     }
@@ -89,7 +89,7 @@ class SpendingPieChart extends ConsumerWidget {
     return ChartContainer(
       title: 'Spending by Category',
       subtitle: 'Current Month Breakdown',
-      height: 360,
+      height: 400,
       margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing16),
       chart: Column(
         children: [

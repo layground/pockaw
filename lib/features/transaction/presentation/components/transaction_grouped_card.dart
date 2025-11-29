@@ -79,7 +79,7 @@ class TransactionGroupedCard extends ConsumerWidget {
         return Container(
           padding: const EdgeInsets.all(AppSpacing.spacing16),
           decoration: BoxDecoration(
-            border: Border.all(color: context.purpleBorderLighter),
+            border: Border.all(color: context.secondaryBorderLighter),
             borderRadius: BorderRadius.circular(AppRadius.radius12),
           ),
           child: Column(
