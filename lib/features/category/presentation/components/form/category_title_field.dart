@@ -8,6 +8,7 @@ class CategoryTitleField extends ConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     return CustomTextField(
+      context: context,
       controller: titleController, // Use the controller
       label: 'Title (max. 25)',
       hint: 'New Category Title',

@@ -35,7 +35,7 @@ class MenuTileButton extends StatelessWidget {
           ? context.disabledTileBackground
           : context.purpleBackground,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppRadius.radius8),
+        borderRadius: BorderRadius.circular(AppRadius.radius12),
         // Use context.colors.outline or a custom color that adapts
         side: BorderSide(color: context.purpleBorderLighter),
       ),
@@ -45,10 +45,10 @@ class MenuTileButton extends StatelessWidget {
       ), // Ensure text color adapts
       subtitle: subtitle != null
           ? DefaultTextStyle.merge(
-              style: AppTextStyles.body3.copyWith(
+              style: AppTextStyles.body4.copyWith(
                 color: disabled
                     ? context.disabledTileForeground
-                    : context.colors.onSurfaceVariant,
+                    : context.placeholderForeground,
               ), // Subtitle color
               child: subtitle!,
             )

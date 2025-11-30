@@ -10,6 +10,7 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/router_extension.dart';
+import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/budget/data/model/budget_model.dart';
@@ -20,7 +21,8 @@ import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
 
 class BudgetCard extends ConsumerWidget {
   final BudgetModel budget;
-  const BudgetCard({super.key, required this.budget});
+  final bool editing;
+  const BudgetCard({super.key, required this.budget, this.editing = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -50,16 +52,18 @@ class BudgetCard extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.spacing12),
         decoration: BoxDecoration(
-          color: context.purpleBackground,
-          borderRadius: BorderRadius.circular(AppRadius.radius8),
-          border: Border.all(color: context.purpleBorderLighter),
+          color: context.secondaryBackground,
+          borderRadius: BorderRadius.circular(AppRadius.radius12),
+          border: Border.all(color: context.secondaryBorderLighter),
         ),
         child: Column(
           children: [
             AbsorbPointer(
               child: CategoryTile(
                 category: budget.category,
-                suffixIcon: HugeIcons.strokeRoundedArrowRight01,
+                suffixIcon: editing
+                    ? null
+                    : HugeIcons.strokeRoundedArrowRight01,
               ),
             ),
             const Gap(AppSpacing.spacing8),
@@ -68,16 +72,16 @@ class BudgetCard extends ConsumerWidget {
               children: [
                 Text(
                   '$currency ${remainingAmount.toPriceFormat()} left',
-                  style: AppTextStyles.body4.copyWith(
+                  style: AppTextStyles.body4.bold.copyWith(
                     color: remainingAmount < 0
                         ? AppColors.red
-                        : context.secondaryText,
+                        : AppColors.green200,
                   ),
                 ),
                 Text(
                   '$currency ${spentAmount.toPriceFormat()} of ${budget.amount.toPriceFormat()}',
                   textAlign: TextAlign.right,
-                  style: AppTextStyles.body4,
+                  style: AppTextStyles.body4.bold,
                 ),
               ],
             ),

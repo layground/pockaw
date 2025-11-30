@@ -6,6 +6,7 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/components/loading_indicators/loading_indicator.dart';
+import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/features/reports/data/models/daily_net_flow_model.dart';
@@ -21,7 +22,8 @@ class MoneyInsiderChart extends ConsumerWidget {
 
     return ChartContainer(
       title: 'Money Insider',
-      subtitle: 'Daily Net Flow vs. Zero Line (This Month)',
+      subtitle:
+          'Daily Net Flow vs. Zero Line (${DateTime.now().toMonthName()})',
       height: 350, // Taller chart for better visualization
       chart: netFlowAsync.when(
         data: (data) => _buildChart(context, data),
@@ -40,9 +42,17 @@ class MoneyInsiderChart extends ConsumerWidget {
     final allValues = data.map((d) => d.netAmount).toList();
     final double absoluteMax = allValues.map((v) => v.abs()).reduce(max);
 
-    // Ensure the Y-axis is symmetric around 0 for clear visualization
-    final double minY = -absoluteMax * 1.1;
-    final double maxY = absoluteMax * 1.1;
+    // Ensure the Y-axis is symmetric around 0 for clear visualization and to
+    // prevent division-by-zero errors on intervals if all data points are zero.
+    final double minY;
+    final double maxY;
+    if (absoluteMax == 0.0) {
+      minY = -1.0;
+      maxY = 1.0;
+    } else {
+      minY = -absoluteMax * 1.1;
+      maxY = absoluteMax * 1.1;
+    }
 
     final spots = data
         .map((d) => FlSpot(d.day.toDouble(), d.netAmount))
@@ -80,8 +90,8 @@ class MoneyInsiderChart extends ConsumerWidget {
         // Tooltip (shows net amount and day)
         lineTouchData: LineTouchData(
           touchTooltipData: LineTouchTooltipData(
-            getTooltipColor: (group) => context.secondaryBackgroundSolid,
-            tooltipBorder: BorderSide(color: context.purpleBorderLighter),
+            getTooltipColor: (group) => context.dialogBackground,
+            tooltipBorder: BorderSide(color: context.secondaryBorderLighter),
             tooltipBorderRadius: BorderRadius.circular(AppRadius.radius8),
             getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
               return touchedBarSpots.map((barSpot) {
@@ -93,15 +103,15 @@ class MoneyInsiderChart extends ConsumerWidget {
 
                 return LineTooltipItem(
                   flSpot.y.toShortPriceFormat(), // Show + or - sign
-                  TextStyle(
+                  AppTextStyles.body3.bold.copyWith(
                     color: color,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
                   ),
                   children: [
                     TextSpan(
                       text: '\nDay ${flSpot.x.toInt()}',
-                      style: AppTextStyles.body3,
+                      style: AppTextStyles.body4.copyWith(
+                        color: context.secondaryText,
+                      ),
                     ),
                   ],
                 );
@@ -116,7 +126,7 @@ class MoneyInsiderChart extends ConsumerWidget {
           show: true,
           drawVerticalLine: true,
           drawHorizontalLine: true,
-          horizontalInterval: absoluteMax / 3, // Create grid for context
+          horizontalInterval: maxY / 3, // Create grid for context
           getDrawingVerticalLine: (value) => FlLine(
             color: Colors.grey.withAlpha(50),
             strokeWidth: 1,
@@ -153,7 +163,7 @@ class MoneyInsiderChart extends ConsumerWidget {
             sideTitles: SideTitles(
               showTitles: true,
               reservedSize: 40,
-              interval: absoluteMax / 3,
+              interval: maxY / 3,
               getTitlesWidget: (value, meta) {
                 if (value == 0) return const SizedBox.shrink();
                 return Text(
@@ -178,7 +188,7 @@ class MoneyInsiderChart extends ConsumerWidget {
             spots: spots,
             isCurved: true,
             curveSmoothness: 0.35,
-            color: AppColors.tertiary,
+            color: context.chartLineColor,
             barWidth: 4,
             isStrokeCapRound: true,
             dotData: FlDotData(
@@ -188,10 +198,10 @@ class MoneyInsiderChart extends ConsumerWidget {
                 // Highlight the current day's spot
                 return FlDotCirclePainter(
                   radius: isToday ? 6 : 3,
-                  color: isToday ? Colors.white : AppColors.tertiary,
+                  color: isToday ? Colors.white : context.chartLineColor,
                   strokeWidth: isToday ? 3 : 1,
                   strokeColor: isToday
-                      ? AppColors.tertiary
+                      ? context.chartLineColor
                       : Colors.transparent,
                 );
               },

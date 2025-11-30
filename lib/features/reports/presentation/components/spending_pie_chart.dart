@@ -21,13 +21,6 @@ class SpendingPieChart extends ConsumerWidget {
       return LoadingIndicator();
     }
 
-    if (expenseData.isEmpty) {
-      return const SizedBox(
-        height: 300,
-        child: Center(child: Text('No expenses to display')),
-      );
-    }
-
     List<PieChartSectionData> showingSections() {
       return List.generate(expenseData.length, (i) {
         final isTouched = i == touchedIndex;
@@ -88,60 +81,65 @@ class SpendingPieChart extends ConsumerWidget {
 
     return ChartContainer(
       title: 'Spending by Category',
-      subtitle: 'Current Month Breakdown',
-      height: 360,
+      subtitle: 'Breakdown of your spending by category',
+      height: 400,
       margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing16),
-      chart: Column(
-        children: [
-          Expanded(
-            child: Stack(
+      chart: expenseData.isEmpty
+          ? ChartContainer.errorText('No transaction to display')
+          : Column(
               children: [
-                PieChart(
-                  PieChartData(
-                    pieTouchData: PieTouchData(
-                      touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                        if (!event.isInterestedForInteractions ||
-                            pieTouchResponse == null ||
-                            pieTouchResponse.touchedSection == null) {
-                          touchedIndexState.set(-1);
-                          return;
-                        }
-                        touchedIndexState.set(
-                          pieTouchResponse.touchedSection!.touchedSectionIndex,
-                        );
-                      },
-                    ),
-                    borderData: FlBorderData(show: false),
-                    sectionsSpace: 2,
-                    centerSpaceRadius: 60,
-                    sections: showingSections(),
-                  ),
-                ),
-                Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                Expanded(
+                  child: Stack(
                     children: [
-                      Text(
-                        'Total Spent',
-                        style: AppTextStyles.body3,
+                      PieChart(
+                        PieChartData(
+                          pieTouchData: PieTouchData(
+                            touchCallback:
+                                (FlTouchEvent event, pieTouchResponse) {
+                                  if (!event.isInterestedForInteractions ||
+                                      pieTouchResponse == null ||
+                                      pieTouchResponse.touchedSection == null) {
+                                    touchedIndexState.set(-1);
+                                    return;
+                                  }
+                                  touchedIndexState.set(
+                                    pieTouchResponse
+                                        .touchedSection!
+                                        .touchedSectionIndex,
+                                  );
+                                },
+                          ),
+                          borderData: FlBorderData(show: false),
+                          sectionsSpace: 2,
+                          centerSpaceRadius: 60,
+                          sections: showingSections(),
+                        ),
                       ),
-                      const SizedBox(height: 4),
-                      Text(
-                        totalExpenses.toShortPriceFormat(),
-                        style: AppTextStyles.body2.copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
+                      Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Total Spent',
+                              style: AppTextStyles.body3,
+                            ),
+                            const SizedBox(height: 4),
+                            Text(
+                              totalExpenses.toShortPriceFormat(),
+                              style: AppTextStyles.body2.copyWith(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
                 ),
+                buildLegend(),
               ],
             ),
-          ),
-          buildLegend(),
-        ],
-      ),
     );
   }
 }
@@ -160,11 +158,12 @@ class _Badge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 300), // fl_chart animationDuration
-      width: size + 20, // Make it wide enough for text
+      duration: const Duration(milliseconds: 300),
+      width: size + 20,
       height: size / 1.5,
       decoration: BoxDecoration(
-        color: context.secondaryBackgroundSolid,
+        color: context.dialogBackground,
+        border: Border.all(color: context.secondaryBorderLighter),
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
@@ -179,7 +178,9 @@ class _Badge extends StatelessWidget {
       child: Center(
         child: Text(
           amount.toShortPriceFormat(),
-          style: AppTextStyles.body4,
+          style: AppTextStyles.body4.copyWith(
+            color: borderColor,
+          ),
           textAlign: TextAlign.center,
         ),
       ),

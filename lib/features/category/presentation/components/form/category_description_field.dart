@@ -11,6 +11,7 @@ class CategoryDescriptionField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomTextField(
+      context: context,
       label: 'Description (max. 50)',
       hint: 'Write simple description...',
       controller: descriptionController, // Use the controller

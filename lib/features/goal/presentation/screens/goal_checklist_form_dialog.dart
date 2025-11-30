@@ -13,6 +13,7 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/extensions/string_extension.dart';
 import 'package:pockaw/core/services/keyboard_service/virtual_keyboard_service.dart';
 import 'package:pockaw/core/utils/logger.dart';
@@ -59,6 +60,7 @@ class GoalChecklistFormDialog extends HookConsumerWidget {
           spacing: AppSpacing.spacing16,
           children: [
             CustomTextField(
+              context: context,
               controller: titleController,
               label: 'Title (max. 25)',
               hint: 'Buy something',
@@ -78,6 +80,7 @@ class GoalChecklistFormDialog extends HookConsumerWidget {
               isRequired: true,
             ),
             CustomTextField(
+              context: context,
               controller: linkController,
               label: 'Offline store or link to buy',
               hint: 'Insert or paste link here...',
@@ -123,10 +126,8 @@ class GoalChecklistFormDialog extends HookConsumerWidget {
                   style: AppTextStyles.body2.copyWith(color: AppColors.red),
                 ),
                 onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    showDragHandle: true,
-                    builder: (context) => AlertBottomSheet(
+                  context.openBottomSheet(
+                    child: AlertBottomSheet(
                       context: context,
                       title: 'Delete Checklist',
                       content: Text(

@@ -55,7 +55,7 @@ class CategoryIconAssetPicker extends ConsumerWidget {
                 onTap: () => context.pop(assetPath),
                 borderRadius: BorderRadius.circular(8),
                 child: Container(
-                  padding: EdgeInsets.all(AppSpacing.spacing8),
+                  padding: EdgeInsets.all(AppSpacing.spacing16),
                   decoration: BoxDecoration(
                     color: context.purpleBackground,
                     borderRadius: BorderRadius.circular(8),

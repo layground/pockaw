@@ -6,18 +6,22 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
 import 'package:pockaw/core/components/buttons/button_state.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
+import 'package:pockaw/core/components/date_picker/custom_date_picker.dart';
+import 'package:pockaw/core/components/form_fields/custom_select_field.dart';
 import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
+import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/string_extension.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/goal/data/model/goal_model.dart';
 import 'package:pockaw/features/goal/presentation/riverpod/date_picker_provider.dart';
-import 'package:pockaw/features/goal/presentation/components/goal_date_range_picker.dart';
 import 'package:pockaw/features/goal/presentation/services/goal_form_service.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
-import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart'; // for Value
+import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
+
+part '../components/goal_date_range_picker.dart';
 
 class GoalFormDialog extends HookConsumerWidget {
   final GoalModel? goal;
@@ -54,6 +58,7 @@ class GoalFormDialog extends HookConsumerWidget {
           spacing: AppSpacing.spacing16,
           children: [
             CustomTextField(
+              context: context,
               controller: titleController,
               label: 'Title (max. 25)',
               hint: 'Buy something',
@@ -66,6 +71,7 @@ class GoalFormDialog extends HookConsumerWidget {
             ),
             GoalDateRangePicker(initialDate: dateRange),
             CustomTextField(
+              context: context,
               controller: noteController,
               label: 'Write a note',
               hint: 'Write here...',

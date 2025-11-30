@@ -52,12 +52,16 @@ class SixMonthsIncomeExpenseChart extends ConsumerWidget {
     maxY = maxY * 1.2;
     if (maxY == 0) maxY = 100;
 
+    // Ensure maxX > minX to prevent chart errors with single data points.
+    final double rawMaxX = (data.length - 1).toDouble();
+    final double maxX = rawMaxX <= 0 ? 1.0 : rawMaxX;
+
     return LineChart(
       LineChartData(
         lineTouchData: LineTouchData(
           touchTooltipData: LineTouchTooltipData(
-            getTooltipColor: (touchedSpot) => context.secondaryBackgroundSolid,
-            tooltipBorder: BorderSide(color: context.purpleBorderLighter),
+            getTooltipColor: (touchedSpot) => context.dialogBackground,
+            tooltipBorder: BorderSide(color: context.secondaryBorderLighter),
             tooltipBorderRadius: BorderRadius.circular(AppRadius.radius4),
             getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
               return touchedBarSpots.map((barSpot) {
@@ -70,11 +74,16 @@ class SixMonthsIncomeExpenseChart extends ConsumerWidget {
 
                 // Custom tooltip content
                 return LineTooltipItem(
-                  '$label: ${flSpot.y.toPriceFormat()}',
-                  AppTextStyles.body3.copyWith(
-                    color: color,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  '$label: ',
+                  AppTextStyles.body4.bold,
+                  children: [
+                    TextSpan(
+                      text: flSpot.y.toPriceFormat(),
+                      style: AppTextStyles.body4.bold.copyWith(
+                        color: color,
+                      ),
+                    ),
+                  ],
                 );
               }).toList();
             },
@@ -139,7 +148,7 @@ class SixMonthsIncomeExpenseChart extends ConsumerWidget {
         ),
         borderData: FlBorderData(show: false),
         minX: 0,
-        maxX: (data.length - 1).toDouble(),
+        maxX: maxX,
         minY: 0,
         maxY: maxY,
         lineBarsData: [

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/components/bottom_sheets/alert_bottom_sheet.dart';
 import 'package:pockaw/core/components/bottom_sheets/custom_bottom_sheet.dart';
 import 'package:pockaw/core/components/buttons/primary_button.dart';
@@ -10,6 +9,7 @@ import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_filter_model.dart';
 import 'package:pockaw/features/transaction/presentation/components/filter_form/transaction_filter_category_selector.dart';
 import 'package:pockaw/features/transaction/presentation/components/filter_form/transaction_filter_type_selector.dart';
@@ -40,6 +40,7 @@ class TransactionFilterFormDialog extends HookConsumerWidget {
               onTypeSelected: formState.onTypeSelected,
             ),
             CustomTextField(
+              context: context,
               controller: formState.keywordController,
               hint: 'Dinner with ...',
               label: 'Search with keyword',
@@ -62,7 +63,6 @@ class TransactionFilterFormDialog extends HookConsumerWidget {
                   child: CustomNumericField(
                     label: 'Min. Amount',
                     hint: '100,000',
-                    icon: HugeIcons.strokeRoundedMoney03,
                     appendCurrencySymbolToHint: true,
                     controller: formState.minAmountController,
                   ),
@@ -71,7 +71,6 @@ class TransactionFilterFormDialog extends HookConsumerWidget {
                   child: CustomNumericField(
                     label: 'Max. Amount',
                     hint: '2,500,000',
-                    icon: HugeIcons.strokeRoundedMoney03,
                     appendCurrencySymbolToHint: true,
                     controller: formState.maxAmountController,
                   ),
@@ -88,10 +87,8 @@ class TransactionFilterFormDialog extends HookConsumerWidget {
                 style: AppTextStyles.body2.copyWith(color: AppColors.red),
               ),
               onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  showDragHandle: true,
-                  builder: (context) => AlertBottomSheet(
+                context.openBottomSheet(
+                  child: AlertBottomSheet(
                     title: 'Reset Filters',
                     content: Text(
                       'Continue to reset transaction filters?',

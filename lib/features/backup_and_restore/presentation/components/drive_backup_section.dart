@@ -133,23 +133,23 @@ class DriveBackupSection extends ConsumerWidget {
             children: [
               Text(
                 'Google Drive Backup Info',
-                style: AppTextStyles.body3.bold,
+                style: AppTextStyles.body4.bold,
               ),
               const Gap(AppSpacing.spacing8),
               Text(
                 'Backup File: ${state.driveDirectory ?? 'Not set'}',
-                style: AppTextStyles.body3,
+                style: AppTextStyles.body4,
               ),
               const Gap(AppSpacing.spacing4),
               Text(
                 'Last Backup Time: ${state.lastDriveBackupTime != null ? state.lastDriveBackupTime!.toDayMonthYearTime12Hour() : 'No backups yet'}',
-                style: AppTextStyles.body3,
+                style: AppTextStyles.body4,
               ),
               // last restore time
               const Gap(AppSpacing.spacing4),
               Text(
                 'Last Restore Time: ${state.lastDriveRestoreTime != null ? state.lastDriveRestoreTime!.toDayMonthYearTime12Hour() : 'No restores yet'}',
-                style: AppTextStyles.body3,
+                style: AppTextStyles.body4,
               ),
 
               if (state.status == BackupStatus.loading)

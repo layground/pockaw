@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
@@ -118,15 +119,26 @@ class TransactionTile extends ConsumerWidget {
                       if (showDate)
                         Text(
                           transaction.formattedDate,
-                          style: AppTextStyles.body5,
+                          style: AppTextStyles.body5.copyWith(
+                            color: context.formButtonLabelTextColor,
+                          ),
                         ),
                       if (showDate) const Gap(AppSpacing.spacing4),
-                      Text(
-                        '${transaction.amountPrefix} $currency ${transaction.amount.toPriceFormat()}',
-                        style: AppTextStyles.numericMedium.copyWith(
-                          color: transaction.amountColor,
-                          height: 1.12,
-                        ),
+                      Row(
+                        spacing: AppSpacing.spacing4,
+                        children: [
+                          HugeIcon(
+                            icon: transaction.amountPrefixIcon,
+                            size: 12,
+                            color: transaction.amountColor,
+                          ),
+                          Text(
+                            '$currency ${transaction.amount.toPriceFormat()}',
+                            style: AppTextStyles.numericMedium.copyWith(
+                              height: 1.12,
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

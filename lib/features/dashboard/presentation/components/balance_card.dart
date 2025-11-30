@@ -22,7 +22,7 @@ class BalanceCard extends ConsumerWidget {
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('My Balance', style: AppTextStyles.body3),
+                Text('My Balance', style: AppTextStyles.body4),
                 Gap(AppSpacing.spacing8),
                 WalletSwitcherDropdown(), // Still show dropdown to select/create
                 Gap(AppSpacing.spacing8),
@@ -46,7 +46,7 @@ class BalanceCard extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: AppSpacing.spacing8,
                 children: [
-                  Text('My Balance', style: AppTextStyles.body3),
+                  Text('My Balance', style: AppTextStyles.body4.bold),
                   const WalletSwitcherDropdown(),
                   Consumer(
                     builder: (context, ref, child) {
@@ -86,8 +86,8 @@ class BalanceCard extends ConsumerWidget {
               child: Row(
                 spacing: AppSpacing.spacing8,
                 children: [
-                  WalletAmountEditButton(),
                   WalletAmountVisibilityButton(),
+                  WalletAmountEditButton(),
                 ],
               ),
             ),

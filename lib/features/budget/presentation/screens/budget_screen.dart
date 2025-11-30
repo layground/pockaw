@@ -67,49 +67,46 @@ class BudgetScreen extends HookConsumerWidget {
                 0; // Default to the most recent month if current is not in the list
           }
 
-          return Padding(
-            padding: const EdgeInsets.symmetric(vertical: AppSpacing.spacing20),
-            child: DefaultTabController(
-              length: uniqueMonthYears.length,
-              initialIndex: initialTabIndex,
-              child: Column(
-                children: [
-                  BudgetTabBar(),
-                  const Gap(AppSpacing.spacing20),
-                  Expanded(
-                    child: TabBarView(
-                      children: uniqueMonthYears.map((tabMonthDate) {
-                        // Filter transactions for the current tab's month,
+          return DefaultTabController(
+            length: uniqueMonthYears.length,
+            initialIndex: initialTabIndex,
+            child: Column(
+              children: [
+                BudgetTabBar(),
+                const Gap(AppSpacing.spacing20),
+                Expanded(
+                  child: TabBarView(
+                    children: uniqueMonthYears.map((tabMonthDate) {
+                      // Filter transactions for the current tab's month,
 
-                        // Filter transactions for the current tab's month
-                        final transactionsForMonth = allBudgets.where((t) {
-                          return t.startDate.year == tabMonthDate.year &&
-                              t.startDate.month == tabMonthDate.month;
-                        }).toList();
+                      // Filter transactions for the current tab's month
+                      final transactionsForMonth = allBudgets.where((t) {
+                        return t.startDate.year == tabMonthDate.year &&
+                            t.startDate.month == tabMonthDate.month;
+                      }).toList();
 
-                        if (transactionsForMonth.isEmpty) {
-                          // This should ideally not happen if tabs are generated from existing transaction months,
-                          // but good for robustness.
-                          return Center(
-                            child: Text(
-                              'No transactions for ${tabMonthDate.month}/${tabMonthDate.year}.',
-                            ),
-                          );
-                        }
-
-                        return ListView(
-                          children: const [
-                            BudgetSummaryCard(),
-                            Gap(20),
-                            BudgetCardHolder(),
-                            Gap(100),
-                          ],
+                      if (transactionsForMonth.isEmpty) {
+                        // This should ideally not happen if tabs are generated from existing transaction months,
+                        // but good for robustness.
+                        return Center(
+                          child: Text(
+                            'No transactions for ${tabMonthDate.month}/${tabMonthDate.year}.',
+                          ),
                         );
-                      }).toList(),
-                    ),
+                      }
+
+                      return ListView(
+                        children: const [
+                          BudgetSummaryCard(),
+                          Gap(20),
+                          BudgetCardHolder(),
+                          Gap(100),
+                        ],
+                      );
+                    }).toList(),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         },

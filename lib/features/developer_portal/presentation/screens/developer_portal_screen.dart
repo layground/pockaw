@@ -24,7 +24,10 @@ class DeveloperPortalScreen extends HookConsumerWidget {
       body: isLoading.value
           ? const Center(child: LoadingIndicator())
           : SingleChildScrollView(
-              padding: EdgeInsets.all(AppSpacing.spacing20),
+              padding: EdgeInsets.symmetric(
+                horizontal: AppSpacing.spacing16,
+                vertical: AppSpacing.spacing20,
+              ),
               child: Column(
                 spacing: AppSpacing.spacing16,
                 children: [

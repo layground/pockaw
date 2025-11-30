@@ -28,12 +28,13 @@ class DataBackupService {
   static const String _imagesDirName = 'images';
   static const String _defaultBackupDirectory = '/storage/emulated/0/Documents';
   static const String _backupDir = 'PockawBackup';
+  static const String _autoBackupFileName = 'Pockaw_Auto_Backup.zip';
   // static const String _tempBackupDirName = 'pockaw-temp-backup';
   static const String _tempRestoreDirName = 'pockaw-temp-restore';
 
   // ---------------------------------------------------------------------------
   // PUBLIC METHODS (Called by Controllers)
-  // ---------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------\
 
   /// 1. Create ZIP File
   /// Creates a temporary folder, exports JSON + images, zips it, and returns the file.
@@ -41,6 +42,7 @@ class DataBackupService {
     bool deleteImageBackupDirectory = false,
     bool deleteDataBackupFile = false,
     bool deleteBackupZipFile = true,
+    bool staticZipFile = false,
   }) async {
     Log.i('Creating backup ZIP file...', label: 'Backup');
     Directory? tempBackupDir;
@@ -74,7 +76,12 @@ class DataBackupService {
           .toIso8601String()
           .replaceAll(':', '-')
           .split('.')[0];
-      final zipFileName = 'Pockaw_Backup_$timestamp.zip';
+      String zipFileName = 'Pockaw_Backup_$timestamp.zip';
+
+      if (staticZipFile) {
+        zipFileName = _autoBackupFileName;
+      }
+
       final zipFile = File(
         p.join(tempBackupDir.path, zipFileName),
       );

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hugeicons/styles/stroke_rounded.dart';
 import 'package:pockaw/core/components/buttons/small_button.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
@@ -27,12 +29,12 @@ class TransactionSummaryCard extends ConsumerWidget {
 
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
-      padding: const EdgeInsets.all(AppSpacing.spacing16),
+      margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing16),
+      padding: const EdgeInsets.all(AppSpacing.spacing12),
       decoration: BoxDecoration(
-        color: context.purpleBackground,
-        border: Border.all(color: context.purpleBorderLighter),
-        borderRadius: BorderRadius.circular(AppRadius.radius8),
+        color: context.secondaryBackground,
+        border: Border.all(color: context.secondaryBorderLighter),
+        borderRadius: BorderRadius.circular(AppRadius.radius12),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -45,7 +47,7 @@ class TransactionSummaryCard extends ConsumerWidget {
                 child: Text(
                   '$currency ${transactions.totalIncome.toPriceFormat()}',
                   textAlign: TextAlign.end,
-                  style: AppTextStyles.numericMedium.copyWith(
+                  style: AppTextStyles.numericMedium.extraBold.copyWith(
                     color: context.incomeText,
                   ),
                 ),
@@ -61,7 +63,7 @@ class TransactionSummaryCard extends ConsumerWidget {
                 child: Text(
                   '- $currency ${transactions.totalExpenses.toPriceFormat()}',
                   textAlign: TextAlign.end,
-                  style: AppTextStyles.numericMedium.copyWith(
+                  style: AppTextStyles.numericMedium.extraBold.copyWith(
                     color: context.expenseText,
                   ),
                 ),
@@ -82,7 +84,7 @@ class TransactionSummaryCard extends ConsumerWidget {
                 child: Text(
                   '$currency ${transactions.total.toPriceFormat()}',
                   textAlign: TextAlign.end,
-                  style: AppTextStyles.numericMedium,
+                  style: AppTextStyles.numericMedium.extraBold,
                 ),
               ),
             ],
@@ -90,10 +92,11 @@ class TransactionSummaryCard extends ConsumerWidget {
           const Gap(AppSpacing.spacing4),
           SmallButton(
             label: 'View full report',
-            backgroundColor: context.purpleButtonBackground,
+            backgroundColor: context.purpleBackground,
             borderColor: context.purpleButtonBorder,
             foregroundColor: context.secondaryText,
             labelTextStyle: AppTextStyles.body5,
+            suffixIcon: HugeIconsStrokeRounded.arrowRight01,
             onTap: () => context.push(
               Routes.basicMonthlyReports,
               extra: transactions.first.date,

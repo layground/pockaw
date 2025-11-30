@@ -123,7 +123,6 @@ class GoalFormService {
   }
 
   Future<void> toggleComplete(
-    BuildContext context,
     WidgetRef ref, {
     required ChecklistItemModel checklistItem,
   }) async {

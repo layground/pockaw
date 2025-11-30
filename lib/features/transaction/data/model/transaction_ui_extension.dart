@@ -115,6 +115,18 @@ extension TransactionUIExtensions on TransactionModel {
     }
   }
 
+  List<List<dynamic>> get amountPrefixIcon {
+    switch (transactionType) {
+      case TransactionType.income:
+        return HugeIcons.strokeRoundedSquareArrowUp01;
+      case TransactionType.expense:
+        return HugeIcons.strokeRoundedSquareArrowDown01;
+      case TransactionType.transfer:
+        return HugeIcons
+            .strokeRoundedSquareArrowLeftRight; // Transfers might not need a prefix
+    }
+  }
+
   /// Returns the transaction amount formatted as a string with currency symbol/prefix.
   /// Example: "+1,500.00" or "-45.50"
   String get formattedAmount {

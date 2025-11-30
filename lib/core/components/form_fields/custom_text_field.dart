@@ -6,6 +6,7 @@ import 'package:pockaw/core/components/form_fields/custom_input_border.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/text_style_extensions.dart';
 
 class CustomTextField extends TextField {
   static const int maxInputLength = 30;
@@ -42,7 +43,9 @@ class CustomTextField extends TextField {
          decoration: InputDecoration(
            hintText: hint,
            hintStyle: AppTextStyles.body3.copyWith(
-             color: context?.placeholderForeground,
+             color: onTap != null
+                 ? context?.placeholderForeground
+                 : context?.placeholderButtonForeground,
            ),
            label: label == null
                ? const SizedBox()
@@ -50,7 +53,14 @@ class CustomTextField extends TextField {
                    padding: const EdgeInsets.only(top: 6),
                    child: Row(
                      children: [
-                       Text(label, style: AppTextStyles.body3),
+                       Text(
+                         label,
+                         style: AppTextStyles.body3.bold.copyWith(
+                           color: onTap != null
+                               ? context?.formButtonLabelTextColor
+                               : context?.formLabelTextColor,
+                         ),
+                       ),
                        if (isRequired) const Gap(AppSpacing.spacing4),
                        if (isRequired)
                          Text(
@@ -94,7 +104,11 @@ class CustomTextField extends TextField {
                    padding: const EdgeInsets.symmetric(
                      horizontal: AppSpacing.spacing12,
                    ),
-                   child: HugeIcon(icon: prefixIcon, size: 24),
+                   child: HugeIcon(
+                     icon: prefixIcon,
+                     size: 24,
+                     color: context?.purpleIcon,
+                   ),
                  ),
            suffixIcon: suffixIcon == null
                ? null
@@ -107,7 +121,7 @@ class CustomTextField extends TextField {
                      ),
                      child: HugeIcon(
                        icon: suffixIcon,
-                       color: AppColors.neutral200,
+                       color: context?.purpleIcon,
                        size: 24,
                      ),
                    ),
@@ -121,7 +135,7 @@ class CustomTextField extends TextField {
   }) => CustomInputBorder(
     borderSide: BorderSide(
       color: !asButton
-          ? AppColors.neutral600
+          ? AppColors.neutral700
           : context?.purpleButtonBorder ?? AppColors.purple,
     ),
     borderRadius: BorderRadius.circular(AppSpacing.spacing8),

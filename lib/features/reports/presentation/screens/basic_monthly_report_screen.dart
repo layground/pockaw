@@ -1,8 +1,11 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:hugeicons/styles/stroke_rounded.dart';
+import 'package:pockaw/core/components/buttons/custom_icon_button.dart';
 import 'package:pockaw/core/components/charts/chart_container.dart';
 import 'package:pockaw/core/components/loading_indicators/loading_indicator.dart';
 import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
@@ -19,17 +22,41 @@ import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 
 part '../components/spending_pie_chart.dart';
 
-class BasicMonthlyReportScreen extends ConsumerWidget {
+class BasicMonthlyReportScreen extends HookConsumerWidget {
   const BasicMonthlyReportScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final date = GoRouterState.of(context).extra as DateTime;
-    final transactionsAsync = ref.watch(monthlyTransactionsProvider(date));
+    final selectedDate = useState(date);
+    final transactionsAsync = ref.watch(
+      monthlyTransactionsProvider(selectedDate.value),
+    );
 
     return CustomScaffold(
       context: context,
-      title: '${date.toMonthName()} Report',
+      title: '${selectedDate.value.toMonthYear()} Report',
+      actions: [
+        CustomIconButton(
+          context,
+          onPressed: () {
+            selectedDate.value = selectedDate.value.subtract(
+              const Duration(days: 30),
+            );
+          },
+          icon: HugeIconsStrokeRounded.arrowLeft02,
+        ),
+        Gap(AppSpacing.spacing4),
+        CustomIconButton(
+          context,
+          onPressed: () {
+            selectedDate.value = selectedDate.value.add(
+              const Duration(days: 30),
+            );
+          },
+          icon: HugeIconsStrokeRounded.arrowRight02,
+        ),
+      ],
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: AppSpacing.spacing20),
         children: [
@@ -39,7 +66,9 @@ class BasicMonthlyReportScreen extends ConsumerWidget {
             isLoading: transactionsAsync.isLoading,
           ),
           Gap(AppSpacing.spacing20),
-          WeeklyIncomeExpenseChart(),
+          WeeklyIncomeExpenseChart(
+            transactions: transactionsAsync.value ?? [],
+          ),
         ],
       ),
     );

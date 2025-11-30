@@ -1,12 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:pockaw/core/constants/app_colors.dart';
-import 'package:pockaw/core/constants/app_radius.dart';
-import 'package:pockaw/core/constants/app_spacing.dart';
-import 'package:pockaw/core/constants/app_text_styles.dart';
-import 'package:pockaw/core/extensions/date_time_extension.dart';
-import 'package:pockaw/features/goal/data/model/goal_model.dart';
+part of '../screens/goal_details_screen.dart';
 
 class GoalTitleCard extends ConsumerWidget {
   final GoalModel goal;
@@ -20,8 +12,8 @@ class GoalTitleCard extends ConsumerWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.spacing20),
       decoration: BoxDecoration(
-        border: Border.all(color: context.purpleBorder),
-        borderRadius: BorderRadius.circular(AppRadius.radius8),
+        border: Border.all(color: context.secondaryBorderLighter),
+        borderRadius: BorderRadius.circular(AppRadius.radius12),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -29,7 +21,9 @@ class GoalTitleCard extends ConsumerWidget {
         children: [
           Text(
             '${goal.startDate?.toDayShortMonthYear()} - ${goal.endDate.toDayShortMonthYear()}',
-            style: AppTextStyles.body5,
+            style: AppTextStyles.body5.extraBold.copyWith(
+              color: context.purpleText,
+            ),
           ),
           Gap(AppSpacing.spacing8),
           Text(goal.title, style: AppTextStyles.body2),

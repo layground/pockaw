@@ -42,7 +42,7 @@ class BackupRestoreScreen extends StatelessWidget {
       title: 'Backup & Restore',
       showBalance: false,
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing16),
         child: Column(
           spacing: AppSpacing.spacing8,
           children: [

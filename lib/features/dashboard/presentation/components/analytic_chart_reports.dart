@@ -10,7 +10,7 @@ class AnalyticChartReports extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(AppSpacing.spacing20),
+      padding: const EdgeInsets.all(AppSpacing.spacing16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         spacing: AppSpacing.spacing16,

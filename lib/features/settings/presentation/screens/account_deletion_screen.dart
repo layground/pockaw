@@ -11,6 +11,8 @@ import 'package:pockaw/core/components/scaffolds/custom_scaffold.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
+import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/services/keyboard_service/virtual_keyboard_service.dart';
 import 'package:pockaw/core/utils/logger.dart';
@@ -37,10 +39,8 @@ class AccountDeletionScreen extends HookConsumerWidget {
     WidgetRef ref,
   ) async {
     KeyboardService.closeKeyboard();
-    showModalBottomSheet(
-      context: context,
-      showDragHandle: true,
-      builder: (_) => AlertBottomSheet(
+    context.openBottomSheet(
+      child: AlertBottomSheet(
         context: context,
         title: 'Confirm Account Deletion',
         confirmText: 'Delete',
@@ -106,13 +106,18 @@ class AccountDeletionScreen extends HookConsumerWidget {
           title: 'Delete Account',
           showBalance: false,
           body: Padding(
-            padding: const EdgeInsets.all(AppSpacing.spacing20),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.spacing16,
+              vertical: AppSpacing.spacing20,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Warning: Account Deletion is PERMANENT!',
-                  style: AppTextStyles.body2.copyWith(color: AppColors.red500),
+                  style: AppTextStyles.body3.bold.copyWith(
+                    color: AppColors.red500,
+                  ),
                 ),
                 const Gap(AppSpacing.spacing12),
                 Text(
@@ -123,16 +128,18 @@ class AccountDeletionScreen extends HookConsumerWidget {
                   'and you will be logged out. \n\n'
                   'This will not delete any backup files '
                   'you may have stored on local and/or Google Drive. '
-                  'If you are not confident, please backup to local or Google Drive first.',
-                  style: AppTextStyles.body2,
+                  'If you are not confident, please backup to local or Google Drive first. \n\n'
+                  'You may restore your backup file from local or Google Drive later.',
+                  style: AppTextStyles.body3,
                 ),
                 const Gap(AppSpacing.spacing16),
                 Text(
-                  "Type your user name '$userName' to continue:",
-                  style: AppTextStyles.body2,
+                  "Type your name '$userName' to continue:",
+                  style: AppTextStyles.body3,
                 ),
                 const Gap(AppSpacing.spacing8),
                 CustomTextField(
+                  context: context,
                   hint: 'Enter your username',
                   label: 'Challenge Confirmation',
                   onChanged: (value) {

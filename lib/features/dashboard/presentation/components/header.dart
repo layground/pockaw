@@ -6,7 +6,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(AppSpacing.spacing20),
+      padding: const EdgeInsets.all(AppSpacing.spacing16),
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

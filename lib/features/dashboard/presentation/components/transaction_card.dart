@@ -49,7 +49,7 @@ class TransactionCard extends ConsumerWidget {
             children: [
               Text(
                 title,
-                style: AppTextStyles.body3.copyWith(color: titleColor),
+                style: AppTextStyles.body4.copyWith(color: titleColor).bold,
               ),
               const Gap(AppSpacing.spacing8),
               Row(
@@ -82,6 +82,9 @@ class TransactionCard extends ConsumerWidget {
                 decoration: BoxDecoration(
                   color: statsBackgroundColor,
                   borderRadius: BorderRadius.circular(AppRadius.radiusFull),
+                  border: Border.all(
+                    color: borderColor ?? AppColors.neutralAlpha50,
+                  ),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
@@ -96,9 +99,11 @@ class TransactionCard extends ConsumerWidget {
                     const Gap(AppSpacing.spacing2),
                     Text(
                       '${percentDifference.toStringAsFixed(1)}%',
-                      style: AppTextStyles.body5.copyWith(
-                        color: statsForegroundColor,
-                      ),
+                      style: AppTextStyles.body5
+                          .copyWith(
+                            color: statsForegroundColor,
+                          )
+                          .semibold,
                     ),
                   ],
                 ),

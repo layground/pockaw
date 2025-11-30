@@ -5,6 +5,7 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/text_style_extensions.dart';
 
 class SmallButton extends StatelessWidget {
   final String label;
@@ -33,14 +34,16 @@ class SmallButton extends StatelessWidget {
       onTap: onTap,
       borderRadius: BorderRadius.circular(AppRadius.radius8),
       child: Container(
-        padding: const EdgeInsetsDirectional.symmetric(
-          horizontal: AppSpacing.spacing4,
-          vertical: AppSpacing.spacing4,
+        padding: const EdgeInsets.fromLTRB(
+          AppSpacing.spacing12,
+          AppSpacing.spacing4,
+          AppSpacing.spacing8,
+          AppSpacing.spacing4,
         ),
         decoration: BoxDecoration(
           color: backgroundColor ?? context.secondaryButtonBackground,
           border: Border.all(color: borderColor ?? context.secondaryBorder),
-          borderRadius: BorderRadius.circular(AppRadius.radius8),
+          borderRadius: BorderRadius.circular(AppRadius.radius24),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -57,15 +60,18 @@ class SmallButton extends StatelessWidget {
                   ),
                 Text(
                   label,
-                  style: labelTextStyle.copyWith(color: foregroundColor),
+                  style: labelTextStyle.bold.copyWith(
+                    color: foregroundColor,
+                    height: 2,
+                  ),
                 ),
               ],
             ),
-            if (suffixIcon != null) const Gap(AppSpacing.spacing8),
+            if (suffixIcon != null) const Gap(AppSpacing.spacing4),
             if (suffixIcon != null)
               HugeIcon(
                 icon: suffixIcon!,
-                size: 14,
+                size: 12,
                 color: foregroundColor ?? AppColors.secondary400,
               ),
           ],

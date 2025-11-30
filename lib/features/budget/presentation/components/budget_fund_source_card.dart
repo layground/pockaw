@@ -7,6 +7,7 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/features/budget/data/model/budget_model.dart';
 
 class BudgetFundSourceCard extends StatelessWidget {
@@ -18,11 +19,12 @@ class BudgetFundSourceCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.spacing8),
       decoration: BoxDecoration(
-        color: context.incomeBackground,
-        border: Border.all(color: context.incomeLine),
+        color: context.secondaryBackground,
+        border: Border.all(color: context.secondaryBorderLighter),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
       child: Row(
+        spacing: AppSpacing.spacing2,
         children: [
           CustomIconButton(
             context,
@@ -39,11 +41,13 @@ class BudgetFundSourceCard extends StatelessWidget {
             children: [
               Text(
                 'Funds Source',
-                style: AppTextStyles.body3.copyWith(color: context.incomeText),
+                style: AppTextStyles.body5.bold.copyWith(
+                  color: context.incomeText,
+                ),
               ),
               Text(
-                budget.wallet.name, // Display wallet name
-                style: AppTextStyles.body5,
+                budget.wallet.name,
+                style: AppTextStyles.body5.bold,
               ),
             ],
           ),

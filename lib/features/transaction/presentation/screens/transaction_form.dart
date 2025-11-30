@@ -72,9 +72,9 @@ class TransactionForm extends HookConsumerWidget {
           Form(
             child: SingleChildScrollView(
               padding: const EdgeInsets.fromLTRB(
-                AppSpacing.spacing20,
                 AppSpacing.spacing16,
-                AppSpacing.spacing20,
+                AppSpacing.spacing12,
+                AppSpacing.spacing16,
                 100,
               ),
               child: isEditing
@@ -112,7 +112,6 @@ class TransactionForm extends HookConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Gap(AppSpacing.spacing12),
         TransactionTypeSelector(
           selectedType: formState.selectedTransactionType.value,
           onTypeSelected: (type) =>

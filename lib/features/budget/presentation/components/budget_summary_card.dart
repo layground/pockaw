@@ -54,27 +54,31 @@ class BudgetSummaryCard extends ConsumerWidget {
 
         return Container(
           width: double.infinity,
-          margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
-          padding: const EdgeInsets.all(AppSpacing.spacing16),
+          margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing16),
+          padding: const EdgeInsets.all(AppSpacing.spacing12),
           decoration: BoxDecoration(
-            color: context.purpleBackground,
-            border: Border.all(color: context.purpleBorderLighter),
-            borderRadius: BorderRadius.circular(AppRadius.radius8),
+            color: context.secondaryBackground,
+            border: Border.all(color: context.secondaryBorderLighter),
+            borderRadius: BorderRadius.circular(AppRadius.radius12),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            spacing: AppSpacing.spacing12,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Total Remaining Budgets',
-                    style: AppTextStyles.body4,
+                    style: AppTextStyles.body4.copyWith(
+                      color: context.secondaryText,
+                      height: 1,
+                    ),
                   ),
                   Text(
                     totalRemainingAmount.toPriceFormat(),
                     style: AppTextStyles.numericHeading.copyWith(
-                      color: context.primaryText,
+                      height: 1.12,
                     ),
                   ),
                 ],
@@ -83,7 +87,6 @@ class BudgetSummaryCard extends ConsumerWidget {
                 value: overallProgress,
                 foreground: AppColors.primary,
               ),
-              const Gap(AppSpacing.spacing12),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

@@ -70,7 +70,7 @@ class SpendingProgressChart extends ConsumerWidget {
           width: double.infinity,
           padding: const EdgeInsets.all(AppSpacing.spacing16),
           decoration: BoxDecoration(
-            color: context.purpleBackground,
+            color: context.secondaryBackground,
             borderRadius: BorderRadius.circular(AppRadius.radius12),
             border: Border.all(color: context.secondaryBorderLighter),
           ),
@@ -82,7 +82,7 @@ class SpendingProgressChart extends ConsumerWidget {
                 Container(
                   padding: const EdgeInsets.all(AppSpacing.spacing4),
                   decoration: ShapeDecoration(
-                    color: context.purpleProgressBackground,
+                    color: context.secondaryBorderLighter,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(AppRadius.radiusFull),
                     ),
@@ -172,7 +172,7 @@ class SpendingProgressChart extends ConsumerWidget {
       children: [
         Text(
           'My spending this month',
-          style: AppTextStyles.body3,
+          style: AppTextStyles.body4.bold,
         ),
         InkWell(
           onTap: () {

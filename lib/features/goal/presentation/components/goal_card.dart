@@ -33,9 +33,9 @@ class GoalCard extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(AppSpacing.spacing12),
         decoration: BoxDecoration(
-          color: context.purpleBackground,
+          color: context.secondaryBackground,
           borderRadius: BorderRadius.circular(AppRadius.radius12),
-          border: Border.all(color: context.purpleBorderLighter),
+          border: Border.all(color: context.secondaryBorderLighter),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -116,13 +116,9 @@ class GoalCard extends ConsumerWidget {
                 final bool isCompleted = item.completed;
                 final Color itemColor = isCompleted
                     ? context.disabledTileForeground
-                    : context.purpleText;
-                final List<List<dynamic>> itemIconData = isCompleted
-                    ? HugeIcons.strokeRoundedCheckmarkCircle01
-                    : HugeIcons.strokeRoundedCircle;
+                    : context.secondaryText;
 
                 return _checkListItems(
-                  itemIconData: itemIconData,
                   item: item,
                   itemColor: itemColor,
                   isCompleted: isCompleted,
@@ -133,7 +129,6 @@ class GoalCard extends ConsumerWidget {
   }
 
   Widget _checkListItems({
-    required List<List<dynamic>> itemIconData,
     required ChecklistItemModel item,
     Color? itemColor,
     bool isCompleted = false,
@@ -145,7 +140,9 @@ class GoalCard extends ConsumerWidget {
       child: Row(
         children: [
           HugeIcon(
-            icon: itemIconData,
+            icon: isCompleted
+                ? HugeIcons.strokeRoundedCheckmarkSquare02
+                : HugeIcons.strokeRoundedSquare,
             color: itemColor,
             size: 20,
           ),

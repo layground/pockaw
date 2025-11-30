@@ -22,18 +22,31 @@ class SecondaryButton extends OutlinedButton {
            shape: RoundedRectangleBorder(
              borderRadius: BorderRadius.circular(AppSpacing.spacing8),
            ),
+           padding: const EdgeInsets.symmetric(
+             vertical: AppSpacing.spacing16,
+           ),
          ),
          child: isLoading
              ? SizedBox.square(dimension: 22, child: LoadingIndicator())
              : Row(
                  mainAxisAlignment: MainAxisAlignment.center,
                  children: [
-                   if (icon != null) HugeIcon(icon: icon, size: 22),
+                   if (icon != null)
+                     HugeIcon(
+                       icon: icon,
+                       size: 22,
+                       color: context.purpleIcon,
+                     ),
                    if (label != null) const Gap(AppSpacing.spacing8),
                    if (label != null)
                      Padding(
                        padding: const EdgeInsets.only(top: 1),
-                       child: Text(label, style: AppTextStyles.body3.semibold),
+                       child: Text(
+                         label,
+                         style: AppTextStyles.body3.semibold.copyWith(
+                           color: context.secondaryText,
+                         ),
+                       ),
                      ),
                  ],
                ),
