@@ -7,41 +7,38 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
-import 'package:pockaw/core/components/loading_indicators/loading_indicator.dart';
-import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/features/reports/data/models/weekly_financial_summary_model.dart';
 import 'package:pockaw/features/reports/presentation/riverpod/financial_health_provider.dart';
+import 'package:pockaw/features/transaction/data/model/transaction_model.dart';
 
 class WeeklyIncomeExpenseChart extends ConsumerWidget {
-  const WeeklyIncomeExpenseChart({super.key});
+  final List<TransactionModel> transactions;
+  const WeeklyIncomeExpenseChart({super.key, required this.transactions});
 
   @override
   Widget build(BuildContext context, ref) {
-    final summaryAsync = ref.watch(weeklySummaryProvider);
+    final weeklySummaryTransactions = ref
+        .watch(financialHealthRepositoryProvider)
+        .getCurrentMonthWeeklySummary(transactions);
 
     return ChartContainer(
       title: 'Weekly Overview',
-      subtitle: '${DateTime.now().toMonthName()} Breakdown',
+      subtitle: 'Breakdown of your weekly expense and income',
       height: 300,
       margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing16),
-      chart: summaryAsync.when(
-        data: (data) => _buildChart(context, data, ref),
-        loading: () => const Center(child: LoadingIndicator()),
-        error: (err, stack) => Center(child: Text('Error loading data: $err')),
-      ),
+      chart: _buildChart(context, weeklySummaryTransactions),
     );
   }
 
   Widget _buildChart(
     BuildContext context,
     List<WeeklyFinancialSummary> data,
-    WidgetRef ref,
   ) {
     // Check if we have any data to show
     if (data.every((e) => e.income == 0 && e.expense == 0)) {
-      return const Center(child: Text('No transactions this month yet.'));
+      return ChartContainer.errorText('No transaction to display');
     }
 
     // Calculate max Y to give some headroom

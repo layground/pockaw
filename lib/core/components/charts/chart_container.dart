@@ -55,4 +55,11 @@ class ChartContainer extends StatelessWidget {
       ),
     );
   }
+
+  static Widget errorText([String text = 'No data to display']) => Center(
+    child: Text(
+      text,
+      style: AppTextStyles.body3,
+    ),
+  );
 }

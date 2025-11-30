@@ -57,10 +57,14 @@ class FinancialHealthRepository {
   }
 
   /// Fetches data for the CURRENT month and buckets it into 4 weeks.
-  Future<List<WeeklyFinancialSummary>> getCurrentMonthWeeklySummary() async {
-    final now = DateTime.now();
+  List<WeeklyFinancialSummary> getCurrentMonthWeeklySummary(
+    List<TransactionModel> transactions,
+  ) {
+    if (transactions.isEmpty) return [];
+
+    final now = transactions.first.date;
     // 1. Filter for current month only
-    final currentMonthTransactions = _transactions.where((t) {
+    final currentMonthTransactions = transactions.where((t) {
       return t.date.year == now.year && t.date.month == now.month;
     }).toList();
 
