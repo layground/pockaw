@@ -43,7 +43,9 @@ class WalletsScreen extends ConsumerWidget {
             );
           }
           return ListView.separated(
-            padding: const EdgeInsets.all(AppSpacing.spacing20),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.spacing16,
+            ),
             itemCount: wallets.length,
             itemBuilder: (context, index) {
               final wallet = wallets[index];

@@ -55,7 +55,11 @@ class CustomTextField extends TextField {
                      children: [
                        Text(
                          label,
-                         style: AppTextStyles.body3.bold,
+                         style: AppTextStyles.body3.bold.copyWith(
+                           color: onTap != null
+                               ? context?.formButtonLabelTextColor
+                               : context?.formLabelTextColor,
+                         ),
                        ),
                        if (isRequired) const Gap(AppSpacing.spacing4),
                        if (isRequired)
@@ -100,7 +104,11 @@ class CustomTextField extends TextField {
                    padding: const EdgeInsets.symmetric(
                      horizontal: AppSpacing.spacing12,
                    ),
-                   child: HugeIcon(icon: prefixIcon, size: 24),
+                   child: HugeIcon(
+                     icon: prefixIcon,
+                     size: 24,
+                     color: context?.purpleIcon,
+                   ),
                  ),
            suffixIcon: suffixIcon == null
                ? null

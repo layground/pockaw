@@ -59,9 +59,9 @@ class CategoryPickerScreen extends ConsumerWidget {
                     }
                     return ListView.separated(
                       padding: EdgeInsets.fromLTRB(
-                        AppSpacing.spacing20,
+                        AppSpacing.spacing16,
                         0,
-                        AppSpacing.spacing20,
+                        AppSpacing.spacing16,
                         150,
                       ),
                       shrinkWrap: true,

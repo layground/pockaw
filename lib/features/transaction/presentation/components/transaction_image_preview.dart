@@ -10,6 +10,7 @@ import 'package:pockaw/core/components/scaffolds/photo_viewer.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/services/image_service/riverpod/image_notifier.dart';
 import 'package:pockaw/core/utils/logger.dart';
 
@@ -73,10 +74,8 @@ class TransactionImagePreview extends ConsumerWidget {
           child: CustomIconButton(
             context,
             onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                showDragHandle: true,
-                builder: (context) => AlertBottomSheet(
+              context.openBottomSheet(
+                child: AlertBottomSheet(
                   title: 'Delete Image',
                   content: Text(
                     'Are you sure you want to delete this image?',

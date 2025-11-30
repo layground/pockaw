@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:hugeicons/hugeicons.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
+import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/string_extension.dart';
 import 'package:pockaw/features/category/data/model/icon_type.dart';
@@ -63,16 +64,16 @@ class CategoryIcon extends StatelessWidget {
         } else {
           iconWidget = Image.asset('assets/categories/$icon.webp');
         }
-
         backgroundColor = null;
     }
 
     return AspectRatio(
       aspectRatio: 1 / 1,
       child: Container(
+        padding: const EdgeInsets.all(AppSpacing.spacing8),
         decoration: BoxDecoration(color: backgroundColor),
         child: icon.isEmpty
-            ? HugeIcon(icon: HugeIcons.strokeRoundedPizza01, size: 25)
+            ? HugeIcon(icon: HugeIcons.strokeRoundedPizza01)
             : iconWidget,
       ),
     );

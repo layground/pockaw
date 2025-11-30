@@ -23,6 +23,7 @@ import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/extensions/string_extension.dart';
+import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/core/services/keyboard_service/virtual_keyboard_service.dart';
 import 'package:pockaw/core/services/url_launcher/url_launcher.dart';
 import 'package:pockaw/core/utils/logger.dart';
@@ -134,9 +135,9 @@ class GoalDetailsScreen extends ConsumerWidget {
         children: [
           SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(
-              AppSpacing.spacing20,
-              AppSpacing.spacing20,
-              AppSpacing.spacing20,
+              AppSpacing.spacing16,
+              AppSpacing.spacing12,
+              AppSpacing.spacing16,
               150,
             ),
             child: goalAsync.when(

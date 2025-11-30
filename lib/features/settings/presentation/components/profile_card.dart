@@ -18,13 +18,13 @@ class ProfileCard extends ConsumerWidget {
         const Gap(AppSpacing.spacing12),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: AppSpacing.spacing8,
           children: [
             Text(auth.name, style: AppTextStyles.body1),
-            Text(
+            /* Text(
               'The Clever Squirrel',
               style: AppTextStyles.body2,
-            ),
-            const Gap(AppSpacing.spacing8),
+            ), */
             CustomCurrencyChip(
               currencyCode: wallet.currency,
               label:

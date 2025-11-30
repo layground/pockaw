@@ -9,6 +9,7 @@ import 'package:pockaw/core/components/form_fields/custom_text_field.dart';
 import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/features/transaction/data/model/transaction_filter_model.dart';
 import 'package:pockaw/features/transaction/presentation/components/filter_form/transaction_filter_category_selector.dart';
 import 'package:pockaw/features/transaction/presentation/components/filter_form/transaction_filter_type_selector.dart';
@@ -86,10 +87,8 @@ class TransactionFilterFormDialog extends HookConsumerWidget {
                 style: AppTextStyles.body2.copyWith(color: AppColors.red),
               ),
               onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  showDragHandle: true,
-                  builder: (context) => AlertBottomSheet(
+                context.openBottomSheet(
+                  child: AlertBottomSheet(
                     title: 'Reset Filters',
                     content: Text(
                       'Continue to reset transaction filters?',

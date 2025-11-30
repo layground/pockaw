@@ -52,9 +52,8 @@ class LoginImagePicker extends ConsumerWidget {
     return GestureDetector(
       onTap: () async {
         KeyboardService.closeKeyboard();
-        showModalBottomSheet(
-          context: context,
-          showDragHandle: true,
+        context.openBottomSheet(
+          child: Container(),
           builder: (sheetContext) => CustomBottomSheet(
             title: 'Pick Image',
             child: ImagePickerDialog(

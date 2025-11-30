@@ -6,6 +6,7 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/components/loading_indicators/loading_indicator.dart';
+import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/features/reports/data/models/daily_net_flow_model.dart';
@@ -21,7 +22,8 @@ class MoneyInsiderChart extends ConsumerWidget {
 
     return ChartContainer(
       title: 'Money Insider',
-      subtitle: 'Daily Net Flow vs. Zero Line (This Month)',
+      subtitle:
+          'Daily Net Flow vs. Zero Line (${DateTime.now().toMonthName()})',
       height: 350, // Taller chart for better visualization
       chart: netFlowAsync.when(
         data: (data) => _buildChart(context, data),
@@ -88,8 +90,8 @@ class MoneyInsiderChart extends ConsumerWidget {
         // Tooltip (shows net amount and day)
         lineTouchData: LineTouchData(
           touchTooltipData: LineTouchTooltipData(
-            getTooltipColor: (group) => context.secondaryBackgroundSolid,
-            tooltipBorder: BorderSide(color: context.purpleBorderLighter),
+            getTooltipColor: (group) => context.dialogBackground,
+            tooltipBorder: BorderSide(color: context.secondaryBorderLighter),
             tooltipBorderRadius: BorderRadius.circular(AppRadius.radius8),
             getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
               return touchedBarSpots.map((barSpot) {
@@ -101,15 +103,15 @@ class MoneyInsiderChart extends ConsumerWidget {
 
                 return LineTooltipItem(
                   flSpot.y.toShortPriceFormat(), // Show + or - sign
-                  TextStyle(
+                  AppTextStyles.body3.bold.copyWith(
                     color: color,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
                   ),
                   children: [
                     TextSpan(
                       text: '\nDay ${flSpot.x.toInt()}',
-                      style: AppTextStyles.body3,
+                      style: AppTextStyles.body4.copyWith(
+                        color: context.secondaryText,
+                      ),
                     ),
                   ],
                 );

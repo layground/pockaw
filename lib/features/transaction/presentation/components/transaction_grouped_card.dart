@@ -28,7 +28,7 @@ class TransactionGroupedCard extends ConsumerWidget {
     if (transactions.isEmpty) {
       return Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: AppSpacing.spacing20,
+          horizontal: AppSpacing.spacing16,
           vertical: AppSpacing.spacing40,
         ),
         child: Center(
@@ -59,7 +59,7 @@ class TransactionGroupedCard extends ConsumerWidget {
     return ListView.separated(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
+      padding: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing16),
       itemCount: sortedDateKeys.length,
       itemBuilder: (context, index) {
         final dateKey = sortedDateKeys[index];
@@ -77,7 +77,7 @@ class TransactionGroupedCard extends ConsumerWidget {
         final String displayDate = dateKey.toRelativeDayFormatted();
 
         return Container(
-          padding: const EdgeInsets.all(AppSpacing.spacing16),
+          padding: const EdgeInsets.all(AppSpacing.spacing12),
           decoration: BoxDecoration(
             border: Border.all(color: context.secondaryBorderLighter),
             borderRadius: BorderRadius.circular(AppRadius.radius12),
@@ -93,7 +93,7 @@ class TransactionGroupedCard extends ConsumerWidget {
                     child: Text(
                       '$currency ${dayTotal.toPriceFormat()}',
                       textAlign: TextAlign.end,
-                      style: AppTextStyles.numericMedium.copyWith(
+                      style: AppTextStyles.numericMedium.extraBold.copyWith(
                         color: dayTotal > 0
                             ? AppColors.green200
                             : (dayTotal < 0

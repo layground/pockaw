@@ -43,7 +43,6 @@ class CategoryTile extends StatelessWidget {
             Container(
               height: 50,
               width: 50,
-              padding: const EdgeInsets.all(AppSpacing.spacing8),
               decoration: BoxDecoration(
                 color: context.purpleBackground,
                 borderRadius: BorderRadius.circular(AppRadius.radius8),

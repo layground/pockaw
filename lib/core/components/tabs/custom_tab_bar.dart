@@ -13,7 +13,7 @@ class CustomTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(AppSpacing.spacing8),
-      margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing20),
+      margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppSpacing.spacing12),
         border: Border.all(color: context.secondaryBorderLighter),

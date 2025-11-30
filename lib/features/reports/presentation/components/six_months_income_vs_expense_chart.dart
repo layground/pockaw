@@ -60,8 +60,8 @@ class SixMonthsIncomeExpenseChart extends ConsumerWidget {
       LineChartData(
         lineTouchData: LineTouchData(
           touchTooltipData: LineTouchTooltipData(
-            getTooltipColor: (touchedSpot) => context.secondaryBackgroundSolid,
-            tooltipBorder: BorderSide(color: context.purpleBorderLighter),
+            getTooltipColor: (touchedSpot) => context.dialogBackground,
+            tooltipBorder: BorderSide(color: context.secondaryBorderLighter),
             tooltipBorderRadius: BorderRadius.circular(AppRadius.radius4),
             getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
               return touchedBarSpots.map((barSpot) {
@@ -74,11 +74,16 @@ class SixMonthsIncomeExpenseChart extends ConsumerWidget {
 
                 // Custom tooltip content
                 return LineTooltipItem(
-                  '$label: ${flSpot.y.toPriceFormat()}',
-                  AppTextStyles.body3.copyWith(
-                    color: color,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  '$label: ',
+                  AppTextStyles.body4.bold,
+                  children: [
+                    TextSpan(
+                      text: flSpot.y.toPriceFormat(),
+                      style: AppTextStyles.body4.bold.copyWith(
+                        color: color,
+                      ),
+                    ),
+                  ],
                 );
               }).toList();
             },

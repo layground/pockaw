@@ -14,6 +14,7 @@ import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/database/database_provider.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/extensions/string_extension.dart';
 import 'package:pockaw/core/utils/logger.dart';
 import 'package:pockaw/features/currency_picker/presentation/components/currency_picker_field.dart';
@@ -138,10 +139,8 @@ class WalletFormBottomSheet extends HookConsumerWidget {
                   style: AppTextStyles.body2.copyWith(color: AppColors.red),
                 ),
                 onPressed: () {
-                  showModalBottomSheet(
-                    context: context,
-                    showDragHandle: true,
-                    builder: (context) => AlertBottomSheet(
+                  context.openBottomSheet(
+                    child: AlertBottomSheet(
                       context: context,
                       title: 'Delete Wallet',
                       content: Text(

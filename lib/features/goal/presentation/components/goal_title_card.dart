@@ -12,8 +12,8 @@ class GoalTitleCard extends ConsumerWidget {
       width: double.infinity,
       padding: const EdgeInsets.all(AppSpacing.spacing20),
       decoration: BoxDecoration(
-        border: Border.all(color: context.purpleBorder),
-        borderRadius: BorderRadius.circular(AppRadius.radius8),
+        border: Border.all(color: context.secondaryBorderLighter),
+        borderRadius: BorderRadius.circular(AppRadius.radius12),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -21,7 +21,9 @@ class GoalTitleCard extends ConsumerWidget {
         children: [
           Text(
             '${goal.startDate?.toDayShortMonthYear()} - ${goal.endDate.toDayShortMonthYear()}',
-            style: AppTextStyles.body5,
+            style: AppTextStyles.body5.extraBold.copyWith(
+              color: context.purpleText,
+            ),
           ),
           Gap(AppSpacing.spacing8),
           Text(goal.title, style: AppTextStyles.body2),

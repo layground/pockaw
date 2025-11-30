@@ -46,7 +46,7 @@ class SettingsScreen extends ConsumerWidget {
       showBackButton: true,
       actions: [ThemeModeSwitcher()],
       body: const SingleChildScrollView(
-        padding: EdgeInsets.all(AppSpacing.spacing20),
+        padding: EdgeInsets.symmetric(horizontal: AppSpacing.spacing16),
         child: Column(
           children: [
             ProfileCard(),

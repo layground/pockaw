@@ -88,7 +88,7 @@ class SpendingPieChart extends ConsumerWidget {
 
     return ChartContainer(
       title: 'Spending by Category',
-      subtitle: 'Current Month Breakdown',
+      subtitle: '${DateTime.now().toMonthName()} Breakdown',
       height: 400,
       margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing16),
       chart: Column(
@@ -160,11 +160,12 @@ class _Badge extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      duration: const Duration(milliseconds: 300), // fl_chart animationDuration
-      width: size + 20, // Make it wide enough for text
+      duration: const Duration(milliseconds: 300),
+      width: size + 20,
       height: size / 1.5,
       decoration: BoxDecoration(
-        color: context.secondaryBackgroundSolid,
+        color: context.dialogBackground,
+        border: Border.all(color: context.secondaryBorderLighter),
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
@@ -179,7 +180,9 @@ class _Badge extends StatelessWidget {
       child: Center(
         child: Text(
           amount.toShortPriceFormat(),
-          style: AppTextStyles.body4,
+          style: AppTextStyles.body4.copyWith(
+            color: borderColor,
+          ),
           textAlign: TextAlign.center,
         ),
       ),

@@ -40,7 +40,9 @@ class GoalScreen extends ConsumerWidget {
           }
 
           return ListView.separated(
-            padding: const EdgeInsets.all(AppSpacing.spacing20),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSpacing.spacing16,
+            ),
             itemCount: goals.length,
             itemBuilder: (_, i) => GoalCard(goal: goals[i]),
             separatorBuilder: (_, _) => const Gap(AppSpacing.spacing12),

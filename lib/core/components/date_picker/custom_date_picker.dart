@@ -32,7 +32,7 @@ class CustomDatePicker {
     return await context.openBottomSheet<DateTime?>(
       child: DateTimePickerDialog(
         title: title,
-        initialdate: selectedDate,
+        initialDate: selectedDate,
         onDateSelected: onDateSelected,
         onDateTimeChanged: onDateTimeChanged,
       ),

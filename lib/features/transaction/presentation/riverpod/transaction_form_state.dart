@@ -293,6 +293,10 @@ TransactionFormState useTransactionFormState({
     isEditing ? transaction?.category : null,
   );
 
+  Future.microtask(
+    () => ref.read(imageProvider.notifier).clearImage(),
+  );
+
   final formState = useMemoized(
     () => TransactionFormState(
       titleController: titleController,
@@ -343,10 +347,6 @@ TransactionFormState useTransactionFormState({
           if (imagePath != null && imagePath.isNotEmpty) {
             Future.microtask(
               () => ref.read(imageProvider.notifier).loadImagePath(imagePath),
-            );
-          } else {
-            Future.microtask(
-              () => ref.read(imageProvider.notifier).clearImage(),
             );
           }
         } else if (!isEditing) {

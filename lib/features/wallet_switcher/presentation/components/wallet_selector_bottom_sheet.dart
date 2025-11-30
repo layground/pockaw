@@ -8,6 +8,7 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/features/wallet/data/model/wallet_model.dart';
 import 'package:pockaw/features/wallet/riverpod/wallet_providers.dart';
@@ -68,25 +69,21 @@ class WalletSelectorBottomSheet extends ConsumerWidget {
                 ),
                 onTap: () {
                   if (isSelected) return;
-                  showModalBottomSheet(
-                    context: context,
-                    showDragHandle: true,
-                    builder: (context) {
-                      return AlertBottomSheet(
-                        title: 'Switch Wallet',
-                        content: Text(
-                          'Are you sure you want to switch to ${wallet.name}?',
-                          style: AppTextStyles.body2,
-                        ),
-                        onConfirm: () {
-                          ref
-                              .read(activeWalletProvider.notifier)
-                              .setActiveWallet(wallet);
-                          context.pop(); // Close the dialog
-                          context.pop(); // Close the bottom sheet
-                        },
-                      );
-                    },
+                  context.openBottomSheet(
+                    child: AlertBottomSheet(
+                      title: 'Switch Wallet',
+                      content: Text(
+                        'Are you sure you want to switch to ${wallet.name}?',
+                        style: AppTextStyles.body2,
+                      ),
+                      onConfirm: () {
+                        ref
+                            .read(activeWalletProvider.notifier)
+                            .setActiveWallet(wallet);
+                        context.pop(); // Close the dialog
+                        context.pop(); // Close the bottom sheet
+                      },
+                    ),
                   );
                 },
               );

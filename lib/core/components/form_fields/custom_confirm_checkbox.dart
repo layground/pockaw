@@ -39,7 +39,7 @@ class CustomConfirmCheckbox extends StatelessWidget {
               context,
               onPressed: onChanged,
               icon: checked
-                  ? HugeIcons.strokeRoundedCheckmarkSquare01
+                  ? HugeIcons.strokeRoundedCheckmarkSquare02
                   : HugeIcons.strokeRoundedSquare,
             ),
             const Gap(AppSpacing.spacing8),

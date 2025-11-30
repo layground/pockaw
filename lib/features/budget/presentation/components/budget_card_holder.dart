@@ -29,7 +29,7 @@ class BudgetCardHolder extends ConsumerWidget {
         return ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           padding: const EdgeInsets.symmetric(
-            horizontal: AppSpacing.spacing20,
+            horizontal: AppSpacing.spacing16,
           ), // Padding moved from BudgetScreen
           shrinkWrap: true,
           itemBuilder: (context, index) => BudgetCard(budget: budgets[index]),

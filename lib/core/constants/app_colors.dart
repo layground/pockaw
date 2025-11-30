@@ -265,6 +265,12 @@ extension ColorExtensions on BuildContext {
       ? AppColors.neutral900
       : AppColors.purpleAlpha10;
 
+  Color get formLabelTextColor =>
+      themeMode == ThemeMode.dark ? AppColors.neutral200 : AppColors.neutral900;
+
+  Color get formButtonLabelTextColor =>
+      themeMode == ThemeMode.dark ? AppColors.neutral200 : AppColors.neutral900;
+
   Color get placeholderBackground =>
       themeMode == ThemeMode.dark ? AppColors.neutral500 : AppColors.neutral100;
 

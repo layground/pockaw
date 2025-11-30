@@ -29,7 +29,7 @@ class ButtonChip extends StatelessWidget {
           border: Border.all(
             color: active
                 ? context.purpleBorderLighter
-                : context.purpleButtonBorder,
+                : context.secondaryBorderLighter,
           ),
           borderRadius: BorderRadius.circular(AppRadius.radiusFull),
         ),
@@ -40,7 +40,7 @@ class ButtonChip extends StatelessWidget {
           AppSpacing.spacing8,
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             HugeIcon(
               icon: active

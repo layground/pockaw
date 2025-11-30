@@ -50,38 +50,40 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: context.colors.surface,
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(85),
-        child: Header(),
-      ),
-      body: ListView(
-        padding: EdgeInsets.only(bottom: 100),
-        children: [
-          Container(
-            margin: const EdgeInsets.fromLTRB(
-              AppSpacing.spacing16,
-              0,
-              AppSpacing.spacing16,
-              AppSpacing.spacing20,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: context.colors.surface,
+        appBar: const PreferredSize(
+          preferredSize: Size.fromHeight(85),
+          child: Header(),
+        ),
+        body: ListView(
+          padding: EdgeInsets.only(bottom: 100),
+          children: [
+            Container(
+              margin: const EdgeInsets.fromLTRB(
+                AppSpacing.spacing16,
+                0,
+                AppSpacing.spacing16,
+                AppSpacing.spacing20,
+              ),
+              child: const Column(
+                children: [
+                  BalanceCard(),
+                  Gap(AppSpacing.spacing12),
+                  CashFlowCards(),
+                  Gap(AppSpacing.spacing12),
+                  SpendingProgressChart(),
+                ],
+              ),
             ),
-            child: const Column(
-              children: [
-                BalanceCard(),
-                Gap(AppSpacing.spacing12),
-                CashFlowCards(),
-                Gap(AppSpacing.spacing12),
-                SpendingProgressChart(),
-              ],
-            ),
-          ),
-          const GoalPinnedHolder(),
-          Gap(AppSpacing.spacing12),
-          const RecentTransactionList(),
-          Gap(AppSpacing.spacing12),
-          const AnalyticChartReports(),
-        ],
+            const GoalPinnedHolder(),
+            Gap(AppSpacing.spacing12),
+            const RecentTransactionList(),
+            Gap(AppSpacing.spacing12),
+            const AnalyticChartReports(),
+          ],
+        ),
       ),
     );
   }

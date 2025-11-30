@@ -8,6 +8,7 @@ import 'package:pockaw/core/constants/app_radius.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/components/loading_indicators/loading_indicator.dart';
+import 'package:pockaw/core/extensions/date_time_extension.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
 import 'package:pockaw/core/extensions/text_style_extensions.dart';
 import 'package:pockaw/features/reports/data/models/weekly_financial_summary_model.dart';
@@ -22,7 +23,7 @@ class WeeklyIncomeExpenseChart extends ConsumerWidget {
 
     return ChartContainer(
       title: 'Weekly Overview',
-      subtitle: 'Current Month Breakdown',
+      subtitle: '${DateTime.now().toMonthName()} Breakdown',
       height: 300,
       margin: const EdgeInsets.symmetric(horizontal: AppSpacing.spacing16),
       chart: summaryAsync.when(
@@ -57,8 +58,8 @@ class WeeklyIncomeExpenseChart extends ConsumerWidget {
       LineChartData(
         lineTouchData: LineTouchData(
           touchTooltipData: LineTouchTooltipData(
-            getTooltipColor: (group) => context.secondaryBackgroundSolid,
-            tooltipBorder: BorderSide(color: context.purpleBorderLighter),
+            getTooltipColor: (touchedSpot) => context.dialogBackground,
+            tooltipBorder: BorderSide(color: context.secondaryBorderLighter),
             tooltipBorderRadius: BorderRadius.circular(AppRadius.radius8),
             getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
               return touchedBarSpots.map((barSpot) {
@@ -72,13 +73,16 @@ class WeeklyIncomeExpenseChart extends ConsumerWidget {
 
                 // Custom tooltip content
                 return LineTooltipItem(
-                  '$label: ${flSpot.y.toPriceFormat()}',
-                  TextStyle(
-                    color: color,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 12,
-                  ),
-                  textAlign: TextAlign.center,
+                  '$label: ',
+                  AppTextStyles.body4.bold,
+                  children: [
+                    TextSpan(
+                      text: flSpot.y.toPriceFormat(),
+                      style: AppTextStyles.body4.bold.copyWith(
+                        color: color,
+                      ),
+                    ),
+                  ],
                 );
               }).toList();
             },

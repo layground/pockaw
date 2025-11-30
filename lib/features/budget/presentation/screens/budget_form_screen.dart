@@ -15,6 +15,7 @@ import 'package:pockaw/core/constants/app_colors.dart';
 import 'package:pockaw/core/constants/app_spacing.dart';
 import 'package:pockaw/core/constants/app_text_styles.dart';
 import 'package:pockaw/core/extensions/double_extension.dart';
+import 'package:pockaw/core/extensions/popup_extension.dart';
 import 'package:pockaw/core/extensions/string_extension.dart';
 import 'package:pockaw/core/router/routes.dart';
 import 'package:pockaw/core/utils/logger.dart';
@@ -214,10 +215,8 @@ class BudgetFormScreen extends HookConsumerWidget {
             context,
             onPressed: () async {
               // Show confirmation dialog
-              showModalBottomSheet(
-                context: context,
-                showDragHandle: true,
-                builder: (context) => AlertBottomSheet(
+              context.openBottomSheet(
+                child: AlertBottomSheet(
                   title: 'Delete Budget',
                   content: Text(
                     'Are you sure you want to delete this budget?',
@@ -259,9 +258,9 @@ class BudgetFormScreen extends HookConsumerWidget {
               key: formKey,
               child: SingleChildScrollView(
                 padding: const EdgeInsets.fromLTRB(
-                  AppSpacing.spacing20,
-                  AppSpacing.spacing20,
-                  AppSpacing.spacing20,
+                  AppSpacing.spacing16,
+                  AppSpacing.spacing12,
+                  AppSpacing.spacing16,
                   100,
                 ),
                 child: Column(

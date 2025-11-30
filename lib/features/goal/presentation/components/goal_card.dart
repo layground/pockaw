@@ -116,7 +116,7 @@ class GoalCard extends ConsumerWidget {
                 final bool isCompleted = item.completed;
                 final Color itemColor = isCompleted
                     ? context.disabledTileForeground
-                    : context.purpleText;
+                    : context.secondaryText;
 
                 return _checkListItems(
                   item: item,
@@ -141,8 +141,8 @@ class GoalCard extends ConsumerWidget {
         children: [
           HugeIcon(
             icon: isCompleted
-                ? HugeIcons.strokeRoundedCheckmarkCircle01
-                : HugeIcons.strokeRoundedCircle,
+                ? HugeIcons.strokeRoundedCheckmarkSquare02
+                : HugeIcons.strokeRoundedSquare,
             color: itemColor,
             size: 20,
           ),

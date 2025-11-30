@@ -56,10 +56,15 @@ class BudgetDetailsScreen extends ConsumerWidget {
             ),
           ],
           body: SingleChildScrollView(
-            padding: const EdgeInsets.all(AppSpacing.spacing20),
+            padding: const EdgeInsets.fromLTRB(
+              AppSpacing.spacing16,
+              AppSpacing.spacing12,
+              AppSpacing.spacing16,
+              100,
+            ),
             child: Column(
               children: [
-                BudgetCard(budget: budget),
+                BudgetCard(budget: budget, editing: true),
                 const Gap(AppSpacing.spacing12),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

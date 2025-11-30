@@ -18,10 +18,8 @@ class CategoryDeleteButton extends ConsumerWidget {
         style: AppTextStyles.body2.copyWith(color: AppColors.red),
       ),
       onPressed: () {
-        showModalBottomSheet(
-          context: context,
-          showDragHandle: true,
-          builder: (context) => AlertBottomSheet(
+        context.openBottomSheet(
+          child: AlertBottomSheet(
             title: 'Delete Category',
             content: Text(
               'Deleting this category will also remove all sub-categories as well as transactions related to it. '

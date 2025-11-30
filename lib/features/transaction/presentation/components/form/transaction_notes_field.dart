@@ -13,12 +13,13 @@ class TransactionNotesField extends HookConsumerWidget {
     return CustomTextField(
       context: context,
       controller: controller,
-      label: 'Write a note',
+      label: 'Write a note (max. 500)',
       hint: 'Write here...',
-      prefixIcon: HugeIcons.strokeRoundedNote,
+      prefixIcon: HugeIcons.strokeRoundedNote02,
       minLines: 1,
       maxLines: 3,
       maxLength: 500,
+      customCounterText: '',
     );
   }
 }

@@ -34,14 +34,13 @@ class CustomScaffold extends Scaffold {
            backgroundColor: context.colors.surface,
            titleSpacing: showBackButton ? 0 : AppSpacing.spacing20,
            toolbarHeight: 60,
-           leadingWidth: 65,
            elevation: 0,
            automaticallyImplyLeading: false,
            scrolledUnderElevation: 0,
            leading: !showBackButton
                ? null
                : Padding(
-                   padding: const EdgeInsets.only(left: 5),
+                   padding: const EdgeInsets.only(left: 6),
                    child: CustomIconButton(
                      context,
                      onPressed: () => context.pop(),
@@ -52,8 +51,8 @@ class CustomScaffold extends Scaffold {
            title: title.isEmpty
                ? null
                : Text(title, style: AppTextStyles.heading6),
-           actions: [...?actions, const Gap(AppSpacing.spacing20)],
-           bottom: !showBalance ? null : BalanceStatusBar(),
+           actions: [...?actions, const Gap(AppSpacing.spacing16)],
+           //  bottom: !showBalance ? null : BalanceStatusBar(),
          ),
        );
 }
