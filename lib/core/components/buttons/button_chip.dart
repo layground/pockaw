@@ -44,7 +44,7 @@ class ButtonChip extends StatelessWidget {
           children: [
             HugeIcon(
               icon: active
-                  ? HugeIcons.strokeRoundedCheckmarkCircle01
+                  ? HugeIcons.strokeRoundedCheckmarkCircle02
                   : HugeIcons.strokeRoundedCircle,
               color: active ? context.purpleIcon : null,
             ),

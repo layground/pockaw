@@ -21,7 +21,7 @@ class BudgetDateCard extends StatelessWidget {
       padding: const EdgeInsets.all(AppSpacing.spacing8),
       decoration: BoxDecoration(
         color: context.secondaryBackground,
-        border: Border.all(color: context.secondaryBorder),
+        border: Border.all(color: context.secondaryBorderLighter),
         borderRadius: BorderRadius.circular(AppRadius.radius8),
       ),
       child: Row(
